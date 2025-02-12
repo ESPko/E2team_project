@@ -1,10 +1,14 @@
 package bitc.fullstack503.e2teamproject.controller;
 
+<<<<<<< HEAD
 import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+=======
+import bitc.fullstack503.e2teamproject.service.UserService;
+>>>>>>> 76f865e63340db06a4e01bb474157331518fc843
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +24,16 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+<<<<<<< HEAD
   // 로그인 페이지 (단순 View)
   @RequestMapping("/login.do")
   public String login() {
     return "login/login";
+=======
+  @RequestMapping("/")
+  public String user() {
+    return "user";
+>>>>>>> 76f865e63340db06a4e01bb474157331518fc843
   }
 
   @RequestMapping("/loginProcess.do")
