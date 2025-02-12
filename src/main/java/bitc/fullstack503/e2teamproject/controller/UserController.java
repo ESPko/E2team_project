@@ -29,12 +29,14 @@ public class UserController {
                              @RequestParam("userPw") String userPw,
                              HttpServletRequest request) throws Exception {
     if (userService.isUserInfo(userId, userPw)) {
+
       UserEntity user = userService.getUserInfo(userId);
       HttpSession session = request.getSession();
       session.setAttribute("userId", user.getId());
       session.setAttribute("userEmail", user.getEmail());
+//      session.setAttribute("loginSuccess", "로그인 성공!");
       session.setMaxInactiveInterval(60 * 60);
-      return "redirect:/index";
+      return "redirect:/board/login/login.do";
     } else {
       return "redirect:/board/login/login.do?errMsg=" + URLEncoder.encode("로그인 정보가 다릅니다.", "UTF-8");
     }
@@ -44,7 +46,7 @@ public class UserController {
   public String logout(HttpServletRequest request) {
     HttpSession session = request.getSession();
     session.invalidate();
-    return "redirect:/index";
+    return "redirect:/board/login/login.do";
   }
 }
 
