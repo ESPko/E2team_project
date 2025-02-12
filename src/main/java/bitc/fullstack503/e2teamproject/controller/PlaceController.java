@@ -11,9 +11,4 @@ public class PlaceController {
 
   @Autowired
   private PlaceService placeService;
-
-  @RequestMapping("/")
-  public String place() {
-    return "place";
-  }
 }

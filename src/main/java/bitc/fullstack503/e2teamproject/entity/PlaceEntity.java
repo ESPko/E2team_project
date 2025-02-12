@@ -18,7 +18,7 @@ import java.util.List;
 public class PlaceEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int place_idx;
+  private int placeIdx;
 
   private String location;
 
@@ -26,13 +26,17 @@ public class PlaceEntity {
 
   private String name;
 
-  private String recommend_age;
+  @Column(name = "recommend_age")
+  private String recommendAge;
 
-  private int number_people;
+  @Column(name = "number_people")
+  private int numberPeople;
 
-  private String open_time;
+  @Column(name = "open_time")
+  private String openTime;
 
-  private String close_time;
+  @Column(name = "close_time")
+  private String closeTime;
 
   private String phone;
 
