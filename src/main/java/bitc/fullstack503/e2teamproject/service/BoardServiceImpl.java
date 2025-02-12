@@ -1,15 +1,12 @@
 package bitc.fullstack503.e2teamproject.service;
 
-<<<<<<< HEAD
-
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
-=======
->>>>>>> 76f865e63340db06a4e01bb474157331518fc843
+
+
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
 
@@ -38,19 +35,13 @@ public class BoardServiceImpl implements BoardService {
             boardRepository.save(board);
 
             return board;
-        }
-        else {
+        } else {
             throw new NullPointerException();
         }
     }
 
-
-
-=======
-@Service
-public class BoardServiceImpl implements BoardService {
-
-  @Autowired
-  private BoardRepository boardRepository;
->>>>>>> 76f865e63340db06a4e01bb474157331518fc843
 }
+
+
+
+
