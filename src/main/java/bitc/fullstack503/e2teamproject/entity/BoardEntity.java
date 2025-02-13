@@ -31,13 +31,17 @@ public class BoardEntity {
 
   private String contents;
 
-  private LocalDateTime create_date;
+  @Column(name = "create_date")
+  private LocalDateTime createDate;
 
-  private LocalDateTime update_date;
+  @Column(name = "update_date")
+  private LocalDateTime updateDate;
 
-  private int hit_count;
+  @Column(name = "hit_count")
+  private int hitCount;
 
-  private int like_count;
+  @Column(name = "like_count")
+  private int likeCount;
 
   @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude

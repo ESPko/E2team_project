@@ -20,7 +20,7 @@ import java.util.List;
 public class ReviewEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int review_idx;
+  private int reviewIdx;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_place_idx")
@@ -38,11 +38,14 @@ public class ReviewEntity {
 
   private double star;
 
-  private LocalDateTime write_date;
+  @Column(name = "write_date")
+  private LocalDateTime writeDate;
 
-  private int hit_count;
+  @Column(name = "hit_count")
+  private int hitCount = 0;
 
-  private int like_count;
+  @Column(name = "like_count")
+  private int likeCount = 0;
 
   @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
