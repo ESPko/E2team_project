@@ -17,18 +17,19 @@
 <body>
 
 
-<header class="header container-lg" th:fragment="projectheader">
+<header class="header container-sm" th:fragment="projectheader">
   <div class="row justify-content-between">
-    <div class="col-6">
-      <a href="#"><img src="/img/logo.png" alt="title_logo" style="height: 200px"></a>
+    <div class="col-2">
+      <a href="#"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
     </div>
-    <div class="col-6 row align-items-center justify-content-end">
-      <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-end">
-        <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-lock"></i> 로그인</a></li>
-        <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-user-plus"></i> 회원가입</a></li>
-        <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-regular fa-circle-user"></i> MY Page</a></li>
-        <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> 1:1 문의</a></li>
+    <div class="col-8 row align-items-center">
+      <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-start">
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">공지사항</a></li>
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">이벤트</a></li>
       </ul>
+    </div>
+    <div class="col-2 row align-items-center justify-content-between">
+      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;">로그인 / 회원가입</button>
     </div>
   </div>
 </header>
