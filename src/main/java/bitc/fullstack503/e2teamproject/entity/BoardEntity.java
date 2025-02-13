@@ -31,6 +31,8 @@ public class BoardEntity {
 
   private String contents;
 
+  private String category;
+
   @Column(name = "create_date")
   private LocalDateTime createDate;
 
