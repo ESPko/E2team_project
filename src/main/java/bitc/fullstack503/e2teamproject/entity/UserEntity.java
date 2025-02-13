@@ -28,9 +28,11 @@ public class UserEntity {
 
   private String phone;
 
-  private String birth_year;
+  @Column(name = "birth_year")
+  private String birthYear;
 
-  private LocalDateTime create_date = LocalDateTime.now();
+  @Column(name = "create_date")
+  private LocalDateTime createDate = LocalDateTime.now();
 
   private int level;
 
