@@ -34,8 +34,12 @@ public class UserController {
       HttpSession session = request.getSession();
       session.setAttribute("userId", user.getId());
       session.setAttribute("userEmail", user.getEmail());
-//      session.setAttribute("loginSuccess", "로그인 성공!");
+      session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
+
+      if (user.getLevel() == 1) {
+        return "redirect:/board/manager"; // 관리자 페이지
+      }
       return "redirect:/user/";
     } else {
       return "redirect:/user/?errMsg=" + URLEncoder.encode("로그인 정보가 다릅니다.", "UTF-8");

@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
 
             BoardEntity board = optBoard.get();
 
-            board.setHit_count(board.getHit_count() + 1);
+            board.setHitCount(board.getHitCount() + 1);
             boardRepository.save(board);
 
             return board;
