@@ -17,11 +17,21 @@
 <body>
 
 
-<header class="header container-lg" th:fragment="projectheader">
+<header class="header container-sm" th:fragment="projectheader">
   <div class="row justify-content-between">
-    <div class="col-6">
-      <a href="#"><img src="/img/logo.png" alt="title_logo" style="height: 200px"></a>
+    <div class="col-2 justify-content-center">
+      <div class="btn-group dropstart">
+        <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                style="border-style: none; background-color: #ffe8a1;"><i class="fa-solid fa-bars"></i></button>
+        <ul class="dropdown-menu">
+          <li>메뉴1</li>
+          <li>메뉴2</li>
+          <li>메뉴3</li>
+        </ul>
+      </div>
+      <a href="#"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
     </div>
+<<<<<<< HEAD:src/main/resources/templates/layout/header.html
     <div class="col-6 row align-items-center justify-content-end">
       <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-end">
         <li class="list-group-item" th:unless="${session.userId != null}"><a href="#" class="nav-link" ><i class="fa-solid fa-lock" ></i> 로그인</a></li>
@@ -29,7 +39,18 @@
         <li class="list-group-item"><a href="#" class="nav-link" th:href="@{/board/signup}"><i class="fa-solid fa-user-plus"></i> 회원가입</a></li>
         <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-regular fa-circle-user"></i> MY Page</a></li>
         <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> 1:1 문의</a></li>
+=======
+    <div class="col-8 row align-items-center">
+      <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-start">
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">공지사항</a></li>
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">이벤트</a></li>
+>>>>>>> 6483689092e63edcb85c60b2d8e3885ee10cb3b7:src/main/resources/templates/board/header.html
       </ul>
+    </div>
+    <div class="col-2 row align-items-center justify-content-between">
+      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;">
+        로그인 / 회원가입
+      </button>
     </div>
   </div>
 </header>
