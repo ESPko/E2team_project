@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.net.URLEncoder;
 
 @Controller
-@RequestMapping("/board/login")
+@RequestMapping("/user")
 public class UserController {
 
   @Autowired
   private UserService userService;
 
-  @RequestMapping("/login.do")
+  @RequestMapping("/")
   public String login() {
     return "login/loginPage";
   }
@@ -36,17 +36,17 @@ public class UserController {
       session.setAttribute("userEmail", user.getEmail());
 //      session.setAttribute("loginSuccess", "로그인 성공!");
       session.setMaxInactiveInterval(60 * 60);
-      return "redirect:/board/login/login.do";
+      return "redirect:/user/";
     } else {
-      return "redirect:/board/login/login.do?errMsg=" + URLEncoder.encode("로그인 정보가 다릅니다.", "UTF-8");
+      return "redirect:/user/?errMsg=" + URLEncoder.encode("로그인 정보가 다릅니다.", "UTF-8");
     }
   }
 
-  @RequestMapping("/logout.do")
+  @RequestMapping("/logout")
   public String logout(HttpServletRequest request) {
     HttpSession session = request.getSession();
     session.invalidate();
-    return "redirect:/board/login/login.do";
+    return "redirect:/user/";
   }
 }
 

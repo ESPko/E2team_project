@@ -25,7 +25,7 @@
     <div class="col-6 row align-items-center justify-content-end">
       <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-end">
         <li class="list-group-item" th:unless="${session.userId != null}"><a href="#" class="nav-link" ><i class="fa-solid fa-lock" ></i> 로그인</a></li>
-        <li class="list-group-item" th:unless="${session.userId == null}" ><a href="#" class="nav-link" th:href="@{/board/login/logout.do}"><i class="fa-solid fa-lock" ></i> 로그아웃</a></li>
+        <li class="list-group-item" th:unless="${session.userId == null}" ><a href="#" class="nav-link" th:href="@{/user/logout}"><i class="fa-solid fa-lock" ></i> 로그아웃</a></li>
         <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-user-plus"></i> 회원가입</a></li>
         <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-regular fa-circle-user"></i> MY Page</a></li>
         <li class="list-group-item"><a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> 1:1 문의</a></li>
