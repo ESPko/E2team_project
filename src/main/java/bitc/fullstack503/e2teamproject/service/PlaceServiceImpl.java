@@ -18,31 +18,7 @@ public class PlaceServiceImpl implements PlaceService {
   @Autowired
   private PlaceRepository placeRepository;
 
-  @Override
-  public List<ReviewEntity> reviewCheck() {
-    return List.of();
-  }
-
-  @Override
-  public List<PlaceEntity> placeCheck() {
-    List<PlaceEntity> orderByStar = placeRepository.findAll();
-    System.out.println("orderByStar");
-    System.out.println("-------------");
-    System.out.println(orderByStar);
-    System.out.println();
-    return orderByStar;
-  }
-
-  @Override
-  public List<ReviewDTO> getAllReviewSortByStar() {
-    List<ReviewDTO> review = placeRepository.queryFindAllReviewSortByStar();
-    System.out.println("reviewStar");
-    for (int i = 0; i < review.size(); i++) {
-      System.out.println(review.get(i));
-    }
-    return review;
-  }
-
+//  상위 세개 추천 항목 나오게
   @Override
   public List<PlaceDTO> getAllPlaceSortByStar() {
     Pageable topThree = PageRequest.of(0,3);

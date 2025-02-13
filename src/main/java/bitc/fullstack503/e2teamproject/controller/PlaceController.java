@@ -19,7 +19,7 @@ public class PlaceController {
   @Autowired
   private PlaceService placeService;
 
-  //  실험용 (삭제 가능)
+  //  상위 세개 추천 항목 나오게
   @RequestMapping("/")
   public ModelAndView place() {
     ModelAndView mav = new ModelAndView("/board/jiHyunTest");

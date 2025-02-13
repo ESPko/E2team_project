@@ -8,12 +8,6 @@ import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import java.util.List;
 
 public interface PlaceService {
-  //  실험용 (삭제 가능)
-  List<ReviewEntity> reviewCheck();
-
-  List<PlaceEntity> placeCheck();
-
-  List<ReviewDTO> getAllReviewSortByStar();
-
+//  상위 세개 추천 항목 나오게
   List<PlaceDTO> getAllPlaceSortByStar();
 }
