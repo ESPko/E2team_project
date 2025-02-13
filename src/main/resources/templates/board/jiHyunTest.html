@@ -47,15 +47,10 @@
 <br>
 
 <h1>추천</h1>
-<div class="d-flex p-2" th:each="review : ${review}">
+<div class="d-flex p-2" th:each="placeStar : ${placeStarList}">
   <div class="nemo" style="height: 300px; width: 300px; border: 1px solid black;">
-    <p th:text="${review.name}">추천1</p>
-  </div>
-  <div class="nemo" style="height: 300px; width: 300px; border: 1px solid black;">
-    <p>추천2</p>
-  </div>
-  <div class="nemo" style="height: 300px; width: 300px; border: 1px solid black;">
-    <p>추천3</p>
+    <p th:text="${placeStar.placeName}" th:value="${placeStar.placeName}"></p>
+    <p th:text="${placeStar.averageStar}" th:value="${placeStar.averageStar}"></p>
   </div>
 </div>
 
