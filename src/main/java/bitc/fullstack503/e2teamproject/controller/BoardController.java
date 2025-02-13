@@ -27,7 +27,7 @@ public class BoardController {
   // 회원가입 페이지
   @RequestMapping("/signup")
   public String signup() {
-    return "login/signup";  // 회원가입 페이지로 이동
+    return "login/registerPage";  // 회원가입 페이지로 이동
   }
 
 }

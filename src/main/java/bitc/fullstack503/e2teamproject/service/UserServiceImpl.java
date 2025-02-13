@@ -4,6 +4,7 @@ import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     //회원가입
+    @Transactional  // 추가
     @Override
     public void registerUser(UserEntity user) {
 
