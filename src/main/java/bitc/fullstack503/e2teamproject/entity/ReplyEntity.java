@@ -33,7 +33,9 @@ public class ReplyEntity {
 
   private String comment;
 
-  private LocalDateTime create_date;
+  @Column(name = "create_date")
+  private LocalDateTime createDate;
 
-  private int like_count;
+  @Column(name = "like_count")
+  private int likeCount;
 }
