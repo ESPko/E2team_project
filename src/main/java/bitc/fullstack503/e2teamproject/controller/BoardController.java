@@ -23,4 +23,11 @@ public class BoardController {
   public ModelAndView manager() {
     return new ModelAndView("/manage/managerPage");
   }
+
+  // 회원가입 페이지
+  @RequestMapping("/signup")
+  public String signup() {
+    return "login/signup";  // 회원가입 페이지로 이동
+  }
+
 }

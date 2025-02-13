@@ -23,17 +23,18 @@
     <form method="post" action="/user/loginProcess.do">
     <p>아이디와 비밀번호를 입력하세요.</p>
     <div class="d-flex justify-content-center"><p>
-      <i class="fa-regular fa-user">&nbsp;</i><input type="text" placeholder="아이디를 입력하세요." name="userId"></p></div>
+      <i class="fa-regular fa-user">&nbsp;</i><input type="text" placeholder="아이디를 입력하세요." name="userId" th:value="${cookieUserId}"></p></div>
     <div class="d-flex justify-content-center"><p>
       <i class="fa-solid fa-unlock">&nbsp;</i><input type="password" placeholder="비밀번호를 입력하세요." name="userPw"></p></div>
     <div>
       <button type="submit" style="width: 240px; border-style: none; background-color: #ffff91;">로그인</button>
     </div>
+
+    <div><p><input type="checkbox" name="rememberMe" id="rememberMe">아이디 저장</p></div>
     </form>
-    <div><p><input type="checkbox">아이디 저장</p></div>
     <div>
       <p>
-        <button type="button" style="width: 240px; border-style: none;">회원가입</button>
+        <button type="button" style="width: 240px; border-style: none;"><a th:href="@{/board/signup}">회원가입</a></button>
       </p>
     </div>
   </div>

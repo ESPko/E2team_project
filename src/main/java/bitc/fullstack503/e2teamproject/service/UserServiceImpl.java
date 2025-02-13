@@ -24,4 +24,18 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
+    @Override
+    public boolean isUserExists(String userId) {
+        return userRepository.findById(userId).isPresent();
+    }
+
+    //회원가입
+    @Override
+    public void registerUser(UserEntity user) {
+
+        userRepository.save(user);
+    }
+
+
+
 }

@@ -9,4 +9,12 @@ public interface UserService {
     boolean isUserInfo(String userId, String userPw);
 
     UserEntity getUserInfo(String userId);
+
+    // 회원 존재 여부 확인
+    boolean isUserExists(String userId);
+
+    // 회원가입
+    void registerUser(UserEntity user);
+
+
 }
