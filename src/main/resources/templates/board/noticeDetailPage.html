@@ -24,22 +24,22 @@
       <div class="form-floating" style="border-color: #bee5eb;">
         <input type="text" class="form-control" id="board-title" readonly>
         <label for="board-title">
-          <span th:text="|공지 번호 : ${noticeList.board_idx}|">번호</span>
+          <span th:text="|공지 번호 : ${notice.board_idx}|">번호</span>
           &nbsp;&nbsp;
-          <span th:text="|글 제목 : ${noticeList.title}|">글 제목</span>
+          <span th:text="|글 제목 : ${notice.title}|">글 제목</span>
         </label>
       </div>
 
       <div class="container d-flex justify-content-between align-items-center mt-2 p-2"
            style="height: 40px; border: solid 0.4px; border-color: lightgray;
            border-radius: 5px; color: gray;">
-        <div class="flex-grow-1 text-center" th:text="|글쓴이 : ${noticeList.user.user_idx}|"></div>
-        <div class="flex-grow-1 text-center" th:text="|게시일 : ${noticeList.createDate}|"></div>
-        <div class="flex-grow-1 text-center" th:text="|수정일 : ${noticeList.updateDate}|"></div>
+        <div class="flex-grow-1 text-center" th:text="|글쓴이 : ${notice.user.user_idx}|"></div>
+        <div class="flex-grow-1 text-center" th:text="|게시일 : ${notice.createDate}|"></div>
+        <div class="flex-grow-1 text-center" th:text="|수정일 : ${notice.updateDate}|"></div>
         <div class="flex-grow-1 text-center" style="font-size: small;"
-             th:text="|조회수 : ${noticeList.hitCount}|">조회수</div>
+             th:text="|조회수 : ${notice.hitCount}|">조회수</div>
         <div class="flex-grow-1 text-center" style="font-size: small;"
-             th:text="|추천수 : ${noticeList.likeCount}|">추천수</div>
+             th:text="|추천수 : ${notice.likeCount}|">추천수</div>
       </div>
 
 
@@ -49,7 +49,7 @@
                   id="contents"
                   style="height: 200px;"
                   placeholder="내용을 입력하세요."
-        th:text="${noticeList.contents}">
+        th:text="${notice.contents}">
         </textarea>
         <label for="contents">글 내용</label>
       </div>
