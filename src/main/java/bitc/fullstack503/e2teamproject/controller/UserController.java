@@ -61,7 +61,7 @@ public class UserController {
       session.setMaxInactiveInterval(60 * 60);
 
 
-      // ✅ 체크박스가 체크된 경우에만 쿠키를 설정
+      //  체크박스가 체크된 경우에만 쿠키를 설정
       if ("on".equals(rememberMe)) {
         Cookie cookie = new Cookie("userId", userId);
         cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유지
@@ -101,32 +101,42 @@ public class UserController {
     return "redirect:/user/";
   }
 
-  // 회원가입 처리
+
+  //  회원가입 처리
   @PostMapping("/signupProcess.do")
-  public String signupProcess(@RequestParam("userId") String userId,
-                              @RequestParam("userPw") String userPw,
-                              @RequestParam("userBirthYear") String userBirthYear,
-                              @RequestParam("userPhone") String userPhone,
-                              @RequestParam("userEmail") String userEmail
-                             ) throws Exception {
+  @ResponseBody
+  public Map<String, String> signupProcess(@RequestBody Map<String, String> userData) {
+    Map<String, String> response = new HashMap<>();
 
-    // yyyy-MM-dd 형식에서 연도(yyyy)만 추출
-    String birthYear = userBirthYear.split("-")[0];
+    try {
+      String userId = userData.get("userId");
+      String userPw = userData.get("userPw");
+      String userBirthYear = userData.get("userBirthYear");
+      String userPhone = userData.get("userPhone");
+      String userEmail = userData.get("userEmail");
 
-    UserEntity newUser = UserEntity.builder()
-            .id(userId)
-            .password(userPw)
-            .birthYear(birthYear)
-            .phone(userPhone)
-            .email(userEmail)
-            .createDate(LocalDateTime.now())
-            .level((byte) 0) // 일반 사용자
-            .build();
+      // 생년월일에서 연도(yyyy)만 추출
+      String birthYear = userBirthYear.split("-")[0];
 
-    userService.registerUser(newUser);
+      UserEntity newUser = UserEntity.builder()
+              .id(userId)
+              .password(userPw)
+              .birthYear(birthYear)
+              .phone(userPhone)
+              .email(userEmail)
+              .createDate(LocalDateTime.now())
+              .level((byte) 0) // 일반 사용자
+              .build();
 
-    return "redirect:/user/"; // 회원가입 후 로그인 페이지 이동
+      userService.registerUser(newUser);
 
+      response.put("status", "success");
+    } catch (Exception e) {
+      response.put("status", "fail");
+      response.put("message", "회원가입 중 오류 발생: " + e.getMessage());
+    }
+
+    return response;
   }
 
 
