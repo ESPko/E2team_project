@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
+@RestController
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -41,19 +43,17 @@ public class BoardController {
   //  공지 쓰기
   @ResponseBody
   @PostMapping("/notice/write")
-  public String writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
+  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
-    return "/board/";
   }
 
   //  공지 수정하기
   @ResponseBody
   @PutMapping("/notice/update")
-  public String updateNotice(@RequestParam(value = "noticeTitleUpdate", required = false) String noticeTitleUpdate,
-                           @RequestParam(value = "noticeContentsUpdate", required = false) String noticeContentsUpdate,
-                           @RequestParam(value = "noticeNumberUpdate", required = false) int noticeNumberUpdate) {
+  public void updateNotice(@RequestParam(value = "noticeTitleUpdate") String noticeTitleUpdate,
+                           @RequestParam(value = "noticeContentsUpdate") String noticeContentsUpdate,
+                           @RequestParam(value = "noticeNumberUpdate") int noticeNumberUpdate) {
     boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpdate);
-    return "/board/";
   }
 
   //  공지 삭제하기
