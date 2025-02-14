@@ -7,11 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import java.util.Optional;
+import java.util.Optional;
+
+
 @Service
 public class BoardServiceImpl implements BoardService {
 
+
   @Autowired
   private BoardRepository boardRepository;
+
 
   //  공지 쓰기
   @Override
@@ -27,8 +33,8 @@ public class BoardServiceImpl implements BoardService {
 
   //  공지 수정하기
   @Override
-  public void updateNotice(String noticeTitleUpdate, String noticeContentsUpdate, int noticeNumber) {
-    boardRepository.queryUpdateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumber);
+  public void updateNotice(String noticeTitleUpdate, String noticeContentsUpdate, int noticeNumberUpddate) {
+    boardRepository.queryUpdateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpddate);
   }
 
   //  공지 삭제하기
@@ -43,11 +49,80 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindEvent();
   }
 
-  //  인원 모집 조회하기
   @Override
   public List<BoardEntity> findPerson() {
-    return boardRepository.queryFindPerson();
+    return List.of();
+  }
+
+  //  이벤트 쓰기
+  @Override
+  public void writeEvent(String eventTitleCreate, String eventContentsCreate) {
+    boardRepository.queryWriteEvent(eventTitleCreate, eventContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @Override
+  public void updateEvent(String eventTitleUpdate, String eventContentsUpdate, int eventNumberUpdate) {
+    boardRepository.queryUpdateEvent(eventTitleUpdate, eventContentsUpdate, eventNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @Override
+  public void deleteEvent(int eventNumberDelete) {
+    boardRepository.queryDeleteEvent(eventNumberDelete);
+  }
+
+  //  인원 모집 조회하기
+  @Override
+  public List<BoardEntity> findCrew() {
+    return boardRepository.queryFindCrew();
   }
 
 
+    @Override
+    public List<BoardEntity> selectBoardList() {
+        return boardRepository.findAllByOrderByBoard_idxDesc();
+    }
+
+    //    게시물 상세 보기
+    @Override
+    public BoardEntity selectboardDetail(int board_idx) {
+
+        Optional<BoardEntity> optBoard = boardRepository.findById(board_idx);
+
+        if (optBoard.isPresent()) {
+
+            BoardEntity board = optBoard.get();
+
+            board.setHitCount(board.getHitCount() + 1);
+            boardRepository.save(board);
+
+            return board;
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
+
+  //  인원 모집 쓰기
+  @Override
+  public void writeCrew(String crewTitleCreate, String crewContentsCreate) {
+    boardRepository.queryWriteCrew(crewTitleCreate, crewContentsCreate);
+  }
+
+  //  인원 모집 수정하기
+  @Override
+  public void updateCrew(String crewTitleUpdate, String crewContentsUpdate, int crewNumberUpdate) {
+    boardRepository.queryUpdateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
+  }
+
+//  인원 모집 삭제하기
+  @Override
+  public void deleteCrew(int crewNumberDelete) {
+    boardRepository.queryDeleteCrew(crewNumberDelete);
+  }
 }
+
+
+
+

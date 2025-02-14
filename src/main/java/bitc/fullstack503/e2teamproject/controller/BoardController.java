@@ -4,10 +4,17 @@ import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @RequestMapping("/board")
@@ -16,36 +23,128 @@ public class BoardController {
   @Autowired
   private BoardService boardService;
 
-  //  공지, 이벤트, 인원 모집 보기
+//  심지현 테스트용
   @RequestMapping("/")
-  public ModelAndView board() {
+  public ModelAndView simJiHyun(){
     ModelAndView mav = new ModelAndView("/board/jiHyunTest");
     List<BoardEntity> findNoticeList = boardService.findNotice();
     List<BoardEntity> findEventList = boardService.findEvent();
-    List<BoardEntity> findPersonList = boardService.findPerson();
+    List<BoardEntity> findCrewList = boardService.findCrew();
     mav.addObject("findNoticeList", findNoticeList);
     mav.addObject("findEventList", findEventList);
-    mav.addObject("findPersonList", findPersonList);
+    mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
+
+  //  공지 보기
+  @RequestMapping("/notice/read")
+  public ModelAndView noticeRead() {
+    ModelAndView mav = new ModelAndView("/board/noticePage");
+    List<BoardEntity> findNoticeList = boardService.findNotice();
+    mav.addObject("findNoticeList", findNoticeList);
     return mav;
   }
 
   //  공지 쓰기
+  @ResponseBody
   @PostMapping("/notice/write")
-  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
+  public String writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
+    return "/board/";
   }
 
   //  공지 수정하기
+  @ResponseBody
   @PutMapping("/notice/update")
-  public void updateNotice(@RequestParam("noticeTitleUpdate") String noticeTitleUpdate,
-                           @RequestParam("noticeContentsUpdate") String noticeContentsUpdate,
-                           @RequestParam("noticeNumber") int noticeNumber) {
-    boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumber);
+  public String updateNotice(@RequestParam(value = "noticeTitleUpdate", required = false) String noticeTitleUpdate,
+                           @RequestParam(value = "noticeContentsUpdate", required = false) String noticeContentsUpdate,
+                           @RequestParam(value = "noticeNumberUpdate", required = false) int noticeNumberUpdate) {
+    boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpdate);
+    return "/board/";
   }
 
-//  공지 삭제하기
+  //  공지 삭제하기
+  @ResponseBody
   @DeleteMapping("/notice/delete")
-  public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete){
+  public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete) {
     boardService.deleteNotice(noticeNumberDelete);
+  }
+
+  //  이벤트 보기
+  @RequestMapping("/event/read")
+  public ModelAndView eventRead() {
+    ModelAndView mav = new ModelAndView("/board/eventPage");
+    List<BoardEntity> findEventList = boardService.findEvent();
+    mav.addObject("findEventList", findEventList);
+    return mav;
+  }
+
+  //  이벤트 쓰기
+  @ResponseBody
+  @PostMapping("/event/write")
+  public void writeEvent(@RequestParam("eventTitleCreate") String eventTitleCreate,
+                         @RequestParam("eventContentsCreate") String eventContentsCreate) {
+    boardService.writeEvent(eventTitleCreate, eventContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @ResponseBody
+  @PutMapping("/event/update")
+  public void updateEvent(@RequestParam("eventTitleUpdate") String eventTitleUpdate,
+                          @RequestParam("eventContentsUpdate") String eventContentsUpdate,
+                          @RequestParam("eventNumberUpdate") int eventNumberUpdate) {
+    boardService.updateEvent(eventTitleUpdate, eventContentsUpdate, eventNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @ResponseBody
+  @DeleteMapping("/event/delete")
+  public void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete) {
+    boardService.deleteEvent(eventNumberDelete);
+  }
+
+  //  인원 모집 보기
+  @RequestMapping("/crew/read")
+  public ModelAndView crewRead() {
+    ModelAndView mav = new ModelAndView("/board/crewPage");
+    List<BoardEntity> findCrewList = boardService.findCrew();
+    mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
+
+//  관리자 페이지
+  @RequestMapping("/manager")
+  public ModelAndView manager() {
+    return new ModelAndView("/manage/managerPage");
+  }
+
+  // 회원가입 페이지
+  @RequestMapping("/signup")
+  public ModelAndView signup() {
+    return new ModelAndView("/login/registerPage");
+  }
+
+  //  이벤트 쓰기
+  @ResponseBody
+  @PostMapping("/crew/write")
+  public void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
+                         @RequestParam("crewContentsCreate") String crewContentsCreate) {
+    boardService.writeCrew(crewTitleCreate, crewContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @ResponseBody
+  @PutMapping("/crew/update")
+  public void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,
+                          @RequestParam("crewContentsUpdate") String crewContentsUpdate,
+                          @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
+    boardService.updateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @ResponseBody
+  @DeleteMapping("/crew/delete")
+  public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
+    boardService.deleteCrew(crewNumberDelete);
   }
 }

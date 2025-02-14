@@ -12,7 +12,6 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-
 </head>
 <body>
 
@@ -29,21 +28,33 @@
           <li>메뉴3</li>
         </ul>
       </div>
-      <a href="#"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
+      <a href="#" th:href="@{/}"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
     </div>
     <div class="col-8 row align-items-center">
       <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-start">
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">공지사항</a></li>
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">이벤트</a></li>
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link">인원모집</a></li>
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/event}">이벤트</a></li>
+        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
       </ul>
     </div>
     <div class="col-2 row align-items-center justify-content-between">
-      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;">
-        로그인 / 회원가입
+      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId != null}">
+        <a th:href="@{/loginpage}">로그인 / 회원가입</a>
+      </button>
+      <button id="btn-logout" type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId == null}" >
+        로그아웃
       </button>
     </div>
   </div>
+
+  <script>
+    $("#btn-logout").on("click", function () {
+
+        location.href = "/user/logout";
+
+    })
+  </script>
+
 </header>
 
 </body>

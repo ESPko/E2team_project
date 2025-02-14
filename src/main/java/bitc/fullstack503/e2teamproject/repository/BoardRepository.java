@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import java.util.List;
 
@@ -27,11 +28,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   //  공지사항 수정하기
   @Modifying
   @Transactional
-  @Query("update BoardEntity b set b.title = :noticeUpdateTitle," +
-          "b.contents = :noticeUpdateContents where b.board_idx = :noticeNumber")
-  void queryUpdateNotice(@Param("noticeUpdateTitle") String noticeUpdateTitle,
-                         @Param("noticeUpdateContents") String noticeUpdateContents,
-                         @Param("noticeNumber") int noticeNumber);
+  @Query("update BoardEntity b set b.title = :noticeTitleUpdate," +
+          "b.contents = :noticeContentsUpdate where b.board_idx = :noticeNumberUpdate")
+  void queryUpdateNotice(@Param("noticeTitleUpdate") String noticeTitleUpdate,
+                         @Param("noticeContentsUpdate") String noticeContentsUpdate,
+                         @Param("noticeNumberUpdate") int noticeNumberUpdate);
 
   //  공지사항 삭제하기
   @Modifying
@@ -40,17 +41,65 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryDeleteNotice(@Param("noticeNumberDelete") int noticeNumberDelete);
 
   //  이벤트 쓰기
+  @Modifying
+  @Transactional
+  @Query(value = "insert into board (board_user_idx, title, contents, category)" +
+          "values (1, :eventTitleCreate, :eventContentsCreate,'이벤트')", nativeQuery = true)
+  void queryWriteEvent(@Param("eventTitleCreate") String eventTitleCreate,
+                       @Param("eventContentsCreate") String eventContentsCreate);
+
   //  이벤트 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '이벤트'")
   List<BoardEntity> queryFindEvent();
+
   //  이벤트 수정하기
+  @Modifying
+  @Transactional
+  @Query("update BoardEntity b set b.title = :eventTitleUpdate," +
+          "b.contents = :eventContentsUpdate where b.board_idx = :eventNumberUpdate")
+  void queryUpdateEvent(@Param("eventTitleUpdate") String eventTitleUpdate,
+                         @Param("eventContentsUpdate") String eventContentsUpdate,
+                         @Param("eventNumberUpdate") int eventNumberUpdate);
+
   //  이벤트 삭제하기
+  @Modifying
+  @Transactional
+  @Query("delete from BoardEntity b where b.board_idx = :eventNumberDelete")
+  void queryDeleteEvent(@Param("eventNumberDelete") int eventNumberDelete);
 
   //  인원모집 쓰기
-  //  인원모집 찾아서 읽어오기
+  @Modifying
+  @Transactional
+  @Query(value = "insert into board (board_user_idx, title, contents, category)" +
+          "values (2, :crewTitleCreate, :crewContentsCreate,'인원모집')", nativeQuery = true)
+  void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
+                       @Param("crewContentsCreate") String crewContentsCreate);
+
+
+//    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
   List<BoardEntity> queryFindPerson();
-  //  인원모집 수정하기
-  //  인원모집 삭제하기
+//    인원모집 수정하기
+//    인원모집 삭제하기
 
+  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
+  List<BoardEntity> findAllByOrderByBoard_idxDesc();
+
+  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
+  List<BoardEntity> queryFindCrew();
+
+  //  인원모집 수정하기
+  @Modifying
+  @Transactional
+  @Query("update BoardEntity b set b.title = :crewTitleUpdate," +
+          "b.contents = :crewContentsUpdate where b.board_idx = :crewNumberUpdate")
+  void queryUpdateCrew(@Param("crewTitleUpdate") String crewTitleUpdate,
+                        @Param("crewContentsUpdate") String crewContentsUpdate,
+                        @Param("crewNumberUpdate") int crewNumberUpdate);
+
+  //  인원모집 삭제하기
+  @Modifying
+  @Transactional
+  @Query("delete from BoardEntity b where b.board_idx = :crewNumberDelete")
+  void queryDeleteCrew(@Param("crewNumberDelete") int crewNumberDelete);
 }
