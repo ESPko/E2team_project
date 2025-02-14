@@ -50,11 +50,22 @@
       <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId != null}">
         로그인 / 회원가입
       </button>
-      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId == null}" >
-        <a th:href="@{/user/logout}">로그아웃 </a>
+      <button id="btn-logout" type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId == null}" >
+        로그아웃
       </button>
     </div>
   </div>
+
+  <script>
+    $("#btn-logout").on("click", function () {
+      var confirmed = confirm("로그아웃 하시겠습니까?");
+
+      if (confirmed) {
+        location.href = "/user/logout";
+      }
+    })
+  </script>
+
 </header>
 
 </body>
