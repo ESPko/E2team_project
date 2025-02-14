@@ -60,7 +60,6 @@ public class UserController {
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
 
-
       //  체크박스가 체크된 경우에만 쿠키를 설정
       if ("on".equals(rememberMe)) {
         Cookie cookie = new Cookie("userId", userId);
@@ -74,7 +73,6 @@ public class UserController {
         cookie.setPath("/");
         response.addCookie(cookie);
       }
-
       result.put("status", "success");
       result.put("userLevel", user.getLevel());
     } else {
