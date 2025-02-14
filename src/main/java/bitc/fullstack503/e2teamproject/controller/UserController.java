@@ -42,6 +42,7 @@ public class UserController {
     return "login/loginPage";
   }
 
+//  로그인
   @PostMapping("/loginProcess.do")
   public String loginProcess(@RequestParam("userId") String userId,
                              @RequestParam("userPw") String userPw,
@@ -74,6 +75,7 @@ public class UserController {
     }
   }
 
+//   로그아웃
   @RequestMapping("/logout")
   public String logout(HttpServletRequest request, HttpServletResponse response) {
     HttpSession session = request.getSession();
@@ -118,7 +120,7 @@ public class UserController {
 
 
 
-
+// 아이디 중복 체크
   @GetMapping("/checkDuplicate")
   @ResponseBody
   public Map<String, String> checkDuplicate(@RequestParam("userId") String userId) {

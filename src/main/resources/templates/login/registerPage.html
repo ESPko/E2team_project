@@ -38,9 +38,6 @@
               isIdChecked = true;
             }
           },
-          // error: function () {
-          //   alert("중복 확인 중 오류가 발생했습니다.");
-          // }
           error: function (xhr, status, error) {
             console.error("AJAX 오류 상태:", status);
             console.error("서버 응답 코드:", xhr.status);
@@ -104,6 +101,7 @@
     <div><p><button type="submit" id="btn-join" style="border-style: none; background-color: #ffff91; border-radius: 10%; width: 300px; height: 30px;" >회원가입하기</button></p></div>
   </div>
 </div>
+
 </form>
 
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
