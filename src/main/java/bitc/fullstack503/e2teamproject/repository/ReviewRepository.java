@@ -11,9 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
-
-//  @Query("SELECT r FROM ReviewEntity r ORDER BY r.star DESC limit 3")
-//  List<ReviewEntity> ikiki();
-
   List<ReviewEntity> findAll();
 }
