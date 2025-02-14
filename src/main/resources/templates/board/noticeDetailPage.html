@@ -25,18 +25,10 @@
 
       <div><h4>공지사항</h4></div>
 
-      <div class="form-floating" style="border-color: #bee5eb;">
-        <input type="text" class="form-control" id="board-title" readonly>
-        <label for="board-title">번호. 글 제목</label>
-      </div>
-
-      <div class="container d-flex justify-content-between align-items-center mt-2 p-2"
-           style="height: 40px; border: solid 0.4px; border-color: lightgray; border-radius: 5px; color: gray;">
-        <div class="flex-grow-1 text-center">글쓴이  </div>
-        <div class="flex-grow-1 text-center">작성일  </div>
-        <div class="flex-grow-1 text-center">수정일  </div>
-        <div class="flex-grow-1 text-center" style="font-size: small;">조회수</div>
-        <div class="flex-grow-1 text-center" style="font-size: small;">추천수</div>
+      <div class="container d-flex justify-content-between align-items-center"
+           style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
+        <div class="col-sm-8">번호. 글 제목</div>
+        <div class="col-sm-4">작성일</div>
       </div>
 
 
@@ -45,6 +37,7 @@
         </textarea>
         <label for="contents">글 내용</label>
       </div>
+
 
     </form>
   </section>
