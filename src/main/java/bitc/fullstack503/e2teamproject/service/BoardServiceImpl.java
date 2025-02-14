@@ -43,6 +43,24 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindEvent();
   }
 
+  //  이벤트 쓰기
+  @Override
+  public void writeEvent(String eventTitleCreate, String eventContentsCreate) {
+    boardRepository.queryWriteEvent(eventTitleCreate, eventContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @Override
+  public void updateEvent(String eventTitleUpdate, String eventContentsUpdate, int eventNumberUpdate) {
+    boardRepository.queryUpdateEvent(eventTitleUpdate, eventContentsUpdate, eventNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @Override
+  public void deleteEvent(int eventNumberDelete) {
+    boardRepository.queryDeleteEvent(eventNumberDelete);
+  }
+
   //  인원 모집 조회하기
   @Override
   public List<BoardEntity> findPerson() {

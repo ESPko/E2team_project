@@ -40,11 +40,31 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryDeleteNotice(@Param("noticeNumberDelete") int noticeNumberDelete);
 
   //  이벤트 쓰기
+  @Modifying
+  @Transactional
+  @Query(value = "insert into board (board_user_idx, title, contents, category)" +
+          "values (1, :eventTitleCreate, :eventContentsCreate,'이벤트')", nativeQuery = true)
+  void queryWriteEvent(@Param("eventTitleCreate") String eventTitleCreate,
+                       @Param("eventContentsCreate") String eventContentsCreate);
+
   //  이벤트 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '이벤트'")
   List<BoardEntity> queryFindEvent();
+
   //  이벤트 수정하기
+  @Modifying
+  @Transactional
+  @Query("update BoardEntity b set b.title = :eventTitleUpdate," +
+          "b.contents = :eventContentsUpdate where b.board_idx = :eventNumberUpdate")
+  void queryUpdateEvent(@Param("eventTitleUpdate") String eventTitleUpdate,
+                         @Param("eventContentsUpdate") String eventContentsUpdate,
+                         @Param("eventNumberUpdate") int eventNumberUpdate);
+
   //  이벤트 삭제하기
+  @Modifying
+  @Transactional
+  @Query("delete from BoardEntity b where b.board_idx = :eventNumberDelete")
+  void queryDeleteEvent(@Param("eventNumberDelete") int eventNumberDelete);
 
   //  인원모집 쓰기
   //  인원모집 찾아서 읽어오기

@@ -10,32 +10,31 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RestController
 @RequestMapping("/board")
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
 
-  //  공지, 이벤트, 인원 모집 보기
-  @RequestMapping("/")
-  public ModelAndView board() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
+  //  공지 보기
+  @RequestMapping("/notice/read")
+  public ModelAndView noticeRead() {
+    ModelAndView mav = new ModelAndView("/board/noticePage");
     List<BoardEntity> findNoticeList = boardService.findNotice();
-    List<BoardEntity> findEventList = boardService.findEvent();
-    List<BoardEntity> findPersonList = boardService.findPerson();
     mav.addObject("findNoticeList", findNoticeList);
-    mav.addObject("findEventList", findEventList);
-    mav.addObject("findPersonList", findPersonList);
     return mav;
   }
 
   //  공지 쓰기
+  @ResponseBody
   @PostMapping("/notice/write")
   public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
   }
 
   //  공지 수정하기
+  @ResponseBody
   @PutMapping("/notice/update")
   public void updateNotice(@RequestParam("noticeTitleUpdate") String noticeTitleUpdate,
                            @RequestParam("noticeContentsUpdate") String noticeContentsUpdate,
@@ -43,9 +42,52 @@ public class BoardController {
     boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumber);
   }
 
-//  공지 삭제하기
+  //  공지 삭제하기
+  @ResponseBody
   @DeleteMapping("/notice/delete")
-  public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete){
+  public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete) {
     boardService.deleteNotice(noticeNumberDelete);
+  }
+
+  //  이벤트 보기
+  @RequestMapping("/event/read")
+  public ModelAndView eventRead() {
+    ModelAndView mav = new ModelAndView("/board/eventPage");
+    List<BoardEntity> findEventList = boardService.findEvent();
+    mav.addObject("findEventList", findEventList);
+    return mav;
+  }
+
+  //  이벤트 쓰기
+  @ResponseBody
+  @PostMapping("/event/write")
+  public void writeEvent(@RequestParam("eventTitleCreate") String eventTitleCreate,
+                         @RequestParam("eventContentsCreate") String eventContentsCreate) {
+    boardService.writeEvent(eventTitleCreate, eventContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @ResponseBody
+  @PutMapping("/event/update")
+  public void updateEvent(@RequestParam("eventTitleUpdate") String eventTitleUpdate,
+                          @RequestParam("eventContentsUpdate") String eventContentsUpdate,
+                          @RequestParam("eventNumberUpdate") int eventNumberUpdate) {
+    boardService.updateEvent(eventTitleUpdate, eventContentsUpdate, eventNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @ResponseBody
+  @DeleteMapping("/event/delete")
+  public void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete) {
+    boardService.deleteEvent(eventNumberDelete);
+  }
+
+  //  인원 모집 보기
+  @RequestMapping("/crew/read")
+  public ModelAndView crewRead() {
+    ModelAndView mav = new ModelAndView("/board/crewPage");
+    List<BoardEntity> findPersonList = boardService.findPerson();
+    mav.addObject("findPersonList", findPersonList);
+    return mav;
   }
 }
