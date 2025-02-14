@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,8 +48,11 @@
       </ul>
     </div>
     <div class="col-2 row align-items-center justify-content-between">
-      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;">
+      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId != null}">
         로그인 / 회원가입
+      </button>
+      <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId == null}" >
+        <a th:href="@{/user/logout}">로그아웃 </a>
       </button>
     </div>
   </div>

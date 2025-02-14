@@ -4,10 +4,15 @@ import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+>>>>>>> 945e405062063ba14e54436d47b23d687340b012
 
 @Controller
 @RequestMapping("/board")
@@ -48,4 +53,17 @@ public class BoardController {
   public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete){
     boardService.deleteNotice(noticeNumberDelete);
   }
+
+//  관리자 페이지
+  @RequestMapping("/manager")
+  public ModelAndView manager() {
+    return new ModelAndView("/manage/managerPage");
+  }
+
+  // 회원가입 페이지
+  @RequestMapping("/signup")
+  public String signup() {
+    return "login/signup";  // 회원가입 페이지로 이동
+  }
+
 }
