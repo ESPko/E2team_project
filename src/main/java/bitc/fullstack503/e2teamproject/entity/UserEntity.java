@@ -34,7 +34,7 @@ public class UserEntity {
   @Column(name = "create_date")
   private LocalDateTime createDate = LocalDateTime.now();
 
-  private byte level;
+  private int level;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
