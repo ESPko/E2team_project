@@ -148,7 +148,5 @@ public class UserController {
     response.put("status", exists ? "duplicate" : "available");
     return response;
   }
-
-
 }
 
