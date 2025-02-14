@@ -1,41 +1,23 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 import java.util.Optional;
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
 import java.util.Optional;
 
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   @Autowired
   private BoardRepository boardRepository;
-=======
 
-    @Autowired
-    private BoardRepository boardRepository;
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
   //  공지 쓰기
   @Override
@@ -67,6 +49,11 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindEvent();
   }
 
+  @Override
+  public List<BoardEntity> findPerson() {
+    return List.of();
+  }
+
   //  이벤트 쓰기
   @Override
   public void writeEvent(String eventTitleCreate, String eventContentsCreate) {
@@ -91,14 +78,6 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindCrew();
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    @Autowired
-    private BoardRepository boardRepository;
-=======
-
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
     @Override
     public List<BoardEntity> selectBoardList() {
@@ -123,18 +102,13 @@ public class BoardServiceImpl implements BoardService {
             throw new NullPointerException();
         }
     }
-<<<<<<< HEAD
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
 
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
-=======
+
   //  인원 모집 쓰기
   @Override
   public void writeCrew(String crewTitleCreate, String crewContentsCreate) {
     boardRepository.queryWriteCrew(crewTitleCreate, crewContentsCreate);
   }
->>>>>>> simJiHyun
 
   //  인원 모집 수정하기
   @Override

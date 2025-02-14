@@ -1,47 +1,21 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RequestParam;
-=======
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
-
 import org.springframework.web.bind.annotation.RequestParam;
 
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 import java.util.List;
 
 public interface BoardService {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  void writeNotice(@RequestParam("noticeTitle") String noticeTitle,
-                   @RequestParam("noticeContents") String noticeContents);
 
-  void updateNotice(@RequestParam("noticeTitleUpdate") String noticeTitleUpdate,
-                    @RequestParam("noticeContentsUpdate") String noticeContentsUpdate,
-                    @RequestParam("noticeNumber") int noticeNumber);
 
-  List<BoardEntity> findNotice();
-
-  List<BoardEntity> findEvent();
 
   List<BoardEntity> findPerson();
 
-  void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete);
-=======
-=======
-
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
     List<BoardEntity> selectBoardList();
 
     BoardEntity selectboardDetail(int board_idx);
-<<<<<<< HEAD
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
 
   //  공지 읽기
   List<BoardEntity> findNotice();
@@ -76,9 +50,7 @@ public interface BoardService {
   //  인원 모집 읽기
   List<BoardEntity> findCrew();
 
-<<<<<<< HEAD
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
-=======
+
   //  인원 모집 쓰기
   void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
                  @RequestParam("crewContentsCreate") String crewContentsCreate);
@@ -90,5 +62,4 @@ public interface BoardService {
 
   //  인원모집 삭제하기
   void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete);
->>>>>>> simJiHyun
 }

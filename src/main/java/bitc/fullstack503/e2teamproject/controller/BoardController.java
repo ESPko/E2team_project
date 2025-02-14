@@ -4,24 +4,17 @@ import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-<<<<<<< HEAD
-=======
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
 
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 @Controller
 @RequestMapping("/board")
@@ -119,7 +112,6 @@ public class BoardController {
     return mav;
   }
 
-<<<<<<< HEAD
 //  관리자 페이지
   @RequestMapping("/manager")
   public ModelAndView manager() {
@@ -132,7 +124,6 @@ public class BoardController {
     return new ModelAndView("/login/registerPage");
   }
 
-=======
   //  이벤트 쓰기
   @ResponseBody
   @PostMapping("/crew/write")
@@ -156,5 +147,4 @@ public class BoardController {
   public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
     boardService.deleteCrew(crewNumberDelete);
   }
->>>>>>> simJiHyun
 }

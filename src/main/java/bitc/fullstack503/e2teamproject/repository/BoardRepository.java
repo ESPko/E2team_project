@@ -7,12 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 import java.util.List;
 
 @Repository
@@ -79,31 +75,18 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
                        @Param("crewContentsCreate") String crewContentsCreate);
 
-  //  인원모집 찾아서 읽어오기
+
+//    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
-<<<<<<< HEAD
   List<BoardEntity> queryFindPerson();
-  //  인원모집 수정하기
-  //  인원모집 삭제하기
-<<<<<<< HEAD
-=======
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
-
-public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
-
-    @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
-    List<BoardEntity> findAllByOrderByBoard_idxDesc();
->>>>>>> 945e405062063ba14e54436d47b23d687340b012
-=======
+//    인원모집 수정하기
+//    인원모집 삭제하기
 
   @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
   List<BoardEntity> findAllByOrderByBoard_idxDesc();
->>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
-=======
+
+  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
   List<BoardEntity> queryFindCrew();
->>>>>>> simJiHyun
 
   //  인원모집 수정하기
   @Modifying
