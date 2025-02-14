@@ -2,26 +2,40 @@ package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 
 >>>>>>> 945e405062063ba14e54436d47b23d687340b012
+=======
+>>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.Optional;
 >>>>>>> 945e405062063ba14e54436d47b23d687340b012
+=======
+import java.util.Optional;
+
+>>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   @Autowired
   private BoardRepository boardRepository;
+=======
+
+    @Autowired
+    private BoardRepository boardRepository;
+>>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
   //  공지 쓰기
   @Override
@@ -53,15 +67,37 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindEvent();
   }
 
+  //  이벤트 쓰기
+  @Override
+  public void writeEvent(String eventTitleCreate, String eventContentsCreate) {
+    boardRepository.queryWriteEvent(eventTitleCreate, eventContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @Override
+  public void updateEvent(String eventTitleUpdate, String eventContentsUpdate, int eventNumberUpdate) {
+    boardRepository.queryUpdateEvent(eventTitleUpdate, eventContentsUpdate, eventNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @Override
+  public void deleteEvent(int eventNumberDelete) {
+    boardRepository.queryDeleteEvent(eventNumberDelete);
+  }
+
   //  인원 모집 조회하기
   @Override
   public List<BoardEntity> findPerson() {
     return boardRepository.queryFindPerson();
   }
 
+<<<<<<< HEAD
 =======
     @Autowired
     private BoardRepository boardRepository;
+=======
+
+>>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
     @Override
     public List<BoardEntity> selectBoardList() {
@@ -86,7 +122,11 @@ public class BoardServiceImpl implements BoardService {
             throw new NullPointerException();
         }
     }
+<<<<<<< HEAD
 >>>>>>> 945e405062063ba14e54436d47b23d687340b012
+=======
+
+>>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 }
 
