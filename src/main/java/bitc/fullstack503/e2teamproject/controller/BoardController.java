@@ -44,6 +44,16 @@ public class BoardController {
     return mav;
   }
 
+  //  공지 네개씩만 보기
+  @ResponseBody
+  @RequestMapping("/notice/four")
+  public ModelAndView noticeReadFour(){
+    ModelAndView mav = new ModelAndView("/board/noticePage");
+    List<BoardEntity> findNoticeFourList = boardService.findNoticeFour();
+    mav.addObject("findNoticeFourList", findNoticeFourList);
+    return mav;
+  }
+
   //  공지 상세 보기
   @RequestMapping("/notice/{boardIdx}")
   public ModelAndView noticeReadMore(@PathVariable("boardIdx") int boardIdx) {
@@ -84,6 +94,8 @@ public class BoardController {
     mav.addObject("findEventList", findEventList);
     return mav;
   }
+
+  //  이벤트 네개씩만 보기
 
   //  이벤트 상세보기
   @RequestMapping("/event/{boardIdx}")
@@ -127,7 +139,7 @@ public class BoardController {
     return mav;
   }
 
-//  인원 모집 상세보기
+  //  인원 모집 상세보기
   @RequestMapping("/crew/{boardIdx}")
   public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx) {
     ModelAndView mav = new ModelAndView("/board/crewDetailPage");

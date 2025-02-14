@@ -1,12 +1,14 @@
 package bitc.fullstack503.e2teamproject.repository;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   //  공지사항 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '공지사항'")
   List<BoardEntity> queryFindNotice();
+
+  //  공지사항 네개씩 읽어오기
+  @Query("select b from BoardEntity as b where b.category='공지사항'")
+  List<BoardEntity> queryFindNoticeFour(Pageable pageable);
 
   //  공지사항 수정하기
   @Modifying
@@ -58,8 +64,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Query("update BoardEntity b set b.title = :eventTitleUpdate," +
           "b.contents = :eventContentsUpdate where b.board_idx = :eventNumberUpdate")
   void queryUpdateEvent(@Param("eventTitleUpdate") String eventTitleUpdate,
-                         @Param("eventContentsUpdate") String eventContentsUpdate,
-                         @Param("eventNumberUpdate") int eventNumberUpdate);
+                        @Param("eventContentsUpdate") String eventContentsUpdate,
+                        @Param("eventNumberUpdate") int eventNumberUpdate);
 
   //  이벤트 삭제하기
   @Modifying
@@ -73,16 +79,14 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Query(value = "insert into board (board_user_idx, title, contents, category)" +
           "values (2, :crewTitleCreate, :crewContentsCreate,'인원모집')", nativeQuery = true)
   void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
-                       @Param("crewContentsCreate") String crewContentsCreate);
+                      @Param("crewContentsCreate") String crewContentsCreate);
 
-//    인원모집 찾아서 읽어오기
+  //    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
   List<BoardEntity> queryFindCrew();
-//    인원모집 수정하기
-//    인원모집 삭제하기
 
-  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
-  List<BoardEntity> findAllByOrderByBoard_idxDesc();
+//  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
+//  List<BoardEntity> findAllByOrderByBoard_idxDesc();
 
   //  인원모집 수정하기
   @Modifying
@@ -90,8 +94,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Query("update BoardEntity b set b.title = :crewTitleUpdate," +
           "b.contents = :crewContentsUpdate where b.board_idx = :crewNumberUpdate")
   void queryUpdateCrew(@Param("crewTitleUpdate") String crewTitleUpdate,
-                        @Param("crewContentsUpdate") String crewContentsUpdate,
-                        @Param("crewNumberUpdate") int crewNumberUpdate);
+                       @Param("crewContentsUpdate") String crewContentsUpdate,
+                       @Param("crewNumberUpdate") int crewNumberUpdate);
 
   //  인원모집 삭제하기
   @Modifying

@@ -10,6 +10,9 @@ public interface BoardService {
   //  공지 읽기
   List<BoardEntity> findNotice();
 
+  //  공지 네개씩만 나오게
+  List<BoardEntity> findNoticeFour();
+
   //  공지 상세보기
   BoardEntity findNoticeById(@RequestParam("boardIdx") int boardIdx);
 

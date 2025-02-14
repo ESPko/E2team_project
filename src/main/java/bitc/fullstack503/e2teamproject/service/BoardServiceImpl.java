@@ -3,6 +3,8 @@ package bitc.fullstack503.e2teamproject.service;
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,13 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public List<BoardEntity> findNotice() {
     return boardRepository.queryFindNotice();
+  }
+
+  //  공지 네개씩만 나오게
+  @Override
+  public List<BoardEntity> findNoticeFour() {
+    Pageable noticeFour = PageRequest.of(0,4);
+    return boardRepository.queryFindNoticeFour(noticeFour);
   }
 
   //  모든 글 상세보기
