@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService {
 
   //  공지 수정하기
   @Override
-  public void updateNotice(String noticeTitleUpdate, String noticeContentsUpdate, int noticeNumber) {
-    boardRepository.queryUpdateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumber);
+  public void updateNotice(String noticeTitleUpdate, String noticeContentsUpdate, int noticeNumberUpddate) {
+    boardRepository.queryUpdateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpddate);
   }
 
   //  공지 삭제하기
@@ -63,9 +63,25 @@ public class BoardServiceImpl implements BoardService {
 
   //  인원 모집 조회하기
   @Override
-  public List<BoardEntity> findPerson() {
-    return boardRepository.queryFindPerson();
+  public List<BoardEntity> findCrew() {
+    return boardRepository.queryFindCrew();
   }
 
+  //  인원 모집 쓰기
+  @Override
+  public void writeCrew(String crewTitleCreate, String crewContentsCreate) {
+    boardRepository.queryWriteCrew(crewTitleCreate, crewContentsCreate);
+  }
 
+  //  인원 모집 수정하기
+  @Override
+  public void updateCrew(String crewTitleUpdate, String crewContentsUpdate, int crewNumberUpdate) {
+    boardRepository.queryUpdateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
+  }
+
+//  인원 모집 삭제하기
+  @Override
+  public void deleteCrew(int crewNumberDelete) {
+    boardRepository.queryDeleteCrew(crewNumberDelete);
+  }
 }

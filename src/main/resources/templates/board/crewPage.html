@@ -34,14 +34,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="findPerson : ${findPersonList}">
-          <td class="col-1 text-center" th:value="${findPerson.board_idx}" th:text="${findPerson.board_idx}">1</td>
+        <tr th:each="findCrew : ${findCrewList}">
+          <td class="col-1 text-center" th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1</td>
           <td class="col-5">
-            <a href="#" class="text-dark" style="text-decoration: none" th:value="${findPerson.title}" th:text="${findPerson.title}">제목1</a>
+            <a href="#" class="text-dark" style="text-decoration: none" th:value="${findCrew.title}" th:text="${findCrew.title}">제목1</a>
           </td>
-          <td class="col-2 text-center" th:value="${findPerson.user.user_idx}" th:text="${findPerson.user.user_idx}">작성자1</td>
-          <td class="col-2 text-left" th:value="${findPerson.createDate}" th:text="${findPerson.createDate}">2025-02-02</td>
-          <td class="col-2 text-center" th:value="${findPerson.hitCount}" th:text="${findPerson.hitCount}">0</td>
+          <td class="col-2 text-center" th:value="${findCrew.user.user_idx}" th:text="${findCrew.user.user_idx}">작성자1</td>
+          <td class="col-2 text-left" th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02</td>
+          <td class="col-2 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</td>
         </tr>
         </tbody>
       </table>

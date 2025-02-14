@@ -27,11 +27,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   //  공지사항 수정하기
   @Modifying
   @Transactional
-  @Query("update BoardEntity b set b.title = :noticeUpdateTitle," +
-          "b.contents = :noticeUpdateContents where b.board_idx = :noticeNumber")
-  void queryUpdateNotice(@Param("noticeUpdateTitle") String noticeUpdateTitle,
-                         @Param("noticeUpdateContents") String noticeUpdateContents,
-                         @Param("noticeNumber") int noticeNumber);
+  @Query("update BoardEntity b set b.title = :noticeTitleUpdate," +
+          "b.contents = :noticeContentsUpdate where b.board_idx = :noticeNumberUpdate")
+  void queryUpdateNotice(@Param("noticeTitleUpdate") String noticeTitleUpdate,
+                         @Param("noticeContentsUpdate") String noticeContentsUpdate,
+                         @Param("noticeNumberUpdate") int noticeNumberUpdate);
 
   //  공지사항 삭제하기
   @Modifying
@@ -67,10 +67,29 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryDeleteEvent(@Param("eventNumberDelete") int eventNumberDelete);
 
   //  인원모집 쓰기
+  @Modifying
+  @Transactional
+  @Query(value = "insert into board (board_user_idx, title, contents, category)" +
+          "values (2, :crewTitleCreate, :crewContentsCreate,'인원모집')", nativeQuery = true)
+  void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
+                       @Param("crewContentsCreate") String crewContentsCreate);
+
   //  인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
-  List<BoardEntity> queryFindPerson();
-  //  인원모집 수정하기
-  //  인원모집 삭제하기
+  List<BoardEntity> queryFindCrew();
 
+  //  인원모집 수정하기
+  @Modifying
+  @Transactional
+  @Query("update BoardEntity b set b.title = :crewTitleUpdate," +
+          "b.contents = :crewContentsUpdate where b.board_idx = :crewNumberUpdate")
+  void queryUpdateCrew(@Param("crewTitleUpdate") String crewTitleUpdate,
+                        @Param("crewContentsUpdate") String crewContentsUpdate,
+                        @Param("crewNumberUpdate") int crewNumberUpdate);
+
+  //  인원모집 삭제하기
+  @Modifying
+  @Transactional
+  @Query("delete from BoardEntity b where b.board_idx = :crewNumberDelete")
+  void queryDeleteCrew(@Param("crewNumberDelete") int crewNumberDelete);
 }

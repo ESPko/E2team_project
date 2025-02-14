@@ -43,19 +43,20 @@
 
               const noticeTitleUpdate = parentForm.find(".noticeTitleUpdate").val();
               const noticeContentsUpdate = parentForm.find(".noticeContentsUpdate").val();
-              const noticeNumber = parentForm.find(".noticeNumber").val();
+              const noticeNumberUpdate = parentForm.find(".noticeNumberUpdate").val();
 
               console.log("제목 : " + noticeTitleUpdate);
               console.log("내용 : " + noticeContentsUpdate);
-              console.log("글번호 : " + noticeNumber);
+              console.log("글번호 : " + noticeNumberUpdate);
 
               $.ajax({
                   url: 'notice/update',
                   type: 'put',
+                  contentType :'application/json',
                   data: {
                       "noticeTitleUpdate": noticeTitleUpdate,
                       "noticeContentsUpdate": noticeContentsUpdate,
-                      "noticeNumber": noticeNumber
+                      "noticeNumberUpdate": noticeNumberUpdate
                   },
                   success: function () {
                       alert("공지 수정 완료");
@@ -183,39 +184,121 @@
                   }
               });
           });
+
+          // 인원 모집 쓰기
+          $("#crewWriteSubmit").on("click", function (event) {
+              event.preventDefault();
+
+              const crewTitleCreate = $("#crewTitleCreate").val();
+              const crewContentsCreate = $("#crewContentsCreate").val();
+              console.log("제목 : " + crewTitleCreate);
+              console.log("내용 : " + crewContentsCreate);
+
+              $.ajax({
+                  url: 'crew/write',
+                  type: 'post',
+                  data: {"crewTitleCreate": crewTitleCreate, "crewContentsCreate": crewContentsCreate},
+                  success: function () {
+                      alert("인원 모집 등록 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("인원 모집 등록 중 오류");
+                  }});
+          });
+
+          // 인원 모집 수정
+          $("#crewUpdateSubmit").on("click", function (event) {
+              event.preventDefault();
+
+              const parentForm = $(this).closest("form");
+
+              const crewTitleUpdate = parentForm.find(".crewTitleUpdate").val();
+              const crewContentsUpdate = parentForm.find(".crewContentsUpdate").val();
+              const crewNumberUpdate = parentForm.find(".crewNumberUpdate").val();
+
+              console.log("제목 : " + crewTitleUpdate);
+              console.log("내용 : " + crewContentsUpdate);
+              console.log("글번호 : " + crewNumberUpdate);
+
+              $.ajax({
+                  url: 'crew/update',
+                  type: 'put',
+                  data: {
+                      "crewTitleUpdate": crewTitleUpdate,
+                      "crewContentsUpdate": crewContentsUpdate,
+                      "crewNumberUpdate": crewNumberUpdate
+                  },
+                  success: function () {
+                      alert("인원 모집 수정 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("인원 모집 수정 주 오류");
+                      // location.reload();
+                  }
+              });
+          });
+
+          // 인원 모집 삭제
+          $("#crewDeleteSubmit").on("click", function (event) {
+              event.preventDefault();
+
+              const parentForm = $(this).closest("form");
+
+              const crewNumberDelete = parentForm.find(".crewNumberDelete").val();
+
+              console.log("글번호 : " + crewNumberDelete);
+
+              $.ajax({
+                  url: 'crew/delete',
+                  type: 'delete',
+                  data: {
+                      "crewNumberDelete": crewNumberDelete
+                  },
+                  success: function () {
+                      alert("인원 모집 삭제 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("인원 모집 삭제 중 오류");
+                      // location.reload();
+                  }
+              });
+          });
       })
   </script>
 </head>
 <body>
-<form action="/board/notice/write" method="post">
-  <label for="location">지역</label>
-  <select name="location" id="location">
-    <option value="" selected>선택</option>
-    <option value="부산진구">부산진구</option>
-  </select>
-  <br>
-  <label for="age">나이</label>
-  <select name="age" id="age">
-    <option value="" selected>선택</option>
-    <option value="0">미취학 아동</option>
-    <option value="10">10대</option>
-    <option value="20">20대</option>
-    <option value="30">30대</option>
-    <option value="40">40대</option>
-    <option value="50">50대</option>
-  </select>
-  <br>
-  <label for="person">인원 수</label>
-  <select name="person" id="person">
-    <option value="" selected>선택</option>
-    <option value="1">1명</option>
-    <option value="2">2명</option>
-    <option value="4">4명 이상</option>
-  </select>
-  <br>
-  <button type="submit">확인</button>
-  <button type="reset">취소</button>
-</form>
+<!--<form action="/board/notice/write" method="post">-->
+<!--  <label for="location">지역</label>-->
+<!--  <select name="location" id="location">-->
+<!--    <option value="" selected>선택</option>-->
+<!--    <option value="부산진구">부산진구</option>-->
+<!--  </select>-->
+<!--  <br>-->
+<!--  <label for="age">나이</label>-->
+<!--  <select name="age" id="age">-->
+<!--    <option value="" selected>선택</option>-->
+<!--    <option value="0">미취학 아동</option>-->
+<!--    <option value="10">10대</option>-->
+<!--    <option value="20">20대</option>-->
+<!--    <option value="30">30대</option>-->
+<!--    <option value="40">40대</option>-->
+<!--    <option value="50">50대</option>-->
+<!--  </select>-->
+<!--  <br>-->
+<!--  <label for="person">인원 수</label>-->
+<!--  <select name="person" id="person">-->
+<!--    <option value="" selected>선택</option>-->
+<!--    <option value="1">1명</option>-->
+<!--    <option value="2">2명</option>-->
+<!--    <option value="4">4명 이상</option>-->
+<!--  </select>-->
+<!--  <br>-->
+<!--  <button type="submit">확인</button>-->
+<!--  <button type="reset">취소</button>-->
+<!--</form>-->
 
 <br>
 <hr>
@@ -236,7 +319,7 @@
 <h1>공지사항 crud</h1>
 <div>
   <h3>create</h3>
-  <form action="#" method="post" th:href="@{/board/notice/write}">
+  <form action="#" th:action="@{/board/notice/write}" th:method="post">
     <label for="noticeTitle">제목</label>
     <input type="text" name="noticeTitle" id="noticeTitle">
     <label for="noticeContents">내용</label>
@@ -253,23 +336,23 @@
   </div>
   <br>
   <h3>update</h3>
-  <form action="#" method="post" th:href="@{/board/notice/update}" th:each="findNotice : ${findNoticeList}">
-    <label for="noticeNumber">글번호</label>
-    <input type="text" name="noticeNumber" id="noticeNumber" class="noticeNumber"
+  <form action="#" th:action="@{/board/notice/update}" th:method="put" th:each="findNotice : ${findNoticeList}">
+    <label for="noticeNumberUpdate">글번호</label>
+    <input type="text" name="noticeNumberUpdate" id="noticeNumberUpdate" class="noticeNumberUpdate"
            th:value="${findNotice.getBoard_idx()}"
            readonly>
-    <label for="noticeTitle">제목</label>
-    <input type="text" name="noticeTitle" id="noticeTitleUpdate" class="noticeTitleUpdate"
+    <label for="noticeTitleUpdate">제목</label>
+    <input type="text" name="noticeTitleUpdate" id="noticeTitleUpdate" class="noticeTitleUpdate"
            th:value="${findNotice.title}">
-    <label for="noticeContents">내용</label>
-    <textarea name="noticeContents" id="noticeContentsUpdate" class="noticeContentsUpdate"
-              th:text="${findNotice.contents}"></textarea>
+    <label for="noticeContentsUpdate">내용</label>
+    <textarea name="noticeContentsUpdate" id="noticeContentsUpdate" class="noticeContentsUpdate"
+              th:value="${findNotice.contents}"></textarea>
     <button type="submit" class="noticeUpdateSubmit" id="noticeUpdateSubmit">수정</button>
     <button type="reset" class="noticeUpdateReset">취소</button>
   </form>
   <br>
   <h3>delete</h3>
-  <form action="#" th:href="@{/board/notice/delete}" th:each="findNotice : ${findNoticeList}">
+  <form action="#" th:action="@{/board/notice/delete}" th:method="delete" th:each="findNotice : ${findNoticeList}">
     <label for="noticeNumberDelete">글번호</label>
     <input type="text" name="noticeNumberDelete" id="noticeNumberDelete" class="noticeNumberDelete"
            th:value="${findNotice.getBoard_idx()}"
@@ -291,7 +374,7 @@
 <h1>이벤트 crud</h1>
 <div>
   <h3>create</h3>
-  <form action="#" method="post" th:href="@{/board/event/write}">
+  <form action="#" th:action="@{/board/event/write}" th:method="post">
     <label for="eventTitleCreate">제목</label>
     <input type="text" name="eventTitleCreate" id="eventTitleCreate">
     <label for="eventContentsCreate">내용</label>
@@ -308,7 +391,7 @@
   </div>
   <br>
   <h3>update</h3>
-  <form action="#" method="post" th:href="@{/board/event/update}" th:each="findEvent : ${findEventList}">
+  <form action="#" th:action="@{/board/event/update}" th:method="put" th:each="findEvent : ${findEventList}">
     <label for="eventNumberUpdate">글번호</label>
     <input type="text" name="eventNumberUpdate" id="eventNumberUpdate" class="eventNumberUpdate"
            th:value="${findEvent.getBoard_idx()}"
@@ -324,7 +407,7 @@
   </form>
   <br>
   <h3>delete</h3>
-  <form action="#" th:href="@{/board/event/delete}" th:each="findEvent : ${findEventList}">
+  <form action="#" th:action="@{/board/event/delete}" th:method="delete" th:each="findEvent : ${findEventList}">
     <label for="eventNumberDelete">글번호</label>
     <input type="text" name="eventNumberDelete" id="eventNumberDelete" class="eventNumberDelete"
            th:value="${findEvent.getBoard_idx()}"
@@ -346,51 +429,51 @@
 <h1>게시판 crud</h1>
 <div>
   <h3>create</h3>
-  <form action="#" method="post" th:href="@{/board/person/write}">
-    <label for="personTitleCreate">제목</label>
-    <input type="text" name="personTitleCreate" id="personTitleCreate">
-    <label for="personContentsCreate">내용</label>
-    <textarea name="personContentsCreate" id="personContentsCreate"></textarea>
-    <button type="submit" class="personWriteSubmit">등록</button>
-    <button type="reset" class="personWriteReset">취소</button>
+  <form action="#" th:method="post" th:action="@{/board/crew/write}">
+    <label for="crewTitleCreate">제목</label>
+    <input type="text" name="crewTitleCreate" id="crewTitleCreate">
+    <label for="crewContentsCreate">내용</label>
+    <textarea name="crewContentsCreate" id="crewContentsCreate"></textarea>
+    <button type="submit" class="crewWriteSubmit" id="crewWriteSubmit">등록</button>
+    <button type="reset" class="crewWriteReset">취소</button>
   </form>
   <br>
   <h3>read</h3>
-  <div th:each="findPerson : ${findPersonList}">
-    <h5 th:text="|인원모집 글 번호 : ${findPerson.getBoard_idx()}|"></h5>
-    <p th:text="|인원모집 제목 : ${findPerson.title}|"></p>
-    <p th:text="|인원모집 내용 : ${findPerson.contents}|"></p>
+  <div th:each="findCrew : ${findCrewList}">
+    <h5 th:text="|인원모집 글 번호 : ${findCrew.getBoard_idx()}|"></h5>
+    <p th:text="|인원모집 제목 : ${findCrew.title}|"></p>
+    <p th:text="|인원모집 내용 : ${findCrew.contents}|"></p>
   </div>
   <br>
   <h3>update</h3>
-  <form action="#" method="post" th:href="@{/board/person/update}" th:each="findPerson : ${findPersonList}">
-    <label for="personNumberUpdate">글번호</label>
-    <input type="text" name="personNumberUpdate" id="personNumberUpdate" class="personNumberUpdate"
-           th:value="${findPerson.getBoard_idx()}"
+  <form action="#" th:method="put" th:action="@{/board/crew/update}" th:each="findCrew : ${findCrewList}">
+    <label for="crewNumberUpdate">글번호</label>
+    <input type="text" name="crewNumberUpdate" id="crewNumberUpdate" class="crewNumberUpdate"
+           th:value="${findCrew.getBoard_idx()}"
            readonly>
-    <label for="personTitleUpdate">제목</label>
-    <input type="text" name="personTitleUpdate" id="personTitleUpdate" class="personTitleUpdate"
-           th:value="${findPerson.title}">
-    <label for="personContentsUpdate">내용</label>
-    <textarea name="personContentsUpdate" id="personContentsUpdate" class="personContentsUpdate"
-              th:text="${findPerson.contents}"></textarea>
-    <button type="submit" class="personUpdateSubmit">수정</button>
-    <button type="reset" class="personUpdateReset">취소</button>
+    <label for="crewTitleUpdate">제목</label>
+    <input type="text" name="crewTitleUpdate" id="crewTitleUpdate" class="crewTitleUpdate"
+           th:value="${findCrew.title}">
+    <label for="crewContentsUpdate">내용</label>
+    <textarea name="crewContentsUpdate" id="crewContentsUpdate" class="crewContentsUpdate"
+              th:value="${findCrew.contents}"></textarea>
+    <button type="submit" class="crewUpdateSubmit" id="crewUpdateSubmit">수정</button>
+    <button type="reset" class="crewUpdateReset">취소</button>
   </form>
   <br>
   <h3>delete</h3>
-  <form action="#" th:href="@{/board/person/delete}" th:each="findPerson : ${findPersonList}">
-    <label for="personNumberDelete">글번호</label>
-    <input type="text" name="personNumberDelete" id="personNumberDelete" class="personNumberDelete"
-           th:value="${findPerson.getBoard_idx()}"
+  <form action="#" th:each="findCrew : ${findCrewList}" th:method="delete" th:action="@{/board/crew/delete}">
+    <label for="crewNumberDelete">글번호</label>
+    <input type="text" name="crewNumberDelete" id="crewNumberDelete" class="crewNumberDelete"
+           th:value="${findCrew.getBoard_idx()}"
            readonly>
-    <label for="personTitleDelete">제목</label>
-    <input type="text" name="personTitleDelete" id="personTitleDelete" class="personTitleDelete"
-           th:value="${findPerson.title}">
-    <label for="personContentsDelete">내용</label>
-    <textarea name="personContentsDelete" id="personContentsDelete" class="personContentsDelete"
-              th:text="${findPerson.contents}"></textarea>
-    <button type="submit" class="personDeleteSubmit">삭제</button>
+    <label for="crewTitleDelete">제목</label>
+    <input type="text" name="crewTitleDelete" id="crewTitleDelete" class="crewTitleDelete"
+           th:value="${findCrew.title}">
+    <label for="crewContentsDelete">내용</label>
+    <textarea name="crewContentsDelete" id="crewContentsDelete" class="crewContentsDelete"
+              th:text="${findCrew.contents}"></textarea>
+    <button type="button" class="crewDeleteSubmit" id="crewDeleteSubmit">삭제</button>
   </form>
 </div>
 
