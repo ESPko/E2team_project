@@ -16,27 +16,53 @@ public class HomeController {
   @RequestMapping("/notice")
   public ModelAndView notice() {
     ModelAndView mav = new ModelAndView("/board/noticePage");
-    mav.addObject("title", "Home Page");
     return mav;
   }
   @RequestMapping("/crew")
   public ModelAndView crew() {
     ModelAndView mav = new ModelAndView("/board/crewPage");
-    mav.addObject("title", "Home Page");
     return mav;
   }
   @RequestMapping("/event")
   public ModelAndView event() {
     ModelAndView mav = new ModelAndView("/board/eventPage");
-    mav.addObject("title", "Home Page");
     return mav;
   }
   @RequestMapping("/noticedetail")
   public ModelAndView noticedetail() {
     ModelAndView mav = new ModelAndView("/board/noticeDetailPage");
-    mav.addObject("title", "Home Page");
     return mav;
   }
 
+  @RequestMapping("/manager")
+  public ModelAndView managerPage() {
+    ModelAndView mav = new ModelAndView("/manage/managerPage");
+    return mav;
+  }
+  @RequestMapping("/login")
+  public ModelAndView login() {
+    ModelAndView mav = new ModelAndView("/login/login");
+    return mav;
+  }
+  @RequestMapping("/loginpage")
+  public ModelAndView loginPage() {
+    ModelAndView mav = new ModelAndView("/login/loginPage");
+    return mav;
+  }
+  @RequestMapping("/profile")
+  public ModelAndView profile() {
+    ModelAndView mav = new ModelAndView("/login/profile");
+    return mav;
+  }
+  @RequestMapping("/profilepage")
+  public ModelAndView prifilePage() {
+    ModelAndView mav = new ModelAndView("/login/profilePage");
+    return mav;
+  }
+  @RequestMapping("/resister")
+  public ModelAndView resister() {
+    ModelAndView mav = new ModelAndView("/login/resisterPage");
+    return mav;
+  }
 }
 
