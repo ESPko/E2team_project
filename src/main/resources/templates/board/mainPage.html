@@ -14,20 +14,41 @@
           const noticeContainer = $(".noticeContainer");
           const eventContainer = $(".eventContainer");
 
+          // 공지사항 네 개 확인하기
           $.ajax({
               url: "/notice/four",
               type: "get",
-              success: function () {
+              success: function (data) {
                   noticeContainer.empty();
 
-                  let html = "<div th:each='findNoticeFour : ${findNoticeFourList}'>";
-                  html += "<li class=\"list-group-item\" th:value='${findNoticeFour.title}'></li>";
-                  html += "</div>";
-                  noticeContainer.append(html);
+                  data.forEach(notice => {
+                      let html = `<li class="list-group-item">${notice.title}</li>`;
+                      noticeContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("공지사항 불러오기 실패:", error);
               }
           });
 
-          $.ajax({});
+          // 이벤트 네 개 확인하기
+          $.ajax({
+              url: "/event/four",
+              type: "get",
+              success: function (data) {
+                  console.log("이벤트 데이터 : " + data);
+
+                  eventContainer.empty();
+
+                  data.forEach(event => {
+                      let html = `<li class="list-group-item">${event.title}</li>`;
+                      eventContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("이벤트 불러오기 실패:", error);
+              }
+          });
       });
   </script>
 </head>
@@ -156,20 +177,13 @@
       <ul class="list-group">
         <h4>공지사항</h4>
         <div class="noticeContainer">
-<!--          <li class="list-group-item">공지사항 게시글 2가 보여질 부분입니다.</li>-->
-<!--          <li class="list-group-item">공지사항 게시글 3가 보여질 부분입니다.</li>-->
-<!--          <li class="list-group-item">공지사항 게시글 4가 보여질 부분입니다.</li>-->
         </div>
       </ul>
     </div>
     <div class="col-sm p-4">
-      <ul class="list-group eventContainer">
+      <ul class="list-group">
         <h4>이벤트</h4>
         <div class="eventContainer">
-          <li class="list-group-item">이벤트 게시글 1가 보여질 부분입니다.</li>
-          <li class="list-group-item">이벤트 게시글 2가 보여질 부분입니다.</li>
-          <li class="list-group-item">이벤트 게시글 3가 보여질 부분입니다.</li>
-          <li class="list-group-item">이벤트 게시글 4가 보여질 부분입니다.</li>
         </div>
       </ul>
     </div>

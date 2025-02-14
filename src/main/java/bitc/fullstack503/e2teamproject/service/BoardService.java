@@ -31,6 +31,9 @@ public interface BoardService {
   //  이벤트 읽기
   List<BoardEntity> findEvent();
 
+  //  이벤트 네개씩만 보기
+  List<BoardEntity> findEventFour();
+
   //  이벤트 쓰기
   void writeEvent(@RequestParam("eventTitleCreate") String eventTitleCreate,
                   @RequestParam("eventContentsCreate") String eventContentsCreate);

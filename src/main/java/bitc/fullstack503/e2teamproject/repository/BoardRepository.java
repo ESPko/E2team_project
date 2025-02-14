@@ -58,6 +58,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Query("select b from BoardEntity as b where b.category = '이벤트'")
   List<BoardEntity> queryFindEvent();
 
+  //  이벤트 네개씩 읽어오기
+  @Query("select b from BoardEntity as b where b.category='이벤트'")
+  List<BoardEntity> queryFindEventFour(Pageable pageable);
+
   //  이벤트 수정하기
   @Modifying
   @Transactional

@@ -32,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
   //  공지 네개씩만 나오게
   @Override
   public List<BoardEntity> findNoticeFour() {
-    Pageable noticeFour = PageRequest.of(0,4);
+    Pageable noticeFour = PageRequest.of(0, 4);
     return boardRepository.queryFindNoticeFour(noticeFour);
   }
 
@@ -66,6 +66,13 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public List<BoardEntity> findEvent() {
     return boardRepository.queryFindEvent();
+  }
+
+  //  이벤트 네개씩만 보기
+  @Override
+  public List<BoardEntity> findEventFour() {
+    Pageable eventFour = PageRequest.of(0, 4);
+    return boardRepository.queryFindEventFour(eventFour);
   }
 
   //  이벤트 쓰기

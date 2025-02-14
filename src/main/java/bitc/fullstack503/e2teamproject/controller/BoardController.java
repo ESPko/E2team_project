@@ -47,11 +47,8 @@ public class BoardController {
   //  공지 네개씩만 보기
   @ResponseBody
   @RequestMapping("/notice/four")
-  public ModelAndView noticeReadFour(){
-    ModelAndView mav = new ModelAndView("/board/noticePage");
-    List<BoardEntity> findNoticeFourList = boardService.findNoticeFour();
-    mav.addObject("findNoticeFourList", findNoticeFourList);
-    return mav;
+  public List<BoardEntity> noticeReadFour(){
+    return boardService.findNoticeFour();
   }
 
   //  공지 상세 보기
@@ -95,7 +92,12 @@ public class BoardController {
     return mav;
   }
 
-  //  이벤트 네개씩만 보기
+  // 이벤트 네개씩만 보기
+  @ResponseBody
+  @RequestMapping("/event/four")
+  public List<BoardEntity> eventReadFour(){
+    return boardService.findEventFour();
+  }
 
   //  이벤트 상세보기
   @RequestMapping("/event/{boardIdx}")
