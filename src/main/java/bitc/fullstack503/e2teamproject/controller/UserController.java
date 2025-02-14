@@ -42,15 +42,17 @@ public class UserController {
     return "login/loginPage";
   }
 
-//  로그인
+  // 로그인
   @PostMapping("/loginProcess.do")
-  public String loginProcess(@RequestParam("userId") String userId,
-                             @RequestParam("userPw") String userPw,
-                             @RequestParam(value = "rememberMe", required = false) String rememberMe,
-                             HttpServletRequest request,
-                             HttpServletResponse response) throws Exception {
-    if (userService.isUserInfo(userId, userPw)) {
+  @ResponseBody
+  public Map<String, Object> loginProcess(@RequestParam("userId") String userId,
+                                          @RequestParam("userPw") String userPw,
+                                          @RequestParam(value = "rememberMe", required = false) String rememberMe,
+                                          HttpServletRequest request,
+                                          HttpServletResponse response) throws Exception {
+    Map<String, Object> result = new HashMap<>();
 
+    if (userService.isUserInfo(userId, userPw)) {
       UserEntity user = userService.getUserInfo(userId);
       HttpSession session = request.getSession();
       session.setAttribute("userId", user.getId());
@@ -58,22 +60,31 @@ public class UserController {
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
 
-      // "아이디 저장" 체크박스가 선택되었으면 쿠키에 저장
-      if (rememberMe != null) {
+
+      // ✅ 체크박스가 체크된 경우에만 쿠키를 설정
+      if ("on".equals(rememberMe)) {
         Cookie cookie = new Cookie("userId", userId);
-        cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유효
-        cookie.setPath("/"); // 모든 경로에서 쿠키 접근 가능
+        cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유지
+        cookie.setPath("/");
+        response.addCookie(cookie);
+      } else {
+        // 체크하지 않았다면 기존 쿠키 삭제
+        Cookie cookie = new Cookie("userId", null);
+        cookie.setMaxAge(0); // 쿠키 즉시 삭제
+        cookie.setPath("/");
         response.addCookie(cookie);
       }
 
-      if (user.getLevel() == 1) {
-        return "redirect:/board/manager"; // 관리자 페이지
-      }
-      return "redirect:/user/";
+      result.put("status", "success");
+      result.put("userLevel", user.getLevel());
     } else {
-      return "redirect:/user/?errMsg=" + URLEncoder.encode("로그인 정보가 다릅니다.", "UTF-8");
+      result.put("status", "fail");
+      result.put("message", "로그인 정보가 올바르지 않습니다.");
     }
+
+    return result;
   }
+
 
 //   로그아웃
   @RequestMapping("/logout")
