@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
 
-@RestController
+//@RestController
 @Controller
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
 
-//  심지현 테스트용
-//  @RequestMapping("/")
-//  public ModelAndView simJiHyun(){
-//    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
-//    List<BoardEntity> findNoticeList = boardService.findNotice();
-//    List<BoardEntity> findEventList = boardService.findEvent();
-//    List<BoardEntity> findCrewList = boardService.findCrew();
-//    mav.addObject("findNoticeList", findNoticeList);
-//    mav.addObject("findEventList", findEventList);
-//    mav.addObject("findCrewList", findCrewList);
-//    return mav;
-//  }
+  //  심지현 테스트용
+  @RequestMapping("/jiHyunTest")
+  public ModelAndView simJiHyun() {
+    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
+    List<BoardEntity> findNoticeList = boardService.findNotice();
+    List<BoardEntity> findEventList = boardService.findEvent();
+    List<BoardEntity> findCrewList = boardService.findCrew();
+    mav.addObject("findNoticeList", findNoticeList);
+    mav.addObject("findEventList", findEventList);
+    mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
 
+  //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
     return new ModelAndView("/board/mainPage");
@@ -41,6 +41,15 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/noticePage");
     List<BoardEntity> findNoticeList = boardService.findNotice();
     mav.addObject("findNoticeList", findNoticeList);
+    return mav;
+  }
+
+  //  공지 상세 보기
+  @RequestMapping("/notice/{boardIdx}")
+  public ModelAndView noticeReadMore(@PathVariable("boardIdx") int boardIdx){
+    ModelAndView mav = new ModelAndView("/board/noticeDetailPage");
+    BoardEntity noticeList = boardService.findNoticeById(boardIdx);
+    mav.addObject("noticeList", noticeList);
     return mav;
   }
 
@@ -109,24 +118,24 @@ public class BoardController {
     return mav;
   }
 
-  //  이벤트 쓰기
+  //  인원 모집 쓰기
   @ResponseBody
   @PostMapping("/crew/write")
   public void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
-                         @RequestParam("crewContentsCreate") String crewContentsCreate) {
+                        @RequestParam("crewContentsCreate") String crewContentsCreate) {
     boardService.writeCrew(crewTitleCreate, crewContentsCreate);
   }
 
-  //  이벤트 수정하기
+  //  인원 모집 수정하기
   @ResponseBody
   @PutMapping("/crew/update")
   public void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,
-                          @RequestParam("crewContentsUpdate") String crewContentsUpdate,
-                          @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
+                         @RequestParam("crewContentsUpdate") String crewContentsUpdate,
+                         @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
     boardService.updateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
   }
 
-  //  이벤트 삭제하기
+  //  인원 모집 삭제하기
   @ResponseBody
   @DeleteMapping("/crew/delete")
   public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {

@@ -77,15 +77,12 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
 
 //    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
-  List<BoardEntity> queryFindPerson();
+  List<BoardEntity> queryFindCrew();
 //    인원모집 수정하기
 //    인원모집 삭제하기
 
   @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
   List<BoardEntity> findAllByOrderByBoard_idxDesc();
-
-  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
-  List<BoardEntity> queryFindCrew();
 
   //  인원모집 수정하기
   @Modifying

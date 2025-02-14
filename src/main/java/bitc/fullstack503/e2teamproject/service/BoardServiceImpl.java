@@ -29,6 +29,13 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindNotice();
   }
 
+  //  공지 상세보기
+  @Override
+  public BoardEntity findNoticeById(int boardIdx) {
+    Optional<BoardEntity> optional = boardRepository.findById(boardIdx);
+    return optional.orElse(null);
+  }
+
   //  공지 수정하기
   @Override
   public void updateNotice(String noticeTitleUpdate, String noticeContentsUpdate, int noticeNumberUpddate) {
