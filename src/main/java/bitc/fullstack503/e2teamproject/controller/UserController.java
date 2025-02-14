@@ -82,7 +82,7 @@ public class UserController {
     cookie.setPath("/"); // 모든 경로에서 쿠키 접근 가능
     response.addCookie(cookie);
 
-    return "redirect:/loginpage";
+    return "redirect:/";
   }
 
 
