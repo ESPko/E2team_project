@@ -75,7 +75,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
                        @Param("crewContentsCreate") String crewContentsCreate);
 
-
 //    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집'")
   List<BoardEntity> queryFindPerson();

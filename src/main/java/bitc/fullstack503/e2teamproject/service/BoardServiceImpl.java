@@ -14,10 +14,8 @@ import java.util.Optional;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-
   @Autowired
   private BoardRepository boardRepository;
-
 
   //  공지 쓰기
   @Override
@@ -79,29 +77,29 @@ public class BoardServiceImpl implements BoardService {
   }
 
 
-    @Override
-    public List<BoardEntity> selectBoardList() {
-        return boardRepository.findAllByOrderByBoard_idxDesc();
+  @Override
+  public List<BoardEntity> selectBoardList() {
+    return boardRepository.findAllByOrderByBoard_idxDesc();
+  }
+
+  //    게시물 상세 보기
+  @Override
+  public BoardEntity selectboardDetail(int board_idx) {
+
+    Optional<BoardEntity> optBoard = boardRepository.findById(board_idx);
+
+    if (optBoard.isPresent()) {
+
+      BoardEntity board = optBoard.get();
+
+      board.setHitCount(board.getHitCount() + 1);
+      boardRepository.save(board);
+
+      return board;
+    } else {
+      throw new NullPointerException();
     }
-
-    //    게시물 상세 보기
-    @Override
-    public BoardEntity selectboardDetail(int board_idx) {
-
-        Optional<BoardEntity> optBoard = boardRepository.findById(board_idx);
-
-        if (optBoard.isPresent()) {
-
-            BoardEntity board = optBoard.get();
-
-            board.setHitCount(board.getHitCount() + 1);
-            boardRepository.save(board);
-
-            return board;
-        } else {
-            throw new NullPointerException();
-        }
-    }
+  }
 
 
   //  인원 모집 쓰기
@@ -116,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
     boardRepository.queryUpdateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
   }
 
-//  인원 모집 삭제하기
+  //  인원 모집 삭제하기
   @Override
   public void deleteCrew(int crewNumberDelete) {
     boardRepository.queryDeleteCrew(crewNumberDelete);
