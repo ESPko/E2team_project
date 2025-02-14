@@ -24,12 +24,24 @@ import org.springframework.web.servlet.ModelAndView;
 >>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
 
 @Controller
-@RestController
 @RequestMapping("/board")
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
+
+//  심지현 테스트용
+  @RequestMapping("/")
+  public ModelAndView simJiHyun(){
+    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
+    List<BoardEntity> findNoticeList = boardService.findNotice();
+    List<BoardEntity> findEventList = boardService.findEvent();
+    List<BoardEntity> findCrewList = boardService.findCrew();
+    mav.addObject("findNoticeList", findNoticeList);
+    mav.addObject("findEventList", findEventList);
+    mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
 
   //  공지 보기
   @RequestMapping("/notice/read")
@@ -43,17 +55,19 @@ public class BoardController {
   //  공지 쓰기
   @ResponseBody
   @PostMapping("/notice/write")
-  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
+  public String writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
+    return "/board/";
   }
 
   //  공지 수정하기
   @ResponseBody
   @PutMapping("/notice/update")
-  public void updateNotice(@RequestParam("noticeTitleUpdate") String noticeTitleUpdate,
-                           @RequestParam("noticeContentsUpdate") String noticeContentsUpdate,
-                           @RequestParam("noticeNumber") int noticeNumber) {
-    boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumber);
+  public String updateNotice(@RequestParam(value = "noticeTitleUpdate", required = false) String noticeTitleUpdate,
+                           @RequestParam(value = "noticeContentsUpdate", required = false) String noticeContentsUpdate,
+                           @RequestParam(value = "noticeNumberUpdate", required = false) int noticeNumberUpdate) {
+    boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpdate);
+    return "/board/";
   }
 
   //  공지 삭제하기
@@ -100,11 +114,12 @@ public class BoardController {
   @RequestMapping("/crew/read")
   public ModelAndView crewRead() {
     ModelAndView mav = new ModelAndView("/board/crewPage");
-    List<BoardEntity> findPersonList = boardService.findPerson();
-    mav.addObject("findPersonList", findPersonList);
+    List<BoardEntity> findCrewList = boardService.findCrew();
+    mav.addObject("findCrewList", findCrewList);
     return mav;
   }
 
+<<<<<<< HEAD
 //  관리자 페이지
   @RequestMapping("/manager")
   public ModelAndView manager() {
@@ -117,4 +132,29 @@ public class BoardController {
     return "login/registerPage";  // 회원가입 페이지로 이동
   }
 
+=======
+  //  이벤트 쓰기
+  @ResponseBody
+  @PostMapping("/crew/write")
+  public void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
+                         @RequestParam("crewContentsCreate") String crewContentsCreate) {
+    boardService.writeCrew(crewTitleCreate, crewContentsCreate);
+  }
+
+  //  이벤트 수정하기
+  @ResponseBody
+  @PutMapping("/crew/update")
+  public void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,
+                          @RequestParam("crewContentsUpdate") String crewContentsUpdate,
+                          @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
+    boardService.updateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
+  }
+
+  //  이벤트 삭제하기
+  @ResponseBody
+  @DeleteMapping("/crew/delete")
+  public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
+    boardService.deleteCrew(crewNumberDelete);
+  }
+>>>>>>> simJiHyun
 }

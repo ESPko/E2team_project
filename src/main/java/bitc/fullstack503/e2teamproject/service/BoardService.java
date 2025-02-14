@@ -53,7 +53,7 @@ public interface BoardService {
   //  공지 수정하기
   void updateNotice(@RequestParam("noticeTitleUpdate") String noticeTitleUpdate,
                     @RequestParam("noticeContentsUpdate") String noticeContentsUpdate,
-                    @RequestParam("noticeNumber") int noticeNumber);
+                    @RequestParam("noticeNumberUpdate") int noticeNumberUpdate);
 
   //  공지 삭제하기
   void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete);
@@ -74,7 +74,21 @@ public interface BoardService {
   void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete);
 
   //  인원 모집 읽기
-  List<BoardEntity> findPerson();
+  List<BoardEntity> findCrew();
 
+<<<<<<< HEAD
 >>>>>>> ab577824c1aa32078ca1f1f5d21424472fc593c0
+=======
+  //  인원 모집 쓰기
+  void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
+                 @RequestParam("crewContentsCreate") String crewContentsCreate);
+
+  //  인원 모집 수정하기
+  void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,
+                  @RequestParam("crewContentsUpdate") String crewContentsUpdate,
+                  @RequestParam("crewNumberUpdate") int crewNumberUpdate);
+
+  //  인원모집 삭제하기
+  void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete);
+>>>>>>> simJiHyun
 }
