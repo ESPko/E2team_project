@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface BoardService {
 
-
-
   List<BoardEntity> findPerson();
 
+  List<BoardEntity> selectBoardList();
 
-    List<BoardEntity> selectBoardList();
-
-    BoardEntity selectboardDetail(int board_idx);
+  BoardEntity selectboardDetail(int board_idx);
 
   //  공지 읽기
   List<BoardEntity> findNotice();
+
+  //  공지 상세보기
+  BoardEntity findNoticeById(@RequestParam("boardIdx") int boardIdx);
 
   //  공지 쓰기
   void writeNotice(@RequestParam("noticeTitle") String noticeTitle,
@@ -49,7 +49,6 @@ public interface BoardService {
 
   //  인원 모집 읽기
   List<BoardEntity> findCrew();
-
 
   //  인원 모집 쓰기
   void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,

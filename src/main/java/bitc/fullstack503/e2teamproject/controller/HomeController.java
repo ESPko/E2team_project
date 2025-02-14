@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
+<<<<<<< HEAD
   @RequestMapping("/")
   public ModelAndView home() {
     ModelAndView mav = new ModelAndView("/board/mainPage");
@@ -28,11 +29,14 @@ public class HomeController {
     ModelAndView mav = new ModelAndView("/board/eventPage");
     return mav;
   }
+=======
+>>>>>>> simJiHyun
   @RequestMapping("/noticedetail")
   public ModelAndView noticedetail() {
     ModelAndView mav = new ModelAndView("/board/noticeDetailPage");
     return mav;
   }
+<<<<<<< HEAD
 
   @RequestMapping("/manager")
   public ModelAndView managerPage() {
@@ -64,5 +68,7 @@ public class HomeController {
     ModelAndView mav = new ModelAndView("/login/resisterPage");
     return mav;
   }
+=======
+>>>>>>> simJiHyun
 }
 

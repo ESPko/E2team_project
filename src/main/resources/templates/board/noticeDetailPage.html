@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -11,42 +10,68 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
 </head>
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <main class="container container-sm mt-5" style="width: 800px;">
   <section>
-
     <form id="frm" action="#" method="post">
       <input type="hidden" id="method" name="_method">
 
       <div><h4>공지사항</h4></div>
 
+<<<<<<< HEAD
       <div class="container d-flex justify-content-between align-items-center"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
         <div class="col-sm-8">번호. 글 제목</div>
         <div class="col-sm-4">작성일</div>
+=======
+      <div class="form-floating" style="border-color: #bee5eb;">
+        <input type="text" class="form-control" id="board-title" readonly>
+        <label for="board-title">
+          <span th:text="|공지 번호 : ${noticeList.board_idx}|">번호</span>
+          &nbsp;&nbsp;
+          <span th:text="|글 제목 : ${noticeList.title}|">글 제목</span>
+        </label>
+      </div>
+
+      <div class="container d-flex justify-content-between align-items-center mt-2 p-2"
+           style="height: 40px; border: solid 0.4px; border-color: lightgray;
+           border-radius: 5px; color: gray;">
+        <div class="flex-grow-1 text-center" th:text="|글쓴이 : ${noticeList.user.user_idx}|"></div>
+        <div class="flex-grow-1 text-center" th:text="|게시일 : ${noticeList.createDate}|"></div>
+        <div class="flex-grow-1 text-center" th:text="|수정일 : ${noticeList.updateDate}|"></div>
+        <div class="flex-grow-1 text-center" style="font-size: small;"
+             th:text="|조회수 : ${noticeList.hitCount}|">조회수</div>
+        <div class="flex-grow-1 text-center" style="font-size: small;"
+             th:text="|추천수 : ${noticeList.likeCount}|">추천수</div>
+>>>>>>> simJiHyun
       </div>
 
 
-      <div class=" mt-3 form-floating">
-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요.">
+      <div class=" mt-3 form-floating" >
+        <textarea class="form-control"
+                  name="contents"
+                  id="contents"
+                  style="height: 200px;"
+                  placeholder="내용을 입력하세요."
+        th:text="${noticeList.contents}">
         </textarea>
         <label for="contents">글 내용</label>
       </div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> simJiHyun
     </form>
   </section>
+
   <div class="col-sm m-3">
     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
   </div>
 </main>
-
-
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
 </body>
 </html>

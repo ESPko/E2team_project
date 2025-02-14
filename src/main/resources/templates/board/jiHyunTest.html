@@ -13,7 +13,7 @@
   <script>
       $(document).ready(function () {
           // 공지사항 쓰기
-          $("#noticeWriteSubmit").on("click", function (event) {
+          $(".noticeWriteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const noticeTitle = $("#noticeTitle").val();
@@ -31,12 +31,12 @@
                   },
                   error: function () {
                       alert("공지 등록 완료");
-                      location.reload();
-                  }});
+                  }
+              });
           });
 
           // 공지사항 수정
-          $("#noticeUpdateSubmit").on("click", function (event) {
+          $(".noticeUpdateSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -52,7 +52,6 @@
               $.ajax({
                   url: 'notice/update',
                   type: 'put',
-                  contentType :'application/json',
                   data: {
                       "noticeTitleUpdate": noticeTitleUpdate,
                       "noticeContentsUpdate": noticeContentsUpdate,
@@ -64,13 +63,12 @@
                   },
                   error: function () {
                       alert("ajax 중 오류");
-                      location.reload();
                   }
               });
           });
 
           //공지사항 삭제
-          $("#noticeDeleteSubmit").on("click", function (event) {
+          $(".noticeDeleteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -97,13 +95,12 @@
                   },
                   error: function () {
                       alert("ajax 중 오류");
-                      location.reload();
                   }
               });
           });
 
           // 이벤트 쓰기
-          $("#eventWriteSubmit").on("click", function (event) {
+          $(".eventWriteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const eventTitleCreate = $("#eventTitleCreate").val();
@@ -122,11 +119,12 @@
                   error: function () {
                       alert("이벤트 등록 중 오류");
                       // location.reload();
-                  }});
+                  }
+              });
           });
 
           // 이벤트 수정
-          $("#eventUpdateSubmit").on("click", function (event) {
+          $(".eventUpdateSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -159,7 +157,7 @@
           });
 
           // 이벤트 삭제
-          $("#eventDeleteSubmit").on("click", function (event) {
+          $(".eventDeleteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -186,7 +184,7 @@
           });
 
           // 인원 모집 쓰기
-          $("#crewWriteSubmit").on("click", function (event) {
+          $(".crewWriteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const crewTitleCreate = $("#crewTitleCreate").val();
@@ -204,11 +202,12 @@
                   },
                   error: function () {
                       alert("인원 모집 등록 중 오류");
-                  }});
+                  }
+              });
           });
 
           // 인원 모집 수정
-          $("#crewUpdateSubmit").on("click", function (event) {
+          $(".crewUpdateSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -241,7 +240,7 @@
           });
 
           // 인원 모집 삭제
-          $("#crewDeleteSubmit").on("click", function (event) {
+          $(".crewDeleteSubmit").on("click", function (event) {
               event.preventDefault();
 
               const parentForm = $(this).closest("form");
@@ -324,7 +323,7 @@
     <input type="text" name="noticeTitle" id="noticeTitle">
     <label for="noticeContents">내용</label>
     <textarea name="noticeContents" id="noticeContents"></textarea>
-    <button type="submit" class="noticeWriteSubmit" id="noticeWriteSubmit">등록</button>
+    <button type="submit" class="noticeWriteSubmit">등록</button>
     <button type="reset" class="noticeWriteReset">취소</button>
   </form>
   <br>
@@ -336,18 +335,17 @@
   </div>
   <br>
   <h3>update</h3>
-  <form action="#" th:action="@{/board/notice/update}" th:method="put" th:each="findNotice : ${findNoticeList}">
+  <form action="#" th:action="@{/board/notice/update}" th:each="findNotice : ${findNoticeList}">
     <label for="noticeNumberUpdate">글번호</label>
     <input type="text" name="noticeNumberUpdate" id="noticeNumberUpdate" class="noticeNumberUpdate"
-           th:value="${findNotice.getBoard_idx()}"
-           readonly>
+           th:value="${findNotice.board_idx}" readonly>
     <label for="noticeTitleUpdate">제목</label>
     <input type="text" name="noticeTitleUpdate" id="noticeTitleUpdate" class="noticeTitleUpdate"
            th:value="${findNotice.title}">
     <label for="noticeContentsUpdate">내용</label>
     <textarea name="noticeContentsUpdate" id="noticeContentsUpdate" class="noticeContentsUpdate"
-              th:value="${findNotice.contents}"></textarea>
-    <button type="submit" class="noticeUpdateSubmit" id="noticeUpdateSubmit">수정</button>
+              th:text="${findNotice.contents}"></textarea>
+    <button type="button" class="noticeUpdateSubmit">수정</button>
     <button type="reset" class="noticeUpdateReset">취소</button>
   </form>
   <br>
@@ -363,7 +361,7 @@
     <label for="noticeContentsDelete">내용</label>
     <textarea name="noticeContentsDelete" id="noticeContentsDelete" class="noticeContentsDelete"
               th:text="${findNotice.contents}"></textarea>
-    <button type="submit" class="noticeDeleteSubmit" id="noticeDeleteSubmit">삭제</button>
+    <button type="submit" class="noticeDeleteSubmit">삭제</button>
   </form>
 </div>
 
@@ -379,7 +377,7 @@
     <input type="text" name="eventTitleCreate" id="eventTitleCreate">
     <label for="eventContentsCreate">내용</label>
     <textarea name="eventContentsCreate" id="eventContentsCreate"></textarea>
-    <button type="submit" class="eventWriteSubmit" id="eventWriteSubmit">등록</button>
+    <button type="submit" class="eventWriteSubmit">등록</button>
     <button type="reset" class="eventWriteReset">취소</button>
   </form>
   <br>
@@ -402,7 +400,7 @@
     <label for="eventContentsUpdate">내용</label>
     <textarea name="eventContentsUpdate" id="eventContentsUpdate" class="eventContentsUpdate"
               th:text="${findEvent.contents}"></textarea>
-    <button type="submit" class="eventUpdateSubmit" id="eventUpdateSubmit">수정</button>
+    <button type="submit" class="eventUpdateSubmit">수정</button>
     <button type="reset" class="eventUpdateReset">취소</button>
   </form>
   <br>
@@ -418,7 +416,7 @@
     <label for="eventContentsDelete">내용</label>
     <textarea name="eventContentsDelete" id="eventContentsDelete" class="eventContentsDelete"
               th:text="${findEvent.contents}"></textarea>
-    <button type="submit" class="eventDeleteSubmit" id="eventDeleteSubmit">삭제</button>
+    <button type="submit" class="eventDeleteSubmit">삭제</button>
   </form>
 </div>
 
@@ -434,7 +432,7 @@
     <input type="text" name="crewTitleCreate" id="crewTitleCreate">
     <label for="crewContentsCreate">내용</label>
     <textarea name="crewContentsCreate" id="crewContentsCreate"></textarea>
-    <button type="submit" class="crewWriteSubmit" id="crewWriteSubmit">등록</button>
+    <button type="submit" class="crewWriteSubmit">등록</button>
     <button type="reset" class="crewWriteReset">취소</button>
   </form>
   <br>
@@ -456,13 +454,13 @@
            th:value="${findCrew.title}">
     <label for="crewContentsUpdate">내용</label>
     <textarea name="crewContentsUpdate" id="crewContentsUpdate" class="crewContentsUpdate"
-              th:value="${findCrew.contents}"></textarea>
-    <button type="submit" class="crewUpdateSubmit" id="crewUpdateSubmit">수정</button>
+              th:text="${findCrew.contents}"></textarea>
+    <button type="submit" class="crewUpdateSubmit">수정</button>
     <button type="reset" class="crewUpdateReset">취소</button>
   </form>
   <br>
   <h3>delete</h3>
-  <form action="#" th:each="findCrew : ${findCrewList}" th:method="delete" th:action="@{/board/crew/delete}">
+  <form action="#" th:action="@{/board/crew/delete}" th:method="delete" th:each="findCrew : ${findCrewList}">
     <label for="crewNumberDelete">글번호</label>
     <input type="text" name="crewNumberDelete" id="crewNumberDelete" class="crewNumberDelete"
            th:value="${findCrew.getBoard_idx()}"
@@ -473,7 +471,7 @@
     <label for="crewContentsDelete">내용</label>
     <textarea name="crewContentsDelete" id="crewContentsDelete" class="crewContentsDelete"
               th:text="${findCrew.contents}"></textarea>
-    <button type="button" class="crewDeleteSubmit" id="crewDeleteSubmit">삭제</button>
+    <button type="submit" class="crewDeleteSubmit">삭제</button>
   </form>
 </div>
 
