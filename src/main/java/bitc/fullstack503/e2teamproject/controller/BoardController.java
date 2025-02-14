@@ -2,30 +2,25 @@ package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-
+//@RestController
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
 
-//  심지현 테스트용
-  @RequestMapping("/")
-  public ModelAndView simJiHyun(){
+  //  심지현 테스트용
+  @RequestMapping("/jiHyunTest")
+  public ModelAndView simJiHyun() {
     ModelAndView mav = new ModelAndView("/board/jiHyunTest");
     List<BoardEntity> findNoticeList = boardService.findNotice();
     List<BoardEntity> findEventList = boardService.findEvent();
@@ -36,8 +31,14 @@ public class BoardController {
     return mav;
   }
 
+  //  메인 페이지
+  @RequestMapping("/")
+  public ModelAndView home() {
+    return new ModelAndView("/board/mainPage");
+  }
+
   //  공지 보기
-  @RequestMapping("/notice/read")
+  @RequestMapping("/notice")
   public ModelAndView noticeRead() {
     ModelAndView mav = new ModelAndView("/board/noticePage");
     List<BoardEntity> findNoticeList = boardService.findNotice();
@@ -45,22 +46,29 @@ public class BoardController {
     return mav;
   }
 
+  //  공지 상세 보기
+  @RequestMapping("/notice/{boardIdx}")
+  public ModelAndView noticeReadMore(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/noticeDetailPage");
+    BoardEntity notice = boardService.findNoticeById(boardIdx);
+    mav.addObject("notice", notice);
+    return mav;
+  }
+
   //  공지 쓰기
   @ResponseBody
   @PostMapping("/notice/write")
-  public String writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
+  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
-    return "/board/";
   }
 
   //  공지 수정하기
   @ResponseBody
   @PutMapping("/notice/update")
-  public String updateNotice(@RequestParam(value = "noticeTitleUpdate", required = false) String noticeTitleUpdate,
-                           @RequestParam(value = "noticeContentsUpdate", required = false) String noticeContentsUpdate,
-                           @RequestParam(value = "noticeNumberUpdate", required = false) int noticeNumberUpdate) {
+  public void updateNotice(@RequestParam(value = "noticeTitleUpdate") String noticeTitleUpdate,
+                           @RequestParam(value = "noticeContentsUpdate") String noticeContentsUpdate,
+                           @RequestParam(value = "noticeNumberUpdate") int noticeNumberUpdate) {
     boardService.updateNotice(noticeTitleUpdate, noticeContentsUpdate, noticeNumberUpdate);
-    return "/board/";
   }
 
   //  공지 삭제하기
@@ -71,11 +79,20 @@ public class BoardController {
   }
 
   //  이벤트 보기
-  @RequestMapping("/event/read")
+  @RequestMapping("/event")
   public ModelAndView eventRead() {
     ModelAndView mav = new ModelAndView("/board/eventPage");
     List<BoardEntity> findEventList = boardService.findEvent();
     mav.addObject("findEventList", findEventList);
+    return mav;
+  }
+
+  //  이벤트 상세보기
+  @RequestMapping("/event/{boardIdx}")
+  public ModelAndView eventReadMore(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/eventDetailPage");
+    BoardEntity event = boardService.findNoticeById(boardIdx);
+    mav.addObject("event", event);
     return mav;
   }
 
@@ -104,7 +121,7 @@ public class BoardController {
   }
 
   //  인원 모집 보기
-  @RequestMapping("/crew/read")
+  @RequestMapping("/crew")
   public ModelAndView crewRead() {
     ModelAndView mav = new ModelAndView("/board/crewPage");
     List<BoardEntity> findCrewList = boardService.findCrew();
@@ -112,39 +129,72 @@ public class BoardController {
     return mav;
   }
 
-//  관리자 페이지
-  @RequestMapping("/manager")
-  public ModelAndView manager() {
-    return new ModelAndView("/manage/managerPage");
+  //  인원 모집 상세보기
+  @RequestMapping("/crew/{boardIdx}")
+  public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/crewDetailPage");
+    BoardEntity crew = boardService.findNoticeById(boardIdx);
+    mav.addObject("crew", crew);
+    return mav;
   }
 
-  // 회원가입 페이지
-  @RequestMapping("/signup")
-  public ModelAndView signup() {
-    return new ModelAndView("/login/registerPage");
-  }
-
-  //  이벤트 쓰기
+  //  인원 모집 쓰기
   @ResponseBody
   @PostMapping("/crew/write")
   public void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
-                         @RequestParam("crewContentsCreate") String crewContentsCreate) {
+                        @RequestParam("crewContentsCreate") String crewContentsCreate) {
     boardService.writeCrew(crewTitleCreate, crewContentsCreate);
   }
 
-  //  이벤트 수정하기
+  //  인원 모집 수정하기
   @ResponseBody
   @PutMapping("/crew/update")
   public void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,
-                          @RequestParam("crewContentsUpdate") String crewContentsUpdate,
-                          @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
+                         @RequestParam("crewContentsUpdate") String crewContentsUpdate,
+                         @RequestParam("crewNumberUpdate") int crewNumberUpdate) {
     boardService.updateCrew(crewTitleUpdate, crewContentsUpdate, crewNumberUpdate);
   }
 
-  //  이벤트 삭제하기
+  //  인원 모집 삭제하기
   @ResponseBody
   @DeleteMapping("/crew/delete")
   public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
     boardService.deleteCrew(crewNumberDelete);
+  }
+
+    @RequestMapping("/loginpage")
+  public ModelAndView loginPage(HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView("/login/loginPage");
+
+        // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+    Cookie[] cookies = request.getCookies();
+    String cookieUserId = null;
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if ("userId".equals(cookie.getName())) {
+          cookieUserId = cookie.getValue();
+        }
+      }
+    }
+    // 쿠키 값 전달
+    request.setAttribute("cookieUserId", cookieUserId);
+
+    return mav;
+  }
+
+  @RequestMapping("/profile")
+  public ModelAndView profile() {
+    ModelAndView mav = new ModelAndView("/login/profile");
+    return mav;
+  }
+  @RequestMapping("/profilepage")
+  public ModelAndView prifilePage() {
+    ModelAndView mav = new ModelAndView("/login/profilePage");
+    return mav;
+  }
+  @RequestMapping("/register")
+  public ModelAndView resister() {
+    ModelAndView mav = new ModelAndView("/login/registerPage");
+    return mav;
   }
 }

@@ -10,9 +10,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheck())
-                .addPathPatterns("/board/*")
+                .addPathPatterns("/*")
                 .addPathPatterns("/user/*")
-                .excludePathPatterns("/user/", "/user/loginProcess.do", "/user/logout", "/board/signup", "/user/signupProcess.do", "/user/checkDuplicate");
+                .excludePathPatterns("/user/loginProcess.do", "/user/logout",  "/user/signupProcess.do",
+                        "/user/checkDuplicate", "/", "/loginpage", "/register", "/notice", "/event");
     }
 }
 
