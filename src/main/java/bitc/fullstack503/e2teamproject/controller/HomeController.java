@@ -1,5 +1,7 @@
 package bitc.fullstack503.e2teamproject.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,10 +47,44 @@ public class HomeController {
     return mav;
   }
   @RequestMapping("/loginpage")
-  public ModelAndView loginPage() {
+  public ModelAndView loginPage(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/login/loginPage");
+
+        // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+    Cookie[] cookies = request.getCookies();
+    String cookieUserId = null;
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if ("userId".equals(cookie.getName())) {
+          cookieUserId = cookie.getValue();
+        }
+      }
+    }
+    // 쿠키 값 전달
+    request.setAttribute("cookieUserId", cookieUserId);
+
     return mav;
   }
+
+//  @RequestMapping("/")
+//  public String login(HttpServletRequest request) {
+//
+//    // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+//    Cookie[] cookies = request.getCookies();
+//    String cookieUserId = null;
+//    if (cookies != null) {
+//      for (Cookie cookie : cookies) {
+//        if ("userId".equals(cookie.getName())) {
+//          cookieUserId = cookie.getValue();
+//        }
+//      }
+//    }
+//    // 쿠키 값 전달
+//    request.setAttribute("cookieUserId", cookieUserId);
+//    return "login/loginPage";
+//  }
+
+
   @RequestMapping("/profile")
   public ModelAndView profile() {
     ModelAndView mav = new ModelAndView("/login/profile");
