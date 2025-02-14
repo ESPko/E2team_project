@@ -128,8 +128,8 @@ public class BoardController {
 
   // 회원가입 페이지
   @RequestMapping("/signup")
-  public String signup() {
-    return "login/registerPage";  // 회원가입 페이지로 이동
+  public ModelAndView signup() {
+    return new ModelAndView("/login/registerPage");
   }
 
 =======
