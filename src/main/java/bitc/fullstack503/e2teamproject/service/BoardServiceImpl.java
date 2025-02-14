@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Optional;
 
-
 @Service
 public class BoardServiceImpl implements BoardService {
-
   @Autowired
   private BoardRepository boardRepository;
 
@@ -29,11 +27,18 @@ public class BoardServiceImpl implements BoardService {
     return boardRepository.queryFindNotice();
   }
 
-  //  공지 상세보기
+  //  모든 글 상세보기
   @Override
   public BoardEntity findNoticeById(int boardIdx) {
     Optional<BoardEntity> optional = boardRepository.findById(boardIdx);
-    return optional.orElse(null);
+    if (optional.isPresent()) {
+      BoardEntity board = optional.get();
+      board.setHitCount(board.getHitCount() + 1);
+      boardRepository.save(board);
+      return board;
+    } else {
+      throw new NullPointerException();
+    }
   }
 
   //  공지 수정하기
@@ -52,11 +57,6 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public List<BoardEntity> findEvent() {
     return boardRepository.queryFindEvent();
-  }
-
-  @Override
-  public List<BoardEntity> findPerson() {
-    return List.of();
   }
 
   //  이벤트 쓰기
@@ -82,32 +82,6 @@ public class BoardServiceImpl implements BoardService {
   public List<BoardEntity> findCrew() {
     return boardRepository.queryFindCrew();
   }
-
-
-  @Override
-  public List<BoardEntity> selectBoardList() {
-    return boardRepository.findAllByOrderByBoard_idxDesc();
-  }
-
-  //    게시물 상세 보기
-  @Override
-  public BoardEntity selectboardDetail(int board_idx) {
-
-    Optional<BoardEntity> optBoard = boardRepository.findById(board_idx);
-
-    if (optBoard.isPresent()) {
-
-      BoardEntity board = optBoard.get();
-
-      board.setHitCount(board.getHitCount() + 1);
-      boardRepository.save(board);
-
-      return board;
-    } else {
-      throw new NullPointerException();
-    }
-  }
-
 
   //  인원 모집 쓰기
   @Override

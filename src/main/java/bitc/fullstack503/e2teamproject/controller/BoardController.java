@@ -46,10 +46,10 @@ public class BoardController {
 
   //  공지 상세 보기
   @RequestMapping("/notice/{boardIdx}")
-  public ModelAndView noticeReadMore(@PathVariable("boardIdx") int boardIdx){
+  public ModelAndView noticeReadMore(@PathVariable("boardIdx") int boardIdx) {
     ModelAndView mav = new ModelAndView("/board/noticeDetailPage");
-    BoardEntity noticeList = boardService.findNoticeById(boardIdx);
-    mav.addObject("noticeList", noticeList);
+    BoardEntity notice = boardService.findNoticeById(boardIdx);
+    mav.addObject("notice", notice);
     return mav;
   }
 
@@ -85,6 +85,15 @@ public class BoardController {
     return mav;
   }
 
+  //  이벤트 상세보기
+  @RequestMapping("/event/{boardIdx}")
+  public ModelAndView eventReadMore(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/eventDetailPage");
+    BoardEntity event = boardService.findNoticeById(boardIdx);
+    mav.addObject("event", event);
+    return mav;
+  }
+
   //  이벤트 쓰기
   @ResponseBody
   @PostMapping("/event/write")
@@ -115,6 +124,15 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/crewPage");
     List<BoardEntity> findCrewList = boardService.findCrew();
     mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
+
+//  인원 모집 상세보기
+  @RequestMapping("/crew/{boardIdx}")
+  public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/crewDetailPage");
+    BoardEntity crew = boardService.findNoticeById(boardIdx);
+    mav.addObject("crew", crew);
     return mav;
   }
 

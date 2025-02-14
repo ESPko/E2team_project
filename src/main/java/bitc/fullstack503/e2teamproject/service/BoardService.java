@@ -7,13 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface BoardService {
-
-  List<BoardEntity> findPerson();
-
-  List<BoardEntity> selectBoardList();
-
-  BoardEntity selectboardDetail(int board_idx);
-
   //  공지 읽기
   List<BoardEntity> findNotice();
 
