@@ -12,27 +12,31 @@ import java.util.Map;
 
 @RestController
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
 
 //  심지현 테스트용
+//  @RequestMapping("/")
+//  public ModelAndView simJiHyun(){
+//    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
+//    List<BoardEntity> findNoticeList = boardService.findNotice();
+//    List<BoardEntity> findEventList = boardService.findEvent();
+//    List<BoardEntity> findCrewList = boardService.findCrew();
+//    mav.addObject("findNoticeList", findNoticeList);
+//    mav.addObject("findEventList", findEventList);
+//    mav.addObject("findCrewList", findCrewList);
+//    return mav;
+//  }
+
   @RequestMapping("/")
-  public ModelAndView simJiHyun(){
-    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
-    List<BoardEntity> findNoticeList = boardService.findNotice();
-    List<BoardEntity> findEventList = boardService.findEvent();
-    List<BoardEntity> findCrewList = boardService.findCrew();
-    mav.addObject("findNoticeList", findNoticeList);
-    mav.addObject("findEventList", findEventList);
-    mav.addObject("findCrewList", findCrewList);
-    return mav;
+  public ModelAndView home() {
+    return new ModelAndView("/board/mainPage");
   }
 
   //  공지 보기
-  @RequestMapping("/notice/read")
+  @RequestMapping("/notice")
   public ModelAndView noticeRead() {
     ModelAndView mav = new ModelAndView("/board/noticePage");
     List<BoardEntity> findNoticeList = boardService.findNotice();
@@ -64,7 +68,7 @@ public class BoardController {
   }
 
   //  이벤트 보기
-  @RequestMapping("/event/read")
+  @RequestMapping("/event")
   public ModelAndView eventRead() {
     ModelAndView mav = new ModelAndView("/board/eventPage");
     List<BoardEntity> findEventList = boardService.findEvent();
@@ -97,7 +101,7 @@ public class BoardController {
   }
 
   //  인원 모집 보기
-  @RequestMapping("/crew/read")
+  @RequestMapping("/crew")
   public ModelAndView crewRead() {
     ModelAndView mav = new ModelAndView("/board/crewPage");
     List<BoardEntity> findCrewList = boardService.findCrew();

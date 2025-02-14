@@ -79,7 +79,6 @@ public class UserController {
       result.put("status", "fail");
       result.put("message", "로그인 정보가 올바르지 않습니다.");
     }
-
     return result;
   }
 
@@ -99,13 +98,11 @@ public class UserController {
     return "redirect:/user/";
   }
 
-
   //  회원가입 처리
   @PostMapping("/signupProcess.do")
   @ResponseBody
   public Map<String, String> signupProcess(@RequestBody Map<String, String> userData) {
     Map<String, String> response = new HashMap<>();
-
     try {
       String userId = userData.get("userId");
       String userPw = userData.get("userPw");
@@ -127,17 +124,13 @@ public class UserController {
               .build();
 
       userService.registerUser(newUser);
-
       response.put("status", "success");
     } catch (Exception e) {
       response.put("status", "fail");
       response.put("message", "회원가입 중 오류 발생: " + e.getMessage());
     }
-
     return response;
   }
-
-
 
 // 아이디 중복 체크
   @GetMapping("/checkDuplicate")
