@@ -9,11 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -92,26 +93,39 @@ public class UserController {
   public String signupProcess(@RequestParam("userId") String userId,
                               @RequestParam("userPw") String userPw,
                               @RequestParam("userBirthYear") String userBirthYear,
-                              @RequestParam("userPhone") String userPhone
+                              @RequestParam("userPhone") String userPhone,
+                              @RequestParam("userEmail") String userEmail
                              ) throws Exception {
 
-    if (userService.isUserExists(userId)) {
-      return "redirect:/user/signup?errMsg=" + URLEncoder.encode("이미 존재하는 ID입니다.", "UTF-8");
-    }
+    // yyyy-MM-dd 형식에서 연도(yyyy)만 추출
+    String birthYear = userBirthYear.split("-")[0];
 
     UserEntity newUser = UserEntity.builder()
             .id(userId)
             .password(userPw)
-            .birthYear(userBirthYear)
+            .birthYear(birthYear)
             .phone(userPhone)
+            .email(userEmail)
             .createDate(LocalDateTime.now())
             .level((byte) 0) // 일반 사용자
             .build();
 
     userService.registerUser(newUser);
 
-    return "login/signup";
+    return "redirect:/user/"; // 회원가입 후 로그인 페이지 이동
 
+  }
+
+
+
+
+  @GetMapping("/checkDuplicate")
+  @ResponseBody
+  public Map<String, String> checkDuplicate(@RequestParam("userId") String userId) {
+    boolean exists = userService.isUserExists(userId);
+    Map<String, String> response = new HashMap<>();
+    response.put("status", exists ? "duplicate" : "available");
+    return response;
   }
 
 
