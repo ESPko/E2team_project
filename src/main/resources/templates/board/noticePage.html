@@ -12,6 +12,7 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script>
+
       $(document).on("click", ".findNoticeTitle", function () {
           const findNoticeTitle = $(this).text();
           const findNoticeIdxText = $(this).closest(".row").find(".findNoticeIdx").text();
@@ -19,6 +20,15 @@
           console.log("제목 : ", findNoticeTitle);
           console.log("글번호 text : ", findNoticeIdxText);
       });
+
+    $(document).on("click", ".findNoticeTitle", function () {
+      const findNoticeTitle = $(this).text();
+      const findNoticeIdxText = $(this).closest(".row").find(".findNoticeIdx").text();
+
+      console.log("제목 : ", findNoticeTitle);
+      console.log("글번호 text : ", findNoticeIdxText);
+    });
+
   </script>
 </head>
 <body>
@@ -55,7 +65,11 @@
                  style="text-decoration: none;"
                  th:value="${findNotice.title}"
                  th:text="${findNotice.title}"
+
               th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
+
+                 th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
+
             </div>
             <div class="col-3" style="text-align: right;" th:value="${findNotice.createDate}"
                  th:text="${findNotice.createDate}">작성일

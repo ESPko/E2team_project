@@ -60,7 +60,7 @@
             if (response.userLevel === 1) {
               window.location.href = "/board/manager"; // 관리자 페이지 이동
             } else {
-              window.location.href = "/user/"; // 일반 사용자 페이지 이동
+              window.location.href = "/"; // 일반 사용자 페이지 이동
             }
           } else {
             $("#errorMessage").text(response.message).show();
@@ -76,7 +76,7 @@
       // 회원가입 버튼
       $("#btn-sign").on("click", function () {
 
-      location.href = "/board/signup";
+      location.href = "/register";
 
     });
 

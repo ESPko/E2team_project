@@ -2,6 +2,8 @@ package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -128,6 +130,7 @@ public class BoardController {
   }
 
 //  인원 모집 상세보기
+
   @RequestMapping("/crew/{boardIdx}")
   public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx) {
     ModelAndView mav = new ModelAndView("/board/crewDetailPage");
@@ -158,5 +161,41 @@ public class BoardController {
   @DeleteMapping("/crew/delete")
   public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
     boardService.deleteCrew(crewNumberDelete);
+  }
+
+    @RequestMapping("/loginpage")
+  public ModelAndView loginPage(HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView("/login/loginPage");
+
+        // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+    Cookie[] cookies = request.getCookies();
+    String cookieUserId = null;
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if ("userId".equals(cookie.getName())) {
+          cookieUserId = cookie.getValue();
+        }
+      }
+    }
+    // 쿠키 값 전달
+    request.setAttribute("cookieUserId", cookieUserId);
+
+    return mav;
+  }
+
+  @RequestMapping("/profile")
+  public ModelAndView profile() {
+    ModelAndView mav = new ModelAndView("/login/profile");
+    return mav;
+  }
+  @RequestMapping("/profilepage")
+  public ModelAndView prifilePage() {
+    ModelAndView mav = new ModelAndView("/login/profilePage");
+    return mav;
+  }
+  @RequestMapping("/register")
+  public ModelAndView resister() {
+    ModelAndView mav = new ModelAndView("/login/registerPage");
+    return mav;
   }
 }
