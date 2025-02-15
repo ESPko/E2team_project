@@ -58,7 +58,7 @@
         success: function (response) {
           if (response.status === "success") {
             if (response.userLevel === 1) {
-              window.location.href = "/board/manager"; // 관리자 페이지 이동
+              window.location.href = "/user/manager"; // 관리자 페이지 이동
             } else {
               window.location.href = "/"; // 일반 사용자 페이지 이동
             }

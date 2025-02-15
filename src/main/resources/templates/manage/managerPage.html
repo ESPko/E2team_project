@@ -12,6 +12,30 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+  <script>
+    $(document).ready(function () {
+      $(".delete-btn").click(function () {
+        let userId = $(this).attr("data-id");
+        let row = $("#user-row-" + userId);
+
+        if (confirm("정말 삭제하시겠습니까?")) {
+          $.ajax({
+            url: "/user/delete/" + userId,
+            contentType: "application/json; charset=utf-8",
+            type: "DELETE",
+            success: function (response) {
+              alert("삭제되었습니다.");
+              row.remove();
+            },
+            error: function (xhr, status, error) {
+              alert("삭제 실패: " + xhr.responseText);
+              console.log(xhr.responseText)
+            }
+          });
+        }
+      });
+    });
+  </script>
 
 </head>
 <body>
@@ -42,7 +66,27 @@
     </div>
     <div class="mt-3 p-3 border rounded bg-light">
       <h5>회원관리</h5>
-      <p></p>
+<!--      <p></p>-->
+      <table class="table">
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>이메일</th>
+          <th>아이디</th>
+          <th>가입일</th>
+          <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, stat : ${users}" th:id="'user-row-' + ${user.user_idx}">
+          <td th:text="${stat.count}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.id}"></td>
+          <td th:text="${#temporals.format(user.createDate, 'yyyy.MM.dd')}"></td>
+          <td><button class="btn btn-sm btn-danger delete-btn" th:data-id="${user.user_idx}">삭제</button></td>
+        </tr>
+        </tbody>
+      </table>
       <button class="btn btn-secondary">추가</button>
     </div>
     <div class="mt-3 p-3 border rounded bg-light">
@@ -64,6 +108,7 @@
 </div>
 
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
+
 
 </body>
 </html>

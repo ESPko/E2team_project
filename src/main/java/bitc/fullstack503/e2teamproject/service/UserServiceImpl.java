@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,16 @@ public class UserServiceImpl implements UserService {
   @Override
   public void registerUser(UserEntity user) {
     userRepository.save(user);
+  }
+
+//  회원목록 불러오기
+  @Override
+  public List<UserEntity> getAllUsers() {
+    return userRepository.findAll();
+  }
+
+  @Override
+  public void deleteUserById(int id) {
+    userRepository.deleteById(id);
   }
 }

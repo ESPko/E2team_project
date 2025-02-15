@@ -198,4 +198,11 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/login/registerPage");
     return mav;
   }
+  @RequestMapping("/profileTest")
+  public ModelAndView profileTest() {
+    ModelAndView mav = new ModelAndView("/login/profilePageTest");
+    return mav;
+  }
+
+
 }

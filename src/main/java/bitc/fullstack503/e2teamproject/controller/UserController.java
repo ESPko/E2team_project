@@ -8,12 +8,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -124,6 +127,21 @@ public class UserController {
     Map<String, String> response = new HashMap<>();
     response.put("status", exists ? "duplicate" : "available");
     return response;
+  }
+
+  @RequestMapping("/manager")
+  public ModelAndView managerPage() {
+    ModelAndView mav = new ModelAndView("/manage/managerPage");
+    List<UserEntity> userList = userService.getAllUsers();
+    mav.addObject("users", userList);
+    return mav;
+  }
+
+  @DeleteMapping("/delete/{id}")
+  @ResponseBody
+  public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+    userService.deleteUserById(id);
+    return ResponseEntity.ok("삭제 완료");
   }
 }
 
