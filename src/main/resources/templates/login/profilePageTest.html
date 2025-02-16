@@ -22,10 +22,10 @@
           <img src="/img/default-profile.png" class="rounded-circle" width="150" alt="프로필 사진">
         </div>
         <div class="mt-3">
-          <p><strong>아이디:</strong> user123</p>
-          <p><strong>이름:</strong> 홍길동</p>
-          <p><strong>나이:</strong> 30</p>
-          <p><strong>가입일:</strong> 2024-01-01</p>
+          <p><strong>아이디:</strong> <span th:text="${user.id}"></span></p>
+          <p><strong>이메일:</strong> <span th:text="${user.email}"></span></p>
+          <p><strong>전화번호:</strong> <span th:text="${user.phone}"></span></p>
+          <p><strong>가입일:</strong> <span th:text="${user.createDate}"></span></p>
         </div>
       </div>
     </div>

@@ -143,5 +143,21 @@ public class UserController {
     userService.deleteUserById(id);
     return ResponseEntity.ok("삭제 완료");
   }
+
+  @RequestMapping("/profileTest")
+  public ModelAndView profileTest(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    ModelAndView mav = new ModelAndView("/login/profilePageTest");
+
+    if (userId != null) {
+      UserEntity user = userService.getUserInfo(userId);
+      mav.addObject("user", user);
+    }
+
+    return mav;
+
+  }
 }
 
