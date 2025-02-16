@@ -27,13 +27,16 @@
 
       <div class="container d-flex justify-content-between align-items-center"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
-        <div class="col-sm-8">번호. 글 제목</div>
-        <div class="col-sm-4">작성일</div>
+        <div class="col-sm-8">
+          <span th:text="|번호 : ${event.board_idx}|">번호</span>
+          <span th:text="|글 제목 : ${event.title}|">글 제목</span>
+        </div>
+        <div class="col-sm-4"  th:text="${event.createDate}">작성일</div>
       </div>
 
 
       <div class=" mt-3 form-floating">
-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요.">
+        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."  th:text="${event.contents}">>
         </textarea>
         <label for="contents">글 내용</label>
       </div>
