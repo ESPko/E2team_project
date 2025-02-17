@@ -75,7 +75,7 @@
         <td th:text="${review.comment}"></td>
         <td th:text="${review.userReview.id}"></td>
           <td>
-              <button class="btn btn-danger btn-sm delete-review-btn" th:data-review-id="${review.reviewIdx}">삭제</button>
+              <button class="btn btn-danger btn-sm delete-review-btn" th:if="${session.userId == review.userReview.id or session.userLevel == 1}" th:data-review-id="${review.reviewIdx}">삭제</button>
           </td>
 
       </tr>
