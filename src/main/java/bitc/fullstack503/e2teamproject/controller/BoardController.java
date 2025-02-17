@@ -62,12 +62,11 @@ public class BoardController {
     return new ModelAndView("/board/mainPage");
   }
 
-  //  메인상세 페이지
+  //  메인 페이지
   @RequestMapping("/detail")
   public ModelAndView mainDetail() {
     return new ModelAndView("/board/mainDetailPage");
   }
-
 
   //  공지 보기
   @RequestMapping("/notice")
