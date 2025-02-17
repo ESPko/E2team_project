@@ -15,4 +15,10 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
+
+  @RequestMapping("/")
+  public ModelAndView jiHyunStarTest(){
+    ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
+    return mav;
+  }
 }

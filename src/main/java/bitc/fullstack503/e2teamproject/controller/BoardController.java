@@ -1,10 +1,13 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.BoardImageEntity;
+import bitc.fullstack503.e2teamproject.service.BoardImageService;
 import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -15,6 +18,9 @@ public class BoardController {
 
   @Autowired
   private BoardService boardService;
+
+  @Autowired
+  private BoardImageService boardImageService;
 
   //  심지현 crud 테스트용
   @ResponseBody
@@ -48,7 +54,7 @@ public class BoardController {
   //  공지 네개씩만 보기
   @ResponseBody
   @RequestMapping("/notice/four")
-  public List<BoardEntity> noticeReadFour(){
+  public List<BoardEntity> noticeReadFour() {
     return boardService.findNoticeFour();
   }
 
@@ -64,9 +70,11 @@ public class BoardController {
   //  공지 쓰기
   @ResponseBody
   @PostMapping("/notice/write")
-  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContents") String noticeContents) {
+  public void writeNotice(@RequestParam("noticeTitle") String noticeTitle,
+                          @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
   }
+
 
   //  공지 수정하기
   @ResponseBody
@@ -96,7 +104,7 @@ public class BoardController {
   // 이벤트 네개씩만 보기
   @ResponseBody
   @RequestMapping("/event/four")
-  public List<BoardEntity> eventReadFour(){
+  public List<BoardEntity> eventReadFour() {
     return boardService.findEventFour();
   }
 
