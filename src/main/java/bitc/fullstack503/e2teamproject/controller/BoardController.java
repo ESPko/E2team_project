@@ -9,17 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//@RestController
+@RestController
 @Controller
 public class BoardController {
 
   @Autowired
   private BoardService boardService;
 
-  //  심지현 테스트용
-  @RequestMapping("/jiHyunTest")
-  public ModelAndView simJiHyun() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunTest");
+  //  심지현 crud 테스트용
+  @ResponseBody
+  @RequestMapping("/jiHyunCRUDTest")
+  public ModelAndView jiHyunCRUDTest() {
+    ModelAndView mav = new ModelAndView("/board/jiHyunCRUDTest");
     List<BoardEntity> findNoticeList = boardService.findNotice();
     List<BoardEntity> findEventList = boardService.findEvent();
     List<BoardEntity> findCrewList = boardService.findCrew();
