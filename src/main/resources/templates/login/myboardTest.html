@@ -29,17 +29,49 @@
         <div class="col-md-4">
             <div class="post-box">
                 <h5>게시글</h5>
-                <ul>
-                    <li th:each="post : ${posts}">
+<!--                <ul>-->
+<!--                    <li th:each="post : ${posts}">-->
 
-                        <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx
-                    : (post.category == '이벤트' ? '/event/' + post.board_idx
-                    : (post.category == '인원모집' ? '/crew/' + post.board_idx
-                    : '/post/' + post.board_idx))}}"
-                           th:text="${post.title}"></a>
+<!--                        <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx-->
+<!--                    : (post.category == '이벤트' ? '/event/' + post.board_idx-->
+<!--                    : (post.category == '인원모집' ? '/crew/' + post.board_idx-->
+<!--                    : '/post/' + post.board_idx))}}"-->
+<!--                           th:text="${post.title}"></a>-->
 
-                        <span th:text="${post.contents}"></span>
-                        <span th:text="${post.category}"></span>
+<!--                        <span th:text="${post.contents}"></span>-->
+<!--                        <span th:text="${post.category}"></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+                <ul style="list-style: none; padding-left: 0">
+                    <li>
+                        <div class="container row d-flex justify-content-between"
+                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+                            <div class="col-1 align-items-center">번호</div>
+                            <div class="col-8 align-items-center" style="font-weight: bold;">
+                                <a href="#" class="text-dark" style="text-decoration: none;">제목</a>
+                            </div>
+                            <div class="col-3" style="text-align: right;">작성일</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="container row d-flex justify-content-between"
+                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="post : ${posts}">
+                            <div class="col-1 align-items-center findNoticeIdx" th:value="${post.board_idx}" th:text="${post.board_idx}">번호</div>
+                            <div class="col-8 align-items-center" style="font-weight: bold;">
+                                <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx
+                                            : (post.category == '이벤트' ? '/event/' + post.board_idx
+                                            : (post.category == '인원모집' ? '/crew/' + post.board_idx
+                                            : '/post/' + post.board_idx))}}"
+                                   class="text-dark findNoticeTitle"
+                                   style="text-decoration: none;"
+                                   th:value="${post.title}"
+                                   th:text="${post.title}" ></a>
+                            </div>
+                            <div class="col-3" style="text-align: right;" th:value="${post.createDate}"
+                                 th:text="${post.createDate}">작성일
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
