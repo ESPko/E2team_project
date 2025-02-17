@@ -102,7 +102,9 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -201,7 +203,17 @@ public class BoardServiceImpl implements BoardService {
   public void deleteCrew(int crewNumberDelete) {
     boardRepository.queryDeleteCrew(crewNumberDelete);
   }
+
+  // 내가 작성한 게시글
+  @Override
+  public List<BoardEntity> findPostsByUserId(int userId) {
+
+    return boardRepository.findByUserId(userId);
+
+  }
 }
+
+
 
 
 

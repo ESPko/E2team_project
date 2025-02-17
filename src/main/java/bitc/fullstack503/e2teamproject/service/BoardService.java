@@ -64,6 +64,7 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -117,4 +118,7 @@ public interface BoardService {
 
   //  인원모집 삭제하기
   void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete);
+
+//  내가 작성한 게시글
+  List<BoardEntity> findPostsByUserId(int userId);
 }

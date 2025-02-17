@@ -42,6 +42,8 @@ public class UserController {
     if (userService.isUserInfo(userId, userPw)) {
       UserEntity user = userService.getUserInfo(userId);
       HttpSession session = request.getSession();
+
+      session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
       session.setAttribute("userEmail", user.getEmail());
       session.setAttribute("userLevel", user.getLevel());
@@ -144,6 +146,8 @@ public class UserController {
     return ResponseEntity.ok("삭제 완료");
   }
 
+
+//  마이페이지 페이지 테스트
   @RequestMapping("/profileTest")
   public ModelAndView profileTest(HttpServletRequest request) {
     HttpSession session = request.getSession();

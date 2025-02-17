@@ -1,9 +1,15 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
+import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.service.BoardService;
+import bitc.fullstack503.e2teamproject.service.ReplyService;
+import bitc.fullstack503.e2teamproject.service.ReviewService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +23,12 @@ public class BoardController {
 
   @Autowired
   private BoardService boardService;
+
+  @Autowired
+  private ReplyService replyService;
+
+  @Autowired
+  private ReviewService reviewService;
 
   //  심지현 테스트용
   @RequestMapping("/jiHyunTest")
@@ -163,6 +175,8 @@ public class BoardController {
     boardService.deleteCrew(crewNumberDelete);
   }
 
+
+//  로그인 페이지
     @RequestMapping("/loginpage")
   public ModelAndView loginPage(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/login/loginPage");
@@ -193,6 +207,9 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/login/profilePage");
     return mav;
   }
+
+
+//  회원가입
   @RequestMapping("/register")
   public ModelAndView resister() {
     ModelAndView mav = new ModelAndView("/login/registerPage");
@@ -200,5 +217,27 @@ public class BoardController {
   }
 
 
+//  내가 작성한 게시물 Test
+@RequestMapping("/myboard")
+public ModelAndView myboard(HttpSession session) {
+  ModelAndView mav = new ModelAndView("/login/myboardTest");
+
+
+
+  Integer userId = (Integer) session.getAttribute("userIdx"); // Integer로 직접 가져오기
+
+  if (userId != null) {
+    List<BoardEntity> posts = boardService.findPostsByUserId(userId);
+    List<ReplyEntity> comments = replyService.findRepliesByUserId(userId);
+    List<ReviewEntity> reviews = reviewService.findReviewsByUserId(userId);
+
+    mav.addObject("posts", posts);
+    mav.addObject("comments", comments);
+    mav.addObject("reviews", reviews);
+  }
+  return mav;
 
 }
+
+}
+
