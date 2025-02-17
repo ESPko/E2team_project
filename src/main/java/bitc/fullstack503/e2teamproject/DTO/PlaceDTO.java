@@ -6,9 +6,11 @@ import lombok.Getter;
 public class PlaceDTO {
   private String placeName;
   private double averageStar;
+  private int reviewCount;
 
-  public PlaceDTO(String placeName, double averageStar) {
+  public PlaceDTO(String placeName, double averageStar, int reviewCount) {
     this.placeName = placeName;
     this.averageStar = averageStar;
+    this.reviewCount = reviewCount;
   }
 }

@@ -18,6 +18,12 @@ public interface PlaceService {
   //  지역 연령 나이로 찾되 추천수가 낮은 순으로
   List<PlaceDTO> findPlaceStarLow(String selectLocation, int selectAge, int selectPeople);
 
+  //  지역 연령 나이로 찾되 리뷰가 많은 순으로 결정
+  List<PlaceDTO> findPlaceReviewMany(String selectLocation, int selectAge, int selectPeople);
+
+  //  지역 연령 나이로 찾되 리뷰가 적은 순으로 결정
+  List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, int selectPeople);
+
   //  상위 세개 추천 항목 나오게
-  List<PlaceDTO> getAllPlaceSortByStar();
+//  List<PlaceDTO> getAllPlaceSortByStar();
 }

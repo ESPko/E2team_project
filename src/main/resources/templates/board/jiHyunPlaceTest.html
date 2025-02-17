@@ -76,6 +76,20 @@
                       type: 'get',
                       dataType: 'json',
                   });
+              } else if (selectedValue === "reviewHigh") {
+                  console.log("리뷰 많은 순");
+                  $.ajax({
+                      url: `/place/recommend/reviewHigh/${selectLocation}/${selectAge}/${selectPeople}`,
+                      type: 'get',
+                      dataType: 'json',
+                  });
+              } else if (selectedValue === "reviewLess") {
+                  console.log("리뷰 적은 순");
+                  $.ajax({
+                      url: `/place/recommend/reviewLess/${selectLocation}/${selectAge}/${selectPeople}`,
+                      type: 'get',
+                      dataType: 'json',
+                  });
               }
           });
 
@@ -129,6 +143,8 @@
     <option value="" selected>정렬</option>
     <option value="starHigh" id="starHigh">추천수가 높은 것부터</option>
     <option value="starLow" id="starLow">추천수가 낮은 것부터</option>
+    <option value="reviewHigh" id="reviewHigh">리뷰가 많은 것부터</option>
+    <option value="reviewLess" id="reviewLess">리뷰가 적은 것부터</option>
   </select>
   <div class="tableContainer"></div>
   <div class="recommendContainer"></div>
