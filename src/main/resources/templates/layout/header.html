@@ -37,7 +37,7 @@
     </div>
     <div class="col-2 row align-items-center justify-content-between">
       <button type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId != null}">
-        <a th:href="@{/loginpage}">로그인 / 회원가입</a>
+        <a th:href="@{/user/}">로그인 / 회원가입</a>
       </button>
       <button id="btn-logout" type="button" style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;" th:unless="${session.userId == null}" >
         로그아웃
