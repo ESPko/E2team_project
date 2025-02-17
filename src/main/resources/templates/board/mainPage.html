@@ -9,75 +9,81 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
-    <style>
-        .carousel-item{
-            max-height: 500px;
-            width: auto;
-            object-fit: cover;
-        }
+  <style>
+    .carousel-item {
+      max-height: 500px;
+      width: auto;
+      object-fit: cover;
+    }
 
-        h2{
-            /*메인화면 제일 아래 공지사항 / 이벤트 글꼴 */
-            font-family: "Gowun Batang", serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-        /*카드 이미지 동일하게 함*/
-        .card-img-top {
-            height: 15rem;
-            object-fit: cover;
-        }
+    h2 {
+      /*메인화면 제일 아래 공지사항 / 이벤트 글꼴 */
+      font-family: "Gowun Batang", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
 
-        /*추천활동 체크 박스 */
-        .search-box {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .search-box input, .search-box button {
-            height: 45px;
-        }
-    </style>
+    /*카드 이미지 동일하게 함*/
+    .card-img-top {
+      height: 15rem;
+      object-fit: cover;
+    }
+
+    /*추천활동 체크 박스 */
+    .search-box {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-box input, .search-box button {
+      height: 45px;
+    }
+  </style>
 
   <script>
-    $(document).ready(function () {
-      const noticeContainer = $(".noticeContainer");
-      const eventContainer = $(".eventContainer");
+      $(document).ready(function () {
+          const noticeContainer = $(".noticeContainer");
+          const eventContainer = $(".eventContainer");
 
-      // 공지사항 네 개 확인하기
-      $.ajax({
-        url: "/notice/four",
-        type: "get",
-        success: function (data) {
-          noticeContainer.empty();
-          data.forEach(notice => {
-            let html = `<li class="list-group-item">${notice.title}</li>`;
-            noticeContainer.append(html);
+          // 공지사항 네 개 확인하기
+          $.ajax({
+              url: "/notice/four",
+              type: "get",
+              success: function (data) {
+                  noticeContainer.empty();
+                  data.forEach(notice => {
+                      let html = `<a href="/notice/${notice.board_idx}" style="text-decoration: none">`;
+                      html += `<li class="list-group-item">${notice.title}</li>`;
+                      html += `</a>`
+                      noticeContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("공지사항 불러오기 실패:", error);
+              }
           });
-        },
-        error: function (xhr, status, error) {
-          console.error("공지사항 불러오기 실패:", error);
-        }
-      });
 
-      // 이벤트 네 개 확인하기
-      $.ajax({
-        url: "/event/four",
-        type: "get",
-        success: function (data) {
-          console.log("이벤트 데이터 : " + data);
-          eventContainer.empty();
-          data.forEach(event => {
-            let html = `<li class="list-group-item">${event.title}</li>`;
-            eventContainer.append(html);
+          // 이벤트 네 개 확인하기
+          $.ajax({
+              url: "/event/four",
+              type: "get",
+              success: function (data) {
+                  console.log("이벤트 데이터 : " + data);
+                  eventContainer.empty();
+                  data.forEach(event => {
+                      let html = `<a href="/event/${event.board_idx}" style="text-decoration: none">`;
+                      html += `<li class="list-group-item">${event.title}</li>`;
+                      html += `</a>`
+                      eventContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("이벤트 불러오기 실패:", error);
+              }
           });
-        },
-        error: function (xhr, status, error) {
-          console.error("이벤트 불러오기 실패:", error);
-        }
       });
-    });
   </script>
 </head>
 
@@ -85,73 +91,76 @@
 <header th:replace="~{layout/header :: projectheader}"></header>
 <main>
 
-    <div class="container mt-5">
-        <div class="search-box">
-            <h5 class="fw-bold mb-3">추천 활동</h5>
-            <div class="row g-2 align-items-center">
-                <div class="row g-2 align-items-center d-flex">
-                <div class="col-md-4 position-relative me-3">
-                    <div class="dropdown w-100">
-                        <input type="text" class="form-control dropdown-toggle" id="locationInput" placeholder="지역을 입력하세요." data-bs-toggle="dropdown" readonly>
-                        <ul class="dropdown-menu w-100" id="locationList">
-                            <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">지역 추천</li>
-                            <li><a class="dropdown-item" href="#">1.부산</a></li>
-                            <li><a class="dropdown-item" href="#">2.서울</a></li>
-                            <li><a class="dropdown-item" href="#">3.대전</a></li>
-                            <li><a class="dropdown-item" href="#">4.대구</a></li>
-                            <li><a class="dropdown-item" href="#">5.광주</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                    <div class="col-md-3 position-relative me-3">
-                        <div class="dropdown w-100">
-                            <input type="text" class="form-control dropdown-toggle" id="ageInput" placeholder="나이 / 연령 입력" data-bs-toggle="dropdown" readonly>
-                            <ul class="dropdown-menu w-100" >
-                                <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">나이</li>
-                                <li><a class="dropdown-item" href="#">10대</a></li>
-                                <li><a class="dropdown-item" href="#">20대</a></li>
-                                <li><a class="dropdown-item" href="#">30대</a></li>
-                                <li><a class="dropdown-item" href="#">40대</a></li>
-                                <li><a class="dropdown-item" href="#">50대 이상</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 position-relative me-3">
-                        <div class="dropdown w-100">
-                            <input type="text" class="form-control dropdown-toggle" id="peopleInput" placeholder="👤 인원" data-bs-toggle="dropdown" readonly>
-                            <ul class="dropdown-menu w-100 ">
-                                <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">인원수</li>
-                                <li><a class="dropdown-item" href="#">1명</a></li>
-                                <li><a class="dropdown-item" href="#">2명</a></li>
-                                <li><a class="dropdown-item" href="#">3명</a></li>
-                                <li><a class="dropdown-item" href="#">4명</a></li>
-                                <li><a class="dropdown-item" href="#">5명 이상</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-1 ms-auto">
-                        <button class="btn btn-primary w-100">검색</button>
-                    </div>
+  <div class="container mt-5">
+    <div class="search-box">
+      <h5 class="fw-bold mb-3">추천 활동</h5>
+      <div class="row g-2 align-items-center">
+        <div class="row g-2 align-items-center d-flex">
+          <div class="col-md-4 position-relative me-3">
+            <div class="dropdown w-100">
+              <input type="text" class="form-control dropdown-toggle" id="locationInput" placeholder="지역을 입력하세요."
+                     data-bs-toggle="dropdown" readonly>
+              <ul class="dropdown-menu w-100" id="locationList">
+                <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">지역 추천</li>
+                <li><a class="dropdown-item" href="#">1.부산</a></li>
+                <li><a class="dropdown-item" href="#">2.서울</a></li>
+                <li><a class="dropdown-item" href="#">3.대전</a></li>
+                <li><a class="dropdown-item" href="#">4.대구</a></li>
+                <li><a class="dropdown-item" href="#">5.광주</a></li>
+              </ul>
             </div>
+          </div>
 
-        </div>
-        <div class="carousel-item">
-          <img src="/img/실내사격3.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
+          <div class="col-md-3 position-relative me-3">
+            <div class="dropdown w-100">
+              <input type="text" class="form-control dropdown-toggle" id="ageInput" placeholder="나이 / 연령 입력"
+                     data-bs-toggle="dropdown" readonly>
+              <ul class="dropdown-menu w-100">
+                <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">나이</li>
+                <li><a class="dropdown-item" href="#">10대</a></li>
+                <li><a class="dropdown-item" href="#">20대</a></li>
+                <li><a class="dropdown-item" href="#">30대</a></li>
+                <li><a class="dropdown-item" href="#">40대</a></li>
+                <li><a class="dropdown-item" href="#">50대 이상</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-2 position-relative me-3">
+            <div class="dropdown w-100">
+              <input type="text" class="form-control dropdown-toggle" id="peopleInput" placeholder="👤 인원"
+                     data-bs-toggle="dropdown" readonly>
+              <ul class="dropdown-menu w-100 ">
+                <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">인원수</li>
+                <li><a class="dropdown-item" href="#">1명</a></li>
+                <li><a class="dropdown-item" href="#">2명</a></li>
+                <li><a class="dropdown-item" href="#">3명</a></li>
+                <li><a class="dropdown-item" href="#">4명</a></li>
+                <li><a class="dropdown-item" href="#">5명 이상</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-1 ms-auto">
+            <button class="btn btn-primary w-100">검색</button>
           </div>
         </div>
+
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div class="carousel-item">
+        <img src="/img/실내사격3.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+        </div>
+      </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
   </div>
 
@@ -218,7 +227,8 @@
   <div class="container mt-5">
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
@@ -252,38 +262,38 @@
     </div>
   </div>
 
-    <div class="container mt-5">
-        <img src="/img/active.png" width="20%">
+  <div class="container mt-5">
+    <img src="/img/active.png" width="20%">
+  </div>
+  <div class="container mt-5 d-flex justify-content-space-between">
+    <div class="col-sm p-4">
+      <div class="card">
+        <a href="#"><img src="/img/볼링1.jpg" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">볼링</h5>
+          <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
+        </div>
+      </div>
     </div>
-    <div class="container mt-5 d-flex justify-content-space-between">
-        <div class="col-sm p-4">
-            <div class="card" >
-                <a href="#"><img src="/img/볼링1.jpg" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <h5 class="card-title">볼링</h5>
-                    <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
-                </div>
-            </div>
+    <div class="col-sm p-4">
+      <div class="card">
+        <a href="#"><img src="/img/클라이밍1.jpg" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">클라이밍</h5>
+          <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
         </div>
-        <div class="col-sm p-4">
-            <div class="card">
-                <a href="#"><img src="/img/클라이밍1.jpg" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <h5 class="card-title">클라이밍</h5>
-                    <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm p-4">
-            <div class="card">
-               <a href="#"><img src="/img/카트체험2.jpg" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <h5 class="card-title">카트체험</h5>
-                    <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-sm p-4">
+      <div class="card">
+        <a href="#"><img src="/img/카트체험2.jpg" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">카트체험</h5>
+          <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 <footer th:replace="~{layout/footer :: projectfooter}"></footer>
 </body>
