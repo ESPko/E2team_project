@@ -1,6 +1,15 @@
 package bitc.fullstack503.e2teamproject.service;
 
+import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
 public interface ReplyService {
-//  댓글 쓰기
-  void writeReply(int crewBoardIdx, String replyWriteComment);
+  //  댓글 보기
+  List<ReplyEntity> replyShow(int crewBoardIdx);
+
+  //  댓글 쓰기
+  void replyWrite(@RequestParam("crewBoardIdx") int crewBoardIdx,
+                  @RequestParam("replyWriteComment") String replyWriteComment);
 }
