@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,9 @@ public class UserController {
 
       session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
+//      session.setAttribute("userPw", userPw);
       session.setAttribute("userEmail", user.getEmail());
+//      session.setAttribute("userPhone", user.getPhone());
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
 
@@ -179,5 +182,40 @@ public class UserController {
     return mav;
 
   }
+
+  // 비밀번호 변경
+  @PostMapping("/updatePassword")
+  public ResponseEntity<String> updatePassword(@RequestBody Map<String, String> requestData, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    if (userId == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+    }
+
+    String newPassword = requestData.get("password");
+
+    userService.updateUserPassword(userId, newPassword);
+
+    return ResponseEntity.ok("비밀번호 변경 성공");
+  }
+
+  // 휴대폰번호 변경
+  @PostMapping("/updatePhone")
+  public ResponseEntity<String> updatePhone(@RequestBody Map<String, String> requestData, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    if (userId == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+    }
+
+    String newPhone = requestData.get("phone");
+
+    userService.updateUserPhone(userId, newPhone);
+
+    return ResponseEntity.ok("휴대폰번호 변경 성공");
+  }
+
 }
 

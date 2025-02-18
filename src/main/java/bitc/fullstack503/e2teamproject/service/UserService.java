@@ -25,4 +25,11 @@ public interface UserService {
 //    회원삭제
     void deleteUserById(int id);
 
+//    비밀번호 변경
+void updateUserPassword(String userId, String newPassword);
+
+// 휴대폰번호 변경
+void updateUserPhone(String userId, String newPhone);
+
+
 }
