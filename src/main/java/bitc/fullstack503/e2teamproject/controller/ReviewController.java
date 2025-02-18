@@ -30,5 +30,6 @@ public class ReviewController {
     System.out.println("reviewWrite");
     System.out.println(reviewWrite);
     System.out.println(reviewStar);
+    reviewService.reviewStar(reviewWrite, reviewStar);
   }
 }
