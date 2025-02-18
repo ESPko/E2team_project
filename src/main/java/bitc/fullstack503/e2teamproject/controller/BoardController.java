@@ -36,13 +36,33 @@ public class BoardController {
     return mav;
   }
 
+  // 프로필
+  @RequestMapping("/pro")
+  public ModelAndView profile() {
+    return new ModelAndView("/login/profilePage");
+  }
+
+
+  // 회원가입 페이지
+  @RequestMapping("/regist")
+  public ModelAndView regist() {
+    return new ModelAndView("/login/registerPage");
+  }
+
+  //  추천 페이지
+  @RequestMapping("/rec")
+  public ModelAndView recommand() {
+    return new ModelAndView("/board/recommandPage");
+  }
+
+
   //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
     return new ModelAndView("/board/mainPage");
   }
 
-  //  메인 페이지
+  //  메인상세 페이지
   @RequestMapping("/detail")
   public ModelAndView mainDetail() {
     return new ModelAndView("/board/mainDetailPage");

@@ -15,7 +15,6 @@
 
 </head>
 <body>
-<!--링크는 localhost:8080/crew 입니다-->
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
@@ -35,14 +34,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="findCrew : ${findCrewList}">
-          <td class="col-1 text-center" th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1</td>
-          <td class="col-5">
-            <a href="#" class="text-dark" style="text-decoration: none" th:value="${findCrew.title}" th:text="${findCrew.title}">제목1</a>
-          </td>
-          <td class="col-2 text-center" th:value="${findCrew.user.user_idx}" th:text="${findCrew.user.user_idx}">작성자1</td>
-          <td class="col-2 text-left" th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02</td>
-          <td class="col-2 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</td>
         <tr>
           <td class="col-1 text-center">1</td>
           <td class="col-5"><a href="#" class="text-dark" style="text-decoration: none">제목1</a></td>

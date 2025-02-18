@@ -1,0 +1,107 @@
+/* 메인 화면 css */
+
+
+/* 캐러셀 부분 */
+/* 캐러셀 전체 화면 차지 */
+.carousel-item {
+    min-height: 50vh;  /* 화면 전체 높이 */
+}
+
+/* 이미지 크기 조정 */
+.carousel-item img {
+    width: 100%;
+    height: 50vh;  /* 전체 화면 채우기 */
+    object-fit: cover;  /* 이미지 비율 유지하면서 꽉 차게 */
+}
+
+/* 커스텀 버튼 스타일 */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 6%; /* 버튼 크기 조정 */
+}
+
+
+
+/*카드 이미지 동일하게 함*/
+
+.card-img-top {
+    height: 15rem;
+    object-fit: cover;
+}
+
+
+/*추천활동 체크 박스 */
+.search-box {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.search-box input, .search-box button {
+    height: 45px;
+}
+
+#fixed-search-bar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+
+
+/* 메인 아이콘 표시 */
+.icon-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.icon-menu .icon-box {
+    text-align: center;
+    width: 100px;
+}
+
+.icon-menu img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.icon-menu p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+
+/* 메인화면 제일 아래 공지사항 / 이벤트 글꼴 */
+#mainEvAnContainer{
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 추천 활동 검색 창, '추천 활동' 글꼴 */
+#contents1{
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+
+
+/* 상세화면 css */
+
+
+
+
+

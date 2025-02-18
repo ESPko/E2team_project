@@ -15,7 +15,6 @@
 
 </head>
 <body>
-<!--링크는 localhost:8080/event 입니다-->
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
@@ -31,12 +30,31 @@
           </div>
         </li>
         <li>
-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="findEvent : ${findEventList}">
-            <div class="col-1 align-items-center" th:value="${findEvent.board_idx}" th:text="${findEvent.board_idx}">번호</div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
-              <a href="#" class="text-dark" style="text-decoration: none;" th:value="${findEvent.title}" th:text="${findEvent.title}">제목</a>
-            </div>
-            <div class="col-3" style="text-align: right;" th:value="${findEvent.createDate}" th:text="${findEvent.createDate}">작성일</div>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
           </div>
         </li>
       </ul>
