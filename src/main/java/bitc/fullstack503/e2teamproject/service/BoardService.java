@@ -1,8 +1,11 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.List;
@@ -61,4 +64,8 @@ public interface BoardService {
 
   //  인원모집 삭제하기
   void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete);
+
+  //  글쓸때 이미지도 올라가는지 확인용
+  @Transactional
+  void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images);
 }

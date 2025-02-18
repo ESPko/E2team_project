@@ -14,50 +14,78 @@
 
 </head>
 <body>
-<div id="content">
-</div>
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script>
-    const editor = new toastui.Editor({
-        el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
-        height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
-        initialEditType: 'markdown',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
-        initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
-        previewStyle: 'vertical',
+<form id="boardForm" action="/jiHyunToast/submit" method="post" enctype="multipart/form-data">
+  <div id="content">
+  </div>
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+  <script>
+      const editor = new toastui.Editor({
+          el: document.querySelector('#content'), // 에디터를 적용할 요소 (컨테이너)
+          height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+          initialEditType: 'markdown',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+          initialValue: '내용을 입력해 주세요.',     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+          previewStyle: 'vertical',
 
-        /* start of hooks */
-        hooks: {
-            async addImageBlobHook(blob, callback) { // 이미지 업로드 로직 커스텀
-                try {
-                    /*
-                     * 1. 에디터에 업로드한 이미지를 FormData 객체에 저장
-                     *    (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
-                     */
-                    const formData = new FormData();
-                    formData.append('image', blob);
+          /* start of hooks */
+          hooks: {
+              async addImageBlobHook(blob, callback) { // 이미지 업로드 로직 커스텀
+                  try {
+                      /*
+                       * 1. 에디터에 업로드한 이미지를 FormData 객체에 저장
+                       *    (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
+                       */
+                      const formData = new FormData();
+                      formData.append('image', blob);
 
-                    // 2. FileApiController - uploadEditorImage 메서드 호출
-                    const response = await fetch('/boardImage/image-upload', {
-                        method : 'POST',
-                        body : formData,
-                    });
+                      // 2. FileApiController - uploadEditorImage 메서드 호출
+                      const response = await fetch('/boardImage/image-upload', {
+                          method: 'POST',
+                          body: formData,
+                      });
 
-                    // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
-                    const filename = await response.text();
-                    console.log('서버에 저장된 파일명 : ', filename);
+                      // 3. 컨트롤러에서 전달받은 디스크에 저장된 파일명
+                      const filename = await response.text();
+                      console.log('서버에 저장된 파일명 : ', filename);
 
-                    // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
-                    const imageUrl = `/boardImage/image-print?filename=${filename}`;
-                    callback(imageUrl, 'image alt attribute');
+                      // 4. addImageBlobHook의 callback 함수를 통해, 디스크에 저장된 이미지를 에디터에 렌더링
+                      const imageUrl = `/boardImage/image-print?filename=${filename}`;
+                      callback(imageUrl, 'image alt attribute');
 
-                } catch (error) {
-                    console.error('업로드 실패 : ', error);
-                }
-            }
-        }
-        /* end of hooks */
-    });
-</script>
+                  } catch (error) {
+                      console.error('업로드 실패 : ', error);
+                  }
+              }
+          }
+          /* end of hooks */
+      });
+  </script>
+  <input type="file" name="files" multiple>
+  <button type="button" class="toastWrite">작성하기</button>
+  <script>
+      $(".toastWrite").on("click", function () {
+          $(".toastWrite").on("click", function() {
+              const form = document.querySelector("#boardForm");
+              const formData = new FormData(form);
+
+              // 🟢 에디터 내용 추가
+              formData.append("title", "테스트 제목");
+              formData.append("contents", editor.getMarkdown());
+              formData.append("category", "자유게시판");
+
+              fetch("/jiHyunToast/submit", {
+                  method: "POST",
+                  body: formData
+              })
+                  .then(response => response.text())
+                  .then(data => {
+                      console.log("업로드 성공:", data);
+                      location.href = "/board/list"; // 게시판 목록으로 이동 (필요 시 변경)
+                  })
+                  .catch(error => console.error("업로드 실패:", error));
+          });
+      });
+  </script>
+</form>
 
 </body>
 </html>

@@ -37,11 +37,18 @@ public class BoardController {
     return mav;
   }
 
-  //  심지현 tostEditor 테스트용
+  //  심지현 toastEditor 테스트용
   @RequestMapping("/jiHyunToast")
   public ModelAndView jihyunToast() {
     ModelAndView mav = new ModelAndView("/board/jiHyunToastTest");
     return mav;
+  }
+
+//  심지현 사진 있는 toastEditor 실험용
+  @RequestMapping("/jiHyunToast/submit")
+  public void toastWrite(@RequestParam("files") MultipartFile[] files,
+                         @ModelAttribute BoardEntity board){
+    boardImageService.saveFiles(files, board);
   }
 
   // 프로필

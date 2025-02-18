@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +27,6 @@ public class BoardImageController {
 
   @Autowired
   private BoardImageService boardImageService;
-
-  @RequestMapping("/")
-  public String boardImage() {
-    return "boardImage";
-  }
 
   //  실험용
   @ResponseBody
@@ -69,11 +65,12 @@ public class BoardImageController {
 
   /**
    * 디스크에 업로드된 파일을 byte[]로 반환
+   *
    * @param filename 디스크에 업로드된 파일명
    * @return image byte array
    */
   @ResponseBody
-  @GetMapping(value = "/image-print", produces = { MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+  @GetMapping(value = "/image-print", produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
   public byte[] printEditorImage(@RequestParam final String filename) {
     // 업로드된 파일의 전체 경로
     String fileFullPath = Paths.get(fileDirection, filename).toString();
