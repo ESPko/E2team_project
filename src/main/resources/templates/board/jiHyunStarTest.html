@@ -57,29 +57,57 @@
       text-align: center;
       background: bisque;
     }
-
   </style>
 </head>
 <body>
 
 <h2>리뷰작성 폼</h2>
-<div class="star_rating">
-<span class="star">
+<form action="#" class="reviewForm" id="reviewWrite">
+  <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
+  <div class="star_rating">
+  <span class="star">
   ★★★★★
   <span>★★★★★</span>
-  <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
-</span>
-</div>
+  <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
+  </span>
+  </div>
 
-<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요."></textarea>
+  <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
 
-<input type="submit" class="btn02" value="리뷰 등록"/>
+  <button type="button" class="reviewSubmit">등록</button>
+  <button type="reset" class="reviewReset">취소</button>
+  <button type="button" class="reviewOk">확인</button>
+</form>
 
 <script>
-    // JQUERY CODE
     const drawStar = (target) => {
         $(`.star span`).css({width: `${target.value * 10}%`});
     }
+
+    $(".reviewOk").on("click", function () {
+        const review = $("#reviewBox").val();
+        console.log(review);
+        const star = $("#drawStarContainer").val() * 0.5;
+        console.log(star);
+    });
+
+    $(".reviewSubmit").on("click", function () {
+        const reviewWrite = $("#reviewBox").val();
+        console.log(reviewWrite);
+        const reviewStar = $("#drawStarContainer").val() * 0.5;
+        console.log(reviewStar);
+
+        $.ajax({
+            url: `/review/write/${reviewWrite}/${reviewStar}`,
+            type: `get`,
+            data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
+            dataType: `json`,
+            success:function(){
+                console.log("review 작동");
+            }
+        })
+    });
+
 </script>
 </body>
 </html>
