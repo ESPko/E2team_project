@@ -18,21 +18,23 @@
 
               const noticeTitle = $("#noticeTitle").val();
               const noticeContents = $("#noticeContents").val();
+              const noticeImage = $("#noticeImage").val();
               console.log("제목 : " + noticeTitle);
               console.log("내용 : " + noticeContents);
+              console.log("이미지 : " + noticeImage);
 
-              $.ajax({
-                  url: 'notice/write',
-                  type: 'post',
-                  data: {"noticeTitle": noticeTitle, "noticeContents": noticeContents},
-                  success: function () {
-                      alert("공지 등록 완료");
-                      location.reload();
-                  },
-                  error: function () {
-                      alert("공지 등록 완료");
-                  }
-              });
+              // $.ajax({
+              //     url: 'notice/write',
+              //     type: 'post',
+              //     data: {"noticeTitle": noticeTitle, "noticeContents": noticeContents},
+              //     success: function () {
+              //         alert("공지 등록 완료");
+              //         location.reload();
+              //     },
+              //     error: function () {
+              //         alert("공지 등록 완료");
+              //     }
+              // });
           });
 
           // 공지사항 수정
@@ -269,26 +271,39 @@
   </script>
 </head>
 <body>
-<h1>추천</h1>
-<div class="d-flex p-2" th:each="placeStar : ${placeStarList}">
-  <div class="nemo" style="height: 300px; width: 300px; border: 1px solid black;">
-    <p th:text="${placeStar.placeName}" th:value="${placeStar.placeName}"></p>
-    <p th:text="${placeStar.averageStar}" th:value="${placeStar.averageStar}"></p>
-  </div>
-</div>
-
-<br>
-<hr>
-<br>
-
 <h1>공지사항 crud</h1>
 <div>
   <h3>create</h3>
   <form action="#" th:action="@{/board/notice/write}" th:method="post">
     <label for="noticeTitle">제목</label>
     <input type="text" name="noticeTitle" id="noticeTitle">
+    <br>
     <label for="noticeContents">내용</label>
     <textarea name="noticeContents" id="noticeContents"></textarea>
+    <br>
+    <label for="noticeImage">이미지</label>
+    <input type="file" name="noticeImage" id="noticeImage" multiple="multiple">
+    <br>
+    <div id="imagePreview"></div>
+<!--    <script>-->
+<!--        document.getElementById("noticeImage").addEventListener("change", function(event) {-->
+<!--            const files = event.target.files;-->
+<!--            const previewDiv = document.getElementById("imagePreview");-->
+<!--            previewDiv.innerHTML = ""; // 기존 미리보기 초기화-->
+
+<!--            for (const file of files) {-->
+<!--                const reader = new FileReader();-->
+<!--                reader.onload = function(e) {-->
+<!--                    const img = document.createElement("img");-->
+<!--                    img.src = e.target.result;-->
+<!--                    img.style.maxWidth = "300px";-->
+<!--                    img.style.display = "block";-->
+<!--                    previewDiv.appendChild(img);-->
+<!--                };-->
+<!--                reader.readAsDataURL(file);-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
     <button type="submit" class="noticeWriteSubmit">등록</button>
     <button type="reset" class="noticeWriteReset">취소</button>
   </form>
