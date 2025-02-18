@@ -27,7 +27,23 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @RequestMapping("/")
+  public String login(HttpServletRequest request) {
 
+    // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+    Cookie[] cookies = request.getCookies();
+    String cookieUserId = null;
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if ("userId".equals(cookie.getName())) {
+          cookieUserId = cookie.getValue();
+        }
+      }
+    }
+    // 쿠키 값 전달
+    request.setAttribute("cookieUserId", cookieUserId);
+    return "login/loginPage";
+  }
 
   // 로그인
   @PostMapping("/loginProcess.do")

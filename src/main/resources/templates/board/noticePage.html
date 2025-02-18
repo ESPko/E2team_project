@@ -11,67 +11,53 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <script>
 
-      $(document).on("click", ".findNoticeTitle", function () {
-          const findNoticeTitle = $(this).text();
-          const findNoticeIdxText = $(this).closest(".row").find(".findNoticeIdx").text();
 
-          console.log("제목 : ", findNoticeTitle);
-          console.log("글번호 text : ", findNoticeIdxText);
-      });
-
-    $(document).on("click", ".findNoticeTitle", function () {
-      const findNoticeTitle = $(this).text();
-      const findNoticeIdxText = $(this).closest(".row").find(".findNoticeIdx").text();
-
-      console.log("제목 : ", findNoticeTitle);
-      console.log("글번호 text : ", findNoticeIdxText);
-    });
-
-  </script>
 </head>
 <body>
-<!--링크는 location:8080/notice 입니다-->
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
   <div class="container-sm" style="width: 800px; padding-top: 10px; margin-top: 30px;">
-    <div>
-      <h4 style="font-weight: bold;">공지사항</h4>
-      <p>다양한 소식을 알려드립니다.</p>
-    </div>
+    <div><h4 style="font-weight: bold;">공지사항</h4><p>다양한 소식을 알려드립니다.</p></div>
     <div>
       <ul style="list-style: none; padding-left: 0">
         <li>
-          <div class="container row d-flex justify-content-between"
-               style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
             <div class="col-1 align-items-center">번호</div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
-              <a href="#" class="text-dark" style="text-decoration: none;">제목</a>
-            </div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
             <div class="col-3" style="text-align: right;">작성일</div>
           </div>
         </li>
         <li>
-          <div class="container row d-flex justify-content-between"
-               style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="findNotice : ${findNoticeList}">
-            <div class="col-1 align-items-center findNoticeIdx" th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">
-              번호
-            </div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
-              <a href="#"
-                 class="text-dark findNoticeTitle"
-                 style="text-decoration: none;"
-                 th:value="${findNotice.title}"
-                 th:text="${findNotice.title}"
-
-              th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
-
-            </div>
-            <div class="col-3" style="text-align: right;" th:value="${findNotice.createDate}"
-                 th:text="${findNotice.createDate}">작성일
-            </div>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="findNotice : ${findNoticeList}">
+            <div class="col-1 align-items-center" th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;"
+                                                                                th:value="${findNotice.title}"
+                                                                                th:text="${findNotice.title}"
+                                                                                th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a></div>
+            <div class="col-3" style="text-align: right;" th:value="${findNotice.createDate}" th:text="${findNotice.createDate}">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
+          </div>
+        </li>
+        <li>
+          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+            <div class="col-1 align-items-center">번호</div>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+            <div class="col-3" style="text-align: right;">작성일</div>
           </div>
         </li>
       </ul>

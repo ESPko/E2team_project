@@ -31,9 +31,16 @@ public class BoardController {
   @RequestMapping("/jiHyunCRUDTest")
   public ModelAndView jiHyunCRUDTest() {
     ModelAndView mav = new ModelAndView("/board/jiHyunCRUDTest");
-
+    List<BoardEntity> findNoticeList = boardService.findNotice();
+    List<BoardEntity> findEventList = boardService.findEvent();
+    List<BoardEntity> findCrewList = boardService.findCrew();
+    mav.addObject("findNoticeList", findNoticeList);
+    mav.addObject("findEventList", findEventList);
+    mav.addObject("findCrewList", findCrewList);
+    return mav;
   }
 
+  @Autowired
   private ReplyService replyService;
 
   @Autowired
@@ -52,13 +59,26 @@ public class BoardController {
     return mav;
   }
 
+  // 회원가입 페이지
+  @RequestMapping("/regist")
+  public ModelAndView regist() {
+    return new ModelAndView("/login/registerPage");
+  }
+
+  //  추천 페이지
+  @RequestMapping("/rec")
+  public ModelAndView recommand() {
+    return new ModelAndView("/board/recommandPage");
+  }
+
+
   //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
     return new ModelAndView("/board/mainPage");
   }
 
-  //  메인 페이지
+  //  메인상세 페이지
   @RequestMapping("/detail")
   public ModelAndView mainDetail() {
     return new ModelAndView("/board/mainDetailPage");
@@ -209,25 +229,25 @@ public class BoardController {
 
 
 //  로그인 페이지
-    @RequestMapping("/loginpage")
-  public ModelAndView loginPage(HttpServletRequest request) {
-    ModelAndView mav = new ModelAndView("/login/loginPage");
-
-        // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
-    Cookie[] cookies = request.getCookies();
-    String cookieUserId = null;
-    if (cookies != null) {
-      for (Cookie cookie : cookies) {
-        if ("userId".equals(cookie.getName())) {
-          cookieUserId = cookie.getValue();
-        }
-      }
-    }
-    // 쿠키 값 전달
-    request.setAttribute("cookieUserId", cookieUserId);
-
-    return mav;
-  }
+//    @RequestMapping("/loginpage")
+//  public ModelAndView loginPage(HttpServletRequest request) {
+//    ModelAndView mav = new ModelAndView("/login/loginPage");
+//
+//        // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
+//    Cookie[] cookies = request.getCookies();
+//    String cookieUserId = null;
+//    if (cookies != null) {
+//      for (Cookie cookie : cookies) {
+//        if ("userId".equals(cookie.getName())) {
+//          cookieUserId = cookie.getValue();
+//        }
+//      }
+//    }
+//    // 쿠키 값 전달
+//    request.setAttribute("cookieUserId", cookieUserId);
+//
+//    return mav;
+//  }
 
   @RequestMapping("/profile")
   public ModelAndView profile() {
