@@ -34,34 +34,76 @@ public class PlaceController {
     return placeService.recommendPlace(selectLocation, selectAge, selectPeople);
   }
 
-  //  선택한 지역, 나이, 사람 수와 리뷰가 높은 순으로 출력
+  //  선택한 지역, 나이, 사람 수와 별점이 높은 순으로 출력
   @ResponseBody
   @RequestMapping("/recommend/starHigh/{selectLocation}/{selectAge}/{selectPeople}")
   public List<PlaceDTO> starHigh(@PathVariable("selectLocation") String selectLocation,
-                       @PathVariable("selectAge") int selectAge,
-                       @PathVariable("selectPeople") int selectPeople) {
+                                 @PathVariable("selectAge") int selectAge,
+                                 @PathVariable("selectPeople") int selectPeople) {
     System.out.println("추천수 높은 순");
-    System.out.println(placeService.findPlaceStarHigh(selectLocation,selectAge,selectPeople));
-    return placeService.findPlaceStarHigh(selectLocation, selectAge, selectPeople);
+    List<PlaceDTO> showStarHigh = placeService.findPlaceStarHigh(selectLocation, selectAge, selectPeople);
+    for (PlaceDTO placeDTO : showStarHigh) {
+      System.out.println("이름 : " + placeDTO.getPlaceName());
+      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+    }
+    return showStarHigh;
   }
 
-  //  선택한 지역, 나이, 사람 수와 리뷰가 낮은 순으로 출력
+  //  선택한 지역, 나이, 사람 수와 별점이 낮은 순으로 출력
   @ResponseBody
   @RequestMapping("/recommend/starLow/{selectLocation}/{selectAge}/{selectPeople}")
   public List<PlaceDTO> starRow(@PathVariable("selectLocation") String selectLocation,
-                      @PathVariable("selectAge") int selectAge,
-                      @PathVariable("selectPeople") int selectPeople) {
+                                @PathVariable("selectAge") int selectAge,
+                                @PathVariable("selectPeople") int selectPeople) {
     System.out.println("추천수 낮은 순");
-    System.out.println(placeService.findPlaceStarLow(selectLocation,selectAge,selectPeople));
-    return placeService.findPlaceStarLow(selectLocation, selectAge, selectPeople);
+    List<PlaceDTO> showStarLow = placeService.findPlaceStarLow(selectLocation, selectAge, selectPeople);
+    for (PlaceDTO placeDTO : showStarLow) {
+      System.out.println("이름 : " + placeDTO.getPlaceName());
+      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+    }
+    return showStarLow;
   }
 
-  //  상위 세개 추천 항목 나오게
-  @RequestMapping("/")
-  public ModelAndView place() {
-    ModelAndView mav = new ModelAndView("jiHyunCRUDTest");
-    List<PlaceDTO> placeStarList = placeService.getAllPlaceSortByStar();
-    mav.addObject("placeStarList", placeStarList);
-    return mav;
+//  선택한 지역, 나이, 사람 수와 리뷰가 많은 순으로 출력
+  @ResponseBody
+  @RequestMapping("/recommend/reviewHigh/{selectLocation}/{selectAge}/{selectPeople}")
+  public List<PlaceDTO> reviewHigh(@PathVariable("selectLocation") String selectLocation,
+                                   @PathVariable("selectAge") int selectAge,
+                                   @PathVariable("selectPeople") int selectPeople){
+    System.out.println("리뷰 많은 순");
+    List<PlaceDTO> showReviewHigh = placeService.findPlaceReviewMany(selectLocation, selectAge, selectPeople);
+    for (PlaceDTO placeDTO : showReviewHigh) {
+      System.out.println("이름 : " + placeDTO.getPlaceName());
+      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+    }
+    return showReviewHigh;
   }
+
+//  선택한 지역, 나이, 사람 수와 리뷰가 적은 순으로 출력
+@ResponseBody
+@RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
+public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
+                                 @PathVariable("selectAge") int selectAge,
+                                 @PathVariable("selectPeople") int selectPeople){
+  System.out.println("리뷰 적은 순");
+  List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
+  for (PlaceDTO placeDTO : showReviewLess) {
+    System.out.println("이름 : " + placeDTO.getPlaceName());
+    System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+    System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+  }
+  return showReviewLess;
+}
+
+  //  상위 세개 추천 항목 나오게
+//  @RequestMapping("/")
+//  public ModelAndView place() {
+//    ModelAndView mav = new ModelAndView("jiHyunCRUDTest");
+//    List<PlaceDTO> placeStarList = placeService.getAllPlaceSortByStar();
+//    mav.addObject("placeStarList", placeStarList);
+//    return mav;
+//  }
 }

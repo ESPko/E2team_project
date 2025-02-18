@@ -22,11 +22,11 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
                                    @Param("selectPeople") int selectPeople);
 
   //  추천수가 높은 순으로
-  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0)) " +
+  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +
           "FROM PlaceEntity p LEFT JOIN p.reviewEntityList r " +
-          "WHERE p.location = :selectLocation " +  // 특정 지역 필터링
-          "AND p.recommendAge <= :selectAge " +  // 추천 연령 제한
-          "AND p.numberPeople <= :selectPeople " +  // 최대 인원 제한
+          "WHERE p.location = :selectLocation " +
+          "AND p.recommendAge <= :selectAge " +
+          "AND p.numberPeople <= :selectPeople " +
           "GROUP BY p.placeIdx, p.name " +
           "ORDER BY COALESCE(AVG(r.star), 0) DESC")
   List<PlaceDTO> findPlaceStarHigh(@Param("selectLocation") String selectLocation,
@@ -34,22 +34,46 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
                                    @Param("selectPeople") int selectPeople);
 
   //  추천수가 낮은 순으로
-  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0)) " +
+  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +
           "FROM PlaceEntity p LEFT JOIN p.reviewEntityList r " +
-          "WHERE p.location = :selectLocation " +  // 특정 지역 필터링
-          "AND p.recommendAge <= :selectAge " +  // 추천 연령 제한
-          "AND p.numberPeople <= :selectPeople " +  // 최대 인원 제한
+          "WHERE p.location = :selectLocation " +
+          "AND p.recommendAge <= :selectAge " +
+          "AND p.numberPeople <= :selectPeople " +
           "GROUP BY p.placeIdx, p.name " +
           "ORDER BY COALESCE(AVG(r.star), 0) asc")
   List<PlaceDTO> findPlaceStarLow(@Param("selectLocation") String selectLocation,
                                   @Param("selectAge") int selectAge,
                                   @Param("selectPeople") int selectPeople);
 
-  //  상위 세 개 추천 활동 목록
-  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0)) " +
+  //  리뷰 많은 순으로
+  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +
           "FROM PlaceEntity p LEFT JOIN p.reviewEntityList r " +
+          "WHERE p.location = :selectLocation " +
+          "AND p.recommendAge <= :selectAge " +
+          "AND p.numberPeople <= :selectPeople " +
           "GROUP BY p.placeIdx, p.name " +
-          "ORDER BY COALESCE(AVG(r.star), 0) DESC")
-  List<PlaceDTO> findTopPlacesByAverageStar(Pageable pageable);
+          "ORDER BY count(r) desc")
+  List<PlaceDTO> findPlaceReviewMany(@Param("selectLocation") String selectLocation,
+                                  @Param("selectAge") int selectAge,
+                                  @Param("selectPeople") int selectPeople);
+
+  //  리뷰 적은 순으로
+  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +
+          "FROM PlaceEntity p LEFT JOIN p.reviewEntityList r " +
+          "WHERE p.location = :selectLocation " +
+          "AND p.recommendAge <= :selectAge " +
+          "AND p.numberPeople <= :selectPeople " +
+          "GROUP BY p.placeIdx, p.name " +
+          "ORDER BY count(r) asc")
+  List<PlaceDTO> findPlaceReviewLess(@Param("selectLocation") String selectLocation,
+                                     @Param("selectAge") int selectAge,
+                                     @Param("selectPeople") int selectPeople);
+
+  //  상위 세 개 추천 활동 목록
+//  @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0)) " +
+//          "FROM PlaceEntity p LEFT JOIN p.reviewEntityList r " +
+//          "GROUP BY p.placeIdx, p.name " +
+//          "ORDER BY COALESCE(AVG(r.star), 0) DESC")
+//  List<PlaceDTO> findTopPlacesByAverageStar(Pageable pageable);
 
 }
