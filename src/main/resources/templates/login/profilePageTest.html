@@ -19,7 +19,7 @@
     <div class="col-md-4">
       <div class="card p-3">
         <div class="text-center">
-          <img src="/img/default-profile.png" class="rounded-circle" width="150" alt="프로필 사진">
+          <img src="/img/profile.png" alt="profile_img" style="width: 296px; height: 296px;">
         </div>
         <div class="mt-3">
           <p><strong>아이디:</strong> <span th:text="${user.id}"></span></p>
@@ -36,9 +36,24 @@
 
       <div class="card p-3 mb-3">
         <button class="btn btn-outline-primary w-100" id="change-password">비밀번호 수정</button>
+
+        <div id="password-form" class="mt-3 d-none">
+          <label for="new-password" class="form-label">새 비밀번호</label>
+          <input type="password" id="new-password" class="form-control" placeholder="새 비밀번호 입력">
+
+          <label for="confirm-password" class="form-label mt-2">비밀번호 확인</label>
+          <input type="password" id="confirm-password" class="form-control" placeholder="비밀번호 확인">
+
+          <button class="btn btn-primary mt-3" id="submit-password">비밀번호 변경</button>
+        </div>
       </div>
+
       <div class="card p-3 mb-3">
         <button class="btn btn-outline-primary w-100" id="change-security">휴대폰번호 수정</button>
+        <div id="phone-form" class="mt-3 d-none">
+          <input type="text" id="new-phone" class="form-control mb-2" placeholder="새 휴대폰번호">
+          <button class="btn btn-primary w-100" id="submit-phone">휴대폰번호 변경</button>
+        </div>
       </div>
 
       <div class="alert alert-success d-none" id="success-message">
@@ -56,12 +71,70 @@
 
 <script>
   $(document).ready(function() {
-    $("#change-password, #change-security").on("click", function() {
-      $("#success-message").removeClass("d-none");
-      setTimeout(function() {
-        $("#success-message").addClass("d-none");
-      }, 3000);
+    // $("#change-password, #change-security").on("click", function() {
+    //   $("#success-message").removeClass("d-none");
+    //   setTimeout(function() {
+    //     $("#success-message").addClass("d-none");
+    //   }, 3000);
+    // });
+
+      // 비밀번호 수정 폼 토글
+      $("#change-password").on("click", function() {
+        $("#password-form").toggleClass("d-none").hide().fadeIn();
+      });
+
+    $("#change-security").on("click", function() {
+      $("#phone-form").toggleClass("d-none");
     });
+
+      // 비밀번호 변경 전송
+      $("#submit-password").on("click", function() {
+        const newPassword = $("#new-password").val();
+        const confirmPassword = $("#confirm-password").val();
+
+        if (newPassword === "" || confirmPassword === "") {
+          alert("비밀번호를 입력하세요.");
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+
+        // 비밀번호 변경 요청 (예제: 실제로는 AJAX로 서버에 전송)
+        alert("비밀번호가 성공적으로 변경되었습니다.");
+        $("#password-form").addClass("d-none");
+        $("#success-message").removeClass("d-none");
+
+        setTimeout(function() {
+          $("#success-message").addClass("d-none");
+        }, 3000);
+      });
+
+    $("#submit-phone").on("click", function() {
+      let newPhone = $("#new-phone").val();
+      if (newPhone !== "") {
+        $("#success-message").removeClass("d-none").text("휴대폰번호가 변경되었습니다.");
+        setTimeout(function() {
+          $("#success-message").addClass("d-none");
+        }, 3000);
+      } else {
+        alert("올바른 휴대폰번호를 입력하세요.");
+      }
+    });
+
+      // 휴대폰번호 수정 알림
+      // $("#change-security").on("click", function() {
+      //   $("#success-message").removeClass("d-none");
+      //   setTimeout(function() {
+      //     $("#success-message").addClass("d-none");
+      //   }, 3000);
+      // });
+
+    $("#my-posts").on("click", function() {
+      location.href="/myboard"
+    });
+
   });
 </script>
 

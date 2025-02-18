@@ -61,12 +61,13 @@ public class ReviewController {
 
   }
 
-  //  해당 장소 상세 페이지 테스트
+//  장소 상세 페이지 테스트
   @GetMapping("/placeDetail")
-  public String getPlaceDetail(@RequestParam("placeIdx") int placeIdx, Model model) {
+  public ModelAndView getPlaceDetail(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
-    model.addAttribute("reviews", reviews);
-    return "board/placeDetailTest";
+    ModelAndView mav = new ModelAndView("board/placeDetailTest");  // 뷰 이름 설정
+    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+    return mav;
   }
 
   // 리뷰 삭제 요청 처리 테스트

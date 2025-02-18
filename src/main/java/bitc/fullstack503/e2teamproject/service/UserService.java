@@ -10,6 +10,7 @@ public interface UserService {
     //    사용자 존재 여부 확인
     boolean isUserInfo(String userId, String userPw);
 
+//    로그인
     UserEntity getUserInfo(String userId);
 
     // 회원 존재 여부 확인
@@ -18,10 +19,10 @@ public interface UserService {
     // 회원가입
     void registerUser(UserEntity user);
 
+//
     List<UserEntity> getAllUsers();
 
 //    회원삭제
-
     void deleteUserById(int id);
 
 }

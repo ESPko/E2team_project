@@ -1,13 +1,8 @@
 package bitc.fullstack503.e2teamproject.controller;
 
-import bitc.fullstack503.e2teamproject.entity.BoardEntity;
-import bitc.fullstack503.e2teamproject.entity.BoardImageEntity;
-import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
-import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
-import bitc.fullstack503.e2teamproject.service.BoardImageService;
-import bitc.fullstack503.e2teamproject.service.BoardService;
-import bitc.fullstack503.e2teamproject.service.ReplyService;
-import bitc.fullstack503.e2teamproject.service.ReviewService;
+import bitc.fullstack503.e2teamproject.entity.*;
+import bitc.fullstack503.e2teamproject.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +25,8 @@ public class BoardController {
     private ReplyService replyService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private UserService userService;
 
   //  심지현 crud 테스트용
   @ResponseBody
@@ -47,8 +44,21 @@ public class BoardController {
 
   // 프로필
   @RequestMapping("/pro")
-  public ModelAndView profile() {
-    return new ModelAndView("/login/profilePage");
+  public ModelAndView profile(HttpServletRequest request) {
+//    return new ModelAndView("/login/profilePage");
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+    String userEmail = (String) session.getAttribute("userEmail");
+
+    ModelAndView mav = new ModelAndView("/login/profilePage");
+
+    if (userId != null) {
+      UserEntity user = userService.getUserInfo(userId);
+      mav.addObject("user", user);
+      mav.addObject("userEmail", userEmail);
+    }
+
+    return mav;
   }
 
   // 회원가입 페이지
