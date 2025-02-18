@@ -1,5 +1,6 @@
 package bitc.fullstack503.e2teamproject.repository;
 
+
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,8 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import java.util.List;
 
@@ -106,4 +105,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Transactional
   @Query("delete from BoardEntity b where b.board_idx = :crewNumberDelete")
   void queryDeleteCrew(@Param("crewNumberDelete") int crewNumberDelete);
+
+  //  내가 작성한 게시물
+  @Query("SELECT b FROM BoardEntity b WHERE b.user.user_idx = :userId")
+  List<BoardEntity> findByUserId(@Param("userId") int userId);
+
+
+
 }

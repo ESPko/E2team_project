@@ -8,12 +8,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,23 +27,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @RequestMapping("/")
-  public String login(HttpServletRequest request) {
 
-    // 쿠키에서 아이디가 저장되어 있으면 로그인 페이지에 표시
-    Cookie[] cookies = request.getCookies();
-    String cookieUserId = null;
-    if (cookies != null) {
-      for (Cookie cookie : cookies) {
-        if ("userId".equals(cookie.getName())) {
-          cookieUserId = cookie.getValue();
-        }
-      }
-    }
-    // 쿠키 값 전달
-    request.setAttribute("cookieUserId", cookieUserId);
-    return "login/loginPage";
-  }
 
   // 로그인
   @PostMapping("/loginProcess.do")
@@ -55,6 +42,8 @@ public class UserController {
     if (userService.isUserInfo(userId, userPw)) {
       UserEntity user = userService.getUserInfo(userId);
       HttpSession session = request.getSession();
+
+      session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
       session.setAttribute("userEmail", user.getEmail());
       session.setAttribute("userLevel", user.getLevel());
@@ -95,7 +84,7 @@ public class UserController {
     cookie.setPath("/"); // 모든 경로에서 쿠키 접근 가능
     response.addCookie(cookie);
 
-    return "redirect:/user/";
+    return "redirect:/";
   }
 
   //  회원가입 처리
@@ -140,6 +129,39 @@ public class UserController {
     Map<String, String> response = new HashMap<>();
     response.put("status", exists ? "duplicate" : "available");
     return response;
+  }
+
+  @RequestMapping("/manager")
+  public ModelAndView managerPage() {
+    ModelAndView mav = new ModelAndView("/manage/managerPage");
+    List<UserEntity> userList = userService.getAllUsers();
+    mav.addObject("users", userList);
+    return mav;
+  }
+
+  @DeleteMapping("/delete/{id}")
+  @ResponseBody
+  public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+    userService.deleteUserById(id);
+    return ResponseEntity.ok("삭제 완료");
+  }
+
+
+//  마이페이지 페이지 테스트
+  @RequestMapping("/profileTest")
+  public ModelAndView profileTest(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    ModelAndView mav = new ModelAndView("/login/profilePageTest");
+
+    if (userId != null) {
+      UserEntity user = userService.getUserInfo(userId);
+      mav.addObject("user", user);
+    }
+
+    return mav;
+
   }
 }
 
