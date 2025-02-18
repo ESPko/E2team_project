@@ -24,11 +24,7 @@ public class ReplyController {
   //  댓글 보기
   @ResponseBody
   @GetMapping("/list/{crewBoardIdx}")
-  public Object replyShow(@PathVariable("crewBoardIdx") int crewBoardIdx){
-//    List<ReplyEntity> replyList = replyService.replyShow(crewBoardIdx);
-//    Map<String, Object> result = new HashMap<>();
-//    result.put("replyList", replyList);
-//    System.out.println(result);
+  public Object replyShow(@PathVariable("crewBoardIdx") int crewBoardIdx) {
     List<ReplyDTO> replyList = replyService.replyShow(crewBoardIdx)
             .stream()
             .map(ReplyDTO::fromEntity)
@@ -36,6 +32,13 @@ public class ReplyController {
 
     Map<String, Object> result = new HashMap<>();
     result.put("replyList", replyList);
+
+    for (ReplyDTO replyDTO : replyList) {
+      System.out.println(replyDTO.getReplyIdx());
+      System.out.println(replyDTO.getComment());
+      System.out.println(replyDTO.getCreateDate());
+      System.out.println(replyDTO.getUserId());
+    }
     return result;
   }
 
@@ -45,5 +48,19 @@ public class ReplyController {
   public void replyWrite(@PathVariable("crewBoardIdx") int crewBoardIdx,
                          @PathVariable("replyWriteComment") String replyWriteComment) {
     replyService.replyWrite(crewBoardIdx, replyWriteComment);
+  }
+
+  //  댓글 수정(아이디가 일치하는지?)
+  @ResponseBody
+  @PutMapping("/modify/{replyIdx}")
+  public void replyModify(@PathVariable("replyIdx") int replyIdx){
+//    replyService.replyModify();
+  }
+
+  //  댓글 삭제
+  @ResponseBody
+  @DeleteMapping("/delete/{replyIdx}")
+  public void replyDelete(@PathVariable("replyIdx") int replyIdx) {
+    replyService.replyDelete(replyIdx);
   }
 }
