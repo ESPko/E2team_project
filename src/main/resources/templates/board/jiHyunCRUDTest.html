@@ -18,21 +18,23 @@
 
               const noticeTitle = $("#noticeTitle").val();
               const noticeContents = $("#noticeContents").val();
+              const noticeImage = $("#noticeImage").val();
               console.log("제목 : " + noticeTitle);
               console.log("내용 : " + noticeContents);
+              console.log("이미지 : " + noticeImage);
 
-              $.ajax({
-                  url: 'notice/write',
-                  type: 'post',
-                  data: {"noticeTitle": noticeTitle, "noticeContents": noticeContents},
-                  success: function () {
-                      alert("공지 등록 완료");
-                      location.reload();
-                  },
-                  error: function () {
-                      alert("공지 등록 완료");
-                  }
-              });
+              // $.ajax({
+              //     url: 'notice/write',
+              //     type: 'post',
+              //     data: {"noticeTitle": noticeTitle, "noticeContents": noticeContents},
+              //     success: function () {
+              //         alert("공지 등록 완료");
+              //         location.reload();
+              //     },
+              //     error: function () {
+              //         alert("공지 등록 완료");
+              //     }
+              // });
           });
 
           // 공지사항 수정
@@ -269,60 +271,39 @@
   </script>
 </head>
 <body>
-<!--<form action="/board/notice/write" method="post">-->
-<!--  <label for="location">지역</label>-->
-<!--  <select name="location" id="location">-->
-<!--    <option value="" selected>선택</option>-->
-<!--    <option value="부산진구">부산진구</option>-->
-<!--  </select>-->
-<!--  <br>-->
-<!--  <label for="age">나이</label>-->
-<!--  <select name="age" id="age">-->
-<!--    <option value="" selected>선택</option>-->
-<!--    <option value="0">미취학 아동</option>-->
-<!--    <option value="10">10대</option>-->
-<!--    <option value="20">20대</option>-->
-<!--    <option value="30">30대</option>-->
-<!--    <option value="40">40대</option>-->
-<!--    <option value="50">50대</option>-->
-<!--  </select>-->
-<!--  <br>-->
-<!--  <label for="person">인원 수</label>-->
-<!--  <select name="person" id="person">-->
-<!--    <option value="" selected>선택</option>-->
-<!--    <option value="1">1명</option>-->
-<!--    <option value="2">2명</option>-->
-<!--    <option value="4">4명 이상</option>-->
-<!--  </select>-->
-<!--  <br>-->
-<!--  <button type="submit">확인</button>-->
-<!--  <button type="reset">취소</button>-->
-<!--</form>-->
-
-<br>
-<hr>
-<br>
-
-<h1>추천</h1>
-<div class="d-flex p-2" th:each="placeStar : ${placeStarList}">
-  <div class="nemo" style="height: 300px; width: 300px; border: 1px solid black;">
-    <p th:text="${placeStar.placeName}" th:value="${placeStar.placeName}"></p>
-    <p th:text="${placeStar.averageStar}" th:value="${placeStar.averageStar}"></p>
-  </div>
-</div>
-
-<br>
-<hr>
-<br>
-
 <h1>공지사항 crud</h1>
 <div>
   <h3>create</h3>
   <form action="#" th:action="@{/board/notice/write}" th:method="post">
     <label for="noticeTitle">제목</label>
     <input type="text" name="noticeTitle" id="noticeTitle">
+    <br>
     <label for="noticeContents">내용</label>
     <textarea name="noticeContents" id="noticeContents"></textarea>
+    <br>
+    <label for="noticeImage">이미지</label>
+    <input type="file" name="noticeImage" id="noticeImage" multiple="multiple">
+    <br>
+    <div id="imagePreview"></div>
+<!--    <script>-->
+<!--        document.getElementById("noticeImage").addEventListener("change", function(event) {-->
+<!--            const files = event.target.files;-->
+<!--            const previewDiv = document.getElementById("imagePreview");-->
+<!--            previewDiv.innerHTML = ""; // 기존 미리보기 초기화-->
+
+<!--            for (const file of files) {-->
+<!--                const reader = new FileReader();-->
+<!--                reader.onload = function(e) {-->
+<!--                    const img = document.createElement("img");-->
+<!--                    img.src = e.target.result;-->
+<!--                    img.style.maxWidth = "300px";-->
+<!--                    img.style.display = "block";-->
+<!--                    previewDiv.appendChild(img);-->
+<!--                };-->
+<!--                reader.readAsDataURL(file);-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
     <button type="submit" class="noticeWriteSubmit">등록</button>
     <button type="reset" class="noticeWriteReset">취소</button>
   </form>
