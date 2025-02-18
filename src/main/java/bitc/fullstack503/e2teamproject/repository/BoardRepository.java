@@ -23,11 +23,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryWriteNotice(@Param("noticeTitle") String noticeTitle, @Param("noticeContents") String noticeContents);
 
   //  공지사항 찾아서 읽어오기
-  @Query("select b from BoardEntity as b where b.category = '공지사항'")
+  @Query("select b from BoardEntity as b where b.category = '공지사항' order by b.board_idx desc")
   List<BoardEntity> queryFindNotice();
 
   //  공지사항 네개씩 읽어오기
-  @Query("select b from BoardEntity as b where b.category='공지사항'")
+  @Query("select b from BoardEntity as b where b.category='공지사항' order by b.board_idx desc")
   List<BoardEntity> queryFindNoticeFour(Pageable pageable);
 
   //  공지사항 수정하기
@@ -54,11 +54,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
                        @Param("eventContentsCreate") String eventContentsCreate);
 
   //  이벤트 찾아서 읽어오기
-  @Query("select b from BoardEntity as b where b.category = '이벤트'")
+  @Query("select b from BoardEntity as b where b.category = '이벤트' order by b.board_idx desc")
   List<BoardEntity> queryFindEvent();
 
   //  이벤트 네개씩 읽어오기
-  @Query("select b from BoardEntity as b where b.category='이벤트'")
+  @Query("select b from BoardEntity as b where b.category='이벤트' order by b.board_idx desc")
   List<BoardEntity> queryFindEventFour(Pageable pageable);
 
   //  이벤트 수정하기
@@ -85,11 +85,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
                       @Param("crewContentsCreate") String crewContentsCreate);
 
   //    인원모집 찾아서 읽어오기
-  @Query("select b from BoardEntity as b where b.category = '인원모집'")
+  @Query("select b from BoardEntity as b where b.category = '인원모집' order by b.board_idx desc")
   List<BoardEntity> queryFindCrew();
-
-//  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
-//  List<BoardEntity> findAllByOrderByBoard_idxDesc();
 
   //  인원모집 수정하기
   @Modifying
