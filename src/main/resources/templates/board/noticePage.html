@@ -19,7 +19,10 @@
 
 <section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
   <div class="container-sm" style="width: 800px; padding-top: 10px; margin-top: 30px;">
-    <div><h4 style="font-weight: bold;">공지사항</h4><p>다양한 소식을 알려드립니다.</p></div>
+    <div>
+      <h4 style="font-weight: bold;">공지사항</h4>
+      <p>다양한 소식을 알려드립니다.</p>
+    </div>
     <div>
       <ul style="list-style: none; padding-left: 0">
         <li>
@@ -45,6 +48,29 @@
           </div>
         </li>
       </ul>
+
+      <!-- 페이징처리 시작 -->
+      <div th:if="${!findNoticeList.isEmpty()}">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:classappend="${!findNoticeList.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${findNoticeList.number-1}|}">
+              <span>이전</span>
+            </a>
+          </li>
+          <li th:each="page: ${#numbers.sequence(0, findNoticeList.totalPages-1)}"
+              th:classappend="${page == findNoticeList.number} ? 'active'"
+              class="page-item">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+          </li>
+          <li class="page-item" th:classappend="${!findNoticeList.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${findNoticeList.number+1}|}">
+              <span>다음</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 페이징처리 끝 -->
     </div>
   </div>
 </section>
