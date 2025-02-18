@@ -42,7 +42,6 @@ public class BoardController {
     return new ModelAndView("/login/profilePage");
   }
 
-
   // 회원가입 페이지
   @RequestMapping("/regist")
   public ModelAndView regist() {
@@ -55,14 +54,13 @@ public class BoardController {
     return new ModelAndView("/board/recommandPage");
   }
 
-
   //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
     return new ModelAndView("/board/mainPage");
   }
 
-  //  메인 페이지
+  //  메인 페이지2
   @RequestMapping("/detail")
   public ModelAndView mainDetail() {
     return new ModelAndView("/board/mainDetailPage");
@@ -80,7 +78,7 @@ public class BoardController {
   //  공지 네개씩만 보기
   @ResponseBody
   @RequestMapping("/notice/four")
-  public List<BoardEntity> noticeReadFour() {
+  public List<BoardEntity> noticeReadFour(){
     return boardService.findNoticeFour();
   }
 
@@ -100,7 +98,6 @@ public class BoardController {
                           @RequestParam("noticeContents") String noticeContents) {
     boardService.writeNotice(noticeTitle, noticeContents);
   }
-
 
   //  공지 수정하기
   @ResponseBody
@@ -183,6 +180,12 @@ public class BoardController {
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);
     return mav;
+  }
+
+  //  인원 모집 쓰기 뷰
+  @RequestMapping("/crew/write")
+  public ModelAndView writeCrewView() {
+    return new ModelAndView("/board/crewWritePage");
   }
 
   //  인원 모집 쓰기

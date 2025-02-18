@@ -21,8 +21,7 @@ public class PlaceController {
   //  심지현 place 테스트용
   @RequestMapping("/jiHyunPlaceTest")
   public ModelAndView jiHyunPlaceTest() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunPlaceTest");
-    return mav;
+    return new ModelAndView("/board/jiHyunPlaceTest");
   }
 
   //  선택한 지역, 나이, 사람 수에 따라서 결과 출력
@@ -71,7 +70,7 @@ public class PlaceController {
   @RequestMapping("/recommend/reviewHigh/{selectLocation}/{selectAge}/{selectPeople}")
   public List<PlaceDTO> reviewHigh(@PathVariable("selectLocation") String selectLocation,
                                    @PathVariable("selectAge") int selectAge,
-                                   @PathVariable("selectPeople") int selectPeople){
+                                   @PathVariable("selectPeople") int selectPeople) {
     System.out.println("리뷰 많은 순");
     List<PlaceDTO> showReviewHigh = placeService.findPlaceReviewMany(selectLocation, selectAge, selectPeople);
     for (PlaceDTO placeDTO : showReviewHigh) {
@@ -82,21 +81,21 @@ public class PlaceController {
     return showReviewHigh;
   }
 
-//  선택한 지역, 나이, 사람 수와 리뷰가 적은 순으로 출력
-@ResponseBody
-@RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
-public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
-                                 @PathVariable("selectAge") int selectAge,
-                                 @PathVariable("selectPeople") int selectPeople){
-  System.out.println("리뷰 적은 순");
-  List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
-  for (PlaceDTO placeDTO : showReviewLess) {
-    System.out.println("이름 : " + placeDTO.getPlaceName());
-    System.out.println("별점 평균 : " + placeDTO.getAverageStar());
-    System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+  //  선택한 지역, 나이, 사람 수와 리뷰가 적은 순으로 출력
+  @ResponseBody
+  @RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
+  public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
+                                   @PathVariable("selectAge") int selectAge,
+                                   @PathVariable("selectPeople") int selectPeople){
+    System.out.println("리뷰 적은 순");
+    List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
+    for (PlaceDTO placeDTO : showReviewLess) {
+      System.out.println("이름 : " + placeDTO.getPlaceName());
+      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
+    }
+    return showReviewLess;
   }
-  return showReviewLess;
-}
 
   //  상위 세개 추천 항목 나오게
 //  @RequestMapping("/")
