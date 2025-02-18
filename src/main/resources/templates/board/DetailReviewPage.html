@@ -65,11 +65,20 @@
               }, 700);
           }).scroll();
       });
+  </script>
 
-      $('.star-rating > .star').click(function () {
-          $(this).parent().children('span').removeClass('on');
-          $(this).addClass('on').prevAll('span').addClass('on');
-      })
+  <script>
+      $(document).ready(function () {
+          $(".star-rating .star").click(function () {
+              let rating = $(this).data("value"); // 선택한 별의 값 가져오기
+              $("#rating").val(rating); // hidden input에 값 저장
+              console.log("선택한 별점: " + rating); // 확인용 콘솔 출력
+
+              // 별 스타일 적용
+              $(this).siblings('.star').removeClass('on');
+              $(this).addClass('on').prevAll('.star').addClass('on');
+          });
+      });
   </script>
 
 </head>
@@ -144,14 +153,14 @@
       </div>
     </div>
     <form>
-      <input type="hidden">
+      <input type="hidden" name="rating">
       <div class="row mt-5">
         <div class="star-rating">
-          <span class="star on" value="1"></span>
-          <span class="star" value="2"></span>
-          <span class="star" value="3"></span>
-          <span class="star" value="4"></span>
-          <span class="star" value="5"></span>
+          <span class="star on" data-value="1"></span>
+          <span class="star" data-value="2"></span>
+          <span class="star" data-value="3"></span>
+          <span class="star" data-value="4"></span>
+          <span class="star" data-value="5"></span>
         </div>
       </div>
       <div class="row mt-3">
