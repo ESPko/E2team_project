@@ -22,6 +22,18 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.findByLocation(selectLocation, selectAge, selectPeople);
   }
 
+  //  지역 연령 나이로 찾되 추천수가 높은 순으로 정렬
+  @Override
+  public List<PlaceDTO> findPlaceStarHigh(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlaceStarHigh(selectLocation, selectAge, selectPeople);
+  }
+
+  //  지역 연령 나이로 찾되 추천수가 낮은 순으로 결정
+  @Override
+  public List<PlaceDTO> findPlaceStarLow(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlaceStarLow(selectLocation, selectAge, selectPeople);
+  }
+
   //  상위 세개 추천 항목 나오게
   @Override
   public List<PlaceDTO> getAllPlaceSortByStar() {

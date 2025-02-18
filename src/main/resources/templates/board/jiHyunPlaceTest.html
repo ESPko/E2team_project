@@ -12,9 +12,10 @@
           crossorigin="anonymous"></script>
   <script>
       $(document).ready(function () {
+          const tableContainer = $(".tableContainer");
           const recommendContainer = $(".recommendContainer");
 
-          // 사람이 선택한 지역, 나이, 인원 수에 따라서 추천이 달라짐
+          // 사람이 선택한 지역, 나이, 인원 수에 따라서 추천이 달라짐(정렬x)
           $(".recommendButton").on("click", function () {
               const selectLocation = $("#location option:selected").val();
               const selectAge = $("#age option:selected").val();
@@ -25,74 +26,112 @@
                   type: 'get',
                   dataType: 'json',
                   success: function (data) {
+                      tableContainer.empty();
+                      let tableContainerHtml = `<table>`;
+                      tableContainerHtml += `<tr>`;
+                      tableContainerHtml += `<th>번호</th>`
+                      tableContainerHtml += `<th>지역</th>`;
+                      tableContainerHtml += `<th>주소</th>`;
+                      tableContainerHtml += `<th>인원 수</th>`;
+                      tableContainerHtml += `<th>사람 수</th>`;
+                      tableContainerHtml += `<th>이름</th>`;
+                      tableContainerHtml += `</tr>`;
+                      tableContainer.append(tableContainerHtml);
+
                       recommendContainer.empty();
                       data.forEach(recommend => {
-                          let html = `<table>`;
-                          html += `<tr>`;
-                          html+=`<th>번호</th>`
-                          html+=`<th>지역</th>`;
-                          html+=`<th>주소</th>`;
-                          html+=`<th>인원 수</th>`;
-                          html+=`<th>사람 수</th>`;
-                          html+=`<th>이름</th>`
-                          html+=`</tr>`;
-
-                          html+=`<tr>`;
-                          html+=`<td>${recommend.placeIdx}</td>`
-                          html+=`<td>${recommend.location}</td>`;
-                          html+=`<td>${recommend.address}</td>`;
-                          html+=`<td>${recommend.recommendAge}</td>`;
-                          html+=`<td>${recommend.numberPeople}</td>`;
-                          html+=`<td>${recommend.name}</td>`;
-                          html+=`</tr>`;
-                          html+=`</table>`
+                          let html = `<tr>`;
+                          html += `<td>${recommend.placeIdx}</td>`
+                          html += `<td>${recommend.location}</td>`;
+                          html += `<td>${recommend.address}</td>`;
+                          html += `<td>${recommend.recommendAge}</td>`;
+                          html += `<td>${recommend.numberPeople}</td>`;
+                          html += `<td>${recommend.name}</td>`;
+                          html += `</tr>`;
+                          html += `</table>`
                           recommendContainer.append(html);
                       });
                   }
               });
           });
+
+          $("#orderBy").on("change", function () {
+              const selectLocation = $("#location option:selected").val();
+              const selectAge = $("#age option:selected").val();
+              const selectPeople = $("#people option:selected").val();
+              const selectedValue = $(this).val(); // 선택된 option의 value 가져오기
+
+              if (selectedValue === "starHigh") {
+                  console.log("추천수가 높은 순");
+                  $.ajax({
+                      url: `/place/recommend/starHigh/${selectLocation}/${selectAge}/${selectPeople}`,
+                      type: 'get',
+                      dataType: 'json',
+                  });
+
+              } else if (selectedValue === "starLow") {
+                  console.log("추천수가 낮은 순");
+                  $.ajax({
+                      url: `/place/recommend/starLow/${selectLocation}/${selectAge}/${selectPeople}`,
+                      type: 'get',
+                      dataType: 'json',
+                  });
+              }
+          });
+
       });
   </script>
 </head>
 <body>
-<select name="location" id="location">
-  <option value="" selected>지역</option>
-  <option value="강서구">강서구</option>
-  <option value="금정구">금정구</option>
-  <option value="기장군">기장군</option>
-  <option value="남구">남구</option>
-  <option value="동래구">동래구</option>
-  <option value="부산진구">부산진구</option>
-  <option value="북구">북구</option>
-  <option value="사하구">사하구</option>
-  <option value="수영구">수영구</option>
-  <option value="영도구">영도구</option>
-  <option value="중구">중구</option>
-  <option value="해운대구">해운대구</option>
-</select>
-<br>
-<select name="age" id="age">
-  <option value="" selected>나이</option>
-  <option value="1">10세 미만</option>
-  <option value="10">10세 이상</option>
-  <option value="20">20세 이상</option>
-</select>
-<br>
-<select name="people" id="people">
-  <option value="" selected>인원 수</option>
-  <option value="1">1명</option>
-  <option value="2">2명 이상</option>
-  <option value="4">4명 이상</option>
-</select>
-<br>
-<button type="button" class="recommendButton">추천</button>
+<!--select 지역 나이 인원수-->
+<div>
+  <select name="location" id="location">
+    <option value="" selected>지역</option>
+    <option value="강서구">강서구</option>
+    <option value="금정구">금정구</option>
+    <option value="기장군">기장군</option>
+    <option value="남구">남구</option>
+    <option value="동래구">동래구</option>
+    <option value="부산진구">부산진구</option>
+    <option value="북구">북구</option>
+    <option value="사하구">사하구</option>
+    <option value="수영구">수영구</option>
+    <option value="영도구">영도구</option>
+    <option value="중구">중구</option>
+    <option value="해운대구">해운대구</option>
+  </select>
+  <br>
+  <select name="age" id="age">
+    <option value="" selected>나이</option>
+    <option value="1">10세 미만</option>
+    <option value="10">10세 이상</option>
+    <option value="20">20세 이상</option>
+  </select>
+  <br>
+  <select name="people" id="people">
+    <option value="" selected>인원 수</option>
+    <option value="1">1명</option>
+    <option value="2">2명 이상</option>
+    <option value="4">4명 이상</option>
+  </select>
+  <br>
+  <button type="button" class="recommendButton">추천</button>
+</div>
+
 <br>
 <hr>
 <br>
 
-<h2>결과</h2>
-<div class="recommendContainer">
-
+<!--결과창-->
+<div>
+  <h2>결과</h2>
+  <select name="orderBy" id="orderBy">
+    <option value="" selected>정렬</option>
+    <option value="starHigh" id="starHigh">추천수가 높은 것부터</option>
+    <option value="starLow" id="starLow">추천수가 낮은 것부터</option>
+  </select>
+  <div class="tableContainer"></div>
+  <div class="recommendContainer"></div>
 </div>
 </body>
 </html>
