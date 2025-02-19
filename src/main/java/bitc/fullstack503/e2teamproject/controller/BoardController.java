@@ -5,7 +5,6 @@ import bitc.fullstack503.e2teamproject.entity.BoardImageEntity;
 import bitc.fullstack503.e2teamproject.service.BoardImageService;
 import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +27,19 @@ public class BoardController {
   @RequestMapping("/jiHyunCRUDTest")
   public ModelAndView jiHyunCRUDTest() {
     ModelAndView mav = new ModelAndView("/board/jiHyunCRUDTest");
+//    List<BoardEntity> findNoticeList = boardService.findNotice();
+//    List<BoardEntity> findEventList = boardService.findEvent();
+//    List<BoardEntity> findCrewList = boardService.findCrew();
+//    mav.addObject("findNoticeList", findNoticeList);
+//    mav.addObject("findEventList", findEventList);
+//    mav.addObject("findCrewList", findCrewList);
+    return mav;
+  }
+
+  //  심지현 toastEditor 테스트용
+  @RequestMapping("/jiHyunToast")
+  public ModelAndView jihyunToast() {
+    ModelAndView mav = new ModelAndView("/board/jiHyunToastTest");
 //    List<BoardEntity> findNoticeList = boardService.findNotice(page);
 //    List<BoardEntity> findEventList = boardService.findEvent();
 //    List<BoardEntity> findCrewList = boardService.findCrew();
@@ -42,13 +54,6 @@ public class BoardController {
   public ModelAndView jihyunToast() {
     ModelAndView mav = new ModelAndView("/board/jiHyunToastTest");
     return mav;
-  }
-
-//  심지현 사진 있는 toastEditor 실험용
-  @RequestMapping("/jiHyunToast/submit")
-  public void toastWrite(@RequestParam("files") MultipartFile[] files,
-                         @ModelAttribute BoardEntity board){
-    boardImageService.saveFiles(files, board);
   }
 
   // 프로필
@@ -83,9 +88,9 @@ public class BoardController {
 
   //  공지 보기
   @RequestMapping("/notice")
-  public ModelAndView noticeRead(@RequestParam(value = "page", defaultValue = "0") int page) {
+  public ModelAndView noticeRead() {
     ModelAndView mav = new ModelAndView("/board/noticePage");
-    Page<BoardEntity> findNoticeList = boardService.findNotice(page);
+    List<BoardEntity> findNoticeList = boardService.findNotice();
     mav.addObject("findNoticeList", findNoticeList);
     return mav;
   }
@@ -93,7 +98,7 @@ public class BoardController {
   //  공지 네개씩만 보기
   @ResponseBody
   @RequestMapping("/notice/four")
-  public List<BoardEntity> noticeReadFour() {
+  public List<BoardEntity> noticeReadFour(){
     return boardService.findNoticeFour();
   }
 
@@ -132,9 +137,9 @@ public class BoardController {
 
   //  이벤트 보기
   @RequestMapping("/event")
-  public ModelAndView eventRead(@RequestParam(value = "page", defaultValue = "0") int page) {
+  public ModelAndView eventRead() {
     ModelAndView mav = new ModelAndView("/board/eventPage");
-    Page<BoardEntity> findEventList = boardService.findEvent(page);
+    List<BoardEntity> findEventList = boardService.findEvent();
     mav.addObject("findEventList", findEventList);
     return mav;
   }
@@ -181,9 +186,9 @@ public class BoardController {
 
   //  인원 모집 보기
   @RequestMapping("/crew")
-  public ModelAndView crewRead(@RequestParam(value = "page", defaultValue = "0") int page) {
+  public ModelAndView crewRead() {
     ModelAndView mav = new ModelAndView("/board/crewPage");
-    Page<BoardEntity> findCrewList = boardService.findCrew(page);
+    List<BoardEntity> findCrewList = boardService.findCrew();
     mav.addObject("findCrewList", findCrewList);
     return mav;
   }
