@@ -9,4 +9,9 @@ public class ReplyServiceImpl implements ReplyService {
 
   @Autowired
   private ReplyRepository replyRepository;
+
+  @Override
+  public void writeReply(int crewBoardIdx, String replyWriteComment){
+    replyRepository.writeReply(crewBoardIdx, replyWriteComment);
+  }
 }
