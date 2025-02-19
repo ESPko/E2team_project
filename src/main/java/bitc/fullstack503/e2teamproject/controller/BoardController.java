@@ -59,12 +59,12 @@ public class BoardController {
   // 프로필
   @RequestMapping("/pro")
   public ModelAndView profile(HttpServletRequest request) {
-//    return new ModelAndView("/login/profilePage");
+
     HttpSession session = request.getSession();
     String userId = (String) session.getAttribute("userId");
     String userPw = (String) session.getAttribute("userPw");
     String userEmail = (String) session.getAttribute("userEmail");
-//    String userPhone = (String) session.getAttribute("userPhone");
+
 
     ModelAndView mav = new ModelAndView("/login/profilePage");
 
@@ -72,7 +72,6 @@ public class BoardController {
       UserEntity user = userService.getUserInfo(userId);
       mav.addObject("user", user);
       mav.addObject("userEmail", userEmail);
-//      mav.addObject("userPhone", userPhone);
     }
 
     return mav;

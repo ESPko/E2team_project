@@ -20,7 +20,7 @@
   <div class="align-items-center p-5" style="border-radius: 5px; background-color: #f8f9fa;">
     <p>아이디와 비밀번호를 입력하세요.</p>
     <div class="d-flex justify-content-center"><p style="height: 20px;">
-      <i class="fa-regular fa-user">&nbsp;</i><input type="text" id="userId" style="border-radius: 3px; border-style: none; height: 30px;" placeholder="아이디를 입력하세요"></p></div>
+      <i class="fa-regular fa-user">&nbsp;</i><input type="text" id="userId" style="border-radius: 3px; border-style: none; height: 30px;" placeholder="아이디를 입력하세요" th:value="${cookieUserId}"></p></div>
     <div class="d-flex justify-content-center"><p>
       <i class="fa-solid fa-unlock">&nbsp;</i><input type="password" id="userPw"  style="border-radius: 3px; border-style: none; height: 30px;" placeholder="비밀번호를 입력하세요"></p></div>
     <div>
@@ -40,6 +40,7 @@
 
 <script>
     $(document).ready(function () {
+
         $("#loginBtn").click(function () {
             let userId = $("#userId").val();
             let userPw = $("#userPw").val();

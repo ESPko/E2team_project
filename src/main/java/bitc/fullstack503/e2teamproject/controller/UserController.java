@@ -95,12 +95,6 @@ public class UserController {
     HttpSession session = request.getSession();
     session.invalidate();
 
-    // 로그아웃 시 쿠키 삭제
-    Cookie cookie = new Cookie("userId", null);
-    cookie.setMaxAge(0); // 쿠키 삭제
-    cookie.setPath("/"); // 모든 경로에서 쿠키 접근 가능
-    response.addCookie(cookie);
-
     return "redirect:/";
   }
 
