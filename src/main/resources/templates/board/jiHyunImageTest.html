@@ -10,6 +10,36 @@
           crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
           crossorigin="anonymous"></script>
+  <script>
+      $(document).ready(function () {
+          let findImage = $(".findImage");
+
+          $.ajax({
+              url: '/placeImage/findPlaceImage',
+              type: 'get',
+              success: function (data) {
+                  findImage.empty();
+
+                  data.forEach(findPlace => {
+                      let html = `<table>`;
+                      html += `<tr>`;
+                      html += `<th>사진 idx</th>`;
+                      html += `<th>사진 경로</th>`;
+                      html += `<th>사진</th>`;
+                      html += `</tr>`;
+                      html += `<tr>`;
+                      html += `<td>${findPlace.place_image_idx}</td>`;
+                      html += `<td>${findPlace.imagePath}${findPlace.imageName}`;
+                      html += `<td><img src='${findPlace.imagePath}${findPlace.imageName}'></td>`;
+                      html += `</tr>`;
+                      html += `</table>`;
+
+                      findImage.append(html);
+                  })
+              }
+          })
+      });
+  </script>
 </head>
 <body>
 <h1>imageTest</h1>
@@ -33,6 +63,15 @@
       <td><img th:src="|${findImage.imagePath}${findImage.imageName}|" alt="escapeTop1"/></td>
     </tr>
   </table>
+</div>
+
+<br>
+<hr>
+<br>
+
+<h3>특정 장소의 이미지만 보기</h3>
+<div class="findImage">
+
 </div>
 
 </body>

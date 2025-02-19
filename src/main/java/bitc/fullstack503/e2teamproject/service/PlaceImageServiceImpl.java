@@ -13,9 +13,14 @@ public class PlaceImageServiceImpl implements PlaceImageService {
   private PlaceImageRepository placeImageRepository;
 
   @Override
-  public List<PlaceImageEntity> findPlaceAll(){
-    List<PlaceImageEntity> findImage = placeImageRepository.findAll();
-    return findImage;
+  public List<PlaceImageEntity> findPlaceAll() {
+    return placeImageRepository.findAll();
+  }
+
+  //  특정 장소에 대한 사진만 찾기
+  @Override
+  public List<PlaceImageEntity> findPlaceImage() {
+    return placeImageRepository.queryFindImage();
   }
 
 }
