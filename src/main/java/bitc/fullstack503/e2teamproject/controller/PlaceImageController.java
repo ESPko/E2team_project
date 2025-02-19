@@ -19,14 +19,18 @@ public class PlaceImageController {
   //  뷰만
   @RequestMapping("/")
   public ModelAndView placeImage() {
-    return new ModelAndView("/board/jiHyunImageTest");
+    ModelAndView mav = new ModelAndView("/board/jiHyunImageTest");
+    List<PlaceImageEntity> findImageList= placeImageService.findPlaceAll();
+    System.out.println(findImageList);
+    mav.addObject("findImageList", findImageList);
+    return mav;
   }
 
 //  전부 다 확인
-  @RequestMapping("/findAll")
-  public List<PlaceImageEntity> findAll(){
-    List<PlaceImageEntity> findImageAll= placeImageService.findPlaceAll();
-    System.out.println(findImageAll);
-    return findImageAll;
-  }
+//  @RequestMapping("/findAll")
+//  public List<PlaceImageEntity> findAll(){
+//    List<PlaceImageEntity> findImageAll= placeImageService.findPlaceAll();
+//    System.out.println(findImageAll);
+//    return findImageAll;
+//  }
 }
