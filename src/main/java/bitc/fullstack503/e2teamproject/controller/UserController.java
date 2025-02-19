@@ -62,9 +62,7 @@ public class UserController {
 
       session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
-//      session.setAttribute("userPw", userPw);
       session.setAttribute("userEmail", user.getEmail());
-//      session.setAttribute("userPhone", user.getPhone());
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
 

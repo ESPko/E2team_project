@@ -116,24 +116,60 @@
                 <h5>리뷰</h5>
                 <ul style="list-style: none; padding-left: 0">
 
+<!--                    <li>-->
+<!--                        <div class="container row d-flex justify-content-between"-->
+<!--                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">-->
+<!--                            <div class="col-2 align-items-center">별점</div>-->
+<!--                            <div class="col-3" style="text-align: right;">내용</div>-->
+<!--                        </div>-->
+<!--                    </li>-->
+
+<!--                    <div class="container row d-flex justify-content-between">-->
+
+<!--                        <li th:each="review : ${reviews}">-->
+<!--                            <span th:each="i : ${#numbers.sequence(1, 5)}"><i class="fa-star" th:classappend="${i <= review.star} ? 'fas' : 'far'"></i></span>-->
+
+<!--                            <div  style="text-align: right;">-->
+<!--                                <a style="text-decoration: none;" th:href="@{/placeDetail?placeIdx={id}(id=${review.placeReview.placeIdx})}" th:text="${review.comment}"></a>-->
+<!--                            </div>-->
+<!--                    </div>-->
+<!--                    </li>-->
+
+                    <!-- 제목 행 -->
                     <li>
-                        <div class="container row d-flex justify-content-between"
-                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
-                            <div class="col-2 align-items-center">별점</div>
-                            <div class="col-3" style="text-align: right;">내용</div>
+                        <div class="container row d-flex justify-content-between align-items-center"
+                             style="padding:10px 0; border-bottom: solid 1px #bee5eb;">
+                            <div class="col-3 text-center">별점</div>
+                            <div class="col-6 text-center">내용</div>
+                            <div class="col-3 text-center">작성일</div>
                         </div>
                     </li>
 
-
+                    <!-- 리뷰 목록 -->
                     <li th:each="review : ${reviews}">
+                        <div class="container row d-flex justify-content-between align-items-center"
+                             style="padding:10px 0; border-bottom: solid 1px #bee5eb; flex-wrap: nowrap;">
 
-                        <span th:each="i : ${#numbers.sequence(1, 5)}">
-                      <i class="fa-star" th:classappend="${i <= review.star} ? 'fas' : 'far'"></i>
-                   </span>
-                        <div  style="text-align: right;">
-                            <a style="text-decoration: none;" th:href="@{/placeDetail?placeIdx={id}(id=${review.placeReview.placeIdx})}" th:text="${review.comment}"></a>
+                            <!-- 별점 -->
+                            <div class="col-3 d-flex justify-content-center">
+                        <span th:each="i : ${#numbers.sequence(1, 5)}" style="display: inline-flex;">
+                            <i class="fa-star" th:classappend="${i <= review.star} ? 'fas text-warning' : 'far'"></i>
+                        </span>
+                            </div>
+
+                            <!-- 내용 -->
+                            <div class="col-6 text-center" style="font-weight: bold;">
+                                <a style="text-decoration: none;"
+                                   th:href="@{/review/DetailReview?placeIdx={id}(id=${review.placeReview.placeIdx})}"
+                                   class="text-dark"
+                                   th:text="${review.comment}"></a>
+                            </div>
+
+                            <!-- 작성일 -->
+                            <div class="col-3 text-center" th:text="${review.writeDate}"></div>
                         </div>
                     </li>
+
                 </ul>
             </div>
         </div>

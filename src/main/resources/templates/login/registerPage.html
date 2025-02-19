@@ -196,42 +196,40 @@
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <div class="container-sm d-flex justify-content-center mt-lg-5">
-  <div class="align-items-center p-5 border" style="border-radius: 10px;">
+  <div class="align-items-center p-5" style="border-radius: 3px; background-color: #f8f9fa;">
     <div><p><i class="fa-regular fa-user">&nbsp;&nbsp;</i><input type="text" id="user-name" placeholder="이름"
-                                                                 style="border-radius: 10px; border: solid 0.5px lightgray;">
+                                                                 style="border-radius: 3px; border-style: none;">
     </p></div>
     <div>
-      <p><i class="fa-solid fa-user">&nbsp;&nbsp;</i><input type="text" id="user-id" name="userId" placeholder="아이디"
-                                                            style="border-radius: 10px; border: solid 0.5px lightgray;">
-        <button type="button" id="btn-check-duplicate" style="border-style: none; border-radius: 10px; background-color: #ffe8a1;">중복확인</button>
+      <p><i class="fa-solid fa-user">&nbsp;&nbsp;</i><input type="text" id="user-id" name="userId" placeholder="아이디" style="border-radius: 3px; border-style: none;">
+        <button id="btn-check-duplicate" type="button" class="btn btn-dark" style="height: 30px; font-size: small;">중복확인</button>
       </p>
     </div>
-    <div><p><i class="fa-solid fa-lock">&nbsp;&nbsp;</i><input type="password" id="user-pw1" name="userPw" placeholder="비밀번호"
-                                                               style="border-radius: 10px; border: solid 0.5px lightgray;">
+    <div><p><i class="fa-solid fa-lock">&nbsp;&nbsp;</i><input type="password" id="user-pw1" name="userPw" placeholder="비밀번호" style="border-radius: 3px; border-style: none;">
     </p></div>
-    <div><p><i class="fa-solid fa-lock">&nbsp;&nbsp;</i><input type="password" placeholder="비밀번호 확인" id="user-pw2" name="userPwConfirm"
-                                                               style="border-radius: 10px; border: solid 0.5px lightgray;">
+    <div><p><i class="fa-solid fa-lock">&nbsp;&nbsp;</i><input type="password" id="user-pw2" name="userPwConfirm" placeholder="비밀번호 확인"
+                                                               style="border-radius: 3px; border-style: none;">
     </p></div>
-    <div><p><i class="fa-regular fa-calendar">&nbsp;&nbsp;</i><label>생년월일 : &nbsp;</label><input type="date" id="user-birthYear" name="userBirthYear"
-                                                                                                 style="border-radius: 10px; border: solid 0.5px lightgray;">
+    <div><p><i class="fa-regular fa-calendar">&nbsp;&nbsp;</i><label>생년월일 : &nbsp;</label><input type="date"  id="user-birthYear" name="userBirthYear"
+                                                                                                 style="border-radius: 3px; border-style: none;">
     </p></div>
     <div><p><i class="fa-solid fa-mobile-screen">&nbsp;&nbsp;</i><input type="text" id="user-phone" name="userPhone" placeholder="휴대전화번호"
-                                                                        style="border-radius: 10px; border: solid 0.5px lightgray;">
+                                                                        style="border-radius: 3px; border-style: none;">
     </p></div>
     <div><p><i class="fa-regular fa-envelope">&nbsp;</i><input type="text" id="user-email" name="userEmail" placeholder="이메일[선택]"
-                                                               style="border-radius: 10px; border: solid 0.5px lightgray;">
+                                                               style="border-radius: 3px; border-style: none;">
     </p></div>
     <div>
       <p>
-        <button type="reset" id="btn-reset" class="mt-3" style="border-style: none; border-radius: 10px; width: 300px; height: 30px;">
+        <button id="btn-reset" type="reset" class="mt-3" style="border-style: none; border-radius: 10px; width: 300px; height: 30px;">
           취소
         </button>
       </p>
     </div>
     <div>
       <p>
-        <button type="submit" id="btn-join"
-                style="border-style: none; background-color: #bee5eb; border-radius: 10px; width: 300px; height: 30px;">
+        <button id="btn-join" type="submit" class="btn btn-primary"
+                style="border-style: none; border-radius: 10px; width: 300px; height: 40px;">
           회원가입하기
         </button>
       </p>

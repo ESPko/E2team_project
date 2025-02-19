@@ -1,0 +1,588 @@
+From d5fe773fb27909846a05c24a92f33768edd6af96 Mon Sep 17 00:00:00 2001
+From: void-alive <sja9284@gmail.com>
+Date: Tue, 18 Feb 2025 10:47:19 +0900
+Subject: [PATCH] =?UTF-8?q?=EA=B3=B5=EC=A7=80=EC=82=AC=ED=95=AD=20?=
+ =?UTF-8?q?=EB=8B=A4=EC=8B=9C=20=EB=B3=B4=EC=9D=B4=EA=B2=8C=20=ED=95=A8.?=
+ =?UTF-8?q?=20=EA=B7=B8=EB=A6=AC=EA=B3=A0=20=EC=9D=B4=EB=B2=A4=ED=8A=B8,?=
+ =?UTF-8?q?=20=EC=9D=B8=EC=9B=90=20=EB=AA=A8=EC=A7=91=20=EA=B2=8C=EC=8B=9C?=
+ =?UTF-8?q?=ED=8C=90=EC=9D=98=20=EB=AA=A9=EB=A1=9D=20=EB=B2=84=ED=8A=BC?=
+ =?UTF-8?q?=EC=9D=84=20=EB=88=84=EB=A5=B4=EB=A9=B4=20history.back()=20?=
+ =?UTF-8?q?=EC=9D=84=20=ED=95=A0=20=EC=88=98=20=EC=9E=88=EB=8F=84=EB=A1=9D?=
+ =?UTF-8?q?=20=ED=95=A8?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../controller/BoardController.java           | 13 ++++---
+ .../controller/PlaceController.java           | 33 ++++++++--------
+ .../repository/BoardRepository.java           | 13 +++----
+ .../templates/board/crewDetailPage.html       | 26 +++++++++----
+ .../resources/templates/board/crewPage.html   | 30 ++++++++++-----
+ .../templates/board/crewWritePage.html        | 33 +++++++++++-----
+ .../templates/board/eventDetailPage.html      | 25 ++++++++----
+ .../resources/templates/board/eventPage.html  | 38 ++++++-------------
+ .../resources/templates/board/mainPage.html   |  1 -
+ .../templates/board/noticeDetailPage.html     | 20 +++++++---
+ .../resources/templates/board/noticePage.html | 37 ++++++------------
+ 11 files changed, 146 insertions(+), 123 deletions(-)
+
+diff --git a/src/main/java/bitc/fullstack503/e2teamproject/controller/BoardController.java b/src/main/java/bitc/fullstack503/e2teamproject/controller/BoardController.java
+index 75a36be..351a44e 100644
+--- a/src/main/java/bitc/fullstack503/e2teamproject/controller/BoardController.java
++++ b/src/main/java/bitc/fullstack503/e2teamproject/controller/BoardController.java
+@@ -42,7 +42,6 @@ public class BoardController {
+     return new ModelAndView("/login/profilePage");
+   }
+ 
+-
+   // 회원가입 페이지
+   @RequestMapping("/regist")
+   public ModelAndView regist() {
+@@ -55,14 +54,13 @@ public class BoardController {
+     return new ModelAndView("/board/recommandPage");
+   }
+ 
+-
+   //  메인 페이지
+   @RequestMapping("/")
+   public ModelAndView home() {
+     return new ModelAndView("/board/mainPage");
+   }
+ 
+-  //  메인 페이지
++  //  메인 페이지2
+   @RequestMapping("/detail")
+   public ModelAndView mainDetail() {
+     return new ModelAndView("/board/mainDetailPage");
+@@ -80,7 +78,7 @@ public class BoardController {
+   //  공지 네개씩만 보기
+   @ResponseBody
+   @RequestMapping("/notice/four")
+-  public List<BoardEntity> noticeReadFour() {
++  public List<BoardEntity> noticeReadFour(){
+     return boardService.findNoticeFour();
+   }
+ 
+@@ -101,7 +99,6 @@ public class BoardController {
+     boardService.writeNotice(noticeTitle, noticeContents);
+   }
+ 
+-
+   //  공지 수정하기
+   @ResponseBody
+   @PutMapping("/notice/update")
+@@ -185,6 +182,12 @@ public class BoardController {
+     return mav;
+   }
+ 
++  //  인원 모집 쓰기 뷰
++  @RequestMapping("/crew/write")
++  public ModelAndView writeCrewView() {
++    return new ModelAndView("/board/crewWritePage");
++  }
++
+   //  인원 모집 쓰기
+   @ResponseBody
+   @PostMapping("/crew/write")
+diff --git a/src/main/java/bitc/fullstack503/e2teamproject/controller/PlaceController.java b/src/main/java/bitc/fullstack503/e2teamproject/controller/PlaceController.java
+index cb5e82b..7fa1c25 100644
+--- a/src/main/java/bitc/fullstack503/e2teamproject/controller/PlaceController.java
++++ b/src/main/java/bitc/fullstack503/e2teamproject/controller/PlaceController.java
+@@ -21,8 +21,7 @@ public class PlaceController {
+   //  심지현 place 테스트용
+   @RequestMapping("/jiHyunPlaceTest")
+   public ModelAndView jiHyunPlaceTest() {
+-    ModelAndView mav = new ModelAndView("/board/jiHyunPlaceTest");
+-    return mav;
++    return new ModelAndView("/board/jiHyunPlaceTest");
+   }
+ 
+   //  선택한 지역, 나이, 사람 수에 따라서 결과 출력
+@@ -71,7 +70,7 @@ public class PlaceController {
+   @RequestMapping("/recommend/reviewHigh/{selectLocation}/{selectAge}/{selectPeople}")
+   public List<PlaceDTO> reviewHigh(@PathVariable("selectLocation") String selectLocation,
+                                    @PathVariable("selectAge") int selectAge,
+-                                   @PathVariable("selectPeople") int selectPeople){
++                                   @PathVariable("selectPeople") int selectPeople) {
+     System.out.println("리뷰 많은 순");
+     List<PlaceDTO> showReviewHigh = placeService.findPlaceReviewMany(selectLocation, selectAge, selectPeople);
+     for (PlaceDTO placeDTO : showReviewHigh) {
+@@ -82,21 +81,21 @@ public class PlaceController {
+     return showReviewHigh;
+   }
+ 
+-//  선택한 지역, 나이, 사람 수와 리뷰가 적은 순으로 출력
+-@ResponseBody
+-@RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
+-public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
+-                                 @PathVariable("selectAge") int selectAge,
+-                                 @PathVariable("selectPeople") int selectPeople){
+-  System.out.println("리뷰 적은 순");
+-  List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
+-  for (PlaceDTO placeDTO : showReviewLess) {
+-    System.out.println("이름 : " + placeDTO.getPlaceName());
+-    System.out.println("별점 평균 : " + placeDTO.getAverageStar());
+-    System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
++  //  선택한 지역, 나이, 사람 수와 리뷰가 적은 순으로 출력
++  @ResponseBody
++  @RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
++  public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
++                                   @PathVariable("selectAge") int selectAge,
++                                   @PathVariable("selectPeople") int selectPeople){
++    System.out.println("리뷰 적은 순");
++    List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
++    for (PlaceDTO placeDTO : showReviewLess) {
++      System.out.println("이름 : " + placeDTO.getPlaceName());
++      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
++      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
++    }
++    return showReviewLess;
+   }
+-  return showReviewLess;
+-}
+ 
+   //  상위 세개 추천 항목 나오게
+ //  @RequestMapping("/")
+diff --git a/src/main/java/bitc/fullstack503/e2teamproject/repository/BoardRepository.java b/src/main/java/bitc/fullstack503/e2teamproject/repository/BoardRepository.java
+index 4b4be72..a922bd0 100644
+--- a/src/main/java/bitc/fullstack503/e2teamproject/repository/BoardRepository.java
++++ b/src/main/java/bitc/fullstack503/e2teamproject/repository/BoardRepository.java
+@@ -24,11 +24,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
+   void queryWriteNotice(@Param("noticeTitle") String noticeTitle, @Param("noticeContents") String noticeContents);
+ 
+   //  공지사항 찾아서 읽어오기
+-  @Query("select b from BoardEntity as b where b.category = '공지사항'")
++  @Query("select b from BoardEntity as b where b.category = '공지사항' order by b.board_idx desc")
+   List<BoardEntity> queryFindNotice();
+ 
+   //  공지사항 네개씩 읽어오기
+-  @Query("select b from BoardEntity as b where b.category='공지사항'")
++  @Query("select b from BoardEntity as b where b.category='공지사항' order by b.board_idx desc")
+   List<BoardEntity> queryFindNoticeFour(Pageable pageable);
+ 
+   //  공지사항 수정하기
+@@ -55,11 +55,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
+                        @Param("eventContentsCreate") String eventContentsCreate);
+ 
+   //  이벤트 찾아서 읽어오기
+-  @Query("select b from BoardEntity as b where b.category = '이벤트'")
++  @Query("select b from BoardEntity as b where b.category = '이벤트' order by b.board_idx desc")
+   List<BoardEntity> queryFindEvent();
+ 
+   //  이벤트 네개씩 읽어오기
+-  @Query("select b from BoardEntity as b where b.category='이벤트'")
++  @Query("select b from BoardEntity as b where b.category='이벤트' order by b.board_idx desc")
+   List<BoardEntity> queryFindEventFour(Pageable pageable);
+ 
+   //  이벤트 수정하기
+@@ -86,12 +86,9 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
+                       @Param("crewContentsCreate") String crewContentsCreate);
+ 
+   //    인원모집 찾아서 읽어오기
+-  @Query("select b from BoardEntity as b where b.category = '인원모집'")
++  @Query("select b from BoardEntity as b where b.category = '인원모집' order by b.board_idx desc")
+   List<BoardEntity> queryFindCrew();
+ 
+-//  @Query("SELECT b FROM BoardEntity b ORDER BY b.board_idx DESC")
+-//  List<BoardEntity> findAllByOrderByBoard_idxDesc();
+-
+   //  인원모집 수정하기
+   @Modifying
+   @Transactional
+diff --git a/src/main/resources/templates/board/crewDetailPage.html b/src/main/resources/templates/board/crewDetailPage.html
+index 8595e83..f12979f 100644
+--- a/src/main/resources/templates/board/crewDetailPage.html
++++ b/src/main/resources/templates/board/crewDetailPage.html
+@@ -11,8 +11,13 @@
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+-
+-
++  <script>
++    $(document).ready(function(){
++        $("#btn-list").on("click",function(){
++            history.back();
++        });
++    });
++  </script>
+ </head>
+ <body>
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+@@ -31,24 +36,29 @@
+         <div class="container-sm d-flex justify-content-between"
+              style="border-radius: 5px 5px 0 0; border: solid 0.4px lightgray; height: 40px; align-items: center;">
+           <div class="col-sm-8">제목
+-            <input type="text" style="border-style: none; width: 450px;" readonly></div>
++            <input type="text" style="border-style: none; width: 450px;" readonly
++            th:value="${crew.title}"></div>
+           <div class="col-sm-4">작성일
+-            <input type="text" style="border-style: none; width: 180px;" readonly></div>
++            <input type="text" style="border-style: none; width: 180px;" readonly
++            th:value="${crew.createDate}"></div>
+         </div>
+         <div class="container-sm d-flex justify-content-between"
+              style="border-radius: 0 0 5px 5px; border: solid 0.4px lightgray; border-top: none; height: 35px; align-items: center;">
+           <div class="col-sm-8">작성자
+-            <input type="text" style="border-style: none; width: 400px;" readonly></div>
++            <input type="text" style="border-style: none; width: 400px;" readonly
++            th:value="${crew.user.id}"></div>
+           <div class="col-sm-2">조회
+-            <input type="text" style="border-style: none; width: 50px;" readonly></div>
++            <input type="text" style="border-style: none; width: 50px;" readonly
++            th:value="${crew.hitCount}"></div>
+           <div class="col-sm-2">추천
+-            <input type="text" style="border-style: none; width: 50px;" readonly></div>
++            <input type="text" style="border-style: none; width: 50px;" readonly
++            th:value="${crew.likeCount}"></div>
+         </div>
+       </div>
+ 
+       <div class=" mt-3 form-floating">
+         <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
+-                  readonly>
++                  readonly  th:text="${crew.contents}">
+         </textarea>
+         <label for="contents">글 내용</label>
+       </div>
+diff --git a/src/main/resources/templates/board/crewPage.html b/src/main/resources/templates/board/crewPage.html
+index 6589253..906b3b5 100644
+--- a/src/main/resources/templates/board/crewPage.html
++++ b/src/main/resources/templates/board/crewPage.html
+@@ -11,8 +11,13 @@
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+-
+-
++  <script>
++      $(document).ready(function () {
++          $(".crewWriteButton").on("click", function () {
++              location.href = "/crew/write";
++          });
++      });
++  </script>
+ </head>
+ <body>
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+@@ -34,19 +39,24 @@
+         </tr>
+         </thead>
+         <tbody>
+-        <tr>
+-          <td class="col-1 text-center">1</td>
+-          <td class="col-5"><a href="#" class="text-dark" style="text-decoration: none">제목1</a></td>
+-          <td class="col-2 text-center">작성자1</td>
+-          <td class="col-2 text-left">2025-02-02</td>
+-          <td class="col-1 text-center">0</td>
+-          <td class="col-1 text-center">0</td>
++        <tr th:each="findCrew : ${findCrewList}">
++          <td class="col-1 text-center" th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1</td>
++          <td class="col-5">
++            <a href="#" class="text-dark" style="text-decoration: none"
++               th:value="${findCrew.title}" th:text="${findCrew.title}"
++               th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
++          </td>
++          <td class="col-2 text-center" th:value="${findCrew.user.user_idx}" th:text="${findCrew.user.user_idx}">작성자1
++          </td>
++          <td class="col-2 text-left" th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02</td>
++          <td class="col-2 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</td>
++          <td class="col-2 text-center" th:Value="${findCrew.likeCount}" th:text="${findCrew.likeCount}">추천수</td>
+         </tr>
+         </tbody>
+       </table>
+     </div>
+     <div class="container container-sm d-flex justify-content-end">
+-      <button type="button" class="btn float-right"
++      <button type="button" class="btn float-right crewWriteButton"
+               style="border-style: none; border-radius: 10px; background-color: #ffe8a1;">작성하기
+       </button>
+     </div>
+diff --git a/src/main/resources/templates/board/crewWritePage.html b/src/main/resources/templates/board/crewWritePage.html
+index a2cbfb7..a4f5a5d 100644
+--- a/src/main/resources/templates/board/crewWritePage.html
++++ b/src/main/resources/templates/board/crewWritePage.html
+@@ -11,8 +11,20 @@
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+-
+-
++  <script>
++    $(document).ready(function(){
++        $("#btn-list").on("click",function(){
++            console.log("btnList 누름");
++        });
++        // $("#btn-write").on("click",function(){
++        //     console.log("btnWrite 누름");
++        //     const crewTitleCreate = $("#crewTitleCreate").val();
++        //     console.log(crewTitleCreate);
++        //     const crewContentsCreate = $("#crewContentsCreate").val();
++        //     console.log(crewContentsCreate);
++        // });
++    });
++  </script>
+ </head>
+ <body>
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+@@ -20,7 +32,7 @@
+ <main class="container container-sm mt-5" style="width: 800px;">
+   <section>
+ 
+-    <form id="frm" action="#" method="post">
++    <form id="frm" action="#" method="post" th:action="@{/crew/write}">
+       <input type="hidden" id="method" name="_method">
+ 
+       <div>
+@@ -31,22 +43,23 @@
+       <div class="container d-flex justify-content-between align-items-center mt-5"
+            style="border-style: none; border-radius: 5px; height: 40px;">
+         <div class="col-sm-1 text-center align-items-center">제목</div>
+-        <div class="col-sm-10"><input type="text" class="align-items-center" style="width: 625px; height: 30px; border-radius: 5px; border: solid 0.5px lightgray;"></div>
++        <div class="col-sm-10">
++          <input type="text" class="align-items-center crewTitleCreate"
++                 style="width: 625px; height: 30px; border-radius: 5px;
++                 border: solid 0.5px lightgray;" name="crewTitleCreate" id="crewTitleCreate">
++        </div>
+       </div>
+ 
+-
+       <div class=" mt-3 form-floating">
+-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요.">
++        <textarea class="form-control crewContentsCreate" name="crewContentsCreate" id="crewContentsCreate" style="height: 200px;" placeholder="내용을 입력하세요.">
+         </textarea>
+-        <label for="contents">글 내용</label>
++        <label for="crewContentsCreate">글 내용</label>
+       </div>
+-
+-
+     </form>
+   </section>
+   <div class="col-sm m-3 d-flex justify-content-between">
+     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
+-    <button type="button" class="btn" style="background-color: #bee5eb; border-style: none;" id="btn-write">게시</button>
++    <button type="submit" class="btn" style="background-color: #bee5eb; border-style: none;" id="btn-write">게시</button>
+   </div>
+ </main>
+ 
+diff --git a/src/main/resources/templates/board/eventDetailPage.html b/src/main/resources/templates/board/eventDetailPage.html
+index 830f197..1b75f9e 100644
+--- a/src/main/resources/templates/board/eventDetailPage.html
++++ b/src/main/resources/templates/board/eventDetailPage.html
+@@ -11,8 +11,13 @@
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+-
+-
++  <script>
++    $(document).ready(function(){
++        $("#btn-list").on("click",function(){
++            history.back();
++        });
++    });
++  </script>
+ </head>
+ <body>
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+@@ -23,24 +28,30 @@
+     <form id="frm" action="#" method="post">
+       <input type="hidden" id="method" name="_method">
+ 
+-      <div><h4>공지사항</h4></div>
++      <div>
++        <h4>이벤트</h4>
++      </div>
+ 
+       <div class="container d-flex justify-content-between align-items-center"
+            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
+-        <div class="col-sm-8">번호. 글 제목</div>
+-        <div class="col-sm-4">작성일</div>
++        <div class="col-sm-8">
++          <span th:value="${event.board_idx}" th:text="|번호 : ${event.board_idx}|">번호</span>
++          <span th:value="${event.title}" th:text="|제목 : ${event.title}|">제목</span>
++        </div>
++        <div class="col-sm-4" th:value="${event.createDate}" th:text="|작성일 : ${event.createDate}|">작성일</div>
+       </div>
+ 
+ 
+       <div class=" mt-3 form-floating">
+-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요.">
++        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
++                  th:value="${event.contents}" th:text="${event.contents}">
+         </textarea>
+         <label for="contents">글 내용</label>
+       </div>
+ 
+-
+     </form>
+   </section>
++
+   <div class="col-sm m-3">
+     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
+   </div>
+diff --git a/src/main/resources/templates/board/eventPage.html b/src/main/resources/templates/board/eventPage.html
+index 5fd5168..14ad9d7 100644
+--- a/src/main/resources/templates/board/eventPage.html
++++ b/src/main/resources/templates/board/eventPage.html
+@@ -15,11 +15,15 @@
+ 
+ </head>
+ <body>
++<!--링크는 localhost:8080/event 입니다-->
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+ 
+ <section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
+   <div class="container-sm" style="width: 800px; padding-top: 10px; margin-top: 30px;">
+-    <div><h4 style="font-weight: bold;">EVENT</h4><p>다양한 이벤트 소식을 알려드립니다.</p></div>
++    <div>
++      <h4 style="font-weight: bold;">EVENT</h4>
++      <p>다양한 이벤트 소식을 알려드립니다.</p>
++    </div>
+     <div>
+       <ul style="list-style: none; padding-left: 0">
+         <li>
+@@ -30,31 +34,13 @@
+           </div>
+         </li>
+         <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
++          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="findEvent : ${findEventList}">
++            <div class="col-1 align-items-center" th:value="${findEvent.board_idx}" th:text="${findEvent.board_idx}">번호</div>
++            <div class="col-8 align-items-center" style="font-weight: bold;">
++              <a href="#" class="text-dark" style="text-decoration: none;"
++                 th:value="${findEvent.title}" th:text="${findEvent.title}" th:href="@{/event/{id}(id=${findEvent.board_idx})}">제목</a>
++            </div>
++            <div class="col-3" style="text-align: right;" th:value="${findEvent.createDate}" th:text="${findEvent.createDate}">작성일</div>
+           </div>
+         </li>
+       </ul>
+diff --git a/src/main/resources/templates/board/mainPage.html b/src/main/resources/templates/board/mainPage.html
+index 4a952da..330432a 100644
+--- a/src/main/resources/templates/board/mainPage.html
++++ b/src/main/resources/templates/board/mainPage.html
+@@ -67,7 +67,6 @@
+     });
+   </script>
+ 
+-
+   <script>
+     $(document).ready(function () {
+       const noticeContainer = $(".noticeContainer");
+diff --git a/src/main/resources/templates/board/noticeDetailPage.html b/src/main/resources/templates/board/noticeDetailPage.html
+index 830f197..eccec2a 100644
+--- a/src/main/resources/templates/board/noticeDetailPage.html
++++ b/src/main/resources/templates/board/noticeDetailPage.html
+@@ -11,8 +11,13 @@
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+-
+-
++  <script>
++    $(document).ready(function(){
++        $("#btn-list").on("click",function(){
++            history.back();
++        });
++    });
++  </script>
+ </head>
+ <body>
+ <div th:replace="~{/layout/header :: projectheader}"></div>
+@@ -27,13 +32,16 @@
+ 
+       <div class="container d-flex justify-content-between align-items-center"
+            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
+-        <div class="col-sm-8">번호. 글 제목</div>
+-        <div class="col-sm-4">작성일</div>
++        <div class="col-sm-8">
++          <span th:value="${notice.board_idx}" th:text="|번호 : ${notice.board_idx}|">번호</span>
++          <span th:value="${notice.title}" th:text="|제목 : ${notice.title}|">제목</span>
++        </div>
++        <div class="col-sm-4" th:value="${notice.createDate}" th:text="|작성일 : ${notice.createDate}|">작성일</div>
+       </div>
+ 
+-
+       <div class=" mt-3 form-floating">
+-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요.">
++        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
++        th:text="${notice.contents}">
+         </textarea>
+         <label for="contents">글 내용</label>
+       </div>
+diff --git a/src/main/resources/templates/board/noticePage.html b/src/main/resources/templates/board/noticePage.html
+index 71764bf..1d962ea 100644
+--- a/src/main/resources/templates/board/noticePage.html
++++ b/src/main/resources/templates/board/noticePage.html
+@@ -30,31 +30,18 @@
+           </div>
+         </li>
+         <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
+-          </div>
+-        </li>
+-        <li>
+-          <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+-            <div class="col-1 align-items-center">번호</div>
+-            <div class="col-8 align-items-center" style="font-weight: bold;"><a href="#" class="text-dark" style="text-decoration: none;">제목</a></div>
+-            <div class="col-3" style="text-align: right;">작성일</div>
++          <div class="container row d-flex justify-content-between"
++               style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;"
++          th:each="findNotice : ${findNoticeList}">
++            <div class="col-1 align-items-center"
++                 th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">번호</div>
++            <div class="col-8 align-items-center" style="font-weight: bold;">
++              <a href="#" class="text-dark" style="text-decoration: none;"
++                 th:value="${findNotice.title}" th:text="${findNotice.title}"
++                 th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
++            </div>
++            <div class="col-3" style="text-align: right;"
++                 th:value="${findNotice.createDate}" th:text="${findNotice.createDate}">작성일</div>
+           </div>
+         </li>
+       </ul>
+-- 
+2.47.0.windows.2
+

@@ -17,19 +17,20 @@
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <div class="container-sm d-flex justify-content-center mt-5">
-  <div class="align-items-center p-5 border" style="border-radius: 10px;">
+  <div class="align-items-center p-5" style="border-radius: 5px; background-color: #f8f9fa;">
     <p>아이디와 비밀번호를 입력하세요.</p>
+    <div class="d-flex justify-content-center"><p style="height: 20px;">
+      <i class="fa-regular fa-user">&nbsp;</i><input type="text" id="userId" style="border-radius: 3px; border-style: none; height: 30px;" placeholder="아이디를 입력하세요"></p></div>
     <div class="d-flex justify-content-center"><p>
-      <i class="fa-regular fa-user">&nbsp;</i><input type="text" id="userId" style="border-radius: 10px; border: solid 0.5px lightgray;" placeholder="아이디를 입력하세요."></p></div>
-    <div class="d-flex justify-content-center"><p>
-      <i class="fa-solid fa-unlock">&nbsp;</i><input type="password" id="userPw" style="border-radius: 10px; border: solid 0.5px lightgray;" placeholder="비밀번호를 입력하세요."></p></div>
+      <i class="fa-solid fa-unlock">&nbsp;</i><input type="password" id="userPw"  style="border-radius: 3px; border-style: none; height: 30px;" placeholder="비밀번호를 입력하세요"></p></div>
     <div>
-      <button id="loginBtn" type="button" class="mt-3" style="width: 240px; height: 30px; border-style: none; background-color: #ffe8a1; border-radius: 10px;">로그인</button>
+      <button id="loginBtn" type="button" class="mt-3" style="width: 240px; height: 30px; border-style: none; background-color: white; border-radius: 5px;">로그인</button>
     </div>
-    <div style="font-size: small;"><p><input type="checkbox" id="rememberMe">아이디 저장</p></div>
+      <div id="errorMessage" class="text-danger mt-2" style="display: none;"></div>
+      <div  style="font-size: small;"><p><input id="rememberMe" type="checkbox">아이디 저장</p></div>
     <div>
       <p>
-        <button id="btn-sign" style="width: 240px; height: 30px; border-style: none; border-radius: 10px;">회원가입</button>
+        <button id="btn-sign" type="submit" style="width: 240px; height: 30px; border-style: none; border-radius: 5px; background-color: white;">회원가입</button>
       </p>
     </div>
   </div>
@@ -38,46 +39,46 @@
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
 
 <script>
-  $(document).ready(function () {
-    $("#loginBtn").click(function () {
-      let userId = $("#userId").val();
-      let userPw = $("#userPw").val();
-      let rememberMe = $("#rememberMe").is(":checked");
+    $(document).ready(function () {
+        $("#loginBtn").click(function () {
+            let userId = $("#userId").val();
+            let userPw = $("#userPw").val();
+            let rememberMe = $("#rememberMe").is(":checked");
 
-      $.ajax({
-        type: "POST",
-        url: "/user/loginProcess.do",
-        data: {
-          userId: userId,
-          userPw: userPw,
-          rememberMe: rememberMe ? "on" : null
-        },
-        success: function (response) {
-          if (response.status === "success") {
-            if (response.userLevel === 1) {
-              window.location.href = "/user/manager"; // 관리자 페이지 이동
-            } else {
-              window.location.href = "/"; // 일반 사용자 페이지 이동
-            }
-          } else {
-            $("#errorMessage").text(response.message).show();
-          }
-        },
-        error: function () {
-          $("#errorMessage").text("서버 오류가 발생했습니다.").show();
-        }
-      });
+            $.ajax({
+                type: "POST",
+                url: "/user/loginProcess.do",
+                data: {
+                    userId: userId,
+                    userPw: userPw,
+                    rememberMe: rememberMe ? "on" : null
+                },
+                success: function (response) {
+                    if (response.status === "success") {
+                        if (response.userLevel === 1) {
+                            window.location.href = "/user/manager"; // 관리자 페이지 이동
+                        } else {
+                            window.location.href = "/"; // 일반 사용자 페이지 이동
+                        }
+                    } else {
+                        $("#errorMessage").text(response.message).show();
+                    }
+                },
+                error: function () {
+                    $("#errorMessage").text("서버 오류가 발생했습니다.").show();
+                }
+            });
+        });
+
+
+        // 회원가입 버튼
+        $("#btn-sign").on("click", function () {
+
+            location.href = "/regist";
+
+        });
+
     });
-
-
-    // 회원가입 버튼
-    $("#btn-sign").on("click", function () {
-
-      location.href = "/regist";
-
-    });
-
-  });
 
 
 </script>

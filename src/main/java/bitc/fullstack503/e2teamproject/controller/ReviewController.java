@@ -78,5 +78,13 @@ public class ReviewController {
 
   }
 
+  @GetMapping("/DetailReview")
+  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
+    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
+    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+    return mav;
+  }
+
 }
 
