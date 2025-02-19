@@ -156,6 +156,14 @@ public void saveBoard(String title, String contents, String category, UserEntity
   // 2️⃣ 이미지 저장 (게시글과 연결)
   boardImageService.saveFiles(images, board);
 }
+
+  // 내가 작성한 게시글
+  @Override
+  public List<BoardEntity> findPostsByUserId(int userId) {
+
+    return boardRepository.findByUserId(userId);
+
+  }
 }
 
 
