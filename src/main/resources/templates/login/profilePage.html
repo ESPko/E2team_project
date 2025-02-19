@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-              <button type="button" class="btn btn-dark">변경</button>
+              <button id="submit-password" type="button" class="btn btn-dark">변경</button>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-              <button type="button" class="btn btn-dark">변경</button>
+              <button id="submit-phone" type="button" class="btn btn-dark">변경</button>
             </div>
           </div>
         </div>
@@ -102,12 +102,6 @@
 
 <script>
   $(document).ready(function() {
-    // $("#change-password, #change-security").on("click", function() {
-    //   $("#success-message").removeClass("d-none");
-    //   setTimeout(function() {
-    //     $("#success-message").addClass("d-none");
-    //   }, 3000);
-    // });
 
     // 비밀번호 변경 전송
     $("#submit-password").on("click", function() {

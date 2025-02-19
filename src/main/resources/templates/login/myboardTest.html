@@ -29,20 +29,6 @@
         <div class="col-md-4">
             <div class="post-box">
                 <h5>게시글</h5>
-<!--                <ul>-->
-<!--                    <li th:each="post : ${posts}">-->
-
-<!--                        <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx-->
-<!--                    : (post.category == '이벤트' ? '/event/' + post.board_idx-->
-<!--                    : (post.category == '인원모집' ? '/crew/' + post.board_idx-->
-<!--                    : '/post/' + post.board_idx))}}"-->
-<!--                           th:text="${post.title}"></a>-->
-
-<!--                        <span th:text="${post.contents}"></span>-->
-<!--                        <span th:text="${post.category}"></span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-
                 <ul style="list-style: none; padding-left: 0">
                     <li>
                         <div class="container row d-flex justify-content-between"
@@ -115,25 +101,6 @@
             <div class="post-box">
                 <h5>리뷰</h5>
                 <ul style="list-style: none; padding-left: 0">
-
-<!--                    <li>-->
-<!--                        <div class="container row d-flex justify-content-between"-->
-<!--                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">-->
-<!--                            <div class="col-2 align-items-center">별점</div>-->
-<!--                            <div class="col-3" style="text-align: right;">내용</div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-
-<!--                    <div class="container row d-flex justify-content-between">-->
-
-<!--                        <li th:each="review : ${reviews}">-->
-<!--                            <span th:each="i : ${#numbers.sequence(1, 5)}"><i class="fa-star" th:classappend="${i <= review.star} ? 'fas' : 'far'"></i></span>-->
-
-<!--                            <div  style="text-align: right;">-->
-<!--                                <a style="text-decoration: none;" th:href="@{/placeDetail?placeIdx={id}(id=${review.placeReview.placeIdx})}" th:text="${review.comment}"></a>-->
-<!--                            </div>-->
-<!--                    </div>-->
-<!--                    </li>-->
 
                     <!-- 제목 행 -->
                     <li>

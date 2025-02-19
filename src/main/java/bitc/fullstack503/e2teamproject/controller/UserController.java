@@ -148,6 +148,7 @@ public class UserController {
     return response;
   }
 
+//  관리자 페이지
   @RequestMapping("/manager")
   public ModelAndView managerPage() {
     ModelAndView mav = new ModelAndView("/manage/managerPage");
@@ -156,29 +157,12 @@ public class UserController {
     return mav;
   }
 
+//  아이디 삭제
   @DeleteMapping("/delete/{id}")
   @ResponseBody
   public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
     userService.deleteUserById(id);
     return ResponseEntity.ok("삭제 완료");
-  }
-
-
-//  마이페이지 페이지 테스트
-  @RequestMapping("/profileTest")
-  public ModelAndView profileTest(HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    String userId = (String) session.getAttribute("userId");
-
-    ModelAndView mav = new ModelAndView("/login/profilePageTest");
-
-    if (userId != null) {
-      UserEntity user = userService.getUserInfo(userId);
-      mav.addObject("user", user);
-    }
-
-    return mav;
-
   }
 
   // 비밀번호 변경
@@ -192,9 +176,7 @@ public class UserController {
     }
 
     String newPassword = requestData.get("password");
-
     userService.updateUserPassword(userId, newPassword);
-
     return ResponseEntity.ok("비밀번호 변경 성공");
   }
 
@@ -209,9 +191,7 @@ public class UserController {
     }
 
     String newPhone = requestData.get("phone");
-
     userService.updateUserPhone(userId, newPhone);
-
     return ResponseEntity.ok("휴대폰번호 변경 성공");
   }
 
