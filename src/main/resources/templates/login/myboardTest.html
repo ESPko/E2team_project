@@ -47,8 +47,8 @@
                     <li>
                         <div class="container row d-flex justify-content-between"
                              style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
-                            <div class="col-1 align-items-center">번호</div>
-                            <div class="col-8 align-items-center" style="font-weight: bold;">
+                            <div class="col-2 align-items-center">번호</div>
+                            <div class="col-7 align-items-center" style="font-weight: bold;">
                                 <a href="#" class="text-dark" style="text-decoration: none;">제목</a>
                             </div>
                             <div class="col-3" style="text-align: right;">작성일</div>
@@ -57,8 +57,8 @@
                     <li>
                         <div class="container row d-flex justify-content-between"
                              style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="post : ${posts}">
-                            <div class="col-1 align-items-center findNoticeIdx" th:value="${post.board_idx}" th:text="${post.board_idx}">번호</div>
-                            <div class="col-8 align-items-center" style="font-weight: bold;">
+                            <div class="col-2 align-items-center findNoticeIdx" th:value="${post.board_idx}" th:text="${post.board_idx}">번호</div>
+                            <div class="col-7 align-items-center" style="font-weight: bold;">
                                 <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx
                                             : (post.category == '이벤트' ? '/event/' + post.board_idx
                                             : (post.category == '인원모집' ? '/crew/' + post.board_idx
@@ -79,14 +79,33 @@
         <div class="col-md-4">
             <div class="post-box">
                 <h5>댓글</h5>
-                <ul>
+                <ul style="list-style: none; padding-left: 0">
+                    <li>
+                    <div class="container row d-flex justify-content-between"
+                         style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+                        <div class="col-2 align-items-center">내용</div>
+                        <div class="col-3" style="text-align: right;">작성일</div>
+                    </div>
+                    </li>
+
                     <li th:each="comment : ${comments}">
 
-                        <a th:href="@{${comment.boardReply.category == '공지사항' ? '/notice/' + comment.boardReply.board_idx
-                    : (comment.boardReply.category == '이벤트' ? '/event/' + comment.boardReply.board_idx
-                    : (comment.boardReply.category == '인원모집' ? '/crew/' + comment.boardReply.board_idx
-                    : '/post/' + comment.boardReply.board_idx))}}"
-                           th:text="${comment.comment}"></a>
+                        <div class="container row d-flex justify-content-between"
+                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="post : ${posts}">
+                            <div class="col-2 align-items-center" style="font-weight: bold;">
+                                <a th:href="@{${comment.boardReply.category == '공지사항' ? '/notice/' + comment.boardReply.board_idx
+                                            : (comment.boardReply.category == '이벤트' ? '/event/' + comment.boardReply.board_idx
+                                            : (comment.boardReply.category == '인원모집' ? '/crew/' + comment.boardReply.board_idx
+                                            : '/post/' + comment.boardReply.board_idx))}}"
+
+                                   class="text-dark findNoticeTitle"
+                                   style="text-decoration: none;"
+                                   th:text="${comment.comment}" ></a>
+                            </div>
+                            <div class="col-3" style="text-align: right;" th:value="${comment.createDate}"
+                                 th:text="${comment.createDate}">작성일
+                            </div>
+                        </div>
 
                     </li>
                 </ul>
@@ -95,13 +114,25 @@
         <div class="col-md-4">
             <div class="post-box">
                 <h5>리뷰</h5>
-                <ul>
+                <ul style="list-style: none; padding-left: 0">
+
+                    <li>
+                        <div class="container row d-flex justify-content-between"
+                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+                            <div class="col-2 align-items-center">별점</div>
+                            <div class="col-3" style="text-align: right;">내용</div>
+                        </div>
+                    </li>
+
+
                     <li th:each="review : ${reviews}">
 
                         <span th:each="i : ${#numbers.sequence(1, 5)}">
                       <i class="fa-star" th:classappend="${i <= review.star} ? 'fas' : 'far'"></i>
                    </span>
-                        <a th:href="@{/placeDetail?placeIdx={id}(id=${review.placeReview.placeIdx})}" th:text="${review.comment}"></a>
+                        <div  style="text-align: right;">
+                            <a style="text-decoration: none;" th:href="@{/placeDetail?placeIdx={id}(id=${review.placeReview.placeIdx})}" th:text="${review.comment}"></a>
+                        </div>
                     </li>
                 </ul>
             </div>
