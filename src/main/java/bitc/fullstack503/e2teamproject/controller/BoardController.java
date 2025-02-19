@@ -37,19 +37,6 @@ public class BoardController {
     return mav;
   }
 
-  //  심지현 toastEditor 테스트용
-  @RequestMapping("/jiHyunToast")
-  public ModelAndView jihyunToast() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunToastTest");
-//    List<BoardEntity> findNoticeList = boardService.findNotice(page);
-//    List<BoardEntity> findEventList = boardService.findEvent();
-//    List<BoardEntity> findCrewList = boardService.findCrew();
-//    mav.addObject("findNoticeList", findNoticeList);
-//    mav.addObject("findEventList", findEventList);
-//    mav.addObject("findCrewList", findCrewList);
-    return mav;
-  }
-
   // 프로필
   @RequestMapping("/pro")
   public ModelAndView profile() {
