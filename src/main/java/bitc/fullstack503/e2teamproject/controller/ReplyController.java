@@ -18,6 +18,8 @@ public class ReplyController {
   @Autowired
   private ReplyService replyService;
 
+//  아아아ㅏ아아아ㅏㅇ
+
   //  댓글 보기
   @ResponseBody
   @GetMapping("/list/{crewBoardIdx}")
