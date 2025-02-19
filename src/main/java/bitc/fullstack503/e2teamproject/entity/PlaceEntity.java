@@ -39,9 +39,9 @@ public class PlaceEntity {
 
   private String phone;
 
-  private String introduce;
+  private String category;
 
-  private String money;
+  private String introduce;
 
   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude

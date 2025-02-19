@@ -50,65 +50,75 @@
     }
   </style>
   <!--    추천 활동 드롭다운 선택 시, 응답-->
+<!--  <script>-->
+<!--      document.addEventListener("DOMContentLoaded", function () {-->
+<!--          document.addEventListener("click", function (event) {-->
+<!--              if (event.target.matches(".dropdown-item")) {-->
+<!--                  let selectedText = event.target.textContent.trim();-->
+<!--                  let dropdown = event.target.closest(".dropdown");-->
+<!--                  let input = dropdown.querySelector("input");-->
+<!--                  if (input) {-->
+<!--                      input.value = selectedText;-->
+<!--                  }-->
+
+<!--                  // 드롭다운 닫기-->
+<!--                  let bsDropdown = bootstrap.Dropdown.getInstance(dropdown.querySelector(".dropdown-toggle"));-->
+<!--                  if (bsDropdown) {-->
+<!--                      bsDropdown.hide();-->
+<!--                  }-->
+<!--              }-->
+<!--          });-->
+<!--      });-->
+<!--  </script>-->
+
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.addEventListener("click", function (event) {
-        if (event.target.matches(".dropdown-item")) {
-          let selectedText = event.target.textContent.trim();
-          let dropdown = event.target.closest(".dropdown");
-          let input = dropdown.querySelector("input");
-          if (input) {
-            input.value = selectedText;
-          }
+      $(document).ready(function () {
+          const noticeContainer = $(".noticeContainer");
+          const eventContainer = $(".eventContainer");
 
-          // 드롭다운 닫기
-          let bsDropdown = bootstrap.Dropdown.getInstance(dropdown.querySelector(".dropdown-toggle"));
-          if (bsDropdown) {
-            bsDropdown.hide();
-          }
-        }
-      });
-    });
-  </script>
-
-  <script>
-    $(document).ready(function () {
-      const noticeContainer = $(".noticeContainer");
-      const eventContainer = $(".eventContainer");
-
-      // 공지사항 네 개 확인하기
-      $.ajax({
-        url: "/notice/four",
-        type: "get",
-        success: function (data) {
-          noticeContainer.empty();
-          data.forEach(notice => {
-            let html = `<a href='/notice/${notice.board_idx}'<li class="list-group-item">${notice.title}</li>`;
-            noticeContainer.append(html);
+          // 공지사항 네 개 확인하기
+          $.ajax({
+              url: "/notice/four",
+              type: "get",
+              success: function (data) {
+                  noticeContainer.empty();
+                  data.forEach(notice => {
+                      let html = `<a href='/notice/${notice.board_idx}'<li class="list-group-item">${notice.title}</li>`;
+                      noticeContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("공지사항 불러오기 실패:", error);
+              }
           });
-        },
-        error: function (xhr, status, error) {
-          console.error("공지사항 불러오기 실패:", error);
-        }
-      });
 
-      // 이벤트 네 개 확인하기
-      $.ajax({
-        url: "/event/four",
-        type: "get",
-        success: function (data) {
-          console.log("이벤트 데이터 : " + data);
-          eventContainer.empty();
-          data.forEach(event => {
-            let html = `<a href="/event/${event.board_idx}"<li class="list-group-item">${event.title}</li></a>`;
-            eventContainer.append(html);
+          // 이벤트 네 개 확인하기
+          $.ajax({
+              url: "/event/four",
+              type: "get",
+              success: function (data) {
+                  eventContainer.empty();
+                  data.forEach(event => {
+                      let html = `<a href="/event/${event.board_idx}"<li class="list-group-item">${event.title}</li></a>`;
+                      eventContainer.append(html);
+                  });
+              },
+              error: function (xhr, status, error) {
+                  console.error("이벤트 불러오기 실패:", error);
+              }
           });
-        },
-        error: function (xhr, status, error) {
-          console.error("이벤트 불러오기 실패:", error);
-        }
+
+          //추천 활동 검색
+          $(".placeSearch").on("click",function(){
+              const selectLocation = $("#location option:selected").val();
+              const selectAge = $("#age option:selected").val();
+              const selectPeople = $("#people option:selected").val();
+              console.log(selectLocation);
+              console.log(selectAge);
+              console.log(selectPeople);
+              location.href=`/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`;
+          });
       });
-    });
   </script>
 
 </head>
@@ -121,7 +131,8 @@
     <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
       <!-- 인디케이터 -->
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
@@ -343,51 +354,54 @@
 
         <div class="col-md-4 position-relative me-4">
           <div class="dropdown w-100">
-            <input type="text" class="form-control dropdown-toggle" id="locationInput" placeholder="지역을 입력하세요."
-                   data-bs-toggle="dropdown" readonly>
-            <ul class="dropdown-menu w-100" id="locationList">
-              <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">지역 추천</li>
-              <li><a class="dropdown-item" href="#">1.부산</a></li>
-              <li><a class="dropdown-item" href="#">2.서울</a></li>
-              <li><a class="dropdown-item" href="#">3.대전</a></li>
-              <li><a class="dropdown-item" href="#">4.대구</a></li>
-              <li><a class="dropdown-item" href="#">5.광주</a></li>
-            </ul>
+<!--            <input type="text" class="form-control dropdown-toggle" id="locationInput" placeholder="지역을 입력하세요."-->
+<!--                   data-bs-toggle="dropdown" readonly>-->
+            <select class="form-select w-100" id="location">
+              <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">지역 추천</option>
+              <option>강서구</option>
+              <option>금정구</option>
+              <option>기장군</option>
+              <option>남구</option>
+              <option>동래구</option>
+              <option>부산진구</option>
+              <option>북구</option>
+              <option>사하구</option>
+              <option>수영구</option>
+              <option>영도구</option>
+              <option>중구</option>
+              <option>해운대구</option>
+            </select>
           </div>
         </div>
 
         <div class="col-md-3 position-relative me-4">
           <div class="dropdown w-100">
-            <input type="text" class="form-control dropdown-toggle" id="ageInput" placeholder="나이 / 연령 입력"
-                   data-bs-toggle="dropdown" readonly>
-            <ul class="dropdown-menu w-100">
-              <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">나이</li>
-              <li><a class="dropdown-item" href="#">10대</a></li>
-              <li><a class="dropdown-item" href="#">20대</a></li>
-              <li><a class="dropdown-item" href="#">30대</a></li>
-              <li><a class="dropdown-item" href="#">40대</a></li>
-              <li><a class="dropdown-item" href="#">50대 이상</a></li>
-            </ul>
+<!--            <input type="text" class="form-control dropdown-toggle" id="ageInput" placeholder="나이 / 연령 입력"-->
+<!--                   data-bs-toggle="dropdown" readonly>-->
+            <select class="form-select w-100" id="age">
+              <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">나이</option>
+              <option value="1">10살 이하 어린이</option>
+              <option value="10">10살 이상</option>
+              <option value="20">20살 이상</option>
+            </select>
           </div>
         </div>
 
         <div class="col-md-2 position-relative me-4">
           <div class="dropdown w-100">
-            <input type="text" class="form-control dropdown-toggle" id="peopleInput" placeholder="👤 인원"
-                   data-bs-toggle="dropdown" readonly>
-            <ul class="dropdown-menu w-100">
-              <li class="dropdown-header text-primary fw-bold" style="font-size: 18px;">인원수</li>
-              <li><a class="dropdown-item" href="#">1명</a></li>
-              <li><a class="dropdown-item" href="#">2명</a></li>
-              <li><a class="dropdown-item" href="#">3명</a></li>
-              <li><a class="dropdown-item" href="#">4명</a></li>
-              <li><a class="dropdown-item" href="#">5명 이상</a></li>
-            </ul>
+<!--            <input type="text" class="form-control dropdown-toggle" id="peopleInput" placeholder="👤 인원"-->
+<!--                   data-bs-toggle="dropdown" readonly>-->
+            <select class="form-select w-100" id="people">
+              <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">인원수</option>
+              <option value="1">1명</option>
+              <option value="2">2명 이상</option>
+              <option value="4">4명 이상</option>
+            </select>
           </div>
         </div>
 
         <div class="col-md-2 ms-auto">
-          <button class="btn btn-primary w-100 text-light" href="/rec">검색</button>
+          <button class="btn btn-primary w-100 text-light placeSearch" href="#">검색</button>
         </div>
       </div>
     </div>
