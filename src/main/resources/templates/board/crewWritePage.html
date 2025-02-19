@@ -16,13 +16,24 @@
         $("#btn-list").on("click",function(){
             console.log("btnList 누름");
         });
-        // $("#btn-write").on("click",function(){
-        //     console.log("btnWrite 누름");
-        //     const crewTitleCreate = $("#crewTitleCreate").val();
-        //     console.log(crewTitleCreate);
-        //     const crewContentsCreate = $("#crewContentsCreate").val();
-        //     console.log(crewContentsCreate);
-        // });
+        $("#btn-write").on("click", function(event){
+            event.preventDefault();
+
+            let formData = $("#frm").serialize();
+
+            $.ajax({
+                url: "/crew/write",
+                type: "POST",
+                data: formData,
+                success: function() {
+                    alert("글 작성 완료!");
+                    location.href = "/crew";
+                },
+                error: function() {
+                    alert("글 작성 실패!");
+                }
+            });
+        });
     });
   </script>
 </head>
@@ -55,12 +66,13 @@
         </textarea>
         <label for="crewContentsCreate">글 내용</label>
       </div>
+
+      <div class="col-sm m-3 d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
+        <button type="submit" class="btn" style="background-color: #bee5eb; border-style: none;" id="btn-write">게시</button>
+      </div>
     </form>
   </section>
-  <div class="col-sm m-3 d-flex justify-content-between">
-    <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
-    <button type="submit" class="btn" style="background-color: #bee5eb; border-style: none;" id="btn-write">게시</button>
-  </div>
 </main>
 
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
