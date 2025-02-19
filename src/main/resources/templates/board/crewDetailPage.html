@@ -54,7 +54,7 @@
               console.log(replyWriteComment);
 
               $.ajax({
-                  url: `/reply/write/ ${crewBoardIdx}/${replyWriteComment}`,
+                  url: `/reply/write/${crewBoardIdx}/${replyWriteComment}`,
                   type: 'post',
                   data: {"crewBoardIdx": crewBoardIdx, "replyWriteComment": replyWriteComment},
                   success: function () {
@@ -84,84 +84,6 @@
               });
           });
       });
-      $(document).ready(function () {
-          const crewBoardIdx = $(".crewBoardIdx").val();
-          console.log(crewBoardIdx);
-
-          // 목록 버튼 누르면 목록으로
-          $("#btn-list").on("click", function () {
-              history.back();
-          });
-
-          // 쓰기 버튼 누르면 crew 쓰기로
-          $("#btn-write").on("click", function () {
-              location.href = "/crew/write";
-          });
-
-          // 댓글 보기
-          $.ajax({
-              url: `/reply/list/${crewBoardIdx}`,
-              type: "get",
-              success: function (data) {
-                  let replyShowBox = $(".replyShowBox");
-                  replyShowBox.empty();
-
-                  data.replyList.forEach(reply => {
-                      let html = `<div style='padding: 10px 10px 0 10px;'>`;
-                      html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
-                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
-                      html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
-                      html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
-                      html += `<button type="button" class="deleteReplyButton">삭제</button>`;
-                      html += `</div>`
-
-                      replyShowBox.append(html);
-                  });
-              }
-          });
-
-          // 댓글 쓰기 누르면 댓글 쓰기
-          $("#replyWriteButton").on("click", function () {
-              const replyWriteComment = $("#replyWriteComment").val();
-              console.log(replyWriteComment);
-
-              $.ajax({
-                  url: `/reply/write/ ${crewBoardIdx}/${replyWriteComment}`,
-                  type: 'post',
-                  data: {"crewBoardIdx": crewBoardIdx, "replyWriteComment": replyWriteComment},
-                  success: function () {
-                      alert("댓글 등록 완료");
-                      location.reload();
-                  },
-                  error: function () {
-                      alert("댓글 등록 실패");
-                  }
-              });
-          });
-
-          // 댓글 삭제
-          $(document).on("click", ".deleteReplyButton", function () {
-              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
-              $.ajax({
-                  url: `/reply/delete/${replyIdx}`,
-                  type: 'delete',
-                  data: {"replyIdx": replyIdx},
-                  success: function () {
-                      alert("댓글 삭제 완료");
-                      location.reload();
-                  },
-                  error: function () {
-                      alert("댓글 삭제 실패");
-                  }
-              });
-          });
-      });
-    $(document).ready(function(){
-        $("#btn-list").on("click",function(){
-            history.back();
-        });
-
-    });
   </script>
 </head>
 <body>
@@ -169,9 +91,9 @@
 
 <main class="container container-sm mt-5" style="width: 800px;">
   <section>
-
     <form id="frm" action="#" method="post">
       <input type="hidden" id="method" name="_method">
+      <input type="hidden" class="crewBoardIdx" th:value="${crew.board_idx}">
 
       <div class="col-sm m-3 d-flex justify-content-between">
         <h4>인원모집</h4>
@@ -182,28 +104,28 @@
              style="border-radius: 5px 5px 0 0; border: solid 0.4px lightgray; height: 40px; align-items: center;">
           <div class="col-sm-8">제목
             <input type="text" style="border-style: none; width: 450px;" readonly
-            th:value="${crew.title}"></div>
+                   th:value="${crew.title}"></div>
           <div class="col-sm-4">작성일
             <input type="text" style="border-style: none; width: 180px;" readonly
-            th:value="${crew.createDate}"></div>
+                   th:value="${crew.createDate}"></div>
         </div>
         <div class="container-sm d-flex justify-content-between"
              style="border-radius: 0 0 5px 5px; border: solid 0.4px lightgray; border-top: none; height: 35px; align-items: center;">
           <div class="col-sm-8">작성자
             <input type="text" style="border-style: none; width: 400px;" readonly
-            th:value="${crew.user.id}"></div>
+                   th:value="${crew.user.id}"></div>
           <div class="col-sm-2">조회
             <input type="text" style="border-style: none; width: 50px;" readonly
-            th:value="${crew.hitCount}"></div>
+                   th:value="${crew.hitCount}"></div>
           <div class="col-sm-2">추천
             <input type="text" style="border-style: none; width: 50px;" readonly
-            th:value="${crew.likeCount}"></div>
+                   th:value="${crew.likeCount}"></div>
         </div>
       </div>
 
       <div class=" mt-3 form-floating">
         <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
-                  readonly  th:text="${crew.contents}">
+                  readonly th:text="${crew.contents}">
         </textarea>
         <label for="contents">글 내용</label>
       </div>
@@ -217,18 +139,22 @@
   <div class="mt-4">
     <div>
       <div><i class="fa-regular fa-comment"></i> 댓글</div>
-      <div class="mt-3" style="border: 0.4px solid lightgray; border-radius: 5px;">
+      <div class="mt-3 replyShowBox" style="border: 0.4px solid lightgray; border-radius: 5px;">
         <div style="padding: 10px 10px 0 10px;"><span style="font-weight: bold;">ID </span><span
-          style="font-size: small"> 작성일</span></div>
+                style="font-size: small"> 작성일</span></div>
         <div class="mt-2" style="padding: 0 10px 10px 10px;">review 내용</div>
       </div>
     </div>
-    <div class="d-flex justify-content-between mt-5" style="background-color: #f5f5f5; border-style: none; border-radius: 5px; padding: 10px;">
+    <div class="d-flex justify-content-between mt-5"
+         style="background-color: #f5f5f5; border-style: none; border-radius: 5px; padding: 10px;">
       <div class="col-sm-10 d-flex justify-content-center">
-        <textarea style="width: 628.33px; height: 66px; border-radius: 5px; border-style: none; padding: 0;"></textarea>
+        <textarea style="width: 628.33px; height: 66px; border-radius: 5px; border-style: none; padding: 0;" id="replyWriteComment"></textarea>
       </div>
       <div class="col-sm-2 d-flex justify-content-center">
-        <button type="button" style="border-style: none; border-radius: 5px; background-color: white; width: 77px; height: 70px;">등록</button>
+        <button type="button"
+                style="border-style: none; border-radius: 5px; background-color: white; width: 77px; height: 70px;"
+        id="replyWriteButton">등록
+        </button>
       </div>
     </div>
   </div>
