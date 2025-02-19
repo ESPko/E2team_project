@@ -157,6 +157,15 @@ public class UserController {
     return mav;
   }
 
+  //  관리자 페이지 - 회원관리
+  @RequestMapping("/member")
+  public ModelAndView member() {
+    ModelAndView mav = new ModelAndView("/manage/memberManage");
+    List<UserEntity> userList = userService.getAllUsers();
+    mav.addObject("users", userList);
+    return mav;
+  }
+
 //  아이디 삭제
   @DeleteMapping("/delete/{id}")
   @ResponseBody

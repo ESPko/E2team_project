@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <script>
+        $(document).ready(function () {
+            $(".delete-btn").click(function () {
+                let userId = $(this).attr("data-id");
+                let row = $("#user-row-" + userId);
+
+                if (confirm("정말 삭제하시겠습니까?")) {
+                    $.ajax({
+                        url: "/user/delete/" + userId,
+                        contentType: "application/json; charset=utf-8",
+                        type: "DELETE",
+                        success: function (response) {
+                            alert("삭제되었습니다.");
+                            row.remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alert("삭제 실패: " + xhr.responseText);
+                            console.log(xhr.responseText)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div th:replace="~{/layout/header :: projectheader}"></div>
+
+<section class="container mt-5">
+    <div class="container py-3 rounded shadow">
+        <div class="border-bottom"><h5><i class="fa-solid fa-users-gear"></i> 회원관리</h5></div>
+        <div class="mt-3">
+            <div class="container row">
+                <div class="col-1 text-center fw-bold">번호</div>
+                <div class="col-2 text-center fw-bold">이름</div>
+                <div class="col-4 text-center fw-bold">아이디</div>
+                <div class="col-5 fw-bold">가입일</div>
+            </div>
+            <div class="container mt-3 row border-bottom" th:each="user, stat : ${users}" th:id="'user-row-' + ${user.user_idx}">
+                <div class="col-1 text-center" th:text="${stat.count}"></div>
+                <div class="col-2  text-center">홍길동</div>
+                <div class="col-4  text-center" th:text="${user.id}"></div>
+                <div class="col-4" th:text="${user.createDate}"></div>
+                <div class="col-1  text-center"><button type="button" class="btn btn-link text-danger delete-btn" th:data-id="${user.user_idx}">삭제</button></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{/layout/footer :: projectfooter}"></div>
+</body>
+</html>
