@@ -155,39 +155,8 @@
 
   <div class="container mt-5">
 
-    <!-- 아이콘 메뉴 -->
-    <div class="container mt-4">
-      <div class="row text-center">
-        <div class="col-2">
-          <a class="text-decoration-none link-dark" href="#" th:href="@{/rec}"><img src="/img/오징어게임 카테고리.JPG"
-                                                                                    class="img-fluid rounded mb-5"
-                                                                                    alt="" style="height: 100px;">
-            <p>오징어 게임</p></a>
-        </div>
-        <div class="col-2">
-          <img src="/img/캡처.PNG" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-          <p>혼자 놀래</p>
-        </div>
-        <div class="col-2">
-          <img src="/img/캡처.PNG" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-          <p>조용히 놀래</p>
-        </div>
-        <div class="col-2">
-          <img src="/img/캡처.PNG" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-          <p>Exciting</p>
-        </div>
-        <div class="col-2">
-          <img src="/img/캡처.PNG" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-          <p>연인과 함께</p>
-        </div>
-        <div class="col-2">
-          <img src="/img/캡처.PNG" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-          <p>친구와 함께</p>
-        </div>
-
-
-      </div>
-    </div>
+<!--    아이콘 -->
+    <div th:replace="~{/layout/header :: cateIcon}"></div>
 
     <!--        인기활동 Top 3 카드 -->
 
