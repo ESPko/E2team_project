@@ -16,4 +16,7 @@ public interface ReplyService {
 
   //  댓글 삭제
   void replyDelete(@RequestParam("replyIdx") int replyIdx);
+
+  //    내가 작성한 댓글
+  List<ReplyEntity> findRepliesByUserId(int userId);
 }

@@ -23,10 +23,29 @@ public class ReviewController {
     return mav;
   }
 
+  //  장소 상세 페이지 테스트
+  @GetMapping("/placeDetail")
+  public ModelAndView getPlaceDetail(@RequestParam("placeIdx") int placeIdx) {
+    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+    ModelAndView mav = new ModelAndView("board/placeDetailTest");  // 뷰 이름 설정
+    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+    return mav;
+  }
+
   @ResponseBody
   @RequestMapping("/write/{reviewWrite}/{reviewStar}")
   public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
                           @PathVariable("reviewStar") double reviewStar){
     reviewService.reviewStar(reviewWrite, reviewStar);
   }
+
+
+//  리뷰 상세 테스트
+//  @GetMapping("/DetailReview")
+//  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
+//    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+//    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
+//    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+//    return mav;
+//  }
 }

@@ -1,9 +1,9 @@
 package bitc.fullstack503.e2teamproject.controller;
 
-import bitc.fullstack503.e2teamproject.entity.BoardEntity;
-import bitc.fullstack503.e2teamproject.entity.BoardImageEntity;
-import bitc.fullstack503.e2teamproject.service.BoardImageService;
-import bitc.fullstack503.e2teamproject.service.BoardService;
+import bitc.fullstack503.e2teamproject.entity.*;
+import bitc.fullstack503.e2teamproject.service.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -23,6 +23,12 @@ public class BoardController {
 
   @Autowired
   private BoardImageService boardImageService;
+    @Autowired
+    private ReplyService replyService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private UserService userService;
 
   //  심지현 crud 테스트용
   @ResponseBody
@@ -40,8 +46,23 @@ public class BoardController {
 
   // 프로필
   @RequestMapping("/pro")
-  public ModelAndView profile() {
-    return new ModelAndView("/login/profilePage");
+  public ModelAndView profile(HttpServletRequest request) {
+
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+    String userPw = (String) session.getAttribute("userPw");
+    String userEmail = (String) session.getAttribute("userEmail");
+
+
+    ModelAndView mav = new ModelAndView("/login/profilePage");
+
+    if (userId != null) {
+      UserEntity user = userService.getUserInfo(userId);
+      mav.addObject("user", user);
+      mav.addObject("userEmail", userEmail);
+    }
+
+    return mav;
   }
 
   // 회원가입 페이지
@@ -212,5 +233,26 @@ public class BoardController {
   @DeleteMapping("/crew/delete")
   public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
     boardService.deleteCrew(crewNumberDelete);
+  }
+  //  내가 작성한 게시물 Test
+  @RequestMapping("/myboard")
+  public ModelAndView myboard(HttpSession session) {
+    ModelAndView mav = new ModelAndView("/login/myboardTest");
+
+
+
+    Integer userId = (Integer) session.getAttribute("userIdx"); // Integer로 직접 가져오기
+
+    if (userId != null) {
+      List<BoardEntity> posts = boardService.findPostsByUserId(userId);
+      List<ReplyEntity> comments = replyService.findRepliesByUserId(userId);
+      List<ReviewEntity> reviews = reviewService.findReviewsByUserId(userId);
+
+      mav.addObject("posts", posts);
+      mav.addObject("comments", comments);
+      mav.addObject("reviews", reviews);
+    }
+    return mav;
+
   }
 }

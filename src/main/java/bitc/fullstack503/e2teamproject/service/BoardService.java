@@ -68,4 +68,7 @@ public interface BoardService {
   //  글쓸때 이미지도 올라가는지 확인용
   @Transactional
   void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images);
+
+  //  내가 작성한 게시글
+  List<BoardEntity> findPostsByUserId(int userId);
 }

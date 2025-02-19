@@ -9,11 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import java.util.List;
+
 @Service
 public class ReplyServiceImpl implements ReplyService {
 
   @Autowired
   private ReplyRepository replyRepository;
+
+//  내가 작성한 댓글
+  @Override
+  public List<ReplyEntity> findRepliesByUserId(int userId) {
+
+    return replyRepository.findRepliesByUserId(userId);
+
+  }
 
   //  댓글 보기
   @Override
