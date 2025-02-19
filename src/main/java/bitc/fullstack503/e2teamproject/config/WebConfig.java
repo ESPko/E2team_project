@@ -12,6 +12,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheck())
                 .addPathPatterns("/*")
                 .addPathPatterns("/user/*")
+                .addPathPatterns("/notice/write")
+                .addPathPatterns("/event/write")
+                .addPathPatterns("/crew/write")
                 .excludePathPatterns("/user/loginProcess.do", "/user/logout",  "/user/signupProcess.do",
                         "/user/checkDuplicate", "/user/", "/", "/loginpage", "/regist", "/notice", "/event", "/crew", "/placeDetail/**" ,"/rec");
     }

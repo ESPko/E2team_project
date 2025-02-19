@@ -16,7 +16,8 @@ public class LoginCheck implements HandlerInterceptor {
 
 
         String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/user/manager") || requestURI.startsWith("/user/member")) {
+        if (requestURI.startsWith("/user/manager") || requestURI.startsWith("/user/member")
+                || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write") || requestURI.startsWith("/crew/write")) {
             Object userLevel = session.getAttribute("userLevel");
 
             if (userLevel == null || !userLevel.toString().equals("1")) {
