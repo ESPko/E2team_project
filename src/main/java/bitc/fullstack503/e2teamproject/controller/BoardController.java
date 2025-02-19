@@ -7,6 +7,7 @@ import bitc.fullstack503.e2teamproject.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -79,7 +80,7 @@ public class BoardController {
   //  공지 네개씩만 보기
   @ResponseBody
   @RequestMapping("/notice/four")
-  public List<BoardEntity> noticeReadFour(){
+  public List<BoardEntity> noticeReadFour() {
     return boardService.findNoticeFour();
   }
 
