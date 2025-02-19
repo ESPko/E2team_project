@@ -3,12 +3,18 @@ package bitc.fullstack503.e2teamproject.controller;
 import bitc.fullstack503.e2teamproject.entity.PlaceImageEntity;
 import bitc.fullstack503.e2teamproject.service.PlaceImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@RestController
 @Controller
 @RequestMapping("/placeImage")
 public class PlaceImageController {
@@ -26,11 +32,12 @@ public class PlaceImageController {
     return mav;
   }
 
-//  전부 다 확인
-//  @RequestMapping("/findAll")
-//  public List<PlaceImageEntity> findAll(){
-//    List<PlaceImageEntity> findImageAll= placeImageService.findPlaceAll();
-//    System.out.println(findImageAll);
-//    return findImageAll;
-//  }
+  @ResponseBody
+  @GetMapping("/findPlaceImage")
+  public ResponseEntity<List<PlaceImageEntity>> findPlaceImage() {
+    List<PlaceImageEntity> findPlaceImageList = placeImageService.findPlaceImage();
+    System.out.println(findPlaceImageList);
+    return ResponseEntity.ok(findPlaceImageList);
+  }
+
 }
