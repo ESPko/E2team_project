@@ -40,7 +40,6 @@
                       html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
                       html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
                       html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
-                      html += `<button type="button" class="modifyReplyButton">수정</button>`;
                       html += `<button type="button" class="deleteReplyButton">삭제</button>`;
                       html += `</div>`
 
@@ -66,15 +65,6 @@
                       alert("댓글 등록 실패");
                   }
               });
-          });
-
-          // 댓글 수정
-          $(document).on("click", ".modifyReplyButton", function () {
-              console.log("댓글 수정 버튼");
-              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
-              let replyUserId = $(this).closest("div div").find(".replyId").text();
-              console.log(`글 번호 : ${replyIdx}`);
-              console.log(`글쓴이 : ${replyUserId}`);
           });
 
           // 댓글 삭제

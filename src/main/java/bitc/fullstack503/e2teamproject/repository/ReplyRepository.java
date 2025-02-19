@@ -23,12 +23,6 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
   void replyWrite(@RequestParam("crewBoardIdx") int crewBoardIdx,
                   @RequestParam("replyWriteComment") String replyWriteComment);
 
-  //  댓글 수정
-  @Modifying
-  @Query("update ReplyEntity r set r.comment= :newReplyComment where r.reply_idx = :replyIdx")
-  void replyModify(@RequestParam("newReplyComment") String newReplyComment,
-                   @RequestParam("replyIdx") int replyIdx);
-
   //  댓글 삭제
   @Modifying
   @Transactional

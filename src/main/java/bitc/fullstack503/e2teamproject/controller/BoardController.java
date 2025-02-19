@@ -37,6 +37,13 @@ public class BoardController {
     return mav;
   }
 
+  //  심지현 tostEditor 테스트용
+  @RequestMapping("/jiHyunToast")
+  public ModelAndView jihyunToast() {
+    ModelAndView mav = new ModelAndView("/board/jiHyunToastTest");
+    return mav;
+  }
+
   // 프로필
   @RequestMapping("/pro")
   public ModelAndView profile() {

@@ -27,8 +27,6 @@ public class ReplyServiceImpl implements ReplyService {
     replyRepository.replyWrite(crewBoardIdx, replyWriteComment);
   }
 
-//  댓글 수정
-
   //  댓글 삭제
   @Override
   public void replyDelete(int replyIdx) {

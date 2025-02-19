@@ -32,13 +32,6 @@ public class ReplyController {
 
     Map<String, Object> result = new HashMap<>();
     result.put("replyList", replyList);
-
-    for (ReplyDTO replyDTO : replyList) {
-      System.out.println(replyDTO.getReplyIdx());
-      System.out.println(replyDTO.getComment());
-      System.out.println(replyDTO.getCreateDate());
-      System.out.println(replyDTO.getUserId());
-    }
     return result;
   }
 
@@ -48,13 +41,6 @@ public class ReplyController {
   public void replyWrite(@PathVariable("crewBoardIdx") int crewBoardIdx,
                          @PathVariable("replyWriteComment") String replyWriteComment) {
     replyService.replyWrite(crewBoardIdx, replyWriteComment);
-  }
-
-  //  댓글 수정(아이디가 일치하는지?)
-  @ResponseBody
-  @PutMapping("/modify/{replyIdx}")
-  public void replyModify(@PathVariable("replyIdx") int replyIdx){
-//    replyService.replyModify();
   }
 
   //  댓글 삭제
