@@ -12,10 +12,155 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script>
+      $(document).ready(function () {
+          const crewBoardIdx = $(".crewBoardIdx").val();
+          console.log(crewBoardIdx);
+
+          // 목록 버튼 누르면 목록으로
+          $("#btn-list").on("click", function () {
+              history.back();
+          });
+
+          // 쓰기 버튼 누르면 crew 쓰기로
+          $("#btn-write").on("click", function () {
+              location.href = "/crew/write";
+          });
+
+          // 댓글 보기
+          $.ajax({
+              url: `/reply/list/${crewBoardIdx}`,
+              type: "get",
+              success: function (data) {
+                  let replyShowBox = $(".replyShowBox");
+                  replyShowBox.empty();
+
+                  data.replyList.forEach(reply => {
+                      let html = `<div style='padding: 10px 10px 0 10px;'>`;
+                      html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
+                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
+                      html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
+                      html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
+                      html += `<button type="button" class="deleteReplyButton">삭제</button>`;
+                      html += `</div>`
+
+                      replyShowBox.append(html);
+                  });
+              }
+          });
+
+          // 댓글 쓰기 누르면 댓글 쓰기
+          $("#replyWriteButton").on("click", function () {
+              const replyWriteComment = $("#replyWriteComment").val();
+              console.log(replyWriteComment);
+
+              $.ajax({
+                  url: `/reply/write/ ${crewBoardIdx}/${replyWriteComment}`,
+                  type: 'post',
+                  data: {"crewBoardIdx": crewBoardIdx, "replyWriteComment": replyWriteComment},
+                  success: function () {
+                      alert("댓글 등록 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("댓글 등록 실패");
+                  }
+              });
+          });
+
+          // 댓글 삭제
+          $(document).on("click", ".deleteReplyButton", function () {
+              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
+              $.ajax({
+                  url: `/reply/delete/${replyIdx}`,
+                  type: 'delete',
+                  data: {"replyIdx": replyIdx},
+                  success: function () {
+                      alert("댓글 삭제 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("댓글 삭제 실패");
+                  }
+              });
+          });
+      });
+      $(document).ready(function () {
+          const crewBoardIdx = $(".crewBoardIdx").val();
+          console.log(crewBoardIdx);
+
+          // 목록 버튼 누르면 목록으로
+          $("#btn-list").on("click", function () {
+              history.back();
+          });
+
+          // 쓰기 버튼 누르면 crew 쓰기로
+          $("#btn-write").on("click", function () {
+              location.href = "/crew/write";
+          });
+
+          // 댓글 보기
+          $.ajax({
+              url: `/reply/list/${crewBoardIdx}`,
+              type: "get",
+              success: function (data) {
+                  let replyShowBox = $(".replyShowBox");
+                  replyShowBox.empty();
+
+                  data.replyList.forEach(reply => {
+                      let html = `<div style='padding: 10px 10px 0 10px;'>`;
+                      html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
+                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
+                      html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
+                      html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
+                      html += `<button type="button" class="deleteReplyButton">삭제</button>`;
+                      html += `</div>`
+
+                      replyShowBox.append(html);
+                  });
+              }
+          });
+
+          // 댓글 쓰기 누르면 댓글 쓰기
+          $("#replyWriteButton").on("click", function () {
+              const replyWriteComment = $("#replyWriteComment").val();
+              console.log(replyWriteComment);
+
+              $.ajax({
+                  url: `/reply/write/ ${crewBoardIdx}/${replyWriteComment}`,
+                  type: 'post',
+                  data: {"crewBoardIdx": crewBoardIdx, "replyWriteComment": replyWriteComment},
+                  success: function () {
+                      alert("댓글 등록 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("댓글 등록 실패");
+                  }
+              });
+          });
+
+          // 댓글 삭제
+          $(document).on("click", ".deleteReplyButton", function () {
+              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
+              $.ajax({
+                  url: `/reply/delete/${replyIdx}`,
+                  type: 'delete',
+                  data: {"replyIdx": replyIdx},
+                  success: function () {
+                      alert("댓글 삭제 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      alert("댓글 삭제 실패");
+                  }
+              });
+          });
+      });
     $(document).ready(function(){
         $("#btn-list").on("click",function(){
             history.back();
         });
+
     });
   </script>
 </head>

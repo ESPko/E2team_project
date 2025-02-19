@@ -44,6 +44,29 @@
           </div>
         </li>
       </ul>
+
+      <!-- 페이징처리 시작 -->
+      <div th:if="${!findEventList.isEmpty()}">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:classappend="${!findEventList.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${findEventList.number-1}|}">
+              <span>이전</span>
+            </a>
+          </li>
+          <li th:each="page: ${#numbers.sequence(0, findEventList.totalPages-1)}"
+              th:classappend="${page == findEventList.number} ? 'active'"
+              class="page-item">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+          </li>
+          <li class="page-item" th:classappend="${!findEventList.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${findEventList.number+1}|}">
+              <span>다음</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 페이징처리 끝 -->
     </div>
   </div>
 </section>
