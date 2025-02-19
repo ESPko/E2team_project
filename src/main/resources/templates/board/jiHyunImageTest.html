@@ -29,8 +29,8 @@
       <td th:text="${findImage.place.placeIdx}"></td>
       <td th:text="${findImage.place.name}"></td>
       <td th:text="${findImage.place_image_idx}"></td>
-      <td th:text="|${findImage.imagePath}${findImage.imageOriginalName}|"></td>
-      <td><img th:src="|${findImage.imagePath}${findImage.imageOriginalName}|" alt="escapeTop1"/></td>
+      <td th:text="|${findImage.imagePath}${findImage.imageName}|"></td>
+      <td><img th:src="|${findImage.imagePath}${findImage.imageName}|" alt="escapeTop1"/></td>
     </tr>
   </table>
 </div>
