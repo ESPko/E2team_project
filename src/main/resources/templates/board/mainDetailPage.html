@@ -23,18 +23,18 @@
   </style>
 
   <script>
-    $(document).ready(function () {
-      var nav = parseInt($("#right-nav").css('top'));
+      $(document).ready(function () {
+          var nav = parseInt($("#right-nav").css('top'));
 
-      $(window).scroll(function () {
-        var scrollTop = $(window).scrollTop();
-        var nav_position = scrollTop + nav + "px";
+          $(window).scroll(function () {
+              var scrollTop = $(window).scrollTop();
+              var nav_position = scrollTop + nav + "px";
 
-        $("#right-nav").stop().animate({
-          "top": nav_position
-        }, 700);
-      }).scroll();
-    });
+              $("#right-nav").stop().animate({
+                  "top": nav_position
+              }, 700);
+          }).scroll();
+      });
   </script>
 
 </head>
@@ -71,58 +71,59 @@
   <div class="container-lg">
     <div class="container d-flex row justify-content-between align-items-center mt-5">
       <div class="col-6 d-flex" style="height: 200px;" th:each="placeDetail : ${placeDetailList}">
-        <div th:each="image : ${placeDetail.placeImageEntityList}">
-<!--          <img src="/img/luge2.jpg" alt="luge2-img"-->
-<!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;">-->
-          <img th:src="|${image.imagePath}${image.imageName}|" alt="해운대"/>
+        <div th:if="${not #lists.isEmpty(placeDetail.placeImageEntityList)}">
+          <!--          <img src="/img/luge2.jpg" alt="luge2-img"-->
+          <!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;">-->
+          <img th:src="|${placeDetail.placeImageEntityList[0].imagePath}${placeDetail.placeImageEntityList[0].imageName}|" alt="해운대"/>
         </div>
         <div>
           <div class="justify-content-between">
             <p style="font-weight: bold;" th:text="${placeDetail.name}">루지</p>
             <br>
-            <p style="word-break:keep-all;" th:text="${placeDetail.address}">2.4km의 짜릿한 다운힐 루지 트랙을 즐겨보세요. 빠르거나 경치를 즐길 수 있는 길을 선택해 달려보세요. 선택은 여러분의
+            <p style="word-break:keep-all;" th:text="${placeDetail.address}">2.4km의 짜릿한 다운힐 루지 트랙을 즐겨보세요. 빠르거나 경치를 즐길 수
+              있는 길을 선택해 달려보세요. 선택은 여러분의
               몫입니다.</p>
             <br>
-<!--            <button type="button"-->
-<!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
-<!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
-<!--            </button>-->
+            <!--            <button type="button"-->
+            <!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
+            <!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
+            <!--            </button>-->
           </div>
         </div>
       </div>
-<!--      <div class="col-6 d-flex" style="height: 200px;">-->
-<!--        <div><img src="/img/highfly.jpg" alt="highfly-img"-->
-<!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;">-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <div class="d-flex justify-content-between">-->
-<!--            <p style="font-weight: bold;">하이 플라이</p>-->
-<!--            <button type="button"-->
-<!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
-<!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <p style="word-break:keep-all;">하늘을 나는 듯한 기분을 느끼며 300m 길이의 짚라인을 타고 파노라마 바다 전경을 감상해 보세요.-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="col-6 d-flex" style="height: 200px;">-->
+      <!--        <div><img src="/img/highfly.jpg" alt="highfly-img"-->
+      <!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;">-->
+      <!--        </div>-->
+      <!--        <div>-->
+      <!--          <div class="d-flex justify-content-between">-->
+      <!--            <p style="font-weight: bold;">하이 플라이</p>-->
+      <!--            <button type="button"-->
+      <!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
+      <!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
+      <!--            </button>-->
+      <!--          </div>-->
+      <!--          <p style="word-break:keep-all;">하늘을 나는 듯한 기분을 느끼며 300m 길이의 짚라인을 타고 파노라마 바다 전경을 감상해 보세요.-->
+      <!--          </p>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
-<!--    <div class="container d-flex row justify-content-between align-items-center mt-5">-->
-<!--      <div class="col-6 d-flex" style="height: 200px;">-->
-<!--        <div><img src="/img/skyride.jpg" alt="luge2-img"-->
-<!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;"></div>-->
-<!--        <div>-->
-<!--          <div class="d-flex justify-content-between">-->
-<!--            <p style="font-weight: bold;">스카이 라이드</p>-->
-<!--            <button type="button"-->
-<!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
-<!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <p style="word-break:keep-all;">모든 라이드는 4인승 체어리프트인 스카이 라이드를 통해 시작됩니다.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="container d-flex row justify-content-between align-items-center mt-5">-->
+    <!--      <div class="col-6 d-flex" style="height: 200px;">-->
+    <!--        <div><img src="/img/skyride.jpg" alt="luge2-img"-->
+    <!--                  style="border-radius: 5px; width: 277px; height: 182px; margin-right: 20px;"></div>-->
+    <!--        <div>-->
+    <!--          <div class="d-flex justify-content-between">-->
+    <!--            <p style="font-weight: bold;">스카이 라이드</p>-->
+    <!--            <button type="button"-->
+    <!--                    style="border-radius: 10px; border: solid 0.5px #bee5eb; background-color: white; height: 30px;">-->
+    <!--              <a href="#" style="text-decoration: none; color: #bee5eb;">더보기 ></a>-->
+    <!--            </button>-->
+    <!--          </div>-->
+    <!--          <p style="word-break:keep-all;">모든 라이드는 4인승 체어리프트인 스카이 라이드를 통해 시작됩니다.</p>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </section>
 
@@ -135,7 +136,7 @@
       <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
         <p style="margin-bottom: 0;">
           <a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-            style="margin-bottom: 0;">22:30 영업 종료</p>
+                  style="margin-bottom: 0;">22:30 영업 종료</p>
             <p>부산 진구 부전동</p>
           </a>
         </p>
@@ -145,7 +146,7 @@
       <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
       <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
         <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-          style="margin-bottom: 0;">22:30 영업 종료</p>
+                style="margin-bottom: 0;">22:30 영업 종료</p>
           <p>부산 진구 부전동</p></a></p>
       </div>
     </div>
@@ -153,7 +154,7 @@
       <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
       <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
         <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-          style="margin-bottom: 0;">22:30 영업 종료</p>
+                style="margin-bottom: 0;">22:30 영업 종료</p>
           <p>부산 진구 부전동</p></a></p>
       </div>
     </div>
