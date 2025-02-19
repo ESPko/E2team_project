@@ -83,7 +83,7 @@
         success: function (data) {
           noticeContainer.empty();
           data.forEach(notice => {
-            let html = `<li class="list-group-item">${notice.title}</li>`;
+            let html = `<a href='/notice/${notice.board_idx}'<li class="list-group-item">${notice.title}</li>`;
             noticeContainer.append(html);
           });
         },
@@ -100,7 +100,7 @@
           console.log("이벤트 데이터 : " + data);
           eventContainer.empty();
           data.forEach(event => {
-            let html = `<li class="list-group-item">${event.title}</li>`;
+            let html = `<a href="/event/${event.board_idx}"<li class="list-group-item">${event.title}</li></a>`;
             eventContainer.append(html);
           });
         },

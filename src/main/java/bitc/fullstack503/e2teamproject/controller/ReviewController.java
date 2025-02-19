@@ -27,9 +27,6 @@ public class ReviewController {
   @RequestMapping("/write/{reviewWrite}/{reviewStar}")
   public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
                           @PathVariable("reviewStar") double reviewStar){
-    System.out.println("reviewWrite");
-    System.out.println(reviewWrite);
-    System.out.println(reviewStar);
     reviewService.reviewStar(reviewWrite, reviewStar);
   }
 }

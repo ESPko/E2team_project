@@ -1,21 +1,30 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Optional;
 import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
   @Autowired
   private BoardRepository boardRepository;
+
+  @Autowired
+  private BoardImageService boardImageService;
 
   //  공지 쓰기
   @Override
@@ -25,8 +34,11 @@ public class BoardServiceImpl implements BoardService {
 
   //  공지 읽기
   @Override
-  public List<BoardEntity> findNotice() {
-    return boardRepository.queryFindNotice();
+  public Page<BoardEntity> findNotice(int page) {
+    List<Sort.Order> sorts = new ArrayList<>();
+    sorts.add(Sort.Order.desc("board_idx"));
+    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    return boardRepository.queryFindNotice(pageable);
   }
 
   //  공지 네개씩만 나오게
@@ -64,8 +76,11 @@ public class BoardServiceImpl implements BoardService {
 
   //  이벤트 조회하기
   @Override
-  public List<BoardEntity> findEvent() {
-    return boardRepository.queryFindEvent();
+  public Page<BoardEntity> findEvent(int page) {
+    List<Sort.Order> sorts = new ArrayList<>();
+    sorts.add(Sort.Order.desc("board_idx"));
+    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    return boardRepository.queryFindEvent(pageable);
   }
 
   //  이벤트 네개씩만 보기
@@ -95,8 +110,11 @@ public class BoardServiceImpl implements BoardService {
 
   //  인원 모집 조회하기
   @Override
-  public List<BoardEntity> findCrew() {
-    return boardRepository.queryFindCrew();
+  public Page<BoardEntity> findCrew(int page) {
+    List<Sort.Order> sorts = new ArrayList<>();
+    sorts.add(Sort.Order.desc("board_idx"));
+    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    return boardRepository.queryFindCrew(pageable);
   }
 
   //  인원 모집 쓰기
@@ -116,6 +134,28 @@ public class BoardServiceImpl implements BoardService {
   public void deleteCrew(int crewNumberDelete) {
     boardRepository.queryDeleteCrew(crewNumberDelete);
   }
+
+//  글쓸때 이미지도 올라가는지 확인용
+@Transactional
+@Override
+public void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images) {
+  // 1️⃣ 게시글 저장
+  BoardEntity board = BoardEntity.builder()
+          .title(title)
+          .contents(contents)
+          .category(category)
+          .user(user)
+          .createDate(LocalDateTime.now())
+          .updateDate(LocalDateTime.now())
+          .hitCount(0)
+          .likeCount(0)
+          .build();
+
+  board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
+
+  // 2️⃣ 이미지 저장 (게시글과 연결)
+  boardImageService.saveFiles(images, board);
+}
 }
 
 
