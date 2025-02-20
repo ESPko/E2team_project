@@ -18,7 +18,7 @@ public class ReviewController {
   private ReviewService reviewService;
 
   @RequestMapping("/")
-  public ModelAndView jiHyunStarTest(){
+  public ModelAndView jiHyunStarTest() {
     ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
     return mav;
   }
@@ -32,15 +32,18 @@ public class ReviewController {
     return mav;
   }
 
+  //  리뷰 쓰기
   @ResponseBody
   @RequestMapping("/write/{reviewWrite}/{reviewStar}")
   public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
-                          @PathVariable("reviewStar") double reviewStar){
+                          @PathVariable("reviewStar") double reviewStar) {
     reviewService.reviewStar(reviewWrite, reviewStar);
   }
 
+  //  리뷰 보기
 
-//  리뷰 상세 테스트
+
+  //  리뷰 상세 테스트
 //  @GetMapping("/DetailReview")
 //  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
 //    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);

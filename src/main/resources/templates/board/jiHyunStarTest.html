@@ -6,8 +6,6 @@
   <title>Star Rating</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/minty/bootstrap.min.css" rel="stylesheet">
-  <!--틀-->
-  <!--별점-->
   <style>
     .star {
       position: relative;
@@ -60,6 +58,35 @@
       background: bisque;
     }
   </style>
+  <script>
+      $(document).ready(function () {
+          $(".reviewOk").on("click", function () {
+              const review = $("#reviewBox").val();
+              console.log(review);
+              const star = $("#drawStarContainer").val() * 0.5;
+              console.log(star);
+          });
+
+          $(".reviewSubmit").on("click", function () {
+              const reviewWrite = $("#reviewBox").val();
+              console.log(reviewWrite);
+              const reviewStar = $("#drawStarContainer").val() * 0.5;
+              console.log(reviewStar);
+
+              $.ajax({
+                  url: `/review/write/${reviewWrite}/${reviewStar}`,
+                  type: `get`,
+                  data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
+                  dataType: `json`,
+                  success: function () {
+                      console.log("review 작동");
+                  }
+              })
+          });
+
+
+      });
+  </script>
 </head>
 <body>
 <h2 style="text-align: center">리뷰작성 폼</h2>
@@ -73,26 +100,26 @@
     <h5>여는 시간</h5>
     <h5>닫는 시간</h5>
     <h5>연락처</h5>
-    <div class="imagesContainer" style="display: flex; gap: 10px;">
-      <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 150px" class="subImage">
-      <img src="/img/escapeTop/image2.jpg" alt="이미지1" style="width: 150px" class="subImage">
-      <img src="/img/escapeTop/image3.jpg" alt="이미지1" style="width: 150px" class="subImage">
-    </div>
+<!--    <div class="imagesContainer" style="display: flex; gap: 10px;">-->
+<!--      <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 150px" class="subImage">-->
+<!--      <img src="/img/escapeTop/image2.jpg" alt="이미지2" style="width: 150px" class="subImage">-->
+<!--      <img src="/img/escapeTop/image3.jpg" alt="이미지3" style="width: 150px" class="subImage">-->
+<!--    </div>-->
   </div>
 </div>
 
-<!--별점-->
-<div class="reviewContainer" style="display: flex; justify-content: center">
+<!--별점 쓰기-->
+<div class="reviewWriteContainer" style="display: flex; justify-content: center">
   <form action="#" class="reviewForm" id="reviewWrite">
     <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
-    <div class="star_rating">
+    <div class="star_rating" style="text-align: center">
       <span class="star">★★★★★<span>★★★★★</span>
         <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
       </span>
     </div>
     <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
     <br>
-    <div class="buttonContainer" style="display: flex; justify-content: center">
+    <div class="buttonContainer" style="display: flex; justify-content: center; gap: 10px;">
       <button type="button" class="reviewSubmit">등록</button>
       <button type="reset" class="reviewReset">취소</button>
       <button type="button" class="reviewOk">확인</button>
@@ -100,35 +127,19 @@
   </form>
 </div>
 
+<!--별점 보기-->
+<div class="reviewShowContainer" style="display: flex; flex-direction: row; width: 400px; justify-content: center">
+  <div class="reviewListContainer" style="width: 100%; height: 100px; border: 1px solid black;">
+    <p>별점</p>
+    <p>작성자</p>
+    <p>리뷰</p>
+  </div>
+</div>
+
 <script>
     const drawStar = (target) => {
         $(`.star span`).css({width: `${target.value * 10}%`});
     }
-
-    $(".reviewOk").on("click", function () {
-        const review = $("#reviewBox").val();
-        console.log(review);
-        const star = $("#drawStarContainer").val() * 0.5;
-        console.log(star);
-    });
-
-    $(".reviewSubmit").on("click", function () {
-        const reviewWrite = $("#reviewBox").val();
-        console.log(reviewWrite);
-        const reviewStar = $("#drawStarContainer").val() * 0.5;
-        console.log(reviewStar);
-
-        $.ajax({
-            url: `/review/write/${reviewWrite}/${reviewStar}`,
-            type: `get`,
-            data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
-            dataType: `json`,
-            success: function () {
-                console.log("review 작동");
-            }
-        })
-    });
-
 </script>
 </body>
 </html>
