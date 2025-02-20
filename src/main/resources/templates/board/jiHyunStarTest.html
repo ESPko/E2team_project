@@ -60,6 +60,9 @@
   </style>
   <script>
       $(document).ready(function () {
+          const reviewPlaceIdx = $(".hiddenPlaceIdx").val();
+          console.log(reviewPlaceIdx);
+
           $(".reviewOk").on("click", function () {
               const review = $("#reviewBox").val();
               console.log(review);
@@ -87,7 +90,7 @@
 
           // 리뷰 보기
           $.ajax({
-              url: `/review/read`,
+              url: `/review/read/${reviewPlaceIdx}`,
               type: 'get',
               success: function (data) {
                   let reviewShowContainer = $(".reviewShowContainer");
@@ -97,6 +100,7 @@
                       let html = `<div class="reviewListContainer" style="width: 100%; height: 150px; border: 1px solid black; text-align: center;">`
                       html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.reviewUserIdx}</span></span><br>`;
                       html += `<span>reviewIdx: <span class="reviewIdx">${review.reviewIdx}</span></span><br>`;
+                      html += `<span>reviewPlaceIdx: <span class="reviewPlaceIdx">${review.reviewPlaceIdx}</span></span><br>`;
                       html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
                       html += `<span>별점 : <span class="reviewStar">${review.star}</span></span><br>`;
                       html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;
@@ -111,9 +115,7 @@
           $(document).on("click", ".reviewDeleteButton", function () {
               console.log("리뷰 삭제 누름");
               let reviewUserIdx = $(this).closest("div").find(".reviewUserIdx").text();
-              // console.log("reviewUserIdx : " + reviewUserIdx);
               let reviewIdx = $(this).closest("div").find(".reviewIdx").text();
-              // console.log("reviewIdx : " + reviewIdx);
 
               $.ajax({
                   url: `/review/delete/${reviewIdx}`,
@@ -130,16 +132,17 @@
 </head>
 <body>
 <h2 style="text-align: center">리뷰작성 폼</h2>
-<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center">
-  <div class="mainImage">
-    <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 400px" class="mainImage">
+<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center"  th:each="placeDetail : ${placeDetailList}">
+  <div class="mainImage" th:each="placeImage : ${placeDetail.placeImageEntityList}">
+    <img th:src="|/${placeImage.imagePath}${placeImage.imageName}|" alt="이미지" style="width: 200px;">
   </div>
   <div class="nameContainer">
-    <h5>업체명 : </h5>
-    <h5>주소 : </h5>
-    <h5>여는 시간 : </h5>
-    <h5>닫는 시간 : </h5>
-    <h5>연락처 : </h5>
+    <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">
+    <h5 th:text="|업체명 : ${placeDetail.name}|">업체명 : </h5>
+    <h5 th:text="|주소 : ${placeDetail.address}|">주소 : </h5>
+    <h5 th:text="|여는 시간 : ${placeDetail.openTime}|">여는 시간 : </h5>
+    <h5 th:text="|닫는 시간 : ${placeDetail.closeTime}|">닫는 시간 : </h5>
+    <h5 th:text="|연락처 : ${placeDetail.phone}|">연락처 : </h5>
   </div>
 </div>
 

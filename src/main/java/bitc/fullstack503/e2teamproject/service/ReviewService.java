@@ -20,6 +20,9 @@ public interface ReviewService {
   List<ReviewEntity> findReviewsByUserId(int userId);
 
   //  리뷰 보기(심지현)
-  List<ReviewEntity> readReview();
+//  List<ReviewEntity> readReview();
+
+  //  리뷰 보기(심지현)
+  List<ReviewEntity> readReview(int reviewPlaceIdx);
 }
 
