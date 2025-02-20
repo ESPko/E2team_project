@@ -24,6 +24,9 @@ public interface PlaceService {
   //  지역 연령 나이로 찾되 리뷰가 적은 순으로 결정
   List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, int selectPeople);
 
+  //  해당 placeIdx 의 정보 가져오기
+  List<PlaceEntity> findPlaceDetail(@RequestParam("placeIdx") int placeIdx);
+
   //  상위 세개 추천 항목 나오게
 //  List<PlaceDTO> getAllPlaceSortByStar();
 }

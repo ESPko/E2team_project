@@ -13,13 +13,15 @@ public class ReviewDTO {
   private String comment;
   private double star;
   private int reviewUserIdx;
+  private int reviewPlaceIdx;
 
   public static ReviewDTO fromEntity(ReviewEntity review) {
     return new ReviewDTO(
             review.getReviewIdx(),
             review.getComment(),
             review.getStar(),
-            review.getUserReview().getUser_idx()  // 유저 ID만 가져옴
+            review.getUserReview().getUser_idx(),
+            review.getPlaceReview().getPlaceIdx()
     );
   }
 }

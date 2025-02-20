@@ -46,46 +46,13 @@
           const regex = /\/place\/recommend\/([^/]+)\/(\d+)\/(\d+)/;
           const match = url.match(regex);
 
-              const selectLocation = decodeURIComponent(match[1]);
-              const selectAge = parseInt(match[2], 10);
-              const selectPeople = parseInt(match[3], 10);
+          const selectLocation = decodeURIComponent(match[1]);
+          const selectAge = parseInt(match[2], 10);
+          const selectPeople = parseInt(match[3], 10);
 
-              console.log("selectLocation:", selectLocation);
-              console.log("selectAge:", selectAge);
-              console.log("selectPeople:", selectPeople);
-
-          $("#recommendPlace").on("change", function () {
-              const selectedValue = $(this).val();
-              console.log(selectedValue);
-
-              if (selectedValue === "starHigh") {
-                  console.log("추천수가 높은 순");
-                  $.ajax({
-                      url: `/place/recommend/starHigh/${selectLocation}/${selectAge}/${selectPeople}`,
-                      type: 'get',
-                  });
-              } else if (selectedValue === "starLow") {
-                  console.log("추천수가 낮은 순");
-                  $.ajax({
-                      url: `/place/recommend/starLow/${selectLocation}/${selectAge}/${selectPeople}`,
-                      type: 'get',
-                  });
-              } else if (selectedValue === "reviewHigh") {
-                  console.log("리뷰 많은 순");
-                  $.ajax({
-                      url: `/place/recommend/reviewHigh/${selectLocation}/${selectAge}/${selectPeople}`,
-                      type: 'get',
-                  });
-              } else if (selectedValue === "reviewLess") {
-                  console.log("리뷰 적은 순");
-                  $.ajax({
-                      url: `/place/recommend/reviewLess/${selectLocation}/${selectAge}/${selectPeople}`,
-                      type: 'get',
-                  });
-              } else if(selectedValue === ""){
-                  console.log("기본 정렬");
-              }
-          });
+          console.log("selectLocation:", selectLocation);
+          console.log("selectAge:", selectAge);
+          console.log("selectPeople:", selectPeople);
       });
   </script>
 </head>
@@ -96,19 +63,13 @@
 <section class="container-fluid">
 
   <div class="container-lg" style="text-align: right">
-        <select name="recommendPlace" id="recommendPlace">
-          <option value="" selected>정렬 기준</option>
-          <option value="starHigh">별점 높은 순</option>
-          <option value="starLow">별점 낮은 순</option>
-          <option value="reviewHigh">리뷰 많은 순</option>
-          <option value="reviewLess">리뷰 적은 순</option>
-        </select>
-
     <div class="container d-flex row justify-content-between align-items-center mt-5">
       <div class="col-6 d-flex" style="height: 200px;" th:each="placeDetail : ${placeDetailList}">
         <div th:if="${not #lists.isEmpty(placeDetail.placeImageEntityList)}">
-          <img th:src="|/${placeDetail.placeImageEntityList[0].imagePath}${placeDetail.placeImageEntityList[0].imageName}|"
-               alt="이미지" width="200px" style="margin: 10px"/>
+          <a th:href="|/place/detail/${placeDetail.placeIdx}|">
+            <img th:src="|/${placeDetail.placeImageEntityList[0].imagePath}${placeDetail.placeImageEntityList[0].imageName}|"
+                 alt="이미지" width="200px" style="margin: 10px"/>
+          </a>
         </div>
         <div>
           <div class="justify-content-between">

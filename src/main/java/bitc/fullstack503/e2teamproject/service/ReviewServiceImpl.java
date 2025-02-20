@@ -22,7 +22,6 @@ public class ReviewServiceImpl implements ReviewService {
   private final PlaceRepository placeRepository;
   private final UserRepository userRepository;
 
-
   //  해당 게시물에서 작성한 리뷰 테스트
   @Override
   public List<ReviewEntity> getReviewsByPlace(int placeIdx) {
@@ -41,6 +40,11 @@ public class ReviewServiceImpl implements ReviewService {
   public List<ReviewEntity> findReviewsByUserId(int userId) {
     return reviewRepository.findReviewsByUserId(userId);
   }
+
+//  @Override
+//  public List<ReviewEntity> readReview() {
+//    return List.of();
+//  }
 
   //  리뷰 쓰기
   @Override
@@ -69,8 +73,8 @@ public class ReviewServiceImpl implements ReviewService {
 
   //  리뷰 보기(심지현)
   @Override
-  public List<ReviewEntity> readReview() {
-    return reviewRepository.queryFindPlaceReview();
+  public List<ReviewEntity> readReview(int reviewPlaceIdx) {
+    return reviewRepository.queryFindPlaceReview(reviewPlaceIdx);
   }
 }
 

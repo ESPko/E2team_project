@@ -47,18 +47,9 @@ public class ReviewController {
 
   //  리뷰 보기
   @ResponseBody
-  @GetMapping("/read")
-  public List<ReviewDTO> reviewRead() {
-    List<ReviewEntity> readReview = reviewService.readReview();
-
-//    for (ReviewEntity reviewEntity : readReview) {
-//      System.out.println("reviewIdx : " + reviewEntity.getReviewIdx());
-//      System.out.println("reviewComment : " + reviewEntity.getComment());
-//      System.out.println("reviewStar : " + reviewEntity.getStar());
-//      System.out.println("reviewUserIdx : " + reviewEntity.getUserReview().getUser_idx());
-//      System.out.println("------------------------");
-//    }
-
+  @GetMapping("/read/{reviewPlaceIdx}")
+  public List<ReviewDTO> reviewRead(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx) {
+    List<ReviewEntity> readReview = reviewService.readReview(reviewPlaceIdx);
     return readReview.stream()
             .map(ReviewDTO::fromEntity)
             .collect(Collectors.toList());

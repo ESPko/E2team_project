@@ -23,6 +23,9 @@ public interface ReviewService {
     void saveReview(int placeIdx, int userId, String comment, double star);
 
   //  리뷰 보기(심지현)
-  List<ReviewEntity> readReview();
+//  List<ReviewEntity> readReview();
+
+  //  리뷰 보기(심지현)
+  List<ReviewEntity> readReview(int reviewPlaceIdx);
 }
 
