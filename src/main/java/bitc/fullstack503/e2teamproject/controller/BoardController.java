@@ -3,14 +3,13 @@ package bitc.fullstack503.e2teamproject.controller;
 import bitc.fullstack503.e2teamproject.entity.*;
 import bitc.fullstack503.e2teamproject.service.*;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,12 +23,12 @@ public class BoardController {
 
   @Autowired
   private BoardImageService boardImageService;
-    @Autowired
-    private ReplyService replyService;
-    @Autowired
-    private ReviewService reviewService;
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private ReplyService replyService;
+  @Autowired
+  private ReviewService reviewService;
+  @Autowired
+  private UserService userService;
 
   //  심지현 crud 테스트용
   @ResponseBody
@@ -196,11 +195,11 @@ public class BoardController {
     Page<BoardEntity> findCrewList = boardService.findCrew(page);
     mav.addObject("findCrewList", findCrewList);
 
-    HttpSession session = request.getSession();
-    String userIdx = session.getAttribute("userIdx").toString();
-    String userId = session.getAttribute("userId").toString();
-    System.out.println("userIdx : " + userIdx);
-    System.out.println("userId : " + userId);
+//    HttpSession session = request.getSession();
+//    String userIdx = session.getAttribute("userIdx").toString();
+//    String userId = session.getAttribute("userId").toString();
+//    System.out.println("userIdx : " + userIdx);
+//    System.out.println("userId : " + userId);
     return mav;
   }
 
@@ -212,11 +211,11 @@ public class BoardController {
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);
 
-    HttpSession session = request.getSession();
-    String userIdx = session.getAttribute("userIdx").toString();
-    String userId = session.getAttribute("userId").toString();
-    System.out.println("userIdx : " + userIdx);
-    System.out.println("userId : " + userId);
+//    HttpSession session = request.getSession();
+//    String userIdx = session.getAttribute("userIdx").toString();
+//    String userId = session.getAttribute("userId").toString();
+//    System.out.println("userIdx : " + userIdx);
+//    System.out.println("userId : " + userId);
     return mav;
   }
 
@@ -260,14 +259,28 @@ public class BoardController {
   //  인원 모집 삭제하기
   @ResponseBody
   @DeleteMapping("/crew/delete")
-  public void deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete) {
-    boardService.deleteCrew(crewNumberDelete);
+  public ResponseEntity<String> deleteCrew(@RequestParam("crewNumberDelete") int crewNumberDelete,
+                                           @RequestParam("crewUserId") String crewUserId,
+                                           HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = session.getAttribute("userId").toString();
+    System.out.println("userId : " + userId);
+    System.out.println("crewUserId : " + crewUserId);
+
+    if (!userId.equals(crewUserId)) {
+      System.out.println("타인의 게시물은 삭제할 수 업습니다");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 게시물은 삭제할 수 업습니다");
+    } else {
+      boardService.deleteCrew(crewNumberDelete);
+      return ResponseEntity.ok("삭제 완료");
+    }
   }
+
+
   //  내가 작성한 게시물 Test
   @RequestMapping("/myboard")
   public ModelAndView myboard(HttpSession session) {
     ModelAndView mav = new ModelAndView("/login/myboardTest");
-
 
 
     Integer userId = (Integer) session.getAttribute("userIdx"); // Integer로 직접 가져오기
