@@ -1,0 +1,82 @@
+/* 폰트 css */
+
+
+
+/* 추천 활동 검색 창, '추천 활동' 글꼴 */
+#contents1{
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 지역, 연령, 인원에 대한 글꼴 (부산진구, 10세 이하, 1명 이하...) */
+@font-face {
+    font-family: 'CookieRun-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fontTitle{
+    font-family: 'CookieRun-Regular';
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'establishRetrosansOTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font1{
+    font-family: 'establishRetrosansOTF';
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 아이콘 아래 글꼴 */
+
+@font-face {
+    font-family: 'NEXONFootballGothicBA1';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fontIcon{
+    font-family: 'NEXONFootballGothicBA1';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18px;
+}
+
+
+/* 카드 아래 글꼴 */
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fontCard{
+    font-family: 'MaplestoryOTFBold';
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'NanumSquareNeo';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
+
+.headerFont{
+    font-family: 'NanumSquareNeo';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+}
