@@ -37,10 +37,10 @@
                   data.replyList.forEach(reply => {
                       let html = `<div style='padding: 10px 10px 0 10px;'>`;
                       html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
-                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
-                      html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
-                      html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
-                      html += `<button type="button" class="deleteReplyButton">삭제</button>`;
+                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span> `;
+                      html += ` <span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
+                      html += `<button type="button" class="deleteReplyButton btn btn-outline-danger btn-sm float-end">삭제</button>`;
+                      html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px; width: 650px; word-wrap: break-word;'>${reply.comment}</div>`;
                       html += `</div>`
 
                       replyShowBox.append(html);
@@ -139,29 +139,37 @@
   <!--   댓글 보이는 부분 -->
   <div class="container" style="margin-top: 100px;">
     <div>
-      <div class="border-bottom"><i class="fa-regular fa-comment"></i> 댓글</div>
+      <div class="border-bottom py-1"><i class="fa-regular fa-comment"></i> 댓글</div>
       <div class="replyShowBox border-bottom">
         <div>
-          <span style="font-weight: bold;">ID </span>
-          <span style="font-size: small"> 작성일</span>
+          <div>
+            <span style="font-weight: bold;">ID </span>
+            <span style="font-size: small"> 작성일</span>
+            <button type="button" class="deleteReplyButton btn btn-outline-danger btn-sm float-end">삭제</button>
+          </div>
         </div>
-        <div class="mt-2" style="padding: 0 10px 10px 10px;">review 내용</div>
+
+        <div class="row">
+          <div class="mt-2" style="padding: 0 10px 10px 10px; width: 650px; word-wrap: break-word;">review 내용</div>
+        </div>
       </div>
     </div>
 
     <!-- 댓글 쓰는 부분 -->
-    <div class="d-flex justify-content-between mt-5 border-0 rounded"
+    <div class="d-flex justify-content-evenly mt-5 border-0 rounded"
          style="background-color: #f5f5f5; padding: 10px;">
-      <div class="col-sm-10 d-flex justify-content-center">
-        <textarea rows="3" style="width: 630px; border-radius: 5px; border-style: none; padding: 0;" id="replyWriteComment"></textarea>
+      <div class="col-11 d-flex justify-content-center">
+        <textarea rows="3" class="rounded border-0" style="width: 650px;"
+                  id="replyWriteComment"></textarea>
       </div>
-      <div class="col-sm-2 d-flex justify-content-end">
-        <button type="button"
-                style="border-style: none; border-radius: 5px; background-color: white; width: 77px; height: 70px;"
+      <div class="col-auto">
+        <button type="button" class="fw-bold bg-white rounded border-0"
+                style="width: auto; height: 76px;"
                 id="replyWriteButton">등록
         </button>
       </div>
     </div>
+
   </div>
 </main>
 
