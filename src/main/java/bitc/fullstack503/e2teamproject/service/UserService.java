@@ -19,8 +19,9 @@ public interface UserService {
     // 회원가입
     void registerUser(UserEntity user);
 
-//
-    List<UserEntity> getAllUsers();
+
+// 회원 목록
+    List<UserEntity> getNonAdminUsers();
 
 //    회원삭제
     void deleteUserById(int id);

@@ -146,16 +146,14 @@ public class UserController {
   @RequestMapping("/manager")
   public ModelAndView managerPage() {
     ModelAndView mav = new ModelAndView("/manage/managerPage");
-    List<UserEntity> userList = userService.getAllUsers();
-    mav.addObject("users", userList);
     return mav;
   }
 
-  //  관리자 페이지 - 회원관리
+//  관리자 페이지 - 회원관리
   @RequestMapping("/member")
   public ModelAndView member() {
     ModelAndView mav = new ModelAndView("/manage/memberManage");
-    List<UserEntity> userList = userService.getAllUsers();
+    List<UserEntity> userList = userService.getNonAdminUsers(); // 수정된 부분
     mav.addObject("users", userList);
     return mav;
   }
