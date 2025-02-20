@@ -24,8 +24,7 @@ public class PlaceImageEntity {
   private PlaceEntity place;
 
   @Column(name = "image_name")
-  private String imageOriginalName;
-  
+  private String imageName;
 
   @Column(name = "image_path")
   private String imagePath;

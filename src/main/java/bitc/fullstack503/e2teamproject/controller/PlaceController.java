@@ -2,6 +2,7 @@ package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.PlaceDTO;
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
+import bitc.fullstack503.e2teamproject.entity.PlaceImageEntity;
 import bitc.fullstack503.e2teamproject.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+//@RestController
 @Controller
 @RequestMapping("/place")
 public class PlaceController {
@@ -25,12 +26,24 @@ public class PlaceController {
   }
 
   //  선택한 지역, 나이, 사람 수에 따라서 결과 출력
-  @ResponseBody
+//  @ResponseBody
   @GetMapping("/recommend/{selectLocation}/{selectAge}/{selectPeople}")
-  public List<PlaceEntity> recommendPlace(@PathVariable("selectLocation") String selectLocation,
-                                          @PathVariable("selectAge") int selectAge,
-                                          @PathVariable("selectPeople") int selectPeople) {
-    return placeService.recommendPlace(selectLocation, selectAge, selectPeople);
+  public ModelAndView recommendPlace(@PathVariable("selectLocation") String selectLocation,
+                                     @PathVariable("selectAge") int selectAge,
+                                     @PathVariable("selectPeople") int selectPeople) {
+    ModelAndView mav = new ModelAndView("/board/mainDetailPage");
+    List<PlaceEntity> placeDetailList = placeService.recommendPlace(selectLocation, selectAge, selectPeople);
+    mav.addObject("placeDetailList", placeDetailList);
+
+    for (PlaceEntity placeEntity : placeDetailList) {
+      System.out.println(placeEntity.getPlaceIdx());
+      for(PlaceImageEntity image : placeEntity.getPlaceImageEntityList()){
+        System.out.println("이미지 경로 : " + image.getImagePath());
+        System.out.println("이미지 이름 : " + image.getImageName());
+      }
+      System.out.println("------------");
+    }
+    return mav;
   }
 
   //  선택한 지역, 나이, 사람 수와 별점이 높은 순으로 출력
@@ -65,7 +78,7 @@ public class PlaceController {
     return showStarLow;
   }
 
-//  선택한 지역, 나이, 사람 수와 리뷰가 많은 순으로 출력
+  //  선택한 지역, 나이, 사람 수와 리뷰가 많은 순으로 출력
   @ResponseBody
   @RequestMapping("/recommend/reviewHigh/{selectLocation}/{selectAge}/{selectPeople}")
   public List<PlaceDTO> reviewHigh(@PathVariable("selectLocation") String selectLocation,
@@ -86,7 +99,7 @@ public class PlaceController {
   @RequestMapping("/recommend/reviewLess/{selectLocation}/{selectAge}/{selectPeople}")
   public List<PlaceDTO> reviewLess(@PathVariable("selectLocation") String selectLocation,
                                    @PathVariable("selectAge") int selectAge,
-                                   @PathVariable("selectPeople") int selectPeople){
+                                   @PathVariable("selectPeople") int selectPeople) {
     System.out.println("리뷰 적은 순");
     List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
     for (PlaceDTO placeDTO : showReviewLess) {

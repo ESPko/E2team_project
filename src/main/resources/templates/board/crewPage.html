@@ -60,6 +60,29 @@
               style="border-radius: 10px;">작성하기
       </button>
     </div>
+
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!findCrewList.isEmpty()}">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${!findCrewList.hasPrevious} ? 'disabled'">
+          <a class="page-link"
+             th:href="@{|?page=${findCrewList.number-1}|}">
+            <span>이전</span>
+          </a>
+        </li>
+        <li th:each="page: ${#numbers.sequence(0, findCrewList.totalPages-1)}"
+            th:classappend="${page == findCrewList.number} ? 'active'"
+            class="page-item">
+          <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!findCrewList.hasNext} ? 'disabled'">
+          <a class="page-link" th:href="@{|?page=${findCrewList.number+1}|}">
+            <span>다음</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
   </div>
 </section>
 

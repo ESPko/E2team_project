@@ -8,12 +8,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -55,6 +59,8 @@ public class UserController {
     if (userService.isUserInfo(userId, userPw)) {
       UserEntity user = userService.getUserInfo(userId);
       HttpSession session = request.getSession();
+
+      session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
       session.setAttribute("userEmail", user.getEmail());
       session.setAttribute("userLevel", user.getLevel());
@@ -89,13 +95,7 @@ public class UserController {
     HttpSession session = request.getSession();
     session.invalidate();
 
-    // 로그아웃 시 쿠키 삭제
-    Cookie cookie = new Cookie("userId", null);
-    cookie.setMaxAge(0); // 쿠키 삭제
-    cookie.setPath("/"); // 모든 경로에서 쿠키 접근 가능
-    response.addCookie(cookie);
-
-    return "redirect:/user/";
+    return "redirect:/";
   }
 
   //  회원가입 처리
@@ -141,5 +141,62 @@ public class UserController {
     response.put("status", exists ? "duplicate" : "available");
     return response;
   }
+
+//  관리자 페이지
+  @RequestMapping("/manager")
+  public ModelAndView managerPage() {
+    ModelAndView mav = new ModelAndView("/manage/managerPage");
+    List<UserEntity> userList = userService.getAllUsers();
+    mav.addObject("users", userList);
+    return mav;
+  }
+
+  //  관리자 페이지 - 회원관리
+  @RequestMapping("/member")
+  public ModelAndView member() {
+    ModelAndView mav = new ModelAndView("/manage/memberManage");
+    List<UserEntity> userList = userService.getAllUsers();
+    mav.addObject("users", userList);
+    return mav;
+  }
+
+//  아이디 삭제
+  @DeleteMapping("/delete/{id}")
+  @ResponseBody
+  public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+    userService.deleteUserById(id);
+    return ResponseEntity.ok("삭제 완료");
+  }
+
+  // 비밀번호 변경
+  @PostMapping("/updatePassword")
+  public ResponseEntity<String> updatePassword(@RequestBody Map<String, String> requestData, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    if (userId == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+    }
+
+    String newPassword = requestData.get("password");
+    userService.updateUserPassword(userId, newPassword);
+    return ResponseEntity.ok("비밀번호 변경 성공");
+  }
+
+  // 휴대폰번호 변경
+  @PostMapping("/updatePhone")
+  public ResponseEntity<String> updatePhone(@RequestBody Map<String, String> requestData, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String userId = (String) session.getAttribute("userId");
+
+    if (userId == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+    }
+
+    String newPhone = requestData.get("phone");
+    userService.updateUserPhone(userId, newPhone);
+    return ResponseEntity.ok("휴대폰번호 변경 성공");
+  }
+
 }
 

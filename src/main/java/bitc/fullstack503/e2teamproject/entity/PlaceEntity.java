@@ -39,6 +39,8 @@ public class PlaceEntity {
 
   private String phone;
 
+  private String category;
+
   private String introduce;
 
   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
