@@ -96,32 +96,65 @@
       <input type="hidden" id="method" name="_method">
       <input type="hidden" class="crewBoardIdx" th:value="${crew.board_idx}">
 
-      <div class="col-sm m-3 d-flex justify-content-between">
-        <h4>인원모집</h4>
-      </div>
-      <div class="mt-4">
-        <div class="container-sm d-flex justify-content-between"
-             style="border-radius: 5px 5px 0 0; border: solid 0.4px lightgray; height: 40px; align-items: center;">
-          <div class="col-sm-8">제목
-            <input type="text" style="border-style: none; width: 450px;" readonly
-                   th:value="${crew.title}"></div>
-          <div class="col-sm-4">작성일
-            <input type="text" style="border-style: none; width: 180px;" readonly
-                   th:value="${crew.createDate}"></div>
+      <div class="container" style="width: 800px; padding-top: 10px; margin-top: 30px;">
+        <div class="row justify-content-between align-items-end">
+          <div class="col-auto">
+            <h4 style="font-weight: bold;">인원모집</h4>
+          </div>
+          <button type="button" class="btn btn-outline-primary col-2" style="margin-right: 30px;">글쓰기</button>
         </div>
-        <div class="container-sm d-flex justify-content-between"
-             style="border-radius: 0 0 5px 5px; border: solid 0.4px lightgray; border-top: none; height: 35px; align-items: center;">
-          <div class="col-sm-8">작성자
-            <input type="text" style="border-style: none; width: 400px;" readonly
-                   th:value="${crew.user.id}"></div>
-          <div class="col-sm-2">조회
-            <input type="text" style="border-style: none; width: 50px;" readonly
-                   th:value="${crew.hitCount}"></div>
-          <div class="col-sm-2">추천
-            <input type="text" style="border-style: none; width: 50px;" readonly
-                   th:value="${crew.likeCount}"></div>
+
+        <div class="mt-4">
+          <div class="container-sm d-flex justify-content-between"
+               style="border-radius: 5px 5px 0 0; border: solid 0.4px lightgray; height: 40px; align-items: center;">
+            <div class="col-sm-8">제목
+              <input type="text" style="border-style: none; width: 450px;" readonly
+                     th:value="${crew.title}"></div>
+            <div class="col-sm-4">작성일
+              <input type="text" style="border-style: none; width: 180px;" readonly
+                     th:value="${crew.createDate}"></div>
+          </div>
+          <div class="container-sm d-flex justify-content-between"
+               style="border-radius: 0 0 5px 5px; border: solid 0.4px lightgray; border-top: none; height: 35px; align-items: center;">
+            <div class="col-sm-8">작성자
+              <input type="text" style="border-style: none; width: 400px;" readonly
+                     th:value="${crew.user.id}"></div>
+            <div class="col-sm-2">조회
+              <input type="text" style="border-style: none; width: 50px;" readonly
+                     th:value="${crew.hitCount}"></div>
+            <div class="col-sm-2">추천
+              <input type="text" style="border-style: none; width: 50px;" readonly
+                     th:value="${crew.likeCount}"></div>
+          </div>
         </div>
-      </div>
+<!--      <div class="col-sm m-3 d-flex justify-content-between">-->
+<!--        <h4>인원모집</h4>-->
+<!--        <button type="button" class="btn btn-secondary" id="btn-list">목록</button>-->
+<!--      </div>-->
+
+<!--      <div class="mt-4">-->
+<!--        <div class="container-sm d-flex justify-content-between"-->
+<!--             style="border-radius: 5px 5px 0 0; border: solid 0.4px lightgray; height: 40px; align-items: center;">-->
+<!--          <div class="col-sm-8">제목-->
+<!--            <input type="text" style="border-style: none; width: 450px;" readonly-->
+<!--                   th:value="${crew.title}"></div>-->
+<!--          <div class="col-sm-4">작성일-->
+<!--            <input type="text" style="border-style: none; width: 180px;" readonly-->
+<!--                   th:value="${crew.createDate}"></div>-->
+<!--        </div>-->
+<!--        <div class="container-sm d-flex justify-content-between"-->
+<!--             style="border-radius: 0 0 5px 5px; border: solid 0.4px lightgray; border-top: none; height: 35px; align-items: center;">-->
+<!--          <div class="col-sm-8">작성자-->
+<!--            <input type="text" style="border-style: none; width: 400px;" readonly-->
+<!--                   th:value="${crew.user.id}"></div>-->
+<!--          <div class="col-sm-2">조회-->
+<!--            <input type="text" style="border-style: none; width: 50px;" readonly-->
+<!--                   th:value="${crew.hitCount}"></div>-->
+<!--          <div class="col-sm-2">추천-->
+<!--            <input type="text" style="border-style: none; width: 50px;" readonly-->
+<!--                   th:value="${crew.likeCount}"></div>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <div class=" mt-3 form-floating">
         <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
@@ -170,7 +203,6 @@
         </button>
       </div>
     </div>
-
   </div>
 </main>
 

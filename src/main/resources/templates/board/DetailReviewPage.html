@@ -70,16 +70,52 @@
 
   <script>
       $(document).ready(function () {
-          $(".star-rating .star").click(function () {
-              let rating = $(this).data("value"); // 선택한 별의 값 가져오기
-              $("#rating").val(rating); // hidden input에 값 저장
-              console.log("선택한 별점: " + rating); // 확인용 콘솔 출력
+        $(".star-rating .star").click(function () {
+          let rating = $(this).data("value"); // 선택한 별의 값 가져오기
+          $("#rating").val(rating); // hidden input에 값 저장
+          console.log("선택한 별점: " + rating); // 확인용 콘솔 출력
 
-              // 별 스타일 적용
-              $(this).siblings('.star').removeClass('on');
-              $(this).addClass('on').prevAll('.star').addClass('on');
+          // 별 스타일 적용
+          $(this).siblings('.star').removeClass('on');
+          $(this).addClass('on').prevAll('.star').addClass('on');
+        });
+
+        // 리뷰 등록 버튼 클릭 이벤트
+        $("form").submit(function (event) {
+          event.preventDefault(); // 기본 제출 동작 방지
+
+          let star = $("#rating").val(); // 별점 값
+          let comment = $("textarea").val(); // 리뷰 내용
+          let placeIdx = $("#placeIdx").val(); // 장소 ID
+          // let userIdx = $("#userIdx").val(); // 사용자 ID
+
+          if (!star || !comment) {
+            alert("별점과 리뷰 내용을 입력해주세요.");
+            return;
+          }
+
+          $.ajax({
+            type: "POST",
+            url: "/review/write", // Spring Boot에서 받을 API 경로
+            data: {
+              placeIdx: placeIdx,
+              star: star,
+              comment: comment
+            },
+            success: function (response) {
+              alert("리뷰가 등록되었습니다!");
+              location.reload(); // 새로고침
+            },
+            error: function (xhr, status, error) {
+              console.error("리뷰 등록 실패:", xhr, status, error);
+              alert("리뷰 등록에 실패했습니다.");
+            }
           });
+        });
       });
+
+
+
   </script>
 
 </head>
@@ -141,20 +177,25 @@
         <button type="button" class="btn btn-outline-secondary">평가하기</button>
       </div>
     </div>
-    <div>
+    <div th:each="review : ${reviews}">
       <div class="row py-3">
+        <input type="hidden" id="placeIdx" th:value="${review.placeReview.placeIdx}">
+        <input type="hidden" id="userIdx" th:value="${review.userReview.user_idx}">
         <div class="col-1"><i class="fa-regular fa-user"></i> 작성자</div>
-        <div class="col-3"></div>
+        <div class="col-3" th:text="${review.userReview.id}"></div>
         <div class="col-1">작성일</div>
-        <div class="col-4"></div>
+        <div class="col-4" th:text="${review.writeDate}"></div>
       </div>
-      <div class="row justify-content-between py-3">
-        <div class="col-9" style="word-break:keep-all;">(댓글)</div>
-        <div class="col-3 text-end">별점</div>
+      <div class="row justify-content-between py-3" >
+        <div class="col-9" style="word-break:keep-all;" th:text="${review.comment}">(댓글)</div>
+        <div class="col-3 text-end">
+          <span th:each="i : ${#numbers.sequence(1, 5)}" style="display: inline-flex;">
+            <i class="fa-star" th:classappend="${i <= review.star} ? 'fas text-warning' : 'far'"></i>
+          </span></div>
       </div>
     </div>
     <form>
-      <input type="hidden" name="rating">
+      <input type="hidden" id="rating" name="rating">
       <div class="row mt-5">
         <div class="star-rating">
           <span class="star on" data-value="1"></span>

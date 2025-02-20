@@ -114,6 +114,12 @@ public class BoardController {
     return mav;
   }
 
+  //  공지 쓰기 뷰
+  @RequestMapping("/notice/write")
+  public ModelAndView writeNotice() {
+    return new ModelAndView("/board/noticeWritePage");
+  }
+
   //  공지 쓰기
   @ResponseBody
   @PostMapping("/notice/write")
@@ -161,6 +167,12 @@ public class BoardController {
     BoardEntity event = boardService.findNoticeById(boardIdx);
     mav.addObject("event", event);
     return mav;
+  }
+
+//  이벤트 쓰기 뷰
+  @RequestMapping("/event/write")
+  public ModelAndView writeEvent() {
+    return new ModelAndView("/board/eventWritePage");
   }
 
   //  이벤트 쓰기

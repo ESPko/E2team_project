@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
-//
+// 회원 목록
   @Override
-  public List<UserEntity> getAllUsers() {
-    return userRepository.findAll();
+  public List<UserEntity> getNonAdminUsers() {
+    return userRepository.findByLevelNot(1);
   }
 
 //  회원삭제

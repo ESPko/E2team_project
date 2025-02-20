@@ -19,5 +19,8 @@ public interface ReviewService {
 //    내가 작성한 리뷰
     List<ReviewEntity> findReviewsByUserId(int userId);
 
+
+    void saveReview(int placeIdx, int userId, String comment, double star);
+
 }
 
