@@ -22,11 +22,19 @@
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
-<section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
-  <div class=" container container-sm" style="width: 800px; padding-top: 10px; margin-top: 30px;">
-    <div><h4 style="font-weight: bold;">인원모집</h4>
-      <p>함께할 팀원을 모집합니다.</p></div>
-    <div class="container-sm mt-5">
+<section class="container-fluid" style="margin-top: 100px;">
+  <div class=" container" style="width: 800px;">
+    <div class="container row justify-content-between align-items-center">
+      <div class="col-10">
+        <h4 class="fw-bold">인원모집</h4>
+        <p>함께할 팀원을 모집합니다.</p>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-secondary btn-sm rounded">작성하기
+        </button>
+      </div>
+    </div>
+    <div class="container">
       <table class="table justify-content-between table-hover">
         <thead class="text-center">
         <tr>
@@ -54,11 +62,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-    <div class="container container-sm d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-secondary float-right"
-              style="border-radius: 10px;">작성하기
-      </button>
     </div>
 
     <!-- 페이징처리 시작 -->
