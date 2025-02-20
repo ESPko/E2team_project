@@ -23,11 +23,9 @@ public class PlaceImageEntity {
   @JsonIgnore
   private PlaceEntity place;
 
-  @Column(name = "image_original_name")
+  @Column(name = "image_name")
   private String imageOriginalName;
-
-  @Column(name = "image_stored_name")
-  private String imageStoredName;
+  
 
   @Column(name = "image_path")
   private String imagePath;
