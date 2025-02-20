@@ -11,7 +11,8 @@ public interface ReplyService {
   List<ReplyEntity> replyShow(int crewBoardIdx);
 
   //  댓글 쓰기
-  void replyWrite(@RequestParam("crewBoardIdx") int crewBoardIdx,
+  void replyWrite(@RequestParam("replyBoardIdx") int replyBoardIdx,
+                  @RequestParam("replyUserIdx") int replyUserIdx,
                   @RequestParam("replyWriteComment") String replyWriteComment);
 
   //  댓글 삭제

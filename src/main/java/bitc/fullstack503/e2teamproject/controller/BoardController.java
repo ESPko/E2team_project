@@ -264,8 +264,11 @@ public class BoardController {
                                            HttpServletRequest request) {
     HttpSession session = request.getSession();
     String userId = session.getAttribute("userId").toString();
-    System.out.println("userId : " + userId);
-    System.out.println("crewUserId : " + crewUserId);
+//    Integer userIdx = (Integer) session.getAttribute("userIdx");
+//    System.out.println("userId : " + userId);
+//    System.out.println("crewUserId : " + crewUserId);
+//    System.out.println("crewNumberDelete : " + crewNumberDelete);
+//    System.out.println("userIdx : " + userIdx);
 
     if (!userId.equals(crewUserId)) {
       System.out.println("타인의 게시물은 삭제할 수 업습니다");

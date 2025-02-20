@@ -4,10 +4,6 @@ import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 import java.util.List;
 
@@ -33,8 +29,8 @@ public class ReplyServiceImpl implements ReplyService {
 
   //  댓글 쓰기
   @Override
-  public void replyWrite(int crewBoardIdx, String replyWriteComment) {
-    replyRepository.replyWrite(crewBoardIdx, replyWriteComment);
+  public void replyWrite(int replyBoardIdx, int replyUserIdx, String replyWriteComment) {
+    replyRepository.replyWrite(replyBoardIdx, replyUserIdx, replyWriteComment);
   }
 
   //  댓글 삭제

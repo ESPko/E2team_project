@@ -20,8 +20,9 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
   @Modifying
   @Transactional
   @Query(value = "insert into reply (reply_board_idx, reply_user_idx, comment)" +
-          "values (:crewBoardIdx, 2, :replyWriteComment)", nativeQuery = true)
-  void replyWrite(@RequestParam("crewBoardIdx") int crewBoardIdx,
+          "values (:replyBoardIdx, :replyUserIdx, :replyWriteComment)", nativeQuery = true)
+  void replyWrite(@RequestParam("replyBoardIdx") int replyBoardIdx,
+                  @RequestParam("replyUserIdx") int replyUserIdx,
                   @RequestParam("replyWriteComment") String replyWriteComment);
 
   //  댓글 삭제
