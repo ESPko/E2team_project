@@ -25,13 +25,11 @@ public class ReviewEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_place_idx")
   @ToString.Exclude
-  @JsonIgnore
   private PlaceEntity placeReview;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_user_idx")
   @ToString.Exclude
-  @JsonIgnore
   private UserEntity userReview;
 
   private String comment;

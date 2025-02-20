@@ -4,7 +4,6 @@ import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,9 +34,16 @@ public class ReviewServiceImpl implements ReviewService {
     return reviewRepository.findReviewsByUserId(userId);
   }
 
+  //  리뷰 쓰기
   @Override
   public void reviewStar(String reviewComment, double reviewStar) {
     reviewRepository.queryWriteReview(reviewComment, reviewStar);
+  }
+
+  //  리뷰 보기(심지현)
+  @Override
+  public List<ReviewEntity> readReview() {
+    return reviewRepository.queryFindPlaceReview();
   }
 }
 

@@ -1,5 +1,6 @@
 package bitc.fullstack503.e2teamproject.controller;
 
+import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Controller
@@ -41,7 +43,32 @@ public class ReviewController {
   }
 
   //  리뷰 보기
+  @ResponseBody
+  @GetMapping("/read")
+  public List<ReviewDTO> reviewRead() {
+    List<ReviewEntity> readReview = reviewService.readReview();
 
+//    for (ReviewEntity reviewEntity : readReview) {
+//      System.out.println("reviewIdx : " + reviewEntity.getReviewIdx());
+//      System.out.println("reviewComment : " + reviewEntity.getComment());
+//      System.out.println("reviewStar : " + reviewEntity.getStar());
+//      System.out.println("reviewUserIdx : " + reviewEntity.getUserReview().getUser_idx());
+//      System.out.println("------------------------");
+//    }
+
+    return readReview.stream()
+            .map(ReviewDTO::fromEntity)
+            .collect(Collectors.toList());
+  }
+
+//  리뷰 삭제
+  @ResponseBody
+  @DeleteMapping("/delete/{reviewIdx}")
+  public void deleteReview(@PathVariable("reviewIdx") int reviewIdx) {
+    System.out.println("reviewIdx : " + reviewIdx);
+    System.out.println("리뷰 삭제");
+    reviewService.deleteReview(reviewIdx);
+  }
 
   //  리뷰 상세 테스트
 //  @GetMapping("/DetailReview")

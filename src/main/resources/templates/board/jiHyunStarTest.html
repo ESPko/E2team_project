@@ -67,6 +67,7 @@
               console.log(star);
           });
 
+          // 리뷰 쓰기
           $(".reviewSubmit").on("click", function () {
               const reviewWrite = $("#reviewBox").val();
               console.log(reviewWrite);
@@ -84,7 +85,46 @@
               })
           });
 
+          // 리뷰 보기
+          $.ajax({
+              url: `/review/read`,
+              type: 'get',
+              success: function (data) {
+                  let reviewShowContainer = $(".reviewShowContainer");
+                  reviewShowContainer.empty();
 
+                  data.forEach(review => {
+                      let html = `<div class="reviewListContainer" style="width: 100%; height: 150px; border: 1px solid black; text-align: center;">`
+                      html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.reviewUserIdx}</span></span><br>`;
+                      html += `<span>reviewIdx: <span class="reviewIdx">${review.reviewIdx}</span></span><br>`;
+                      html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
+                      html += `<span>별점 : <span class="reviewStar">${review.star}</span></span><br>`;
+                      html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;
+                      html += `</div>`
+
+                      reviewShowContainer.append(html);
+                  });
+              }
+          });
+
+          //리뷰 삭제
+          $(document).on("click", ".reviewDeleteButton", function () {
+              console.log("리뷰 삭제 누름");
+              let reviewUserIdx = $(this).closest("div").find(".reviewUserIdx").text();
+              // console.log("reviewUserIdx : " + reviewUserIdx);
+              let reviewIdx = $(this).closest("div").find(".reviewIdx").text();
+              // console.log("reviewIdx : " + reviewIdx);
+
+              $.ajax({
+                  url: `/review/delete/${reviewIdx}`,
+                  type: `delete`,
+                  success: function () {
+                      console.log("reviewDelete");
+                      alert("리뷰 삭제 완료");
+                      location.reload();
+                  }
+              })
+          })
       });
   </script>
 </head>
@@ -95,16 +135,11 @@
     <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 400px" class="mainImage">
   </div>
   <div class="nameContainer">
-    <h5>업체명</h5>
-    <h5>주소</h5>
-    <h5>여는 시간</h5>
-    <h5>닫는 시간</h5>
-    <h5>연락처</h5>
-<!--    <div class="imagesContainer" style="display: flex; gap: 10px;">-->
-<!--      <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 150px" class="subImage">-->
-<!--      <img src="/img/escapeTop/image2.jpg" alt="이미지2" style="width: 150px" class="subImage">-->
-<!--      <img src="/img/escapeTop/image3.jpg" alt="이미지3" style="width: 150px" class="subImage">-->
-<!--    </div>-->
+    <h5>업체명 : ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄹㄴㄹㅇㅁ</h5>
+    <h5>주소 : ㅁㄴㅇㄹㄴㅁㅇㄹㄴㅁㅇㄹㄴㅇㄹ</h5>
+    <h5>여는 시간 : ㅁㄴㅇㄻㄴㅇㄹㄴㅇㄹㄴㅇㄹ</h5>
+    <h5>닫는 시간 : ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄹㄴㅇㄹ</h5>
+    <h5>연락처 : ㅁㄴㅇㄹㄴㅁㅇㄹㄴㅁㅇㄹㄴㅁㄹㅇ</h5>
   </div>
 </div>
 
@@ -128,12 +163,8 @@
 </div>
 
 <!--별점 보기-->
-<div class="reviewShowContainer" style="display: flex; flex-direction: row; width: 400px; justify-content: center">
-  <div class="reviewListContainer" style="width: 100%; height: 100px; border: 1px solid black;">
-    <p>별점</p>
-    <p>작성자</p>
-    <p>리뷰</p>
-  </div>
+<div class="reviewShowContainer"
+     style="display: flex; flex-direction:column; width: 100%; justify-content: center; align-content: center; align-items: center">
 </div>
 
 <script>
