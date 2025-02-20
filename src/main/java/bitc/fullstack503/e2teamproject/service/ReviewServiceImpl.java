@@ -19,8 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
   private final ReviewRepository reviewRepository;
-  private final PlaceRepository placeRepository;
-  private final UserRepository userRepository;
+
 
   //  해당 게시물에서 작성한 리뷰 테스트
   @Override
@@ -40,11 +39,6 @@ public class ReviewServiceImpl implements ReviewService {
   public List<ReviewEntity> findReviewsByUserId(int userId) {
     return reviewRepository.findReviewsByUserId(userId);
   }
-
-//  @Override
-//  public List<ReviewEntity> readReview() {
-//    return List.of();
-//  }
 
   //  리뷰 쓰기
   @Override
