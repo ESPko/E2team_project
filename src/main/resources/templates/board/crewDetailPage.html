@@ -26,6 +26,16 @@
               location.href = "/crew/write";
           });
 
+          // 수정 버튼
+          $("#btn-modify").on("click",function(){
+              console.log("btn-modify");
+          })
+
+          // 삭제 버튼
+          $("#btn-delete").on("click",function(){
+              console.log("btn-delete");
+          });
+
           // 댓글 보기
           $.ajax({
               url: `/reply/list/${crewBoardIdx}`,
@@ -165,8 +175,8 @@
   </section>
   <div class="m-3">
     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
-    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;">수정</button>
-    <button type="button" class="btn btn-light text-danger col-1">삭제</button>
+    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;" id="btn-modify">수정</button>
+    <button type="button" class="btn btn-light text-danger col-1" id="btn-delete">삭제</button>
   </div>
 
   <div class="mt-4">

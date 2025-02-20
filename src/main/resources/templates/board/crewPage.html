@@ -16,6 +16,7 @@
           $(".crewWriteButton").on("click", function () {
               location.href = "/crew/write";
           });
+
       });
   </script>
 </head>
@@ -46,7 +47,7 @@
                th:value="${findCrew.title}" th:text="${findCrew.title}"
                th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
           </td>
-          <td class="col-2 text-center" th:value="${findCrew.user.user_idx}" th:text="${findCrew.user.user_idx}">작성자1
+          <td class="col-2 text-center" th:value="${findCrew.user.id}" th:text="${findCrew.user.id}">작성자1
           </td>
           <td class="col-2 text-left" th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02</td>
           <td class="col-2 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</td>
@@ -56,7 +57,7 @@
       </table>
     </div>
     <div class="container container-sm d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-secondary float-right"
+      <button type="button" class="btn btn-outline-secondary float-right crewWriteButton"
               style="border-radius: 10px;">작성하기
       </button>
     </div>

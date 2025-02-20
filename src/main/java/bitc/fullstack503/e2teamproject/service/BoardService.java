@@ -54,8 +54,9 @@ public interface BoardService {
   Page<BoardEntity> findCrew(int page);
 
   //  인원 모집 쓰기
-  void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
-                 @RequestParam("crewContentsCreate") String crewContentsCreate);
+  void writeCrew(@RequestParam("userIdx") int userIdx,
+                 @RequestParam("crewTitleCreate") String crewTitleCreate,
+                 @RequestParam("trimCrewContentsCreate") String trimCrewContentsCreate);
 
   //  인원 모집 수정하기
   void updateCrew(@RequestParam("crewTitleUpdate") String crewTitleUpdate,

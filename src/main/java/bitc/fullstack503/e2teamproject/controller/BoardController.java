@@ -3,6 +3,7 @@ package bitc.fullstack503.e2teamproject.controller;
 import bitc.fullstack503.e2teamproject.entity.*;
 import bitc.fullstack503.e2teamproject.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -189,25 +190,44 @@ public class BoardController {
 
   //  인원 모집 보기
   @RequestMapping("/crew")
-  public ModelAndView crewRead(@RequestParam(value = "page", defaultValue = "0") int page) {
+  public ModelAndView crewRead(@RequestParam(value = "page", defaultValue = "0") int page,
+                               HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/board/crewPage");
     Page<BoardEntity> findCrewList = boardService.findCrew(page);
     mav.addObject("findCrewList", findCrewList);
+
+    HttpSession session = request.getSession();
+    String userIdx = session.getAttribute("userIdx").toString();
+    String userId = session.getAttribute("userId").toString();
+    System.out.println("userIdx : " + userIdx);
+    System.out.println("userId : " + userId);
     return mav;
   }
 
   //  인원 모집 상세보기
   @RequestMapping("/crew/{boardIdx}")
-  public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx) {
+  public ModelAndView crewReadMore(@PathVariable("boardIdx") int boardIdx,
+                                   HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/board/crewDetailPage");
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);
+
+    HttpSession session = request.getSession();
+    String userIdx = session.getAttribute("userIdx").toString();
+    String userId = session.getAttribute("userId").toString();
+    System.out.println("userIdx : " + userIdx);
+    System.out.println("userId : " + userId);
     return mav;
   }
 
   //  인원 모집 쓰기 뷰
-  @RequestMapping("/crew/write")
-  public ModelAndView writeCrewView() {
+  @GetMapping("/crew/write")
+  public ModelAndView writeCrewView(HttpServletRequest request) {
+//    HttpSession session = request.getSession();
+//    String userIdx = session.getAttribute("userIdx").toString();
+//    String userId = session.getAttribute("userId").toString();
+//    System.out.println("userIdx : " + userIdx);
+//    System.out.println("userId : " + userId);
     return new ModelAndView("/board/crewWritePage");
   }
 
@@ -215,8 +235,17 @@ public class BoardController {
   @ResponseBody
   @PostMapping("/crew/write")
   public void writeCrew(@RequestParam("crewTitleCreate") String crewTitleCreate,
-                        @RequestParam("crewContentsCreate") String crewContentsCreate) {
-    boardService.writeCrew(crewTitleCreate, crewContentsCreate);
+                        @RequestParam("crewContentsCreate") String crewContentsCreate,
+                        HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    int userIdx = (int) session.getAttribute("userIdx");
+    String trimCrewContentsCreate = crewContentsCreate.trim();
+
+//    System.out.println("userIdx : " + userIdx);
+//    System.out.println("crewTitleCreate : " + crewTitleCreate);
+//    System.out.println("crewContentsCreate : " + crewContentsCreate);
+//    System.out.println("trimCrewContentsCreate : " + trimCrewContentsCreate);
+    boardService.writeCrew(userIdx, crewTitleCreate, trimCrewContentsCreate);
   }
 
   //  인원 모집 수정하기

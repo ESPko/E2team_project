@@ -16,6 +16,31 @@
         $("#btn-list").on("click",function(){
             history.back();
         });
+
+        $("#btn-modify").on("click",function(){
+            console.log("btn-modify 누름");
+        });
+
+        $("#btn-delete").on("click",function(){
+            console.log("btn-delete 누름");
+            let eventNumberDelete = $(".eventNumber").text();
+            console.log(eventNumberDelete);
+
+            $.ajax({
+                url: '/event/delete',
+                type: 'delete',
+                data: {
+                    "eventNumberDelete": eventNumberDelete
+                },
+                success: function () {
+                    alert("이벤트 삭제 완료");
+                    location.href="/event";
+                },
+                error: function () {
+                    alert("이벤트 삭제 중 오류");
+                }
+            });
+        });
     });
   </script>
 </head>
@@ -35,8 +60,8 @@
       <div class="container d-flex justify-content-between align-items-center"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
         <div class="col-sm-8">
-          <span th:value="${event.board_idx}" th:text="|번호 : ${event.board_idx}|">번호</span>
-          <span th:value="${event.title}" th:text="|제목 : ${event.title}|">제목</span>
+          <span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span>
+          <span>제목 : <span th:text="${event.title}" class="eventTitle"></span></span>
         </div>
         <div class="col-sm-4" th:value="${event.createDate}" th:text="|작성일 : ${event.createDate}|">작성일</div>
       </div>
@@ -54,8 +79,8 @@
 
   <div class="m-3">
     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
-    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;">수정</button>
-    <button type="button" class="btn btn-light text-danger col-1">삭제</button>
+    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;" id="btn-modify">수정</button>
+    <button type="button" class="btn btn-light text-danger col-1" id="btn-delete">삭제</button>
   </div>
 </main>
 
