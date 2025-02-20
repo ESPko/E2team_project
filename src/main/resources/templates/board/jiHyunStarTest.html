@@ -6,6 +6,8 @@
   <title>Star Rating</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/minty/bootstrap.min.css" rel="stylesheet">
+  <!--틀-->
+  <!--별점-->
   <style>
     .star {
       position: relative;
@@ -60,24 +62,43 @@
   </style>
 </head>
 <body>
-
-<h2>리뷰작성 폼</h2>
-<form action="#" class="reviewForm" id="reviewWrite">
-  <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
-  <div class="star_rating">
-  <span class="star">
-  ★★★★★
-  <span>★★★★★</span>
-  <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
-  </span>
+<h2 style="text-align: center">리뷰작성 폼</h2>
+<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center">
+  <div class="mainImage">
+    <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 400px" class="mainImage">
   </div>
+  <div class="nameContainer">
+    <h5>업체명</h5>
+    <h5>주소</h5>
+    <h5>여는 시간</h5>
+    <h5>닫는 시간</h5>
+    <h5>연락처</h5>
+    <div class="imagesContainer" style="display: flex; gap: 10px;">
+      <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 150px" class="subImage">
+      <img src="/img/escapeTop/image2.jpg" alt="이미지1" style="width: 150px" class="subImage">
+      <img src="/img/escapeTop/image3.jpg" alt="이미지1" style="width: 150px" class="subImage">
+    </div>
+  </div>
+</div>
 
-  <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
-
-  <button type="button" class="reviewSubmit">등록</button>
-  <button type="reset" class="reviewReset">취소</button>
-  <button type="button" class="reviewOk">확인</button>
-</form>
+<!--별점-->
+<div class="reviewContainer" style="display: flex; justify-content: center">
+  <form action="#" class="reviewForm" id="reviewWrite">
+    <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
+    <div class="star_rating">
+      <span class="star">★★★★★<span>★★★★★</span>
+        <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
+      </span>
+    </div>
+    <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
+    <br>
+    <div class="buttonContainer" style="display: flex; justify-content: center">
+      <button type="button" class="reviewSubmit">등록</button>
+      <button type="reset" class="reviewReset">취소</button>
+      <button type="button" class="reviewOk">확인</button>
+    </div>
+  </form>
+</div>
 
 <script>
     const drawStar = (target) => {
@@ -102,7 +123,7 @@
             type: `get`,
             data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
             dataType: `json`,
-            success:function(){
+            success: function () {
                 console.log("review 작동");
             }
         })
