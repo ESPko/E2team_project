@@ -117,7 +117,7 @@ public class BoardController {
   //  공지 쓰기 뷰
   @RequestMapping("/notice/write")
   public ModelAndView writeNotice() {
-    return new ModelAndView("/board/crewWritePage");
+    return new ModelAndView("/board/noticeWritePage");
   }
 
   //  공지 쓰기
