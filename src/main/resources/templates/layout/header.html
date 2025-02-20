@@ -29,14 +29,13 @@
       </ul>
     </div>
     <div class="col-4 row align-items-center justify-content-end">
-      <div class="col-3"><button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button></div>
+      <div class="col-3"><button type="button" class="btn btn-dark btn-sm" id="btn-manager" style="display: none;">관리자</button></div>
       <div class="col-4"><button type="button" class="btn btn-link text-dark" style="text-decoration: none;">My PAGE</button></div>
       <div class="col-auto">
       <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
         <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
       </button>
-      <button id="btn-logout" type="button"
-              style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;"
+      <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark"
               th:unless="${session.userId == null}">
         로그아웃
       </button>
@@ -52,19 +51,7 @@
       })
   </script>
 
-  <script>
-      sessionStorage.setItem("manager", "true");
-
-      document.addEventListener("DOMContentLoaded", function() {
-          if(sessionStorage.getItem("manager") === "true") {
-              document.getElementById("manager-btn").style.display="block";
-          }
-      })
-  </script>
-
 </header>
-
-
 
 <!-- 아이콘 메뉴 -->
 <div class="container mt-5" th:fragment="cateIcon">
