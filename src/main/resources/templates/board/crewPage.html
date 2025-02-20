@@ -39,17 +39,17 @@
         <thead class="text-center">
         <tr>
           <th class="col-1">번호</th>
-          <th class="col-5">제목</th>
+          <th class="col-4 text-start">제목</th>
           <th class="col-2">글쓴이</th>
           <th class="col-2">작성일</th>
           <th class="col-1">조회</th>
-          <th class="col-1">추천</th>
+          <th class="col-2">추천</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="findCrew : ${findCrewList}">
           <td class="col-1 text-center" th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1</td>
-          <td class="col-5">
+          <td class="col-4">
             <a href="#" class="text-dark" style="text-decoration: none"
                th:value="${findCrew.title}" th:text="${findCrew.title}"
                th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
