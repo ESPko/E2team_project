@@ -5,10 +5,11 @@ import bitc.fullstack503.e2teamproject.service.ReplyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,9 @@ public class ReplyController {
     Map<String, Object> result = new HashMap<>();
     result.put("replyList", replyList);
 
-    HttpSession session = request.getSession();
-    String userId = (String) session.getAttribute("userId");
-    System.out.println(userId);
+//    HttpSession session = request.getSession();
+//    String userId = (String) session.getAttribute("userId");
+//    System.out.println(userId);
 
     return result;
   }
@@ -49,15 +50,32 @@ public class ReplyController {
                          HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer replyUserIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println(replyUserIdx);
+//    System.out.println("userIdx : " + replyUserIdx);
 
-//    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyWriteComment);
+    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyWriteComment);
   }
 
   //  댓글 삭제
   @ResponseBody
   @DeleteMapping("/delete/{replyIdx}")
-  public void replyDelete(@PathVariable("replyIdx") int replyIdx) {
-    replyService.replyDelete(replyIdx);
+  public ResponseEntity<String> replyDelete(@PathVariable("replyIdx") int replyIdx,
+                                            @RequestParam("replyUserId") String replyUserId,
+                                            HttpServletRequest request) {
+    HttpSession session = request.getSession();
+//    Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
+    String userId = (String) session.getAttribute("userId");
+
+//    System.out.println("sessionUserIdx : " + sessionUserIdx);
+//    System.out.println("userId : " + userId);
+//    System.out.println("replyIdx : " + replyIdx);
+//    System.out.println("replyUserId : " + replyUserId);
+
+    if (!userId.equals(replyUserId)) {
+//      System.out.println("타인의 댓글은 삭제할 수 없습니다");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 댓글은 삭제할 수 없습니다");
+    } else {
+      replyService.replyDelete(replyIdx);
+      return ResponseEntity.ok("삭제 완료");
+    }
   }
 }

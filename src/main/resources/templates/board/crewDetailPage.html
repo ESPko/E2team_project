@@ -71,6 +71,7 @@
                   data.replyList.forEach(reply => {
                       let html = `<div style='padding: 10px 10px 0 10px;'>`;
                       html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
+                      // html += `<input type="hidden" value="${reply.user.id}" class="replyUserId" id="replyUserId">`
                       html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
                       html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
                       html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
@@ -103,17 +104,25 @@
 
           // 댓글 삭제
           $(document).on("click", ".deleteReplyButton", function () {
-              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
+              let replyIdx = $(this).closest("div").find(".replyIdx").val();
+              console.log(replyIdx);
+              let replyUserId = $(this).closest("div").find(".replyId").text().trim();
+              console.log(replyUserId);
+
               $.ajax({
                   url: `/reply/delete/${replyIdx}`,
                   type: 'delete',
-                  data: {"replyIdx": replyIdx},
+                  data: {"replyIdx": replyIdx , "replyUserId" : replyUserId},
                   success: function () {
                       alert("댓글 삭제 완료");
                       location.reload();
                   },
-                  error: function () {
-                      alert("댓글 삭제 실패");
+                  error: function (xhr) {
+                      if (xhr.status === 403) {
+                          alert(xhr.responseText);
+                      } else {
+                          alert("댓글 삭제 중 오류");
+                      }
                   }
               });
           });
