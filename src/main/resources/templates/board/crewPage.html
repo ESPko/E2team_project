@@ -12,11 +12,11 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script>
-      $(document).ready(function () {
-          $(".crewWriteButton").on("click", function () {
-              location.href = "/crew/write";
-          });
+    $(document).ready(function () {
+      $("#crewWriteButton").on("click", function () {
+        location.href = "/crew/write";
       });
+    });
   </script>
 </head>
 <body>
@@ -56,7 +56,7 @@
       </table>
     </div>
     <div class="container container-sm d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-secondary float-right"
+      <button type="button" id="crewWriteButton" class="btn btn-outline-secondary float-right"
               style="border-radius: 10px;">작성하기
       </button>
     </div>

@@ -30,7 +30,7 @@
     </div>
     <div class="col-4 row align-items-center justify-content-end">
       <div class="col-3"><button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button></div>
-      <div class="col-4"><button type="button" class="btn btn-link text-dark" style="text-decoration: none;">My PAGE</button></div>
+      <div class="col-4"><button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My PAGE</button></div>
       <div class="col-auto">
       <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
         <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
@@ -48,6 +48,18 @@
       $("#btn-logout").on("click", function () {
 
           location.href = "/user/logout";
+
+      })
+
+      $("#manager-btn").on("click", function () {
+
+        location.href = "/user/manager";
+
+      })
+
+      $("#profile").on("click", function () {
+
+        location.href = "/pro";
 
       })
   </script>
