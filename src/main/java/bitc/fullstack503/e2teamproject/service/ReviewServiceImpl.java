@@ -1,11 +1,17 @@
 package bitc.fullstack503.e2teamproject.service;
 
+import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import bitc.fullstack503.e2teamproject.entity.UserEntity;
+import bitc.fullstack503.e2teamproject.repository.PlaceRepository;
 import bitc.fullstack503.e2teamproject.repository.ReviewRepository;
+import bitc.fullstack503.e2teamproject.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -13,9 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
   private final ReviewRepository reviewRepository;
+  private final PlaceRepository placeRepository;
+  private final UserRepository userRepository;
 
 
-//  해당 게시물에서 작성한 리뷰 테스트
+  //  해당 게시물에서 작성한 리뷰 테스트
   @Override
   public List<ReviewEntity> getReviewsByPlace(int placeIdx) {
 
@@ -41,6 +49,25 @@ public class ReviewServiceImpl implements ReviewService {
   @Override
   public void reviewStar(String reviewComment, double reviewStar){
     reviewRepository.queryWriteReview(reviewComment, reviewStar);
+  }
+
+  @Transactional
+  @Override
+  public void saveReview(int placeIdx, int userId, String comment, double star) {
+    UserEntity user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+    PlaceEntity place = placeRepository.findById(placeIdx)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 장소입니다."));
+
+    ReviewEntity review = ReviewEntity.builder()
+            .userReview(user)
+            .placeReview(place)
+            .comment(comment)
+            .star(star)
+            .writeDate(LocalDateTime.now())
+            .build();
+
+    reviewRepository.save(review);
   }
 
 }
