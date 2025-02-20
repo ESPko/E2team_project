@@ -6,6 +6,9 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="/css/projectCss.css" rel="stylesheet">
+  <link href="/css/cardCss.css" rel="stylesheet">
+  <link href="/css/font.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -21,16 +24,16 @@
     <div class="col-2 justify-content-center">
       <a href="#" th:href="@{/}"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
     </div>
-    <div class="col-6 row align-items-end">
+    <div class="col-6 row align-items-end headerFont">
       <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-start">
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
+        <li class="list-group " style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
         <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/event}">이벤트</a></li>
         <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
       </ul>
     </div>
-    <div class="col-4 row align-items-center justify-content-end">
+    <div class="col-4 row align-items-center justify-content-end headerFont">
       <div class="col-3"><button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button></div>
-      <div class="col-4"><button type="button" class="btn btn-link text-dark" style="text-decoration: none;">My PAGE</button></div>
+      <div class="col-4"><button type="button" class="btn btn-link text-dark" style="text-decoration: none;">My Page</button></div>
       <div class="col-auto">
       <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
         <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
@@ -69,42 +72,44 @@
 <!-- 아이콘 메뉴 -->
 <div class="container mt-5" th:fragment="cateIcon">
   <div class="row text-center">
+    <h1 class="font1">MENU</h1>
+    <br><br><br><br>
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#" th:href="@{/rec}">
-        <img src="/img/오징어게임 카테고리(흰색.JPG"
+        <img src="/img/오징어게임 카테고리.JPG"
              class="img-fluid rounded mb-5"
              alt="" style="height: 100px;">
-        <p>오징어 게임</p></a>
+        <p class="fontIcon">Squid Game</p></a>
     </div>
 
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#">
         <img src="/img/혼자_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-        <p>혼자 놀래</p></a>
+        <p class="fontIcon">Play alone</p></a>
     </div>
 
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#">
         <img src="/img/조용히_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-        <p>조용히 놀래</p></a>
+        <p class="fontIcon">Play Mute</p></a>
     </div>
 
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#">
         <img src="/img/신나게_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-        <p>Exciting</p></a>
+        <p class="fontIcon">Exciting !</p></a>
     </div>
 
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#">
         <img src="/img/연인_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-        <p>연인과 함께</p></a>
+        <p class="fontIcon">With GirlFriend</p></a>
     </div>
 
     <div class="col-2">
       <a class="text-decoration-none link-dark" href="#">
         <img src="/img/친구_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
-        <p>친구와 함께</p></a>
+        <p class="fontIcon">With Friend</p></a>
     </div>
 
 
