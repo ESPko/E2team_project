@@ -45,11 +45,12 @@ public class ReviewController {
 
 //   리뷰 작성 test
   @PostMapping("/write")
+  @ResponseBody
   public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
                                             @RequestParam("comment") String comment,
                                             @RequestParam("star") double star,
                                             HttpSession session) {
-    Integer userId = (Integer) session.getAttribute("userId"); // 로그인한 사용자 ID 가져오기
+    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
     if (userId == null) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
     }
@@ -57,7 +58,19 @@ public class ReviewController {
     return ResponseEntity.ok("리뷰 작성 완료");
   }
 
-  //  뷰 페이지
+//  @PostMapping("/write")
+//  @ResponseBody
+//  public ResponseEntity<String> writeReview(@RequestBody ReviewDTO requestDto, HttpSession session) {
+//    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
+//    if (userId == null) {
+//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+//    }
+//    reviewService.saveReview(requestDto.getPlaceIdx(), userId, requestDto.getComment(), requestDto.getStar());
+//    return ResponseEntity.ok("리뷰 작성 완료");
+//  }
+
+
+    //  뷰 페이지
   @GetMapping("/DetailReview")
   public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
