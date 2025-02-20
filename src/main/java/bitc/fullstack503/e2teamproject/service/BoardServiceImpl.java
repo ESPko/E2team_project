@@ -119,8 +119,8 @@ public class BoardServiceImpl implements BoardService {
 
   //  인원 모집 쓰기
   @Override
-  public void writeCrew(String crewTitleCreate, String crewContentsCreate) {
-    boardRepository.queryWriteCrew(crewTitleCreate, crewContentsCreate);
+  public void writeCrew(int userIdx, String crewTitleCreate, String trimCrewContentsCreate) {
+    boardRepository.queryWriteCrew(userIdx, crewTitleCreate, trimCrewContentsCreate);
   }
 
   //  인원 모집 수정하기

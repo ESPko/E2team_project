@@ -20,12 +20,15 @@
         $("#btn-write").on("click", function(event){
             event.preventDefault();
 
-            let formData = $("#frm").serialize();
+            let crewContentsCreate = $("#crewContentsCreate").val().trim();
+            let crewTitleCreate = $("#crewTitleCreate").val();
+            console.log("제목 : " + crewTitleCreate);
+            console.log("내용 : " + crewContentsCreate);
 
             $.ajax({
                 url: "/crew/write",
                 type: "POST",
-                data: formData,
+                data: {"crewTitleCreate": crewTitleCreate , "crewContentsCreate" : crewContentsCreate},
                 success: function() {
                     alert("글 작성 완료!");
                     location.href = "/crew";

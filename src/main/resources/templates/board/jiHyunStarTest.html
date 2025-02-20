@@ -58,56 +58,119 @@
       background: bisque;
     }
   </style>
+  <script>
+      $(document).ready(function () {
+          $(".reviewOk").on("click", function () {
+              const review = $("#reviewBox").val();
+              console.log(review);
+              const star = $("#drawStarContainer").val() * 0.5;
+              console.log(star);
+          });
+
+          // 리뷰 쓰기
+          $(".reviewSubmit").on("click", function () {
+              const reviewWrite = $("#reviewBox").val();
+              console.log(reviewWrite);
+              const reviewStar = $("#drawStarContainer").val() * 0.5;
+              console.log(reviewStar);
+
+              $.ajax({
+                  url: `/review/write/${reviewWrite}/${reviewStar}`,
+                  type: `get`,
+                  data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
+                  dataType: `json`,
+                  success: function () {
+                      console.log("review 작동");
+                  }
+              })
+          });
+
+          // 리뷰 보기
+          $.ajax({
+              url: `/review/read`,
+              type: 'get',
+              success: function (data) {
+                  let reviewShowContainer = $(".reviewShowContainer");
+                  reviewShowContainer.empty();
+
+                  data.forEach(review => {
+                      let html = `<div class="reviewListContainer" style="width: 100%; height: 150px; border: 1px solid black; text-align: center;">`
+                      html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.reviewUserIdx}</span></span><br>`;
+                      html += `<span>reviewIdx: <span class="reviewIdx">${review.reviewIdx}</span></span><br>`;
+                      html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
+                      html += `<span>별점 : <span class="reviewStar">${review.star}</span></span><br>`;
+                      html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;
+                      html += `</div>`
+
+                      reviewShowContainer.append(html);
+                  });
+              }
+          });
+
+          //리뷰 삭제
+          $(document).on("click", ".reviewDeleteButton", function () {
+              console.log("리뷰 삭제 누름");
+              let reviewUserIdx = $(this).closest("div").find(".reviewUserIdx").text();
+              // console.log("reviewUserIdx : " + reviewUserIdx);
+              let reviewIdx = $(this).closest("div").find(".reviewIdx").text();
+              // console.log("reviewIdx : " + reviewIdx);
+
+              $.ajax({
+                  url: `/review/delete/${reviewIdx}`,
+                  type: `delete`,
+                  success: function () {
+                      console.log("reviewDelete");
+                      alert("리뷰 삭제 완료");
+                      location.reload();
+                  }
+              })
+          })
+      });
+  </script>
 </head>
 <body>
-
-<h2>리뷰작성 폼</h2>
-<form action="#" class="reviewForm" id="reviewWrite">
-  <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
-  <div class="star_rating">
-  <span class="star">
-  ★★★★★
-  <span>★★★★★</span>
-  <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
-  </span>
+<h2 style="text-align: center">리뷰작성 폼</h2>
+<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center">
+  <div class="mainImage">
+    <img src="/img/escapeTop/image1.jpg" alt="이미지1" style="width: 400px" class="mainImage">
   </div>
+  <div class="nameContainer">
+    <h5>업체명 : </h5>
+    <h5>주소 : </h5>
+    <h5>여는 시간 : </h5>
+    <h5>닫는 시간 : </h5>
+    <h5>연락처 : </h5>
+  </div>
+</div>
 
-  <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
+<!--별점 쓰기-->
+<div class="reviewWriteContainer" style="display: flex; justify-content: center">
+  <form action="#" class="reviewForm" id="reviewWrite">
+    <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
+    <div class="star_rating" style="text-align: center">
+      <span class="star">★★★★★<span>★★★★★</span>
+        <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10" id="drawStarContainer">
+      </span>
+    </div>
+    <textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." id="reviewBox"></textarea>
+    <br>
+    <div class="buttonContainer" style="display: flex; justify-content: center; gap: 10px;">
+      <button type="button" class="reviewSubmit">등록</button>
+      <button type="reset" class="reviewReset">취소</button>
+      <button type="button" class="reviewOk">확인</button>
+    </div>
+  </form>
+</div>
 
-  <button type="button" class="reviewSubmit">등록</button>
-  <button type="reset" class="reviewReset">취소</button>
-  <button type="button" class="reviewOk">확인</button>
-</form>
+<!--별점 보기-->
+<div class="reviewShowContainer"
+     style="display: flex; flex-direction:column; width: 100%; justify-content: center; align-content: center; align-items: center">
+</div>
 
 <script>
     const drawStar = (target) => {
         $(`.star span`).css({width: `${target.value * 10}%`});
     }
-
-    $(".reviewOk").on("click", function () {
-        const review = $("#reviewBox").val();
-        console.log(review);
-        const star = $("#drawStarContainer").val() * 0.5;
-        console.log(star);
-    });
-
-    $(".reviewSubmit").on("click", function () {
-        const reviewWrite = $("#reviewBox").val();
-        console.log(reviewWrite);
-        const reviewStar = $("#drawStarContainer").val() * 0.5;
-        console.log(reviewStar);
-
-        $.ajax({
-            url: `/review/write/${reviewWrite}/${reviewStar}`,
-            type: `get`,
-            data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
-            dataType: `json`,
-            success:function(){
-                console.log("review 작동");
-            }
-        })
-    });
-
 </script>
 </body>
 </html>

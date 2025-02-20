@@ -81,9 +81,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Modifying
   @Transactional
   @Query(value = "insert into board (board_user_idx, title, contents, category)" +
-          "values (2, :crewTitleCreate, :crewContentsCreate,'인원모집')", nativeQuery = true)
-  void queryWriteCrew(@Param("crewTitleCreate") String crewTitleCreate,
-                      @Param("crewContentsCreate") String crewContentsCreate);
+          "values (:userIdx, :crewTitleCreate, :trimCrewContentsCreate,'인원모집')", nativeQuery = true)
+  void queryWriteCrew(@Param("userIdx") int userIdx,
+                      @Param("crewTitleCreate") String crewTitleCreate,
+                      @Param("trimCrewContentsCreate") String trimCrewContentsCreate);
 
   //    인원모집 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '인원모집' order by b.board_idx desc")
@@ -107,7 +108,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   //  내가 작성한 게시물
   @Query("SELECT b FROM BoardEntity b WHERE b.user.user_idx = :userId")
   List<BoardEntity> findByUserId(@Param("userId") int userId);
-
 
 
 }
