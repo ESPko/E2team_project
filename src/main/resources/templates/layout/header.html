@@ -38,8 +38,7 @@
       <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
         <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
       </button>
-      <button id="btn-logout" type="button"
-              style="border-radius: 10px; border-style: none; background-color: #bee5eb; height: 40px;"
+      <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark"
               th:unless="${session.userId == null}">
         로그아웃
       </button>

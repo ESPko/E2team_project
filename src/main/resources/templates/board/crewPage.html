@@ -23,26 +23,34 @@
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
-<section class="container-fluid" style="margin-top: 10px; border-top: solid 1px; border-top-color: #bee5eb;">
-  <div class=" container container-sm" style="width: 800px; padding-top: 10px; margin-top: 30px;">
-    <div><h4 style="font-weight: bold;">인원모집</h4>
-      <p>함께할 팀원을 모집합니다.</p></div>
-    <div class="container-sm mt-5">
+<section class="container-fluid" style="margin-top: 100px;">
+  <div class=" container" style="width: 800px;">
+    <div class="container row justify-content-between align-items-center">
+      <div class="col-10">
+        <h4 class="fw-bold">인원모집</h4>
+        <p>함께할 팀원을 모집합니다.</p>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-secondary btn-sm rounded">작성하기
+        </button>
+      </div>
+    </div>
+    <div class="container">
       <table class="table justify-content-between table-hover">
         <thead class="text-center">
         <tr>
           <th class="col-1">번호</th>
-          <th class="col-5">제목</th>
+          <th class="col-4 text-start">제목</th>
           <th class="col-2">글쓴이</th>
           <th class="col-2">작성일</th>
           <th class="col-1">조회</th>
-          <th class="col-1">추천</th>
+          <th class="col-2">추천</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="findCrew : ${findCrewList}">
           <td class="col-1 text-center" th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1</td>
-          <td class="col-5">
+          <td class="col-4">
             <a href="#" class="text-dark" style="text-decoration: none"
                th:value="${findCrew.title}" th:text="${findCrew.title}"
                th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
@@ -55,11 +63,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-    <div class="container container-sm d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-secondary float-right"
-              style="border-radius: 10px;">작성하기
-      </button>
     </div>
 
     <!-- 페이징처리 시작 -->
