@@ -21,7 +21,8 @@ public interface BoardService {
   BoardEntity findNoticeById(@RequestParam("boardIdx") int boardIdx);
 
   //  공지 쓰기
-  void writeNotice(@RequestParam("noticeTitle") String noticeTitle,
+  void writeNotice(@RequestParam("userIdx") int userIdx,
+                   @RequestParam("noticeTitle") String noticeTitle,
                    @RequestParam("noticeContents") String noticeContents);
 
   //  공지 수정하기
@@ -39,7 +40,8 @@ public interface BoardService {
   List<BoardEntity> findEventFour();
 
   //  이벤트 쓰기
-  void writeEvent(@RequestParam("eventTitleCreate") String eventTitleCreate,
+  void writeEvent(@RequestParam("userIdx") int userIdx,
+                  @RequestParam("eventTitleCreate") String eventTitleCreate,
                   @RequestParam("eventContentsCreate") String eventContentsCreate);
 
   //  이벤트 수정하기

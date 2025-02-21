@@ -122,8 +122,11 @@ public class BoardController {
   @ResponseBody
   @PostMapping("/notice/write")
   public void writeNotice(@RequestParam("noticeTitle") String noticeTitle,
-                          @RequestParam("noticeContents") String noticeContents) {
-    boardService.writeNotice(noticeTitle, noticeContents);
+                          @RequestParam("noticeContents") String noticeContents,
+                          HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer userIdx = (Integer) session.getAttribute("userIdx");
+    boardService.writeNotice(userIdx, noticeTitle, noticeContents);
   }
 
   //  공지 수정하기
@@ -167,7 +170,7 @@ public class BoardController {
     return mav;
   }
 
-//  이벤트 쓰기 뷰
+  //  이벤트 쓰기 뷰
   @RequestMapping("/event/write")
   public ModelAndView writeEvent() {
     return new ModelAndView("/board/eventWritePage");
@@ -177,8 +180,12 @@ public class BoardController {
   @ResponseBody
   @PostMapping("/event/write")
   public void writeEvent(@RequestParam("eventTitleCreate") String eventTitleCreate,
-                         @RequestParam("eventContentsCreate") String eventContentsCreate) {
-    boardService.writeEvent(eventTitleCreate, eventContentsCreate);
+                         @RequestParam("eventContentsCreate") String eventContentsCreate,
+                         HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer userIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println(userIdx);
+    boardService.writeEvent(userIdx, eventTitleCreate, eventContentsCreate);
   }
 
   //  이벤트 수정하기
@@ -193,7 +200,12 @@ public class BoardController {
   //  이벤트 삭제하기
   @ResponseBody
   @DeleteMapping("/event/delete")
-  public void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete) {
+  public void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete,
+                          HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer userIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println(userIdx);
+
     boardService.deleteEvent(eventNumberDelete);
   }
 
@@ -205,11 +217,6 @@ public class BoardController {
     Page<BoardEntity> findCrewList = boardService.findCrew(page);
     mav.addObject("findCrewList", findCrewList);
 
-//    HttpSession session = request.getSession();
-//    String userIdx = session.getAttribute("userIdx").toString();
-//    String userId = session.getAttribute("userId").toString();
-//    System.out.println("userIdx : " + userIdx);
-//    System.out.println("userId : " + userId);
     return mav;
   }
 
@@ -221,22 +228,12 @@ public class BoardController {
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);
 
-//    HttpSession session = request.getSession();
-//    String userIdx = session.getAttribute("userIdx").toString();
-//    String userId = session.getAttribute("userId").toString();
-//    System.out.println("userIdx : " + userIdx);
-//    System.out.println("userId : " + userId);
     return mav;
   }
 
   //  인원 모집 쓰기 뷰
   @GetMapping("/crew/write")
   public ModelAndView writeCrewView(HttpServletRequest request) {
-//    HttpSession session = request.getSession();
-//    String userIdx = session.getAttribute("userIdx").toString();
-//    String userId = session.getAttribute("userId").toString();
-//    System.out.println("userIdx : " + userIdx);
-//    System.out.println("userId : " + userId);
     return new ModelAndView("/board/crewWritePage");
   }
 
@@ -250,10 +247,6 @@ public class BoardController {
     int userIdx = (int) session.getAttribute("userIdx");
     String trimCrewContentsCreate = crewContentsCreate.trim();
 
-//    System.out.println("userIdx : " + userIdx);
-//    System.out.println("crewTitleCreate : " + crewTitleCreate);
-//    System.out.println("crewContentsCreate : " + crewContentsCreate);
-//    System.out.println("trimCrewContentsCreate : " + trimCrewContentsCreate);
     boardService.writeCrew(userIdx, crewTitleCreate, trimCrewContentsCreate);
   }
 
@@ -274,11 +267,7 @@ public class BoardController {
                                            HttpServletRequest request) {
     HttpSession session = request.getSession();
     String userId = session.getAttribute("userId").toString();
-//    Integer userIdx = (Integer) session.getAttribute("userIdx");
-//    System.out.println("userId : " + userId);
-//    System.out.println("crewUserId : " + crewUserId);
-//    System.out.println("crewNumberDelete : " + crewNumberDelete);
-//    System.out.println("userIdx : " + userIdx);
+    System.out.println("crewUserId : " + crewUserId);
 
     if (!userId.equals(crewUserId)) {
       System.out.println("타인의 게시물은 삭제할 수 업습니다");
