@@ -6,6 +6,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="/css/font.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -26,6 +27,40 @@
               location.href = "/crew/write";
           });
 
+          // 수정 버튼
+          $("#btn-modify").on("click", function () {
+              console.log("btn-modify");
+          })
+
+          // 삭제 버튼
+          $("#btn-delete").on("click", function (event) {
+              // console.log("btn-delete");
+              let crewNumberDelete = crewBoardIdx;
+              // console.log("crewNumberDelete : " + crewNumberDelete);
+              let crewUserId = $(".crewUserId").val();
+              // console.log("crewUserId : " + crewUserId);
+
+              event.preventDefault();
+              $.ajax({
+                  url: '/crew/delete',
+                  type: 'delete',
+                  data: {
+                      "crewNumberDelete": crewNumberDelete, "crewUserId": crewUserId
+                  },
+                  success: function () {
+                      alert("인원 모집 삭제 완료");
+                      location.href = "/crew";
+                  },
+                  error: function (xhr) {
+                      if (xhr.status === 403) {
+                          alert(xhr.responseText);
+                      } else {
+                          alert("인원 모집 삭제 중 오류");
+                      }
+                  }
+              });
+          });
+
           // 댓글 보기
           $.ajax({
               url: `/reply/list/${crewBoardIdx}`,
@@ -37,6 +72,7 @@
                   data.replyList.forEach(reply => {
                       let html = `<div style='padding: 10px 10px 0 10px;'>`;
                       html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
+                      // html += `<input type="hidden" value="${reply.user.id}" class="replyUserId" id="replyUserId">`
                       html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span>`;
                       html += `<span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
                       html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px;'>${reply.comment}</div>`;
@@ -69,17 +105,25 @@
 
           // 댓글 삭제
           $(document).on("click", ".deleteReplyButton", function () {
-              let replyIdx = $(this).closest("div div").find(".replyIdx").val();
+              let replyIdx = $(this).closest("div").find(".replyIdx").val();
+              console.log(replyIdx);
+              let replyUserId = $(this).closest("div").find(".replyId").text().trim();
+              console.log(replyUserId);
+
               $.ajax({
                   url: `/reply/delete/${replyIdx}`,
                   type: 'delete',
-                  data: {"replyIdx": replyIdx},
+                  data: {"replyIdx": replyIdx , "replyUserId" : replyUserId},
                   success: function () {
                       alert("댓글 삭제 완료");
                       location.reload();
                   },
-                  error: function () {
-                      alert("댓글 삭제 실패");
+                  error: function (xhr) {
+                      if (xhr.status === 403) {
+                          alert(xhr.responseText);
+                      } else {
+                          alert("댓글 삭제 중 오류");
+                      }
                   }
               });
           });
@@ -95,6 +139,7 @@
       <input type="hidden" id="method" name="_method">
       <input type="hidden" class="crewBoardIdx" th:value="${crew.board_idx}">
 
+      <!--중복된 인원모집과 목록 버튼 삭제-->
       <div class="container" style="width: 800px; padding-top: 10px; margin-top: 30px;">
         <div class="row justify-content-between align-items-end">
           <div class="col-auto">
@@ -155,39 +200,51 @@
 <!--        </div>-->
 <!--      </div>-->
 
-        <div class=" mt-3 form-floating">
+      <div class=" mt-3 form-floating">
         <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
                   readonly th:text="${crew.contents}">
         </textarea>
-          <label for="contents">글 내용</label>
-        </div>
+        <label for="contents">글 내용</label>
       </div>
+
     </form>
   </section>
   <div class="m-3">
     <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
-    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;">수정</button>
-    <button type="button" class="btn btn-light text-danger col-1">삭제</button>
+    <button type="button" class="btn btn-light col-1" style="margin-left: 550px;" id="btn-modify">수정</button>
+    <button type="button" class="btn btn-light text-danger col-1" id="btn-delete">삭제</button>
   </div>
 
-  <div class="mt-4">
+  <!--   댓글 보이는 부분 -->
+  <div class="container" style="margin-top: 100px;">
     <div>
-      <div><i class="fa-regular fa-comment"></i> 댓글</div>
-      <div class="mt-3 replyShowBox" style="border: 0.4px solid lightgray; border-radius: 5px;">
-        <div style="padding: 10px 10px 0 10px;"><span style="font-weight: bold;">ID </span><span
-                style="font-size: small"> 작성일</span></div>
-        <div class="mt-2" style="padding: 0 10px 10px 10px;">review 내용</div>
+      <div class="border-bottom py-1"><i class="fa-regular fa-comment"></i> 댓글</div>
+      <div class="replyShowBox border-bottom">
+        <div>
+          <div>
+            <span style="font-weight: bold;">ID </span>
+            <span style="font-size: small"> 작성일</span>
+            <button type="button" class="deleteReplyButton btn btn-outline-danger btn-sm float-end">삭제</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="mt-2" style="padding: 0 10px 10px 10px; width: 650px; word-wrap: break-word;">review 내용</div>
+        </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between mt-5"
-         style="background-color: #f5f5f5; border-style: none; border-radius: 5px; padding: 10px;">
-      <div class="col-sm-10 d-flex justify-content-center">
-        <textarea style="width: 628.33px; height: 66px; border-radius: 5px; border-style: none; padding: 0;" id="replyWriteComment"></textarea>
+
+    <!-- 댓글 쓰는 부분 -->
+    <div class="d-flex justify-content-evenly mt-5 border-0 rounded"
+         style="background-color: #f5f5f5; padding: 10px;">
+      <div class="col-11 d-flex justify-content-center">
+        <textarea rows="3" class="rounded border-0" style="width: 650px;"
+                  id="replyWriteComment"></textarea>
       </div>
-      <div class="col-sm-2 d-flex justify-content-center">
-        <button type="button"
-                style="border-style: none; border-radius: 5px; background-color: white; width: 77px; height: 70px;"
-        id="replyWriteButton">등록
+      <div class="col-auto">
+        <button type="button" class="fw-bold bg-white rounded border-0"
+                style="width: auto; height: 76px;"
+                id="replyWriteButton">등록
         </button>
       </div>
     </div>

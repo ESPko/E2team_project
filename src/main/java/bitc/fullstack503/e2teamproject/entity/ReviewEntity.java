@@ -25,14 +25,16 @@ public class ReviewEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_place_idx")
   @ToString.Exclude
-  @JsonIgnore
   private PlaceEntity placeReview;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_user_idx")
   @ToString.Exclude
-  @JsonIgnore
   private UserEntity userReview;
+
+
+  @Column(name = "review_user_id")
+  private String reviewUserId;
 
   private String comment;
 
@@ -47,8 +49,4 @@ public class ReviewEntity {
   @Column(name = "like_count")
   private int likeCount = 0;
 
-  @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @ToString.Exclude
-  @Builder.Default
-  private List<ReviewImageEntity> reviewImageEntityList = new ArrayList<>();
 }
