@@ -62,6 +62,7 @@ public class UserController {
 
       session.setAttribute("userIdx", user.getUser_idx());
       session.setAttribute("userId", user.getId());
+      session.setAttribute("userName", user.getName());
       session.setAttribute("userEmail", user.getEmail());
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
@@ -104,6 +105,8 @@ public class UserController {
   public Map<String, String> signupProcess(@RequestBody Map<String, String> userData) {
     Map<String, String> response = new HashMap<>();
     try {
+
+      String userName = userData.get("userName");
       String userId = userData.get("userId");
       String userPw = userData.get("userPw");
       String userBirthYear = userData.get("userBirthYear");
@@ -116,6 +119,7 @@ public class UserController {
       UserEntity newUser = UserEntity.builder()
               .id(userId)
               .password(userPw)
+              .name(userName)
               .birthYear(birthYear)
               .phone(userPhone)
               .email(userEmail)
