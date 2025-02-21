@@ -22,7 +22,6 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
   @Autowired
   private BoardRepository boardRepository;
-  
 
   //  공지 쓰기
   @Override
@@ -150,7 +149,6 @@ public void saveBoard(String title, String contents, String category, UserEntity
           .build();
 
   board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
-
 
 }
 

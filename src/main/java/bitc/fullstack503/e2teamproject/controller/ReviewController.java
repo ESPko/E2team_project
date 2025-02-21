@@ -1,10 +1,9 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
-import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
-import bitc.fullstack503.e2teamproject.service.PlaceService;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +22,9 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
-    @Autowired
-    private PlaceService placeService;
 
   @RequestMapping("/")
-  public ModelAndView jiHyunStarTest(){
+  public ModelAndView jiHyunStarTest() {
     ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
     return mav;
   }
@@ -41,11 +38,17 @@ public class ReviewController {
 //    return mav;
 //  }
 
+  //  리뷰 쓰기
   @ResponseBody
-  @RequestMapping("/write/{reviewWrite}/{reviewStar}")
-  public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
-                          @PathVariable("reviewStar") double reviewStar){
-    reviewService.reviewStar(reviewWrite, reviewStar);
+  @GetMapping("/write/{reviewPlaceIdx}/{reviewWrite}/{reviewStar}")
+  public void reviewWrite(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx,
+                          @PathVariable("reviewWrite") String reviewWrite,
+                          @PathVariable("reviewStar") double reviewStar,
+                          HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer reviewUserIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println("reviewUserIdx : " + reviewUserIdx);
+//    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewWrite, reviewStar);
   }
 
   //  리뷰 보기
@@ -58,44 +61,44 @@ public class ReviewController {
             .collect(Collectors.toList());
   }
 
-//   리뷰 작성 test
-//  @PostMapping("/write")
-//  @ResponseBody
-//  public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
-//                                            @RequestParam("comment") String comment,
-//                                            @RequestParam("star") double star,
-//                                            HttpSession session) {
-//    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
-//    if (userId == null) {
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-//    }
-//    reviewService.saveReview(placeIdx, userId, comment, star);
-//    return ResponseEntity.ok("리뷰 작성 완료");
-//  }
+  //  리뷰 삭제
+  @ResponseBody
+  @DeleteMapping("/delete/{reviewIdx}")
+  public void deleteReview(@PathVariable("reviewIdx") int reviewIdx) {
+    System.out.println("reviewIdx : " + reviewIdx);
+    System.out.println("리뷰 삭제");
+    reviewService.deleteReview(reviewIdx);
+  }
 
-//  @PostMapping("/write")
-//  @ResponseBody
-//  public ResponseEntity<String> writeReview(@RequestBody ReviewDTO requestDto, HttpSession session) {
-//    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
-//    if (userId == null) {
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-//    }
-//    reviewService.saveReview(requestDto.getPlaceIdx(), userId, requestDto.getComment(), requestDto.getStar());
-//    return ResponseEntity.ok("리뷰 작성 완료");
-//  }
+  //   리뷰 작성 test
+  @PostMapping("/write")
+  public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
+                                            @RequestParam("comment") String comment,
+                                            @RequestParam("star") double star,
+                                            HttpSession session) {
+    Integer userId = (Integer) session.getAttribute("userId"); // 로그인한 사용자 ID 가져오기
+    if (userId == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+    }
+    reviewService.saveReview(placeIdx, userId, comment, star);
+    return ResponseEntity.ok("리뷰 작성 완료");
+  }
 
-
-    //  뷰 페이지
+  //  뷰 페이지
   @GetMapping("/DetailReview")
   public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
-
-
-    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
-
     ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
-    mav.addObject("reviews", reviews);
-    mav.addObject("places", places); // 모델 데이터 추가
+    mav.addObject("reviews", reviews);  // 모델 데이터 추가
     return mav;
   }
+
+  //  리뷰 상세 테스트
+//  @GetMapping("/DetailReview")
+//  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
+//    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+//    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
+//    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+//    return mav;
+//  }
 }

@@ -54,8 +54,8 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
           "GROUP BY p.placeIdx, p.name " +
           "ORDER BY count(r) desc")
   List<PlaceDTO> findPlaceReviewMany(@Param("selectLocation") String selectLocation,
-                                  @Param("selectAge") int selectAge,
-                                  @Param("selectPeople") int selectPeople);
+                                     @Param("selectAge") int selectAge,
+                                     @Param("selectPeople") int selectPeople);
 
   //  리뷰 적은 순으로
   @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +

@@ -1,6 +1,7 @@
 package bitc.fullstack503.e2teamproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,8 +31,8 @@ public class ReviewEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "review_user_idx")
   @ToString.Exclude
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private UserEntity userReview;
-
 
   @Column(name = "review_user_id")
   private String reviewUserId;

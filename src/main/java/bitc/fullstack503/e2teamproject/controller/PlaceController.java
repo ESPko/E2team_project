@@ -33,15 +33,6 @@ public class PlaceController {
     ModelAndView mav = new ModelAndView("/board/mainDetailPage");
     List<PlaceEntity> placeDetailList = placeService.recommendPlace(selectLocation, selectAge, selectPeople);
     mav.addObject("placeDetailList", placeDetailList);
-
-//    for (PlaceEntity placeEntity : placeDetailList) {
-//      System.out.println(placeEntity.getPlaceIdx());
-//      for(PlaceImageEntity image : placeEntity.getPlaceImageEntityList()){
-//        System.out.println("이미지 경로 : " + image.getImagePath());
-//        System.out.println("이미지 이름 : " + image.getImageName());
-//      }
-//      System.out.println("------------");
-//    }
     return mav;
   }
 
@@ -54,11 +45,6 @@ public class PlaceController {
                         Model model) {
     System.out.println("추천수 높은 순");
     List<PlaceDTO> placeDetailList = placeService.findPlaceStarHigh(selectLocation, selectAge, selectPeople);
-    for (PlaceDTO placeDTO : placeDetailList) {
-      System.out.println("이름 : " + placeDTO.getPlaceName());
-      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
-      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
-    }
     Model starHighModel = model.addAttribute("placeDetailList", placeDetailList);
     return starHighModel;
   }
@@ -71,11 +57,6 @@ public class PlaceController {
                                 @PathVariable("selectPeople") int selectPeople) {
     System.out.println("추천수 낮은 순");
     List<PlaceDTO> showStarLow = placeService.findPlaceStarLow(selectLocation, selectAge, selectPeople);
-//    for (PlaceDTO placeDTO : showStarLow) {
-//      System.out.println("이름 : " + placeDTO.getPlaceName());
-//      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
-//      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
-//    }
     return showStarLow;
   }
 
@@ -87,11 +68,6 @@ public class PlaceController {
                                    @PathVariable("selectPeople") int selectPeople) {
     System.out.println("리뷰 많은 순");
     List<PlaceDTO> showReviewHigh = placeService.findPlaceReviewMany(selectLocation, selectAge, selectPeople);
-//    for (PlaceDTO placeDTO : showReviewHigh) {
-//      System.out.println("이름 : " + placeDTO.getPlaceName());
-//      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
-//      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
-//    }
     return showReviewHigh;
   }
 
@@ -103,11 +79,6 @@ public class PlaceController {
                                    @PathVariable("selectPeople") int selectPeople) {
     System.out.println("리뷰 적은 순");
     List<PlaceDTO> showReviewLess = placeService.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
-//    for (PlaceDTO placeDTO : showReviewLess) {
-//      System.out.println("이름 : " + placeDTO.getPlaceName());
-//      System.out.println("별점 평균 : " + placeDTO.getAverageStar());
-//      System.out.println("리뷰 수 : " + placeDTO.getReviewCount());
-//    }
     return showReviewLess;
   }
 
@@ -129,7 +100,4 @@ public class PlaceController {
     mav.addObject("placeDetailList", findPlaceDetail);
     return mav;
   }
-
-
-
 }

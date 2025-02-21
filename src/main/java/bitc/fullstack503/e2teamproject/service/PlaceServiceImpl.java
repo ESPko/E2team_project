@@ -32,15 +32,15 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.findPlaceStarLow(selectLocation, selectAge, selectPeople);
   }
 
-//  지역 연령 나이로 찾되 리뷰가 많은 순으로 결정
-@Override
-public List<PlaceDTO> findPlaceReviewMany(String selectLocation, int selectAge, int selectPeople){
+  //  지역 연령 나이로 찾되 리뷰가 많은 순으로 결정
+  @Override
+  public List<PlaceDTO> findPlaceReviewMany(String selectLocation, int selectAge, int selectPeople) {
     return placeRepository.findPlaceReviewMany(selectLocation, selectAge, selectPeople);
   }
 
-//  지역 연령 나이로 찾되 리뷰가 적은 순으로 결정
-@Override
-public List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, int selectPeople){
+  //  지역 연령 나이로 찾되 리뷰가 적은 순으로 결정
+  @Override
+  public List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, int selectPeople) {
     return placeRepository.findPlaceReviewLess(selectLocation, selectAge, selectPeople);
   }
 
@@ -59,9 +59,9 @@ public List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, 
 //    return placeRepository.findTopPlacesByAverageStar(topThree);
 //  }
 
-  //  해당 placeIdx 의 정보 가져오기
-  @Override
-  public List<PlaceEntity> findPlaceDetail(int placeIdx){
+//  해당 placeIdx 의 정보 가져오기
+@Override
+public List<PlaceEntity> findPlaceDetail(int placeIdx){
     return placeRepository.queryFindPlace(placeIdx);
   }
 }
