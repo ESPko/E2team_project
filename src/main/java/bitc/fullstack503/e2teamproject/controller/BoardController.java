@@ -72,7 +72,7 @@ public class BoardController {
   //  추천 페이지
   @RequestMapping("/rec")
   public ModelAndView recommand() {
-    return new ModelAndView("/board/recommandPage");
+    return new ModelAndView("recommandPage1");
   }
 
   //  메인 페이지
