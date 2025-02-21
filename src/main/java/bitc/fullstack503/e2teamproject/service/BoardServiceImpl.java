@@ -135,7 +135,7 @@ public class BoardServiceImpl implements BoardService {
 
 //  글쓸때 이미지도 올라가는지 확인용
 @Transactional
-@Override
+//@Override
 public void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images) {
   // 1️⃣ 게시글 저장
   BoardEntity board = BoardEntity.builder()

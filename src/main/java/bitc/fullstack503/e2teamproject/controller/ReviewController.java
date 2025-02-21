@@ -106,11 +106,11 @@ public class ReviewController {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
 
 
-    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
+//    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
 
     ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
     mav.addObject("reviews", reviews);
-    mav.addObject("places", places); // 모델 데이터 추가
+//    mav.addObject("places", places); // 모델 데이터 추가
     return mav;
   }
   //  리뷰 상세 테스트

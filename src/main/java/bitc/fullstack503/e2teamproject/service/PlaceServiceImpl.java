@@ -20,9 +20,9 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.findByLocation(selectLocation, selectAge, selectPeople);
   }
 
-//  해당 placeIdx 의 정보 가져오기
-@Override
-public List<PlaceEntity> findPlaceDetail(int placeIdx){
+  //  해당 placeIdx 의 정보 가져오기
+  @Override
+  public List<PlaceEntity> findPlaceDetail(int placeIdx) {
     return placeRepository.queryFindPlace(placeIdx);
   }
 }
