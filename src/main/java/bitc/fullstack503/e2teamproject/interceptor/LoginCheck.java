@@ -21,7 +21,6 @@ public class LoginCheck implements HandlerInterceptor {
             if (userId == null) {
                 sendAlert(response, "로그인이 필요합니다.", "/user/");
                 return false;
-
             }
         }
 
