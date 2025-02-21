@@ -60,6 +60,24 @@
                         </div>
                     </li>
                 </ul>
+
+
+                <!-- 게시글 페이지네이션 -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${posts.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${posts.number - 1}, commentPage=${commentPage}, reviewPage=${reviewPage})}">이전</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}"
+                            th:classappend="${posts.number == i} ? 'active'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${i}, commentPage=${commentPage}, reviewPage=${reviewPage})}" th:text="${i + 1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${posts.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${posts.number + 1}, commentPage=${commentPage}, reviewPage=${reviewPage})}">다음</a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
         <div class="col-md-4">
@@ -95,6 +113,23 @@
 
                     </li>
                 </ul>
+
+                <!-- 댓글 페이지네이션 -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${comments.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${comments.number - 1}, reviewPage=${reviewPage})}">이전</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, comments.totalPages - 1)}"
+                            th:classappend="${comments.number == i} ? 'active'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${i}, reviewPage=${reviewPage})}" th:text="${i + 1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${comments.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${comments.number + 1}, reviewPage=${reviewPage})}">다음</a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
         <div class="col-md-4">
@@ -136,8 +171,24 @@
                             <div class="col-3 text-center" th:text="${review.writeDate}"></div>
                         </div>
                     </li>
-
                 </ul>
+
+                <!-- 리뷰 페이지네이션 -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${reviews.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${commentPage}, reviewPage=${reviews.number - 1})}">이전</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, reviews.totalPages - 1)}"
+                            th:classappend="${reviews.number == i} ? 'active'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${commentPage}, reviewPage=${i})}" th:text="${i + 1}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${reviews.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/myboard(postPage=${postPage}, commentPage=${commentPage}, reviewPage=${reviews.number + 1})}">다음</a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ package bitc.fullstack503.e2teamproject.service;
 import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,5 +72,5 @@ public interface BoardService {
   void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images);
 
   //  내가 작성한 게시글
-  List<BoardEntity> findPostsByUserId(int userId);
+  Page<BoardEntity> findPostsByUserId(int userId, Pageable pageable);
 }

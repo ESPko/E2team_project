@@ -16,7 +16,10 @@
 
 package bitc.fullstack503.e2teamproject.repository;
 
+import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -50,7 +53,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
 
   //  내가 작성한 리뷰
   @Query("SELECT r FROM ReviewEntity r WHERE r.userReview.user_idx = :userId")
-  List<ReviewEntity> findReviewsByUserId(@Param("userId") int userId);
+  Page<ReviewEntity> findReviewsByUserId(@Param("userId") int userId, Pageable pageable);
 
 }
 

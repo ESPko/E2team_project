@@ -1,8 +1,11 @@
 package bitc.fullstack503.e2teamproject.service;
 
+import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +18,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 //  내가 작성한 댓글
   @Override
-  public List<ReplyEntity> findRepliesByUserId(int userId) {
-
-    return replyRepository.findRepliesByUserId(userId);
-
+  public Page<ReplyEntity> findRepliesByUserId(int userId, Pageable pageable) {
+    return replyRepository.findRepliesByUserId(userId, pageable);
   }
 
   //  댓글 보기
@@ -38,4 +39,6 @@ public class ReplyServiceImpl implements ReplyService {
   public void replyDelete(int replyIdx) {
     replyRepository.replyDelete(replyIdx);
   }
+
+
 }
