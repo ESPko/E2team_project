@@ -24,27 +24,27 @@
   </style>
 
   <script>
-      $(document).ready(function () {
-          var nav = parseInt($("#right-nav").css('top'));
+    $(document).ready(function () {
+      var nav = parseInt($("#right-nav").css('top'));
 
-          $(window).scroll(function () {
-              var scrollTop = $(window).scrollTop();
-              var nav_position = scrollTop + nav + "px";
+      $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop();
+        var nav_position = scrollTop + nav + "px";
 
-              $("#right-nav").stop().animate({
-                  "top": nav_position
-              }, 700);
-          }).scroll();
-      });
+        $("#right-nav").stop().animate({
+          "top": nav_position
+        }, 700);
+      }).scroll();
+    });
   </script>
   <script>
-      <!--지역 상세 페이지 정렬-->
-      $(document).ready(function () {
-          // 현재 주소에서 location, age, people 가져오기
-          const url = window.location.href;
-          console.log(url);
-          const regex = /\/place\/recommend\/([^/]+)\/(\d+)\/(\d+)/;
-          const match = url.match(regex);
+    <!--지역 상세 페이지 정렬-->
+    $(document).ready(function () {
+      // 현재 주소에서 location, age, people 가져오기
+      const url = window.location.href;
+      console.log(url);
+      const regex = /\/place\/recommend\/([^/]+)\/(\d+)\/(\d+)/;
+      const match = url.match(regex);
 
           const selectLocation = decodeURIComponent(match[1]);
           const selectAge = parseInt(match[2], 10);
@@ -61,7 +61,6 @@
 
 <!-- 메인 활동의 디테일 항목 -->
 <section class="container-fluid">
-
   <div class="container-lg" style="text-align: right">
     <div class="container d-flex row justify-content-between align-items-center mt-5">
       <div class="col-6 d-flex" style="height: 200px;" th:each="placeDetail : ${placeDetailList}">

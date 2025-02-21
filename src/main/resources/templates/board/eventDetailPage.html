@@ -26,19 +26,25 @@
             console.log("btn-delete 누름");
             let eventNumberDelete = $(".eventNumber").text();
             console.log(eventNumberDelete);
+            let eventUserIdx = $(".eventUserIdx").val();
+            console.log(eventUserIdx);
 
             $.ajax({
                 url: '/event/delete',
                 type: 'delete',
                 data: {
-                    "eventNumberDelete": eventNumberDelete
+                    "eventNumberDelete": eventNumberDelete, "eventUserIdx" : eventUserIdx
                 },
                 success: function () {
                     alert("이벤트 삭제 완료");
                     location.href="/event";
                 },
-                error: function () {
-                    alert("이벤트 삭제 중 오류");
+                error: function (xhr) {
+                    if (xhr.status === 403) {
+                        alert(xhr.responseText);
+                    } else {
+                        alert("인원 모집 삭제 중 오류");
+                    }
                 }
             });
         });
@@ -55,13 +61,14 @@
     <form id="frm" action="#" method="post">
       <input type="hidden" id="method" name="_method">
 
-      <div>
+      <div class="mb-5 fontTitle">
         <h4>이벤트</h4>
       </div>
 
       <div class="container d-flex justify-content-between align-items-center mt-4"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
         <div class="col-sm-8">
+          <input type="hidden" th:value="${event.user.user_idx}" class="eventUserIdx">
           <span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span>
           <span>제목 : <span th:text="${event.title}" class="eventTitle"></span></span>
         </div>

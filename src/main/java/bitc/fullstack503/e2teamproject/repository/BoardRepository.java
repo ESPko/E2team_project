@@ -20,8 +20,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Modifying
   @Transactional
   @Query(value = "insert into board (board_user_idx, title, contents, category)" +
-          "values (1, :noticeTitle, :noticeContents,'공지사항')", nativeQuery = true)
-  void queryWriteNotice(@Param("noticeTitle") String noticeTitle, @Param("noticeContents") String noticeContents);
+          "values (:userIdx, :noticeTitle, :noticeContents,'공지사항')", nativeQuery = true)
+  void queryWriteNotice(@Param("userIdx") int userIdx,
+                        @Param("noticeTitle") String noticeTitle,
+                        @Param("noticeContents") String noticeContents);
 
   //  공지사항 찾아서 읽어오기
   @Query("select b from BoardEntity as b where b.category = '공지사항' order by b.board_idx desc")
@@ -50,8 +52,9 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   @Modifying
   @Transactional
   @Query(value = "insert into board (board_user_idx, title, contents, category)" +
-          "values (1, :eventTitleCreate, :eventContentsCreate,'이벤트')", nativeQuery = true)
-  void queryWriteEvent(@Param("eventTitleCreate") String eventTitleCreate,
+          "values (:userIdx, :eventTitleCreate, :eventContentsCreate,'이벤트')", nativeQuery = true)
+  void queryWriteEvent(@Param("userIdx") int userIdx,
+                       @Param("eventTitleCreate") String eventTitleCreate,
                        @Param("eventContentsCreate") String eventContentsCreate);
 
   //  이벤트 찾아서 읽어오기
