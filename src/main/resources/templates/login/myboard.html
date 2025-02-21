@@ -63,6 +63,7 @@
 
 
                 <!-- 게시글 페이지네이션 -->
+                <th:block th:if="${posts.totalPages > 0}">
                 <nav>
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${posts.first} ? 'disabled'">
@@ -77,6 +78,7 @@
                         </li>
                     </ul>
                 </nav>
+                </th:block>
 
             </div>
         </div>
@@ -115,6 +117,7 @@
                 </ul>
 
                 <!-- 댓글 페이지네이션 -->
+                <th:block th:if="${posts.totalPages > 0}">
                 <nav>
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${comments.first} ? 'disabled'">
@@ -129,6 +132,7 @@
                         </li>
                     </ul>
                 </nav>
+                </th:block>
 
             </div>
         </div>
@@ -174,6 +178,7 @@
                 </ul>
 
                 <!-- 리뷰 페이지네이션 -->
+                <th:block th:if="${posts.totalPages > 0}">
                 <nav>
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${reviews.first} ? 'disabled'">
@@ -188,6 +193,7 @@
                         </li>
                     </ul>
                 </nav>
+                </th:block>
 
             </div>
         </div>
