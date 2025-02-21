@@ -1,6 +1,7 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
+import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.repository.PlaceRepository;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
   private final ReviewRepository reviewRepository;
+  private final PlaceRepository placeRepository;
   private final UserRepository userRepository;
   private final PlaceRepository placeRepository;
 
@@ -33,18 +35,17 @@ public class ReviewServiceImpl implements ReviewService {
 
   }
 
-//   리뷰 삭제 테스트
+  //   리뷰 삭제 테스트
   @Override
   @Transactional
   public void deleteReview(int reviewIdx) {
     reviewRepository.deleteById(reviewIdx);
   }
 
-// 내가 작성한 리뷰
+  // 내가 작성한 리뷰
   @Override
-  public List<ReviewEntity> findReviewsByUserId(int userId) {
-
-    return reviewRepository.findReviewsByUserId(userId);
+  public Page<ReviewEntity> findReviewsByUserId(int userId, Pageable pageable) {
+    return reviewRepository.findReviewsByUserId(userId, pageable);
   }
 
   //  리뷰 쓰기
@@ -72,7 +73,7 @@ public class ReviewServiceImpl implements ReviewService {
     reviewRepository.save(review);
   }
 
-  //  리뷰 보기(심지현)
+//  //  리뷰 보기(심지현)
   @Override
   public List<ReviewEntity> readReview(int reviewPlaceIdx) {
     return reviewRepository.queryFindPlaceReview(reviewPlaceIdx);

@@ -151,14 +151,13 @@ public void saveBoard(String title, String contents, String category, UserEntity
 
   board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
 
+
 }
 
   // 내가 작성한 게시글
   @Override
-  public List<BoardEntity> findPostsByUserId(int userId) {
-
-    return boardRepository.findByUserId(userId);
-
+  public Page<BoardEntity> findPostsByUserId(int userId, Pageable pageable) {
+    return boardRepository.findByUserId(userId, pageable);
   }
 }
 

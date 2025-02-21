@@ -1,6 +1,9 @@
 package bitc.fullstack503.e2teamproject.service;
 
+import bitc.fullstack503.e2teamproject.DTO.PlaceDTO;
+import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
+import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
