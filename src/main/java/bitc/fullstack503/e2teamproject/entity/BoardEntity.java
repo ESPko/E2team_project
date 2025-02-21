@@ -45,11 +45,6 @@ public class BoardEntity {
   @Column(name = "like_count")
   private int likeCount;
 
-  @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @ToString.Exclude
-  @Builder.Default
-  private List<BoardImageEntity> boardImageEntityList = new ArrayList<>();
-
   @OneToMany(mappedBy = "boardReply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @Builder.Default

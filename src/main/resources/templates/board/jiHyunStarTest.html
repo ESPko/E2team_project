@@ -61,7 +61,7 @@
   <script>
       $(document).ready(function () {
           const reviewPlaceIdx = $(".hiddenPlaceIdx").val();
-          console.log(reviewPlaceIdx);
+          console.log("placeIdx : " + reviewPlaceIdx);
 
           $(".reviewOk").on("click", function () {
               const review = $("#reviewBox").val();
@@ -78,12 +78,19 @@
               console.log(reviewStar);
 
               $.ajax({
-                  url: `/review/write/${reviewWrite}/${reviewStar}`,
+                  url: `/review/write/${reviewPlaceIdx}/${reviewWrite}/${reviewStar}`,
                   type: `get`,
-                  data: {"reviewWrite": reviewWrite, "reviewStar": reviewStar},
-                  dataType: `json`,
+                  data: {
+                      "reviewPlaceIdx": reviewPlaceIdx,
+                      "reviewWrite": reviewWrite,
+                      "reviewStar": reviewStar
+                  },
                   success: function () {
-                      console.log("review 작동");
+                      alert("리뷰 작성 완료");
+                      location.reload();
+                  },
+                  error: function () {
+                      console.log("리뷰 작성 실패");
                   }
               })
           });
@@ -98,9 +105,7 @@
 
                   data.forEach(review => {
                       let html = `<div class="reviewListContainer" style="width: 100%; height: 150px; border: 1px solid black; text-align: center;">`
-                      html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.reviewUserIdx}</span></span><br>`;
-                      html += `<span>reviewIdx: <span class="reviewIdx">${review.reviewIdx}</span></span><br>`;
-                      html += `<span>reviewPlaceIdx: <span class="reviewPlaceIdx">${review.reviewPlaceIdx}</span></span><br>`;
+                      // html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.userReview.id}</span></span><br>`;
                       html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
                       html += `<span>별점 : <span class="reviewStar">${review.star}</span></span><br>`;
                       html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;
@@ -132,7 +137,8 @@
 </head>
 <body>
 <h2 style="text-align: center">리뷰작성 폼</h2>
-<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center"  th:each="placeDetail : ${placeDetailList}">
+<div class="mainContainer" style="display: flex; gap: 10px; justify-content: center"
+     th:each="placeDetail : ${placeDetailList}">
   <div class="mainImage" th:each="placeImage : ${placeDetail.placeImageEntityList}">
     <img th:src="|/${placeImage.imagePath}${placeImage.imageName}|" alt="이미지" style="width: 200px;">
   </div>

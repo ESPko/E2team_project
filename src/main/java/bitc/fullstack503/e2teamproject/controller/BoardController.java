@@ -22,8 +22,6 @@ public class BoardController {
   private BoardService boardService;
 
   @Autowired
-  private BoardImageService boardImageService;
-  @Autowired
   private ReplyService replyService;
   @Autowired
   private ReviewService reviewService;

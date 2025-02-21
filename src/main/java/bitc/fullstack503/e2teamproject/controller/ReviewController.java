@@ -3,6 +3,7 @@ package bitc.fullstack503.e2teamproject.controller;
 import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,10 +40,15 @@ public class ReviewController {
 
   //  리뷰 쓰기
   @ResponseBody
-  @RequestMapping("/write/{reviewWrite}/{reviewStar}")
-  public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
-                          @PathVariable("reviewStar") double reviewStar) {
-    reviewService.reviewStar(reviewWrite, reviewStar);
+  @GetMapping("/write/{reviewPlaceIdx}/{reviewWrite}/{reviewStar}")
+  public void reviewWrite(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx,
+                          @PathVariable("reviewWrite") String reviewWrite,
+                          @PathVariable("reviewStar") double reviewStar,
+                          HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer reviewUserIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println("reviewUserIdx : " + reviewUserIdx);
+    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewWrite, reviewStar);
   }
 
   //  리뷰 보기
@@ -55,7 +61,7 @@ public class ReviewController {
             .collect(Collectors.toList());
   }
 
-//  리뷰 삭제
+  //  리뷰 삭제
   @ResponseBody
   @DeleteMapping("/delete/{reviewIdx}")
   public void deleteReview(@PathVariable("reviewIdx") int reviewIdx) {
@@ -63,7 +69,8 @@ public class ReviewController {
     System.out.println("리뷰 삭제");
     reviewService.deleteReview(reviewIdx);
   }
-//   리뷰 작성 test
+
+  //   리뷰 작성 test
   @PostMapping("/write")
   public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
                                             @RequestParam("comment") String comment,
@@ -85,6 +92,7 @@ public class ReviewController {
     mav.addObject("reviews", reviews);  // 모델 데이터 추가
     return mav;
   }
+
   //  리뷰 상세 테스트
 //  @GetMapping("/DetailReview")
 //  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {

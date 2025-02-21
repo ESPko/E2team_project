@@ -19,6 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
   private final ReviewRepository reviewRepository;
+  private final UserRepository userRepository;
+  private final PlaceRepository placeRepository;
 
 
   //  해당 게시물에서 작성한 리뷰 테스트
@@ -42,8 +44,8 @@ public class ReviewServiceImpl implements ReviewService {
 
   //  리뷰 쓰기
   @Override
-  public void reviewStar(String reviewComment, double reviewStar) {
-    reviewRepository.queryWriteReview(reviewComment, reviewStar);
+  public void reviewStar(int reviewPlaceIdx, int reviewUserIdx, String reviewComment, double reviewStar) {
+    reviewRepository.queryWriteReview(reviewPlaceIdx, reviewUserIdx, reviewComment, reviewStar);
   }
 
   @Transactional
