@@ -76,4 +76,8 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
 //          "ORDER BY COALESCE(AVG(r.star), 0) DESC")
 //  List<PlaceDTO> findTopPlacesByAverageStar(Pageable pageable);
 
+  //  해당 placeIdx 의 정보 전부 가져오기
+  @Query("select p from PlaceEntity p where p.placeIdx = :placeIdx")
+  List<PlaceEntity> queryFindPlace(@Param("placeIdx") int placeIdx);
+
 }

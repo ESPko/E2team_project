@@ -70,5 +70,11 @@ public class ReviewServiceImpl implements ReviewService {
     reviewRepository.save(review);
   }
 
+  //  리뷰 보기(심지현)
+  @Override
+  public List<ReviewEntity> readReview(int reviewPlaceIdx) {
+    return reviewRepository.queryFindPlaceReview(reviewPlaceIdx);
+  }
+
 }
 

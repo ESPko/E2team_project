@@ -1,19 +1,29 @@
 package bitc.fullstack503.e2teamproject.DTO;
 
+import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
+@AllArgsConstructor
 public class ReviewDTO {
   private int reviewIdx;
-  private String placeName; // 장소 이름
   private String comment;
   private double star;
+  private int reviewUserIdx;
+  private int reviewPlaceIdx;
 
-  public ReviewDTO(int reviewIdx, String placeName, String comment, double star) {
-    this.reviewIdx = reviewIdx;
-    this.placeName = placeName;
-    this.comment = comment;
-    this.star = star;
+  public static ReviewDTO fromEntity(ReviewEntity review) {
+    return new ReviewDTO(
+            review.getReviewIdx(),
+            review.getComment(),
+            review.getStar(),
+            review.getUserReview().getUser_idx(),
+            review.getPlaceReview().getPlaceIdx()
+    );
   }
 }
+
 

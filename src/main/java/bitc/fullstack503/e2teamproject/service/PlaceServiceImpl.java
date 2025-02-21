@@ -58,4 +58,10 @@ public List<PlaceDTO> findPlaceReviewLess(String selectLocation, int selectAge, 
 //
 //    return placeRepository.findTopPlacesByAverageStar(topThree);
 //  }
+
+  //  해당 placeIdx 의 정보 가져오기
+  @Override
+  public List<PlaceEntity> findPlaceDetail(int placeIdx){
+    return placeRepository.queryFindPlace(placeIdx);
+  }
 }

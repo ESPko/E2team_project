@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Controller
@@ -41,6 +42,16 @@ public class ReviewController {
   public void reviewWrite(@PathVariable("reviewWrite") String reviewWrite,
                           @PathVariable("reviewStar") double reviewStar){
     reviewService.reviewStar(reviewWrite, reviewStar);
+  }
+
+  //  리뷰 보기
+  @ResponseBody
+  @GetMapping("/read/{reviewPlaceIdx}")
+  public List<ReviewDTO> reviewRead(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx) {
+    List<ReviewEntity> readReview = reviewService.readReview(reviewPlaceIdx);
+    return readReview.stream()
+            .map(ReviewDTO::fromEntity)
+            .collect(Collectors.toList());
   }
 
 //   리뷰 작성 test

@@ -26,4 +26,7 @@ public interface PlaceService {
 
   //  상위 세개 추천 항목 나오게
 //  List<PlaceDTO> getAllPlaceSortByStar();
+
+  //  해당 placeIdx 의 정보 가져오기
+  List<PlaceEntity> findPlaceDetail(@RequestParam("placeIdx") int placeIdx);
 }

@@ -118,4 +118,14 @@ public class PlaceController {
 //    mav.addObject("placeStarList", placeStarList);
 //    return mav;
 //  }
+
+  //  해당 placeIdx 의 상세정보
+  @RequestMapping("/detail/{placeIdx}")
+  public ModelAndView placeDetail(@PathVariable("placeIdx") int placeIdx) {
+    ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
+    List<PlaceEntity> findPlaceDetail = placeService.findPlaceDetail(placeIdx);
+    System.out.println(findPlaceDetail);
+    mav.addObject("placeDetailList", findPlaceDetail);
+    return mav;
+  }
 }
