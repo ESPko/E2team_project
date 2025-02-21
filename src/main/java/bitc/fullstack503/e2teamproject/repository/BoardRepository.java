@@ -111,6 +111,4 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   //  내가 작성한 게시물
   @Query("SELECT b FROM BoardEntity b WHERE b.user.user_idx = :userId")
   List<BoardEntity> findByUserId(@Param("userId") int userId);
-
-
 }
