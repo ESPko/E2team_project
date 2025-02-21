@@ -1,7 +1,9 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
+import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import bitc.fullstack503.e2teamproject.service.PlaceService;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
+    @Autowired
+    private PlaceService placeService;
 
   @RequestMapping("/")
   public ModelAndView jiHyunStarTest(){
@@ -55,19 +59,19 @@ public class ReviewController {
   }
 
 //   리뷰 작성 test
-  @PostMapping("/write")
-  @ResponseBody
-  public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
-                                            @RequestParam("comment") String comment,
-                                            @RequestParam("star") double star,
-                                            HttpSession session) {
-    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
-    if (userId == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-    }
-    reviewService.saveReview(placeIdx, userId, comment, star);
-    return ResponseEntity.ok("리뷰 작성 완료");
-  }
+//  @PostMapping("/write")
+//  @ResponseBody
+//  public ResponseEntity<String> writeReview(@RequestParam("placeIdx") int placeIdx,
+//                                            @RequestParam("comment") String comment,
+//                                            @RequestParam("star") double star,
+//                                            HttpSession session) {
+//    Integer userId = (Integer) session.getAttribute("userIdx"); // 로그인한 사용자 ID 가져오기
+//    if (userId == null) {
+//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+//    }
+//    reviewService.saveReview(placeIdx, userId, comment, star);
+//    return ResponseEntity.ok("리뷰 작성 완료");
+//  }
 
 //  @PostMapping("/write")
 //  @ResponseBody
@@ -85,8 +89,13 @@ public class ReviewController {
   @GetMapping("/DetailReview")
   public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+
+
+    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
+
     ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
-    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+    mav.addObject("reviews", reviews);
+    mav.addObject("places", places); // 모델 데이터 추가
     return mav;
   }
 }

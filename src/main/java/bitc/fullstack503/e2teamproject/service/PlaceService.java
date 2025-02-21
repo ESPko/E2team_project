@@ -29,4 +29,5 @@ public interface PlaceService {
 
   //  해당 placeIdx 의 정보 가져오기
   List<PlaceEntity> findPlaceDetail(@RequestParam("placeIdx") int placeIdx);
+
 }

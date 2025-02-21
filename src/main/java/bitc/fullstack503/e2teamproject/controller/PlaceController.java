@@ -129,4 +129,7 @@ public class PlaceController {
     mav.addObject("placeDetailList", findPlaceDetail);
     return mav;
   }
+
+
+
 }

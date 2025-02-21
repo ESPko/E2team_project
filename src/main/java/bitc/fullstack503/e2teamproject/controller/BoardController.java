@@ -48,18 +48,16 @@ public class BoardController {
 
     HttpSession session = request.getSession();
     String userId = (String) session.getAttribute("userId");
-    String userPw = (String) session.getAttribute("userPw");
-    String userEmail = (String) session.getAttribute("userEmail");
-
 
     ModelAndView mav = new ModelAndView("/login/profilePage");
 
-    if (userId != null) {
-      UserEntity user = userService.getUserInfo(userId);
-      mav.addObject("user", user);
-      mav.addObject("userEmail", userEmail);
+    if (userId == null) {
+      mav.setViewName("redirect:/user/?errMsg=로그인이 필요합니다.");
+      return mav;
     }
 
+    UserEntity user = userService.getUserInfo(userId);
+    mav.addObject("user", user);
     return mav;
   }
 
