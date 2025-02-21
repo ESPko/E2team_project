@@ -14,62 +14,62 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <style>
-    .star {
-      position: relative;
-      font-size: 50px;
-      color: #ddd;
-    }
+      .star {
+          position: relative;
+          font-size: 50px;
+          color: #ddd;
+      }
 
-    .star input {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      opacity: 0;
-    }
+      .star input {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          opacity: 0;
+      }
 
-    .star span {
-      width: 0;
-      position: absolute;
-      left: 0;
-      color: gold;
-      overflow: hidden;
-      pointer-events: none;
-    }
+      .star span {
+          width: 0;
+          position: absolute;
+          left: 0;
+          color: gold;
+          overflow: hidden;
+          pointer-events: none;
+      }
 
-    .star_box {
-      width: 400px;
-      box-sizing: border-box;
-      display: inline-block;
-      margin: 15px 0;
-      background: #F3F4F8;
-      border: 0;
-      border-radius: 10px;
-      height: 100px;
-      resize: none;
-      padding: 15px;
-      font-size: 13px;
-      font-family: sans-serif;
-    }
+      .star_box {
+          width: 400px;
+          box-sizing: border-box;
+          display: inline-block;
+          margin: 15px 0;
+          background: #F3F4F8;
+          border: 0;
+          border-radius: 10px;
+          height: 100px;
+          resize: none;
+          padding: 15px;
+          font-size: 13px;
+          font-family: sans-serif;
+      }
 
-    .btn02 {
-      display: block;
-      width: 400px;
-      font-weight: bold;
-      border: 0;
-      border-radius: 10px;
-      max-height: 50px;
-      padding: 15px 0;
-      font-size: 1.1em;
-      text-align: center;
-      background: bisque;
-    }
+      .btn02 {
+          display: block;
+          width: 400px;
+          font-weight: bold;
+          border: 0;
+          border-radius: 10px;
+          max-height: 50px;
+          padding: 15px 0;
+          font-size: 1.1em;
+          text-align: center;
+          background: bisque;
+      }
 
-    .reviewStar{
-      color: gold;
-      text-shadow: 1px 1px black;
-      /*-webkit-text-stroke: 1px black;*/
-    }
+      .reviewStar {
+          color: gold;
+          text-shadow: 1px 1px black;
+          /*-webkit-text-stroke: 1px black;*/
+      }
   </style>
   <script>
       $(document).ready(function () {
@@ -129,13 +129,13 @@
                       if (halfStar) starsHtml += `<i class="fa-solid fa-star-half-stroke reviewStar"></i>`; // 반쪽 별
                       for (let i = 0; i < emptyStars; i++) starsHtml += `<i class="fa-regular fa-star reviewStar"></i>`; // 빈 별
 
-                      let html = `<div class="reviewListContainer row py-3" style="width: 100%; height: 150px;  text-align: center;">`
+                      let html = `<div class="reviewListContainer row py-3">`
                       html += `<input type="hidden" class="reviewIdx" value="${review.reviewIdx}"></input>`
                       html += `<input type="hidden" class="reviewUserIdx" value=${review.reviewUserIdx}></input>`
-                      html += `<span><i class="fa-regular fa-user"></i>작성자 : <span class="reviewUserId">${review.reviewUserId}</span></span><br>`;
-                      html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
-                      html += `<span>별점 : <span>${starsHtml}</span></span><br>`;
-                      html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;
+                      html += `<span><i class="fa-regular fa-user"></i> <span class="reviewUserId">${review.reviewUserId}</span> `;
+                      html += ` <span>${starsHtml}</span></span><br>`;
+                      html += `<span><span class="reviewComment" style="word-wrap: break-word">${review.comment}</span></span><br>`;
+                      html += `<div><button type="button" class="reviewDeleteButton btn btn-outline-danger btn-sm float-end">삭제</button><br></div>`;
                       html += `</div>`
 
                       reviewShowContainer.append(html);
@@ -176,69 +176,87 @@
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
-<!-- 상세보기의 메인 사진,글 -->
+<!-- 메인 사진 -->
 <section class="container mt-5">
   <div th:each="placeDetail : ${placeDetailList}">
     <div class="row justify-content-center">
-      <div class="mainImage" th:each="placeImage : ${placeDetail.placeImageEntityList}">
-        <img th:src="|/${placeImage.imagePath}${placeImage.imageName}|" alt="이미지" style="width: 200px;">
+      <div class="container">
+        <h3 class="mt-3" style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</h3>
       </div>
-      <!--      <div class="col-6">-->
-      <!--        <img src="/img/luge1.jpg" alt=".." class="rounded-start-3" style="width: 650px; height: 510px;">-->
-      <!--      </div>-->
-      <!--      <div class="col-6 row row-cols-2">-->
-      <!--        <div><img src="/img/luge1.jpg" alt="" style="width: 310px; height: 252px;"></div>-->
-      <!--        <div><img src="/img/luge2.jpg" alt="" class="rounded-end-3" style="width: 310px; height: 252px;"></div>-->
-      <!--        <div><img src="/img/skyRide.jpg" alt="" style="width: 310px; height: 252px;"></div>-->
-      <!--        <div><img src="/img/climbing.jpg" alt="" class="rounded-end-3" style="width: 310px; height: 252px;"></div>-->
-      <!--      </div>-->
-    </div>
-    <div class="container">
-      <h3 class="mt-3" style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</h3>
-      <p th:text="${placeDetail.introduce}">업체 설명</p>
+
+      <div class="mt-3 row justify-content-between">
+        <div class="mainImage col-5" th:each="placeImage : ${placeDetail.placeImageEntityList}">
+          <img class="rounded" th:src="|/${placeImage.imagePath}${placeImage.imageName}|" alt="이미지"
+               style="width: 400px; height: 200px;">
+        </div>
+        <div class="col-7">
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-3 border-end"><i class="fa-solid fa-house"></i> 주소</div>
+            <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">
+            <div class="col-auto" th:text="${placeDetail.address}">부산광역시</div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-3 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>
+            <div class="col-auto">방탈출</div>
+          </div>
+          <div class="row row-cols-3" style="margin-bottom: 15px;">
+            <div class="col-3 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>
+            <div class="col-auto" th:text="|개점 : ${placeDetail.openTime}|">개점 : </div>
+          </div>
+          <div class="row row-cols-3" style="margin-bottom: 20px;">
+            <div class="col-3 border-end"></div>
+            <div class="col-auto" th:text="|폐점 : ${placeDetail.closeTime}|">폐점 : </div>
+          </div>
+          <div class="row row-cols-2" style="margin-bottom: 15px;">
+            <div class="col-3 border-end"><i class="fa-solid fa-phone"></i> 연락처</div>
+            <div class="col-auto" th:text="${placeDetail.phone}">00000000</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- 상세 설명 -->
-<section class="container mt-5" th:each="placeDetail : ${placeDetailList}">
-  <div style="margin-left: 15px;">
-    <div class="row py-3 border-top border-bottom">
-      <div class="col-2 border-end">
-        <i class="fa-solid fa-house"></i>
-        주소
-      </div>
-      <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">
-      <div class="col-10" th:text="${placeDetail.address}">부산광역시</div>
-    </div>
-    <div class="row py-3 border-bottom">
-      <div class="col-2 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>
-      <div class="col-2 border-end" th:text="|개점 : ${placeDetail.openTime}|">10:00</div>
-      <div class="col-2 border-end" th:text="|폐점 : ${placeDetail.closeTime}|">10:00</div>
-      <div class="col-2 border-end"><i class="fa-solid fa-phone"></i> 연락처</div>
-      <div class="col-4 " th:text="${placeDetail.phone}">00000-0000</div>
-    </div>
-  </div>
-</section>
+
+<!--&lt;!&ndash; 상세 설명 &ndash;&gt;-->
+<!--<section class="container mt-5" th:each="placeDetail : ${placeDetailList}">-->
+<!--  <div style="margin-left: 15px;">-->
+
+<!--    <div class="row py-3 border-top border-bottom">-->
+<!--      <div class="col-2 border-end"><i class="fa-solid fa-house"></i>주소</div>-->
+<!--      <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">-->
+<!--      <div class="col-4 border-end" th:text="${placeDetail.address}">부산광역시</div>-->
+<!--      <div class="col-2 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>-->
+<!--      <div class="col-2">방탈출</div>-->
+<!--    </div>-->
+
+<!--    <div class="row py-3 border-bottom">-->
+<!--      <div class="col-2 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>-->
+<!--      <div class="col-2 border-end" th:text="|개점 : ${placeDetail.openTime}|">10:00</div>-->
+<!--      <div class="col-2 border-end" th:text="|폐점 : ${placeDetail.closeTime}|">10:00</div>-->
+<!--      <div class="col-2 border-end"><i class="fa-solid fa-phone"></i> 연락처</div>-->
+<!--      <div class="col-4 " th:text="${placeDetail.phone}">00000-0000</div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
 
 <!-- 리뷰 부분 -->
 <section class="container mt-5">
-  <div>
+  <div style="margin-top: 150px;">
     <div class="row justify-content-between align-items-end border-bottom py-2">
       <div class="col-auto"><h5>리뷰 & 평가</h5></div>
-
     </div>
 
     <!--리뷰 내용 보기-->
-    <div class="reviewShowContainer"
-         style="display: flex; flex-direction:column; width: 100%; justify-content: center; align-content: center; align-items: center">
+    <div class="reviewShowContainer">
     </div>
 
     <!--리뷰 쓰기-->
     <form>
       <input type="hidden" id="rating" name="rating">
       <div class="row">
-        <div class="reviewWriteContainer" style="display: flex; justify-content: center; flex-direction:column;">
+        <div class="reviewWriteContainer">
           <form action="#" class="reviewForm" id="reviewWrite">
             <!--별 5개. 0 에서 10 까지의 값을 하나씩 출력할 수 있음. range 변형-->
             <div class="star_rating" style="text-align: center">
@@ -250,7 +268,7 @@
             <div class="row mt-3">
               <textarea class="rounded-2" id="reviewBox" placeholder="리뷰 내용을 작성해주세요."></textarea>
               <div class="text-end py-3">
-                <input type="button" class="btn btn-primary reviewSubmit" value="등록">
+                <input type="button" class="btn btn-outline-dark reviewSubmit" value="등록">
               </div>
             </div>
           </form>
@@ -266,45 +284,13 @@
   </div>
 </section>
 
-<!-- 메인의 추천 활동 top3-->
-<!--<section class="container-fluid" style="margin-top: 100px;">-->
-<!--  <div class="container-sm" style="padding-left: 10%; margin-bottom: 40px;"><h4>추천활동 TOP3</h4></div>-->
-<!--  <div class="container-lg d-flex justify-content-center">-->
-<!--    <div style="margin-right: 100px;">-->
-<!--      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>-->
-<!--      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
-<!--        <p style="margin-bottom: 0;">-->
-<!--          <a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
-<!--              style="margin-bottom: 0;">22:30 영업 종료</p>-->
-<!--            <p>부산 진구 부전동</p>-->
-<!--          </a>-->
-<!--        </p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div style="margin-right: 100px;">-->
-<!--      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>-->
-<!--      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
-<!--        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
-<!--            style="margin-bottom: 0;">22:30 영업 종료</p>-->
-<!--          <p>부산 진구 부전동</p></a></p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div style="margin-right: 100px;">-->
-<!--      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>-->
-<!--      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
-<!--        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
-<!--            style="margin-bottom: 0;">22:30 영업 종료</p>-->
-<!--          <p>부산 진구 부전동</p></a></p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
 
 <nav class="navbar" id="right-nav">
   <div class="rounded" style="width: 170px; padding: 10px; margin-left: 20px;">
     <div class="text-center mt-3">
       <button type="button" class="border-0 btn btn-danger">
-        <a href="/templates/board/crewPage.html" class="font-weight-bold text-light text-decoration-none">파티 구함<i class="fa-solid fa-fire"></i></a>
+        <a href="/templates/board/crewPage.html" class="font-weight-bold text-light text-decoration-none">파티 구함<i
+            class="fa-solid fa-fire"></i></a>
       </button>
     </div>
     <div class="mt-3">
@@ -312,7 +298,7 @@
       <div>
         <div>
           <img src="/img/climbing.jpg" alt="climbing-img"
-                  style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
+               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
         <div>
           <a href="#" style="text-decoration: none;">
             <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
