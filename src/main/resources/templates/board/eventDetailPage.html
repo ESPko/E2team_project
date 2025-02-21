@@ -65,19 +65,23 @@
         <h4>이벤트</h4>
       </div>
 
+
+
       <div class="container d-flex justify-content-between align-items-center mt-4"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
-        <div class="col-sm-8">
-          <input type="hidden" th:value="${event.user.user_idx}" class="eventUserIdx">
-          <span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span>
-          <span>제목 : <span th:text="${event.title}" class="eventTitle"></span></span>
-        </div>
-        <div class="col-sm-4" th:value="${event.createDate}" th:text="|작성일 : ${event.createDate}|">작성일</div>
+
+        <div class="col-sm-2 textFont"><span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span></div>
+        <div class="col-sm-6 textFont"><span>제목 : <span th:text="${event.title}" class="eventTitle textFont"></span></span></div>
+        <input type="hidden" th:value="${event.user.user_idx}" class="eventUserIdx ">
+        <div class="col-sm-4 textFont" th:value="${event.createDate}" th:text="|작성일 : ${event.createDate}|">작성일</div>
       </div>
 
 
+
+
+
       <div class=" mt-3 form-floating">
-        <textarea class="form-control" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
+        <textarea class="form-control textFont" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
                   th:value="${event.contents}" th:text="${event.contents}">
         </textarea>
         <label for="contents">글 내용</label>

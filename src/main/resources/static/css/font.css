@@ -133,3 +133,15 @@
 }
 
 
+@font-face {
+    font-family: 'KOTRA_GOTHIC';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.textFont{
+    font-family: 'KOTRA_GOTHIC';
+    font-style: normal;
+    font-weight: normal;
+}

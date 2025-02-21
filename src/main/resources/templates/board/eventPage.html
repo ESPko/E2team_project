@@ -36,14 +36,13 @@
       <button type="button" class="btn btn-secondary btn-sm col-1" style="margin-right: 30px;">작성</button>
 
     </div>
-    <div>
+
+
       <ul style="list-style: none; padding-left: 0">
         <li>
-          <div class="container row d-flex justify-content-between border-bottom"
-               style="padding:20px 0;">
+          <div class="container row d-flex justify-content-between border-bottom mt-3">
             <div class="col-1 align-items-center fw-bold">번호</div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
-              <a href="#" class="text-dark" style="text-decoration: none;">제목</a>
+            <div class="col-8 align-items-center" style="font-weight: bold;"><p>제목</p>
             </div>
             <div class="col-3 fw-bold" style="text-align: right;"><p>작성일</p></div>
           </div>
@@ -52,12 +51,12 @@
         <li>
           <div class="container row d-flex justify-content-between" style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="findEvent : ${findEventList}">
             <div class="col-1 align-items-center" th:value="${findEvent.board_idx}" th:text="${findEvent.board_idx}">번호</div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
+            <div class="col-8 align-items-center">
               <a href="#" th:href="@{/event/{id}(id=${findEvent.board_idx})}"
                  th:value="${findEvent.title}" th:text="${findEvent.title}"
-                 class="text-dark" style="text-decoration: none;">제목</a>
+                 class="text-dark textFont" style="text-decoration: none;">제목</a>
             </div>
-            <div class="col-3" th:value="${findEvent.createDate}" th:text="${findEvent.createDate}" style="text-align: right;">작성일</div>
+            <div class="col-3 textFont" th:value="${findEvent.createDate}" th:text="${findEvent.createDate}" style="text-align: right;">작성일</div>
           </div>
         </li>
       </ul>

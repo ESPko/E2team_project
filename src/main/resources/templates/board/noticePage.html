@@ -52,11 +52,11 @@
                  th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">번호
             </div>
             <div class="col-8 align-items-center">
-              <a href="#" class="text-dark" style="text-decoration: none;"
+              <a href="#" class="text-dark textFont" style="text-decoration: none;"
                  th:value="${findNotice.title}" th:text="${findNotice.title}"
                  th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
             </div>
-            <div class="col-3 " style="text-align: right;"
+            <div class="col-3 textFont " style="text-align: right;"
                  th:value="${findNotice.createDate}" th:text="${findNotice.createDate}">작성일
             </div>
           </div>

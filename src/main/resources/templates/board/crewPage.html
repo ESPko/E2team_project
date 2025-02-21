@@ -25,14 +25,14 @@
 
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
-<section class="container-fluid" style="margin-top: 100px;">
-  <div class=" container" style="width: 800px;">
-    <div class="container row justify-content-between align-items-center">
-      <div class="col-10">
+<section class="container mt-5">
+  <div class="container" style="width: 800px; padding-top: 10px; margin-top: 30px;">
+    <div class="container row justify-content-between align-items-end">
+      <div class="col-auto">
         <h4 class=" fontTitle">인원모집</h4>
         <p class="bdFont1">함께할 팀원을 모집합니다.</p>
       </div>
-      <button type="button" class="btn btn-secondary btn-sm col-1" style="margin-right: 30px;">작성</button>
+      <button type="button" class="btn btn-secondary btn-sm col-1" id="crewWriteButton">작성</button>
     </div>
 
     <div>
@@ -59,13 +59,13 @@
                  th:value="${findCrew.board_idx}" th:text="${findCrew.board_idx}">1
             </div>
             <div class="col-4 align-items-center">
-              <a href="#" class="text-dark text-decoration-none" style="word-wrap: break-word;"
+              <a href="#" class="text-dark text-decoration-none textFont" style="word-wrap: break-word;"
                  th:value="${findCrew.title}" th:text="${findCrew.title}"
                  th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
             </div>
-            <div class="col-2 text-center" style="word-wrap: break-word;" th:value="${findCrew.user.id}" th:text="${findCrew.user.id}">작성자1
+            <div class="col-2 text-center textFont" style="word-wrap: break-word;" th:value="${findCrew.user.id}" th:text="${findCrew.user.id}">작성자1
             </div>
-            <div class="col-3" style="text-align: right;"
+            <div class="col-3 textFont" style="text-align: right;"
                  th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02
             </div>
             <div class="col-1 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</div>
