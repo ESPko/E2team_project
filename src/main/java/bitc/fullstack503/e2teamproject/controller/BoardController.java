@@ -141,8 +141,20 @@ public class BoardController {
   //  공지 삭제하기
   @ResponseBody
   @DeleteMapping("/notice/delete")
-  public void deleteNotice(@RequestParam("noticeNumberDelete") int noticeNumberDelete) {
-    boardService.deleteNotice(noticeNumberDelete);
+  public ResponseEntity<String> deleteNotice(@RequestParam("noticeUserIdx") int noticeUserIdx,
+                                             @RequestParam("noticeNumberDelete") int noticeNumberDelete,
+                                             HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println("sessionUserIdx : " + sessionUserIdx);
+    System.out.println("noticeUserIdx : " + noticeUserIdx);
+
+    if (!sessionUserIdx.equals(noticeUserIdx)) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 외에 공지는 삭제할 수 업습니다");
+    } else {
+      boardService.deleteEvent(noticeNumberDelete);
+      return ResponseEntity.ok("삭제 완료");
+    }
   }
 
   //  이벤트 보기
@@ -200,13 +212,20 @@ public class BoardController {
   //  이벤트 삭제하기
   @ResponseBody
   @DeleteMapping("/event/delete")
-  public void deleteEvent(@RequestParam("eventNumberDelete") int eventNumberDelete,
-                          HttpServletRequest request) {
+  public ResponseEntity<String> deleteEvent(@RequestParam("eventUserIdx") int eventUserIdx,
+                                            @RequestParam("eventNumberDelete") int eventNumberDelete,
+                                            HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer userIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println(userIdx);
+    System.out.println("userIdx : " + userIdx);
+    System.out.println("eventUserIdx : " + eventUserIdx);
 
-    boardService.deleteEvent(eventNumberDelete);
+    if (!userIdx.equals(eventUserIdx)) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 외에 이벤트는 삭제할 수 업습니다");
+    } else {
+      boardService.deleteEvent(eventNumberDelete);
+      return ResponseEntity.ok("삭제 완료");
+    }
   }
 
   //  인원 모집 보기
