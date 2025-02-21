@@ -26,8 +26,8 @@ public class BoardServiceImpl implements BoardService {
 
   //  공지 쓰기
   @Override
-  public void writeNotice(String noticeTitle, String noticeContents) {
-    boardRepository.queryWriteNotice(noticeTitle, noticeContents);
+  public void writeNotice(int userIdx, String noticeTitle, String noticeContents) {
+    boardRepository.queryWriteNotice(userIdx, noticeTitle, noticeContents);
   }
 
   //  공지 읽기
@@ -90,8 +90,8 @@ public class BoardServiceImpl implements BoardService {
 
   //  이벤트 쓰기
   @Override
-  public void writeEvent(String eventTitleCreate, String eventContentsCreate) {
-    boardRepository.queryWriteEvent(eventTitleCreate, eventContentsCreate);
+  public void writeEvent(int userIdx, String eventTitleCreate, String eventContentsCreate) {
+    boardRepository.queryWriteEvent(userIdx, eventTitleCreate, eventContentsCreate);
   }
 
   //  이벤트 수정하기
@@ -150,7 +150,6 @@ public void saveBoard(String title, String contents, String category, UserEntity
           .build();
 
   board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
-
 
 }
 

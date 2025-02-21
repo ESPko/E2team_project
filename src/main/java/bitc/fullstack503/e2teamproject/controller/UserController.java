@@ -67,6 +67,10 @@ public class UserController {
       session.setAttribute("userLevel", user.getLevel());
       session.setMaxInactiveInterval(60 * 60);
 
+//      세션 잘 들어오는지 확인용
+      System.out.println("userIdx : " + session.getAttribute("userIdx"));
+      System.out.println("userId : " + session.getAttribute("userId"));
+
       //  체크박스가 체크된 경우에만 쿠키를 설정
       if ("on".equals(rememberMe)) {
         Cookie cookie = new Cookie("userId", userId);
@@ -90,7 +94,7 @@ public class UserController {
   }
 
 
-//   로그아웃
+  //   로그아웃
   @RequestMapping("/logout")
   public String logout(HttpServletRequest request, HttpServletResponse response) {
     HttpSession session = request.getSession();
@@ -136,7 +140,7 @@ public class UserController {
     return response;
   }
 
-// 아이디 중복 체크
+  // 아이디 중복 체크
   @GetMapping("/checkDuplicate")
   @ResponseBody
   public Map<String, String> checkDuplicate(@RequestParam("userId") String userId) {
@@ -146,14 +150,14 @@ public class UserController {
     return response;
   }
 
-//  관리자 페이지
+  //  관리자 페이지
   @RequestMapping("/manager")
   public ModelAndView managerPage() {
     ModelAndView mav = new ModelAndView("/manage/managerPage");
     return mav;
   }
 
-//  관리자 페이지 - 회원관리
+  //  관리자 페이지 - 회원관리
   @RequestMapping("/member")
   public ModelAndView member() {
     ModelAndView mav = new ModelAndView("/manage/memberManage");
@@ -162,7 +166,7 @@ public class UserController {
     return mav;
   }
 
-//  아이디 삭제
+  //  아이디 삭제
   @DeleteMapping("/delete/{id}")
   @ResponseBody
   public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {

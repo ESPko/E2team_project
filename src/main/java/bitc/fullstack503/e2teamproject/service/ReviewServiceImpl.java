@@ -49,8 +49,8 @@ public class ReviewServiceImpl implements ReviewService {
 
   //  리뷰 쓰기
   @Override
-  public void reviewStar(int reviewPlaceIdx, int reviewUserIdx, String reviewComment, double reviewStar) {
-    reviewRepository.queryWriteReview(reviewPlaceIdx, reviewUserIdx, reviewComment, reviewStar);
+  public void reviewStar(int reviewPlaceIdx, int reviewUserIdx, String reviewUserId, String reviewComment, double reviewStar) {
+    reviewRepository.queryWriteReview(reviewPlaceIdx, reviewUserIdx, reviewUserId, reviewComment, reviewStar);
   }
 
   @Transactional
