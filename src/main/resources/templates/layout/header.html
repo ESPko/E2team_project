@@ -19,24 +19,24 @@
 
 </head>
 <body>
-<header class="header container-sm" th:fragment="projectheader">
-  <div class="row justify-content-between">
-    <div class="col-2 justify-content-center">
-      <a href="#" th:href="@{/}"><img src="/img/mix/logo.png" alt="title_logo" style="height: 105px"></a>
+<header class="header container-fluid" th:fragment="projectheader">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-auto">
+      <a href="#" th:href="@{/}"><img src="/img/mix/logo.png" alt="title_logo" style="height: 150px"></a>
     </div>
-    <div class="col mt-5 text-center headerFont" style="margin-top: 60px;">
+    <div class="col mt-5 text-center headerFont" >
       <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-center">
         <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
         <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/event}">이벤트</a></li>
         <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
       </ul>
     </div>
-    <div class="col-4 d-flex align-items-center justify-content-end headerFont gap-2">
+    <div class="col-4 d-flex align-items-center justify-content-end gap-2 headerFont">
       <div class="col-auto">
         <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;" th:if="${session.userLevel == 1}">관리자</button>
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My PAGE</button>
+        <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">마이페이지</button>
       </div>
       <div class="col-auto d-flex align-items-center gap-2">
         <span th:unless="${session.userId == null}" th:text="|${session.userName} 님 환영합니다.|"></span>
@@ -46,17 +46,7 @@
         <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark" th:unless="${session.userId == null}">
           로그아웃
         </button>
-    <div class="col-auto d-flex align-items-center headerFont1" style="margin-right: 100px;">
-     <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button>
-      <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My Page</button>
 
-      <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
-        <a th:href="@{/user/}" class="text-decoration-none text-dark" >로그인 / 회원가입</a>
-      </button>
-      <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark"
-              th:unless="${session.userId == null}">
-        로그아웃
-      </button>
       </div>
     </div>
   </div>
