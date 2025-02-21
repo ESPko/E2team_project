@@ -173,9 +173,7 @@
   <div>
     <div class="row justify-content-between align-items-end border-bottom py-2">
       <div class="col-auto"><h5>리뷰 & 평가</h5></div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-outline-secondary">평가하기</button>
-      </div>
+
     </div>
     <div th:each="review : ${reviews}">
       <div class="row py-3">
@@ -208,46 +206,13 @@
       <div class="row mt-3">
         <textarea class="rounded-2" placeholder="리뷰 내용을 작성해주세요."></textarea>
         <div class="text-end py-3">
-          <input type="submit" class="btn btn-primary" value="등록">
+          <input type="submit" class="btn btn-outline-dark" value="등록">
         </div>
       </div>
     </form>
   </div>
 </section>
 
-<!-- 메인의 추천 활동 top3-->
-<section class="container-fluid" style="margin-top: 100px;">
-  <div class="container-sm" style="padding-left: 10%; margin-bottom: 40px;"><h4>추천활동 TOP3</h4></div>
-  <div class="container-lg d-flex justify-content-center">
-    <div style="margin-right: 100px;">
-      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;">
-          <a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-              style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p>
-          </a>
-        </p>
-      </div>
-    </div>
-    <div style="margin-right: 100px;">
-      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-            style="margin-bottom: 0;">22:30 영업 종료</p>
-          <p>부산 진구 부전동</p></a></p>
-      </div>
-    </div>
-    <div style="margin-right: 100px;">
-      <div><img src="/img/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-            style="margin-bottom: 0;">22:30 영업 종료</p>
-          <p>부산 진구 부전동</p></a></p>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <nav class="navbar" id="right-nav">
