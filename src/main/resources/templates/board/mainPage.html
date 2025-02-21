@@ -99,6 +99,10 @@
               console.log(selectPeople);
               location.href = `/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`;
           });
+
+          $(".ballingImage").on("click",function(){
+              console.log("누름");
+          });
       });
   </script>
 
@@ -171,12 +175,12 @@
         <!--        <div class="container mt-3 mb-5">-->
         <!--          <h2 class="fontTitle">부산진구</h2>-->
         <!--        </div>-->
-        <a href="#">
+        <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
             <div class="card-body p-0" th:each="findBallingImage : ${findBalling.placeImageEntityList}">
               <!--              <img src="/img/recommand/bowling_card.jpg" class="card-img-top h-100 w-100" alt="..."-->
               <!--                   th:href="@{/detail}">-->
-              <img th:src="|/${findBallingImage.imagePath}${findBallingImage.imageName}|" alt="볼링 이미지">
+              <img th:src="|/${findBallingImage.imagePath}${findBallingImage.imageName}|" alt="볼링 이미지" class="ballingImage">
               <p class="card-text">Click !</p>
             </div>
           </div>
@@ -203,9 +207,9 @@
         <!--          <h2 class="fontTitle">해운대구</h2>-->
         <!--        </div>-->
 
-        <a href="#">
+        <a th:href="|/place/detail/${findClimbing.placeIdx}|">
           <div class="card card-container" th:each="findClimbingImage : ${findClimbing.placeImageEntityList}">
-<!--            <img src="/img/recommand/climb_card.jpg" class="card-img-top h-100 w-100" alt="...">-->
+            <!--            <img src="/img/recommand/climb_card.jpg" class="card-img-top h-100 w-100" alt="...">-->
             <img th:src="|/${findClimbingImage.imagePath}${findClimbingImage.imageName}|" alt="볼링 이미지">
             <div class="card-body p-0">
               <p class="card-text">Click !</p>
@@ -235,9 +239,9 @@
         <!--          <h2 class="fontTitle">기타지역</h2>-->
         <!--        </div>-->
 
-        <a href="#">
+        <a th:href="|/place/detail/${findCart.placeIdx}|">
           <div class="card card-container" th:each="findCartImage : ${findCart.placeImageEntityList}">
-<!--            <img src="/img/recommand/cart_card.JPG" class="card-img-top h-100 w-100" alt="...">-->
+            <!--            <img src="/img/recommand/cart_card.JPG" class="card-img-top h-100 w-100" alt="...">-->
             <img th:src="|/${findCartImage.imagePath}${findCartImage.imageName}|" alt="이미지이미지">
             <div class="card-body p-0">
               <p class="card-text">Click !</p>
