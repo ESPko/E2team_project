@@ -47,7 +47,7 @@ public class ReviewController {
                           HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer reviewUserIdx = (Integer) session.getAttribute("userIdx");
-    String reviewUserId = (String)session.getAttribute("userId");
+    String reviewUserId = (String) session.getAttribute("userId");
     reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewUserId, reviewWrite, reviewStar);
   }
 
@@ -64,10 +64,23 @@ public class ReviewController {
   //  리뷰 삭제
   @ResponseBody
   @DeleteMapping("/delete/{reviewIdx}")
-  public void deleteReview(@PathVariable("reviewIdx") int reviewIdx) {
-    System.out.println("reviewIdx : " + reviewIdx);
-    System.out.println("리뷰 삭제");
-    reviewService.deleteReview(reviewIdx);
+  public ResponseEntity<String> deleteReview(@PathVariable("reviewIdx") int reviewIdx,
+                                             @RequestParam("reviewUserIdx") int reviewUserIdx,
+                                             HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
+    System.out.println("세션의 sessionUserIdx : " + sessionUserIdx);
+    System.out.println("리뷰의 reviewUserIdx : " + reviewUserIdx);
+
+    if (!sessionUserIdx.equals(reviewUserIdx)) {
+//      System.out.println("타인의 게시물은 삭제할 수 업습니다");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 리뷰는 삭제할 수 업습니다");
+    } else {
+      reviewService.deleteReview(reviewIdx);
+      return ResponseEntity.ok("삭제 완료");
+    }
+//    System.out.println("reviewIdx : " + reviewIdx);
+//    System.out.println("리뷰 삭제");
   }
 
   //   리뷰 작성 test
