@@ -33,15 +33,17 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
   @Modifying
   @Transactional
   @Query(value = "insert into review (review_place_idx, review_user_idx, comment, star)" +
-          "values (1, 2, :reviewComment, :reviewStar)", nativeQuery = true)
-  void queryWriteReview(@Param("reviewComment") String reviewComment,
+          "values (:reviewPlaceIdx, :reviewUserIdx, :reviewComment, :reviewStar)", nativeQuery = true)
+  void queryWriteReview(@Param("reviewPlaceIdx") int reviewPlaceIdx,
+                        @Param("reviewUserIdx") int reviewUserIdx,
+                        @Param("reviewComment") String reviewComment,
                         @Param("reviewStar") double reviewStar);
 
   //  해당 장소의 리뷰 보기(심지현)
   @Modifying
   @Transactional
-  @Query("select r from ReviewEntity r where r.placeReview.placeIdx= 1")
-  List<ReviewEntity> queryFindPlaceReview();
+  @Query("select r from ReviewEntity r where r.placeReview.placeIdx= :reviewPlaceIdx")
+  List<ReviewEntity> queryFindPlaceReview(@Param("reviewPlaceIdx") int reviewPlaceIdx);
 
   // 특정 장소의 리뷰 목록 조회 테스트
   List<ReviewEntity> findByPlaceReview_PlaceIdxOrderByStarDesc(int placeIdx);

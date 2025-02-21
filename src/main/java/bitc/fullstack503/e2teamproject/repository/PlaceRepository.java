@@ -54,8 +54,8 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
           "GROUP BY p.placeIdx, p.name " +
           "ORDER BY count(r) desc")
   List<PlaceDTO> findPlaceReviewMany(@Param("selectLocation") String selectLocation,
-                                  @Param("selectAge") int selectAge,
-                                  @Param("selectPeople") int selectPeople);
+                                     @Param("selectAge") int selectAge,
+                                     @Param("selectPeople") int selectPeople);
 
   //  리뷰 적은 순으로
   @Query("SELECT new bitc.fullstack503.e2teamproject.DTO.PlaceDTO(p.name, COALESCE(AVG(r.star), 0), cast(count(r) as int)) " +
@@ -75,5 +75,9 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
 //          "GROUP BY p.placeIdx, p.name " +
 //          "ORDER BY COALESCE(AVG(r.star), 0) DESC")
 //  List<PlaceDTO> findTopPlacesByAverageStar(Pageable pageable);
+
+  //  해당 placeIdx 의 정보 전부 가져오기
+  @Query("select p from PlaceEntity p where p.placeIdx = :placeIdx")
+  List<PlaceEntity> queryFindPlace(@Param("placeIdx") int placeIdx);
 
 }

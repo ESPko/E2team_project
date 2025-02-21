@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ReviewService {
   //  리뷰 쓰기(심지현)
-  void reviewStar(@RequestParam("reviewComment") String reviewComment,
+  void reviewStar(@RequestParam("reviewPlaceIdx") int reviewPlaceIdx,
+                  @RequestParam("reviewUserIdx") int reviewUserIdx,
+                  @RequestParam("reviewComment") String reviewComment,
                   @RequestParam("reviewStar") double reviewStar);
 
   //    해당 게시글의 리뷰 테스트
@@ -19,10 +21,10 @@ public interface ReviewService {
   //    내가 작성한 리뷰
   List<ReviewEntity> findReviewsByUserId(int userId);
 
-
-    void saveReview(int placeIdx, int userId, String comment, double star);
+  //  리뷰 쓰기(그 남성분)
+  void saveReview(int placeIdx, int userId, String comment, double star);
 
   //  리뷰 보기(심지현)
-  List<ReviewEntity> readReview();
+  List<ReviewEntity> readReview(int reviewPlaceIdx);
 }
 

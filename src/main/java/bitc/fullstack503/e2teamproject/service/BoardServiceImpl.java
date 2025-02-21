@@ -23,9 +23,6 @@ public class BoardServiceImpl implements BoardService {
   @Autowired
   private BoardRepository boardRepository;
 
-  @Autowired
-  private BoardImageService boardImageService;
-
   //  공지 쓰기
   @Override
   public void writeNotice(String noticeTitle, String noticeContents) {
@@ -153,8 +150,6 @@ public void saveBoard(String title, String contents, String category, UserEntity
 
   board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
 
-  // 2️⃣ 이미지 저장 (게시글과 연결)
-  boardImageService.saveFiles(images, board);
 }
 
   // 내가 작성한 게시글
