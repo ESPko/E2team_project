@@ -9,6 +9,8 @@ import bitc.fullstack503.e2teamproject.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,12 +42,6 @@ public class ReviewServiceImpl implements ReviewService {
     reviewRepository.deleteById(reviewIdx);
   }
 
-// 내가 작성한 리뷰
-  @Override
-  public List<ReviewEntity> findReviewsByUserId(int userId) {
-
-    return reviewRepository.findReviewsByUserId(userId);
-  }
 
   //  리뷰 쓰기
   @Override
@@ -77,6 +73,18 @@ public class ReviewServiceImpl implements ReviewService {
   public List<ReviewEntity> readReview(int reviewPlaceIdx) {
     return reviewRepository.queryFindPlaceReview(reviewPlaceIdx);
   }
+
+  // 내가 작성한 리뷰
+  @Override
+  public Page<ReviewEntity> findReviewsByUserId(int userId, Pageable pageable) {
+    return reviewRepository.findReviewsByUserId(userId, pageable);
+  }
+
+//  @Override
+//  public List<ReviewEntity> findReviewsByUserId(int userId) {
+//
+//    return reviewRepository.findReviewsByUserId(userId);
+//  }
 
 }
 

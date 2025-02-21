@@ -1,6 +1,8 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,5 +21,7 @@ public interface ReplyService {
   void replyDelete(@RequestParam("replyIdx") int replyIdx);
 
   //    내가 작성한 댓글
-  List<ReplyEntity> findRepliesByUserId(int userId);
+  Page<ReplyEntity> findRepliesByUserId(int userId, Pageable pageable);
+
+//  List<ReplyEntity> findRepliesByUserId(int userId);
 }

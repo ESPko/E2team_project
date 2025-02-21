@@ -1,6 +1,8 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -19,13 +21,18 @@ public interface ReviewService {
     // 리뷰 삭제 메서드 추가
     void deleteReview(int reviewIdx);
 
-//    내가 작성한 리뷰
-    List<ReviewEntity> findReviewsByUserId(int userId);
+
+
 
   //  리뷰 쓰기(그 남성분)
   void saveReview(int placeIdx, int userId, String comment, double star);
 
   //  리뷰 보기(심지현)
   List<ReviewEntity> readReview(int reviewPlaceIdx);
+
+    //    내가 작성한 리뷰
+    Page<ReviewEntity> findReviewsByUserId(int userId, Pageable pageable);
+
+//    List<ReviewEntity> findReviewsByUserId(int userId);
 }
 

@@ -109,8 +109,13 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
   void queryDeleteCrew(@Param("crewNumberDelete") int crewNumberDelete);
 
   //  내가 작성한 게시물
+  //  내가 작성한 게시물
   @Query("SELECT b FROM BoardEntity b WHERE b.user.user_idx = :userId")
-  List<BoardEntity> findByUserId(@Param("userId") int userId);
+  Page<BoardEntity> findByUserId(@Param("userId") int userId, Pageable pageable);
+
+
+//  @Query("SELECT b FROM BoardEntity b WHERE b.user.user_idx = :userId")
+//  List<BoardEntity> findByUserId(@Param("userId") int userId);
 
 
 }
