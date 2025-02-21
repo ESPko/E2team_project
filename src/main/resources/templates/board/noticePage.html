@@ -40,6 +40,7 @@
             <div class="col-3 fw-bold" style="text-align: right;">작성일</div>
           </div>
         </li>
+
         <li>
           <div class="container row d-flex justify-content-between border-bottom"
                style="padding:20px 0;"
@@ -47,7 +48,7 @@
             <div class="col-1 align-items-center"
                  th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">번호
             </div>
-            <div class="col-8 align-items-center" style="font-weight: bold;">
+            <div class="col-8 align-items-center">
               <a href="#" class="text-dark" style="text-decoration: none;"
                  th:value="${findNotice.title}" th:text="${findNotice.title}"
                  th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
