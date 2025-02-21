@@ -60,14 +60,14 @@
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
 <!-- 메인 활동의 디테일 항목 -->
-<section class="container-fluid">
-  <div class="container-lg" style="text-align: right">
-    <div class="container d-flex row justify-content-between align-items-center mt-5">
-      <div class="col-6 d-flex" style="height: 200px;" th:each="placeDetail : ${placeDetailList}">
-        <div th:if="${not #lists.isEmpty(placeDetail.placeImageEntityList)}">
+<section class="container">
+  <div class="container" style="margin-top: 150px;">
+    <div class="container d-flex row justify-content-between align-items-center">
+      <div class="col-6 d-flex" th:each="placeDetail : ${placeDetailList}">
+        <div style="margin-bottom: 20px;" th:if="${not #lists.isEmpty(placeDetail.placeImageEntityList)}">
           <a th:href="|/place/detail/${placeDetail.placeIdx}|">
             <img th:src="|/${placeDetail.placeImageEntityList[0].imagePath}${placeDetail.placeImageEntityList[0].imageName}|"
-                 alt="이미지" width="200px" style="margin: 10px"/>
+                 alt="이미지" class="rounded" style="width: 200px; height: 200px; margin-right: 20px;">
           </a>
         </div>
         <div>
@@ -76,40 +76,6 @@
             <p style="word-break:keep-all;" th:text="${placeDetail.address}">업체 주소</p>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 메인의 추천 활동 top3-->
-<section class="container-fluid" style="margin-top: 100px;">
-  <div class="container-sm" style="padding-left: 10%; margin-bottom: 40px;"><h4>추천활동 TOP3</h4></div>
-  <div class="container-lg d-flex justify-content-center">
-    <div style="margin-right: 100px;">
-      <div><img src="/img/mix/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;">
-          <a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-                  style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p>
-          </a>
-        </p>
-      </div>
-    </div>
-    <div style="margin-right: 100px;">
-      <div><img src="/img/mix/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-                style="margin-bottom: 0;">22:30 영업 종료</p>
-          <p>부산 진구 부전동</p></a></p>
-      </div>
-    </div>
-    <div style="margin-right: 100px;">
-      <div><img src="/img/mix/climbing.jpg" alt="top1-img" style="width: 150px; border-radius: 5px;"></div>
-      <div><a href="#" style="text-decoration: none;"><span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-        <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-                style="margin-bottom: 0;">22:30 영업 종료</p>
-          <p>부산 진구 부전동</p></a></p>
       </div>
     </div>
   </div>
