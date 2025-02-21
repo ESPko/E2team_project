@@ -69,12 +69,6 @@ public class BoardController {
     return new ModelAndView("/login/registerPage");
   }
 
-  //  추천 페이지
-  @RequestMapping("/rec")
-  public ModelAndView recommand() {
-    return new ModelAndView("recommandPage1");
-  }
-
   //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
