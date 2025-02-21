@@ -52,7 +52,6 @@
     }
   </style>
 
-
   <script>
       $(document).ready(function () {
           const noticeContainer = $(".noticeContainer");
@@ -91,14 +90,18 @@
           });
 
           //추천 활동 검색
-          $(".placeSearch").on("click",function(){
+          $(".placeSearch").on("click", function () {
               const selectLocation = $("#location option:selected").val();
               const selectAge = $("#age option:selected").val();
               const selectPeople = $("#people option:selected").val();
               console.log(selectLocation);
               console.log(selectAge);
               console.log(selectPeople);
-              location.href=`/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`;
+              location.href = `/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`;
+          });
+
+          $(".ballingImage").on("click",function(){
+              console.log("누름");
           });
       });
   </script>
@@ -138,8 +141,8 @@
           <img src="/img/mix/cara4.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-        <img src="/img/mix/cara5.jpg" class="d-block w-100" alt="...">
-      </div>
+          <img src="/img/mix/cara5.jpg" class="d-block w-100" alt="...">
+        </div>
       </div>
 
       <!-- 이전 버튼 -->
@@ -157,25 +160,27 @@
   </div>
 
   <br><br>
+
   <div class="container mt-5">
-<!--    아이콘 -->
+    <!--    아이콘 -->
     <div th:replace="~{/layout/header :: cateIcon}"></div>
     <br><br><br><br>
     <!--        인기활동 Top 3 카드 -->
-
     <div class="container mt-5">
       <h1 class="font1 text-center">지역별 인기활동 TOP 3</h1>
     </div>
 
     <div class="container mt-5 d-flex justify-content-space-between">
-      <div class="col-sm p-4">
-        <div class="container mt-3 mb-5">
-          <h2 class="fontTitle">부산진구</h2>
-        </div>
-        <a href="#">
+      <div class="col-sm p-4" th:each="findBalling : ${findBallingList}">
+        <!--        <div class="container mt-3 mb-5">-->
+        <!--          <h2 class="fontTitle">부산진구</h2>-->
+        <!--        </div>-->
+        <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
-            <div class="card-body p-0">
-              <img src="/img/recommand/bowling_card.jpg" class="card-img-top h-100 w-100" alt="..." th:href="@{/detail}">
+            <div class="card-body p-0" th:each="findBallingImage : ${findBalling.placeImageEntityList}">
+              <!--              <img src="/img/recommand/bowling_card.jpg" class="card-img-top h-100 w-100" alt="..."-->
+              <!--                   th:href="@{/detail}">-->
+              <img th:src="|/${findBallingImage.imagePath}${findBallingImage.imageName}|" alt="볼링 이미지" class="ballingImage">
               <p class="card-text">Click !</p>
             </div>
           </div>
@@ -183,11 +188,11 @@
         <div class="container mt-5">
           <h4 class="fontCard">볼링</h4>
           <div class="container mt-5">
-          <p>아래가 너무 허전한거 같아서 써본다.</p>
-          <p>아래가 너무 허전한거 같아서 써본다.</p>
-          <p>아래가 너무 허전한거 같아서 써본다.</p>
-          <p>아래가 너무 허전한거 같아서 써본다.</p>
-        </div>
+            <p>아래가 너무 허전한거 같아서 써본다.</p>
+            <p>아래가 너무 허전한거 같아서 써본다.</p>
+            <p>아래가 너무 허전한거 같아서 써본다.</p>
+            <p>아래가 너무 허전한거 같아서 써본다.</p>
+          </div>
           <div class="mt-5" style="margin-bottom: 10px;">
             <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">
               <a href="/templates/board/crewPage.html" class="font-weight-bold text-white"
@@ -197,19 +202,19 @@
         </div>
       </div>
 
+      <div class="col-sm p-4" th:each="findClimbing : ${findClimbingList}">
+        <!--        <div class="container mt-3 mb-5">-->
+        <!--          <h2 class="fontTitle">해운대구</h2>-->
+        <!--        </div>-->
 
-      <div class="col-sm p-4">
-        <div class="container mt-3 mb-5">
-          <h2 class="fontTitle">해운대구</h2>
-        </div>
-
-        <a href="#">
-        <div class="card card-container">
-         <img src="/img/recommand/climb_card.jpg"class="card-img-top h-100 w-100" alt="..." >
-          <div class="card-body p-0">
-            <p class="card-text">Click !</p>
+        <a th:href="|/place/detail/${findClimbing.placeIdx}|">
+          <div class="card card-container" th:each="findClimbingImage : ${findClimbing.placeImageEntityList}">
+            <!--            <img src="/img/recommand/climb_card.jpg" class="card-img-top h-100 w-100" alt="...">-->
+            <img th:src="|/${findClimbingImage.imagePath}${findClimbingImage.imageName}|" alt="볼링 이미지">
+            <div class="card-body p-0">
+              <p class="card-text">Click !</p>
+            </div>
           </div>
-        </div>
         </a>
 
         <div class="container mt-5">
@@ -229,19 +234,19 @@
         </div>
       </div>
 
+      <div class="col-sm p-4" th:each="findCart : ${findCartList}">
+        <!--        <div class="container mt-3 mb-5">-->
+        <!--          <h2 class="fontTitle">기타지역</h2>-->
+        <!--        </div>-->
 
-      <div class="col-sm p-4">
-        <div class="container mt-3 mb-5">
-          <h2 class="fontTitle">기타지역</h2>
-        </div>
-
-        <a href="#">
-        <div class="card card-container">
-          <img src="/img/recommand/cart_card.JPG" class="card-img-top h-100 w-100" alt="..." >
-          <div class="card-body p-0">
-            <p class="card-text">Click !</p>
+        <a th:href="|/place/detail/${findCart.placeIdx}|">
+          <div class="card card-container" th:each="findCartImage : ${findCart.placeImageEntityList}">
+            <!--            <img src="/img/recommand/cart_card.JPG" class="card-img-top h-100 w-100" alt="...">-->
+            <img th:src="|/${findCartImage.imagePath}${findCartImage.imageName}|" alt="이미지이미지">
+            <div class="card-body p-0">
+              <p class="card-text">Click !</p>
+            </div>
           </div>
-        </div>
         </a>
 
         <div class="container mt-5">
@@ -260,175 +265,10 @@
           </div>
         </div>
       </div>
-
-
-<!--    </div>-->
-<!--    <br><br><br><br>-->
-
-<!--    <div class="container mt-5">-->
-<!--      <h1 class="font1 text-center">연령별 인기활동</h1>-->
-<!--      <h2 class="font1 text-center">TOP 3</h2>-->
-<!--    </div>-->
-
-
-<!--    <div class="container mt-5 d-flex justify-content-space-between">-->
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">10세 이하 어린이</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <div class="card-body p-0">-->
-<!--              <img src="/img/트램폴린_카드.JPG" class="card-img-top h-100 w-100" alt="..." th:href="@{/detail}">-->
-<!--              <p class="card-text">Click !</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">트램펄린 파크</h4>-->
-<!--          <div class="mt-5">-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">10세 ~ 19세 이하 학생</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <img src="/img/틱톡_카드.jpg"class="card-img-top h-100 w-100" alt="..." >-->
-<!--            <div class="card-body p-0">-->
-<!--              <p class="card-text">Click !</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">Tic Tok Challenge</h4>-->
-<!--          <div class="mt-5">-->
-<!--          <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">20세 이상 성인</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <img src="/img/파티_카드.JPG" class="card-img-top h-100 w-100" alt="..." >-->
-<!--            <div class="card-body p-0">-->
-<!--              <p class="card-text">Click !</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">파티룸</h4>-->
-<!--          <div class="mt-5">-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--            <p>아래가 너무 허전한거 같아서 써본다.</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <br><br><br><br>-->
-
-<!--    <div class="container mt-5">-->
-<!--      <h1 class="font1 text-center">인원별 인기활동</h1>-->
-<!--    </div>-->
-
-<!--    <div class="container mt-5 d-flex justify-content-space-between">-->
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">1명 이하</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <div class="card-body p-0">-->
-<!--              <img src="/img/실내사격_카드.JPG" class="card-img-top h-100 w-100" alt="..." th:href="@{/detail}">-->
-<!--              <p class="card-text">Click !</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">실내 사격</h4>-->
-<!--          <div class="mt-5" style="margin-bottom: 10px;">-->
-<!--            <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">-->
-<!--              <a href="/templates/board/crewPage.html" class="font-weight-bold text-white"-->
-<!--                 style="text-decoration: none;">파티 구함 <i class="fa-solid fa-fire"></i></a>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">2명 이상</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <img src="/img/보드게임_카드.JPG"class="card-img-top h-100 w-100" alt="..." >-->
-<!--            <div class="card-body p-0">-->
-<!--              <p class="card-text">위 사진에 관한 설명과 내용이 들어갈 부분입니다.</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">보드게임 카페</h4>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <div class="col-sm p-4">-->
-<!--        <div class="container mt-3 mb-5">-->
-<!--          <h2 class="fontTitle">4명 이상</h2>-->
-<!--        </div>-->
-
-<!--        <a href="#">-->
-<!--          <div class="card card-container">-->
-<!--            <img src="/img/홀덤_카드.JPG" class="card-img-top h-100 w-100" alt="..." >-->
-<!--            <div class="card-body p-0">-->
-<!--              <p class="card-text">Click !</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-
-<!--        <div class="container mt-5">-->
-<!--          <h4 class="fontCard">홀덤 펍</h4>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
     </div>
     <br><br><br><br>
 
-
-    <!--        하단 공지사항 | 이벤트 소형 게시판 -->
+    <!-- 하단 공지사항 | 이벤트 소형 게시판 -->
     <div class="container mt-5 d-flex justify-content-between" id="mainEvAnContainer">
       <div class="col-sm p-4">
         <ul class="list-group">
@@ -447,19 +287,15 @@
     </div>
   </div>
 
-  <!--        지역 | 나이 | 인원 검색 부분 -->
-
+  <!-- 지역 | 나이 | 인원 검색 부분 -->
   <div class="search-box" id="fixed-search-bar">
-
     <div class="row g-3 align-items-center">
       <div class="row g-3 align-items-center d-flex">
-<div class="col-sm me-auto">
-  <h5 class="fw-bold" id="contents1">추천 활동 검색</h5>
-</div>
+        <div class="col-sm me-auto">
+          <h5 class="fw-bold" id="contents1">추천 활동 검색</h5>
+        </div>
         <div class="col-md-3 position-relative me-4">
           <div class="dropdown w-100">
-<!--            <input type="text" class="form-control dropdown-toggle" id="locationInput" placeholder="지역을 입력하세요."-->
-<!--                   data-bs-toggle="dropdown" readonly>-->
             <select class="form-select w-100 headerFont1" id="location">
               <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">지역 추천</option>
               <option>강서구</option>
@@ -480,8 +316,6 @@
 
         <div class="col-md-3 position-relative me-4">
           <div class="dropdown w-100">
-<!--            <input type="text" class="form-control dropdown-toggle" id="ageInput" placeholder="나이 / 연령 입력"-->
-<!--                   data-bs-toggle="dropdown" readonly>-->
             <select class="form-select w-100 headerFont1" id="age">
               <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">나이</option>
               <option value="1">10살 이하 어린이</option>
@@ -493,8 +327,6 @@
 
         <div class="col-md-2 position-relative me-4">
           <div class="dropdown w-100">
-<!--            <input type="text" class="form-control dropdown-toggle" id="peopleInput" placeholder="👤 인원"-->
-<!--                   data-bs-toggle="dropdown" readonly>-->
             <select class="form-select w-100 headerFont1" id="people">
               <option selected class="text-primary fw-bold" style="font-size: 18px;" value="">인원수</option>
               <option value="1">1명</option>
