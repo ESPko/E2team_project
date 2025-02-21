@@ -1,7 +1,9 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
+import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import bitc.fullstack503.e2teamproject.service.PlaceService;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,9 +24,11 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
+    @Autowired
+    private PlaceService placeService;
 
   @RequestMapping("/")
-  public ModelAndView jiHyunStarTest() {
+  public ModelAndView jiHyunStarTest(){
     ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
     return mav;
   }
@@ -38,7 +42,6 @@ public class ReviewController {
 //    return mav;
 //  }
 
-  //  리뷰 쓰기
   @ResponseBody
   @GetMapping("/write/{reviewPlaceIdx}/{reviewWrite}/{reviewStar}")
   public void reviewWrite(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx,
@@ -84,15 +87,19 @@ public class ReviewController {
     return ResponseEntity.ok("리뷰 작성 완료");
   }
 
-  //  뷰 페이지
+    //  뷰 페이지
   @GetMapping("/DetailReview")
   public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+
+
+    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
+
     ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
-    mav.addObject("reviews", reviews);  // 모델 데이터 추가
+    mav.addObject("reviews", reviews);
+    mav.addObject("places", places); // 모델 데이터 추가
     return mav;
   }
-
   //  리뷰 상세 테스트
 //  @GetMapping("/DetailReview")
 //  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {

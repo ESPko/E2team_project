@@ -97,10 +97,17 @@
           $.ajax({
             type: "POST",
             url: "/review/write", // Spring Boot에서 받을 API 경로
+            // contentType : 'application/json',
+            // data: JSON.stringify({
+            //   placeIdx: placeIdx,
+            //   star: star,
+            //   comment: comment
+            // }),
+
             data: {
-              placeIdx: placeIdx,
-              star: star,
-              comment: comment
+                placeIdx: placeIdx,
+                star: star,
+                comment: comment
             },
             success: function (response) {
               alert("리뷰가 등록되었습니다!");
@@ -108,6 +115,8 @@
             },
             error: function (xhr, status, error) {
               console.error("리뷰 등록 실패:", xhr, status, error);
+              console.log("placeIdx:", placeIdx);
+              console.log("userId:", $("#userIdx").val());
               alert("리뷰 등록에 실패했습니다.");
             }
           });
@@ -149,7 +158,7 @@
 </section>
 
 <!-- 상세 설명 -->
-<section class="container mt-5">
+<section class="container mt-5" th:each="place : ${places}">
   <div style="margin-left: 15px;">
     <div class="row py-3 border-top border-bottom">
       <div class="col-2 border-end"><i class="fa-solid fa-house"></i> 주소</div>

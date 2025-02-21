@@ -50,4 +50,8 @@ public class ReviewEntity {
   @Column(name = "like_count")
   private int likeCount = 0;
 
+  @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ToString.Exclude
+  @Builder.Default
+  private List<ReviewImageEntity> reviewImageEntityList = new ArrayList<>();
 }

@@ -12,14 +12,14 @@ public interface ReviewService {
                   @RequestParam("reviewComment") String reviewComment,
                   @RequestParam("reviewStar") double reviewStar);
 
-  //    해당 게시글의 리뷰 테스트
-  List<ReviewEntity> getReviewsByPlace(int placeIdx);
+//    해당 게시글의 리뷰 테스트
+    List<ReviewEntity> getReviewsByPlace(int placeIdx);
 
-  // 리뷰 삭제 메서드 추가
-  void deleteReview(int reviewIdx);
+    // 리뷰 삭제 메서드 추가
+    void deleteReview(int reviewIdx);
 
-  //    내가 작성한 리뷰
-  List<ReviewEntity> findReviewsByUserId(int userId);
+//    내가 작성한 리뷰
+    List<ReviewEntity> findReviewsByUserId(int userId);
 
   //  리뷰 쓰기(그 남성분)
   void saveReview(int placeIdx, int userId, String comment, double star);

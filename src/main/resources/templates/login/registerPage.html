@@ -49,6 +49,7 @@
           $("#btn-join").click(function (event) {
               event.preventDefault(); // 기본 제출 방지
 
+              let userName = $("#user-name").val().trim();
               let userId = $("#user-id").val().trim();
               let userPw1 = $("#user-pw1").val().trim();
               let userPw2 = $("#user-pw2").val().trim();
@@ -57,7 +58,7 @@
               let userEmail = $("#user-email").val().trim();
 
               // 필수 입력값 검사
-              if (userId === "" || userPw1 === "" || userPw2 === "" || userBirthYear === "" || userPhone === "") {
+              if (userName === "" || userId === "" || userPw1 === "" || userPw2 === "" || userBirthYear === "" || userPhone === "") {
                   alert("모든 필수 정보를 입력해주세요.");
                   return;
               }
@@ -80,6 +81,7 @@
                   url: "/user/signupProcess.do",
                   contentType: "application/json",
                   data: JSON.stringify({
+                      userName: userName,
                       userId: userId,
                       userPw: userPw1,
                       userBirthYear: userBirthYear,
@@ -119,75 +121,77 @@
       });
 
 
-      $("#btn-join").click(function (event) {
-          event.preventDefault(); // 기본 제출 방지
-
-          let userId = $("#user-id").val().trim();
-          let userPw1 = $("#user-pw1").val().trim();
-          let userPw2 = $("#user-pw2").val().trim();
-          let userBirthYear = $("#user-birthYear").val().trim();
-          let userPhone = $("#user-phone").val().trim();
-          let userEmail = $("#user-email").val().trim();
-
-          // 필수 입력값 검사
-          if (userId === "" || userPw1 === "" || userPw2 === "" || userBirthYear === "" || userPhone === "") {
-              alert("모든 필수 정보를 입력해주세요.");
-              return;
-          }
-
-          // 아이디 중복 확인 여부 검사
-          if (!isIdChecked) {
-              alert("아이디 중복 확인을 해주세요.");
-              return;
-          }
-
-          // 비밀번호 확인
-          if (userPw1 !== userPw2) {
-              alert("비밀번호가 일치하지 않습니다.");
-              return;
-          }
-
-          // AJAX 요청으로 회원가입 처리
-          $.ajax({
-              type: "POST",
-              url: "/user/signupProcess.do",
-              contentType: "application/json",
-              data: JSON.stringify({
-                  userId: userId,
-                  userPw: userPw1,
-                  userBirthYear: userBirthYear,
-                  userPhone: userPhone,
-                  userEmail: userEmail
-              }),
-              success: function (response) {
-                  if (response.status === "success") {
-                      alert("회원가입이 완료되었습니다.");
-                      window.location.href = "/"; // 로그인 페이지로 이동
-                  } else {
-                      alert("회원가입 실패: " + response.message);
-                  }
-              },
-              error: function (xhr, status, error) {
-                  alert("회원가입 중 오류 발생: " + xhr.responseText);
-                  console.error("서버 응답 코드:", xhr.status);
-                  console.error("서버 응답 텍스트:", xhr.responseText);
-                  console.error("에러 메시지:", error);
-                  alert("중복 확인 중 오류가 발생했습니다. 콘솔을 확인하세요.");
-              }
-          });
-      });
-
-      $("#btn-reset").click(function () {
-          $("#user-name").val("");
-          $("#user-id").val("");         // 아이디 입력창 초기화
-          $("#user-pw1").val("");        // 비밀번호 입력창 초기화
-          $("#user-pw2").val("");        // 비밀번호 확인 입력창 초기화
-          $("#user-birthYear").val("");  // 생년월일 입력창 초기화
-          $("#user-phone").val("");      // 휴대전화 입력창 초기화
-          $("#user-email").val("");      // 이메일 입력창 초기화
-
-          isIdChecked = false;           // 아이디 중복 확인 상태도 초기화
-      });
+      // $("#btn-join").click(function (event) {
+      //     event.preventDefault(); // 기본 제출 방지
+      //
+      //    let userName = $("#user-name").val().trim();
+      //     let userId = $("#user-id").val().trim();
+      //     let userPw1 = $("#user-pw1").val().trim();
+      //     let userPw2 = $("#user-pw2").val().trim();
+      //     let userBirthYear = $("#user-birthYear").val().trim();
+      //     let userPhone = $("#user-phone").val().trim();
+      //     let userEmail = $("#user-email").val().trim();
+      //
+      //     // 필수 입력값 검사
+      //     if (userName === "" || userId === "" || userPw1 === "" || userPw2 === "" || userBirthYear === "" || userPhone === "") {
+      //         alert("모든 필수 정보를 입력해주세요.");
+      //         return;
+      //     }
+      //
+      //     // 아이디 중복 확인 여부 검사
+      //     if (!isIdChecked) {
+      //         alert("아이디 중복 확인을 해주세요.");
+      //         return;
+      //     }
+      //
+      //     // 비밀번호 확인
+      //     if (userPw1 !== userPw2) {
+      //         alert("비밀번호가 일치하지 않습니다.");
+      //         return;
+      //     }
+      //
+      //     // AJAX 요청으로 회원가입 처리
+      //     $.ajax({
+      //         type: "POST",
+      //         url: "/user/signupProcess.do",
+      //         contentType: "application/json",
+      //         data: JSON.stringify({
+      //             userName: userName,
+      //             userId: userId,
+      //             userPw: userPw1,
+      //             userBirthYear: userBirthYear,
+      //             userPhone: userPhone,
+      //             userEmail: userEmail
+      //         }),
+      //         success: function (response) {
+      //             if (response.status === "success") {
+      //                 alert("회원가입이 완료되었습니다.");
+      //                 window.location.href = "/"; // 로그인 페이지로 이동
+      //             } else {
+      //                 alert("회원가입 실패: " + response.message);
+      //             }
+      //         },
+      //         error: function (xhr, status, error) {
+      //             alert("회원가입 중 오류 발생: " + xhr.responseText);
+      //             console.error("서버 응답 코드:", xhr.status);
+      //             console.error("서버 응답 텍스트:", xhr.responseText);
+      //             console.error("에러 메시지:", error);
+      //             alert("중복 확인 중 오류가 발생했습니다. 콘솔을 확인하세요.");
+      //         }
+      //     });
+      // });
+      //
+      // $("#btn-reset").click(function () {
+      //     $("#user-name").val("");
+      //     $("#user-id").val("");         // 아이디 입력창 초기화
+      //     $("#user-pw1").val("");        // 비밀번호 입력창 초기화
+      //     $("#user-pw2").val("");        // 비밀번호 확인 입력창 초기화
+      //     $("#user-birthYear").val("");  // 생년월일 입력창 초기화
+      //     $("#user-phone").val("");      // 휴대전화 입력창 초기화
+      //     $("#user-email").val("");      // 이메일 입력창 초기화
+      //
+      //     isIdChecked = false;           // 아이디 중복 확인 상태도 초기화
+      // });
 
 
   </script>
@@ -198,7 +202,7 @@
 
 <div class="container d-flex justify-content-center" style="margin-top: 100px; margin-bottom: 100px;">
   <div class="align-items-center p-5 rounded shadow bg-light">
-    <div><p><i class="fa-regular fa-user">&nbsp;&nbsp;</i><input type="text" id="user-name" placeholder="이름"
+    <div><p><i class="fa-regular fa-user">&nbsp;&nbsp;</i><input type="text" id="user-name" name="=userName" placeholder="이름"
                                                                  style="border-radius: 3px; border-style: none;">
     </p></div>
     <div>

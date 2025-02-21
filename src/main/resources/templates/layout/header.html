@@ -31,6 +31,21 @@
         <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
       </ul>
     </div>
+    <div class="col-4 d-flex align-items-center justify-content-end headerFont gap-2">
+      <div class="col-auto">
+        <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;" th:if="${session.userLevel == 1}">관리자</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My PAGE</button>
+      </div>
+      <div class="col-auto d-flex align-items-center gap-2">
+        <span th:unless="${session.userId == null}" th:text="|${session.userName} 님 환영합니다.|"></span>
+        <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
+          <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
+        </button>
+        <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark" th:unless="${session.userId == null}">
+          로그아웃
+        </button>
     <div class="col-auto d-flex align-items-center headerFont1" style="margin-right: 100px;">
      <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button>
       <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My Page</button>
@@ -45,8 +60,7 @@
       </div>
     </div>
 
-
-  <script>
+    <script>
       $("#btn-logout").on("click", function () {
 
           location.href = "/user/logout";
