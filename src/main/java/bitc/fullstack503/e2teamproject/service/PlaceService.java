@@ -29,6 +29,6 @@ public interface PlaceService {
 
   //  상위 세개 추천 항목 나오게
 //  List<PlaceDTO> getAllPlaceSortByStar();
-  
+
 
 }
