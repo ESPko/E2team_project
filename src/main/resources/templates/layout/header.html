@@ -46,17 +46,6 @@
         <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark" th:unless="${session.userId == null}">
           로그아웃
         </button>
-    <div class="col-auto d-flex align-items-center headerFont1" style="margin-right: 100px;">
-     <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button>
-      <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My Page</button>
-
-      <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
-        <a th:href="@{/user/}" class="text-decoration-none text-dark" >로그인 / 회원가입</a>
-      </button>
-      <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark"
-              th:unless="${session.userId == null}">
-        로그아웃
-      </button>
       </div>
     </div>
   </div>
