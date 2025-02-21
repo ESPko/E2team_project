@@ -47,8 +47,8 @@ public class ReviewController {
                           HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer reviewUserIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println("reviewUserIdx : " + reviewUserIdx);
-    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewWrite, reviewStar);
+    String reviewUserId = (String)session.getAttribute("userId");
+    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewUserId, reviewWrite, reviewStar);
   }
 
   //  리뷰 보기

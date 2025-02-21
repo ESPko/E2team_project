@@ -9,6 +9,7 @@ public interface ReviewService {
   //  리뷰 쓰기(심지현)
   void reviewStar(@RequestParam("reviewPlaceIdx") int reviewPlaceIdx,
                   @RequestParam("reviewUserIdx") int reviewUserIdx,
+                  @RequestParam("reviewUserId") String reviewUserId,
                   @RequestParam("reviewComment") String reviewComment,
                   @RequestParam("reviewStar") double reviewStar);
 

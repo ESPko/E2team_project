@@ -61,7 +61,6 @@
   <script>
       $(document).ready(function () {
           const reviewPlaceIdx = $(".hiddenPlaceIdx").val();
-          console.log("placeIdx : " + reviewPlaceIdx);
 
           $(".reviewOk").on("click", function () {
               const review = $("#reviewBox").val();
@@ -104,8 +103,9 @@
                   reviewShowContainer.empty();
 
                   data.forEach(review => {
+                      console.log(review);
                       let html = `<div class="reviewListContainer" style="width: 100%; height: 150px; border: 1px solid black; text-align: center;">`
-                      // html += `<span>reviewUserIdx : <span class="reviewUserIdx">${review.userReview.id}</span></span><br>`;
+                      html += `<span>아이디 : <span class="reviewUserId">${review.reviewUserId}</span></span><br>`;
                       html += `<span>내용 : <span class="reviewComment">${review.comment}</span></span><br>`;
                       html += `<span>별점 : <span class="reviewStar">${review.star}</span></span><br>`;
                       html += `<button type="button" class="reviewDeleteButton">삭제</button><br>`;

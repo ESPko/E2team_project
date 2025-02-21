@@ -32,10 +32,11 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
   //  리뷰 쓰기
   @Modifying
   @Transactional
-  @Query(value = "insert into review (review_place_idx, review_user_idx, comment, star)" +
-          "values (:reviewPlaceIdx, :reviewUserIdx, :reviewComment, :reviewStar)", nativeQuery = true)
+  @Query(value = "insert into review (review_place_idx, review_user_idx, review_user_id, comment, star)" +
+          "values (:reviewPlaceIdx, :reviewUserIdx, :reviewUserId, :reviewComment, :reviewStar)", nativeQuery = true)
   void queryWriteReview(@Param("reviewPlaceIdx") int reviewPlaceIdx,
                         @Param("reviewUserIdx") int reviewUserIdx,
+                        @Param("reviewUserId") String reviewUserId,
                         @Param("reviewComment") String reviewComment,
                         @Param("reviewStar") double reviewStar);
 

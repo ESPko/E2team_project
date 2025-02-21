@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReviewDTO {
   private int reviewIdx;
+  private String reviewUserId;
   private String comment;
   private double star;
   private int reviewUserIdx;
@@ -18,6 +19,7 @@ public class ReviewDTO {
   public static ReviewDTO fromEntity(ReviewEntity review) {
     return new ReviewDTO(
             review.getReviewIdx(),
+            review.getReviewUserId(),
             review.getComment(),
             review.getStar(),
             review.getUserReview().getUser_idx(),
