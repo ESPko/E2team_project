@@ -22,21 +22,36 @@
 <header class="header container-sm" th:fragment="projectheader">
   <div class="row justify-content-between">
     <div class="col-2 justify-content-center">
-      <a href="#" th:href="@{/}"><img src="/img/logo.png" alt="title_logo" style="height: 105px"></a>
+      <a href="#" th:href="@{/}"><img src="/img/mix/logo.png" alt="title_logo" style="height: 105px"></a>
     </div>
-    <div class="col-6 row align-items-end headerFont">
-      <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-start">
-        <li class="list-group " style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/event}">이벤트</a></li>
-        <li class="list-group" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
+    <div class="col mt-5 text-center headerFont" style="margin-top: 60px;">
+      <ul class="list-group list-group-horizontal list-group-flush d-flex justify-content-center">
+        <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/notice}">공지사항</a></li>
+        <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/event}">이벤트</a></li>
+        <li class="list-group mx-3" style="width: 100px;"><a href="#" class="nav-link" th:href="@{/crew}">인원모집</a></li>
       </ul>
     </div>
-    <div class="col-4 row align-items-center justify-content-end headerFont">
-      <div class="col-3"><button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button></div>
-      <div class="col-4"><button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My PAGE</button></div>
+    <div class="col-4 d-flex align-items-center justify-content-end headerFont gap-2">
       <div class="col-auto">
+        <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;" th:if="${session.userLevel == 1}">관리자</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My PAGE</button>
+      </div>
+      <div class="col-auto d-flex align-items-center gap-2">
+        <span th:unless="${session.userId == null}" th:text="|${session.userName} 님 환영합니다.|"></span>
+        <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
+          <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
+        </button>
+        <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark" th:unless="${session.userId == null}">
+          로그아웃
+        </button>
+    <div class="col-auto d-flex align-items-center headerFont1" style="margin-right: 100px;">
+     <button type="button" class="btn btn-dark" id="manager-btn" style="display: none;">관리자</button>
+      <button type="button" class="btn btn-link text-dark" id="profile" style="text-decoration: none;">My Page</button>
+
       <button type="button" style="border-style: none; background-color: white;" th:unless="${session.userId != null}">
-        <a th:href="@{/user/}" class="text-decoration-none text-dark">로그인 / 회원가입</a>
+        <a th:href="@{/user/}" class="text-decoration-none text-dark" >로그인 / 회원가입</a>
       </button>
       <button id="btn-logout" type="button" class="btn btn-link text-decoration-none text-dark"
               th:unless="${session.userId == null}">
@@ -46,7 +61,7 @@
     </div>
   </div>
 
-  <script>
+    <script>
       $("#btn-logout").on("click", function () {
 
           location.href = "/user/logout";
@@ -86,40 +101,40 @@
     <h1 class="font1">MENU</h1>
     <br><br><br><br>
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec}">
-        <img src="/img/오징어게임 카테고리.JPG"
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec1}">
+        <img src="/img/recommand/squidBlack.JPG"
              class="img-fluid rounded mb-5"
              alt="" style="height: 100px;">
         <p class="fontIcon">Squid Game</p></a>
     </div>
 
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#">
-        <img src="/img/혼자_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec2}">
+        <img src="/img/recommand/solo_icon.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
         <p class="fontIcon">Play alone</p></a>
     </div>
 
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#">
-        <img src="/img/조용히_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec3}">
+        <img src="/img/recommand/silent_icon.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
         <p class="fontIcon">Play Mute</p></a>
     </div>
 
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#">
-        <img src="/img/신나게_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec4}">
+        <img src="/img/recommand/happy_icon.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
         <p class="fontIcon">Exciting !</p></a>
     </div>
 
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#">
-        <img src="/img/연인_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec5}">
+        <img src="/img/recommand/lover_icon.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
         <p class="fontIcon">With GirlFriend</p></a>
     </div>
 
     <div class="col-2">
-      <a class="text-decoration-none link-dark" href="#">
-        <img src="/img/친구_아이콘.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
+      <a class="text-decoration-none link-dark" href="#" th:href="@{/rec6}">
+        <img src="/img/recommand/friend_icon.png" class="img-fluid rounded mb-5" alt="" style="height: 100px;">
         <p class="fontIcon">With Friend</p></a>
     </div>
 

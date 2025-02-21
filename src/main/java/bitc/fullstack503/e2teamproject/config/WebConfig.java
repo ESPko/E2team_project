@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/event/write")
                 .addPathPatterns("/crew/write")
                 .excludePathPatterns("/user/loginProcess.do", "/user/logout",  "/user/signupProcess.do",
-                        "/user/checkDuplicate", "/user/", "/", "/loginpage", "/regist", "/notice", "/event", "/crew", "/placeDetail/**" ,"/rec");
+                        "/user/checkDuplicate", "/user/", "/", "/notice", "/event", "/crew" ,"/rec");
     }
 }
 

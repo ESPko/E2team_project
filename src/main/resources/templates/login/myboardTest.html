@@ -5,6 +5,7 @@
     <title>내가 작성한 게시물 - Test</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/css/font.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -23,21 +24,21 @@
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
 
-<main class="container mt-4">
-    <h3 class="text-center">내가 작성한 게시물</h3>
+<main class="container mt-5">
+    <h3 class="text-center myPageFont">내가 작성한 게시물</h3>
     <div class="row mt-4">
         <div class="col-md-4">
-            <div class="post-box">
-                <h5>게시글</h5>
+            <div class="post-box mt-5">
+                <h5 class="myPageFont">게시글</h5>
                 <ul style="list-style: none; padding-left: 0">
                     <li>
                         <div class="container row d-flex justify-content-between"
                              style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
-                            <div class="col-2 align-items-center">번호</div>
-                            <div class="col-7 align-items-center" style="font-weight: bold;">
-                                <a href="#" class="text-dark" style="text-decoration: none;">제목</a>
+                            <div class="col-2 align-items-center bdFont">번호</div>
+                            <div class="col-7 align-items-center bdFont" style="font-weight: bold;">
+                                <a href="#" class="text-dark bdFont" style="text-decoration: none;">제목</a>
                             </div>
-                            <div class="col-3" style="text-align: right;">작성일</div>
+                            <div class="col-3 bdFont" style="text-align: right; ">작성일</div>
                         </div>
                     </li>
                     <li>
@@ -54,7 +55,7 @@
                                    th:value="${post.title}"
                                    th:text="${post.title}" ></a>
                             </div>
-                            <div class="col-3" style="text-align: right;" th:value="${post.createDate}"
+                            <div class="col-3 bdFont" style="text-align: right;" th:value="${post.createDate}"
                                  th:text="${post.createDate}">작성일
                             </div>
                         </div>
@@ -63,14 +64,14 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="post-box">
-                <h5>댓글</h5>
+            <div class="post-box mt-5">
+                <h5 class="myPageFont">댓글</h5>
                 <ul style="list-style: none; padding-left: 0">
                     <li>
                     <div class="container row d-flex justify-content-between"
                          style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
-                        <div class="col-2 align-items-center">내용</div>
-                        <div class="col-3" style="text-align: right;">작성일</div>
+                        <div class="col-2 align-items-center bdFont">내용</div>
+                        <div class="col-3 bdFont" style="text-align: right;">작성일</div>
                     </div>
                     </li>
 
@@ -88,7 +89,7 @@
                                    style="text-decoration: none;"
                                    th:text="${comment.comment}" ></a>
                             </div>
-                            <div class="col-3" style="text-align: right;" th:value="${comment.createDate}"
+                            <div class="col-3 bdFont" style="text-align: right;" th:value="${comment.createDate}"
                                  th:text="${comment.createDate}">작성일
                             </div>
                         </div>
@@ -98,17 +99,17 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="post-box">
-                <h5>리뷰</h5>
+            <div class="post-box mt-5">
+                <h5 class="myPageFont">리뷰</h5>
                 <ul style="list-style: none; padding-left: 0">
 
                     <!-- 제목 행 -->
                     <li>
                         <div class="container row d-flex justify-content-between align-items-center"
                              style="padding:10px 0; border-bottom: solid 1px #bee5eb;">
-                            <div class="col-3 text-center">별점</div>
-                            <div class="col-6 text-center">내용</div>
-                            <div class="col-3 text-center">작성일</div>
+                            <div class="col-3 text-center bdFont">별점</div>
+                            <div class="col-6 text-center bdFont">내용</div>
+                            <div class="col-3 text-center bdFont">작성일</div>
                         </div>
                     </li>
 
