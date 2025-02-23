@@ -10,6 +10,8 @@ import bitc.fullstack503.e2teamproject.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +25,6 @@ public class ReviewServiceImpl implements ReviewService {
   private final ReviewRepository reviewRepository;
   private final PlaceRepository placeRepository;
   private final UserRepository userRepository;
-  private final PlaceRepository placeRepository;
 
 
   //  해당 게시물에서 작성한 리뷰 테스트
