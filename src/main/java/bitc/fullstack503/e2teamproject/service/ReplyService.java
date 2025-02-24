@@ -16,6 +16,7 @@ public interface ReplyService {
   //  댓글 쓰기
   void replyWrite(@RequestParam("replyBoardIdx") int replyBoardIdx,
                   @RequestParam("replyUserIdx") int replyUserIdx,
+                  @RequestParam("replyUserName") String replyUserName,
                   @RequestParam("replyWriteComment") String replyWriteComment);
 
   //  댓글 삭제
