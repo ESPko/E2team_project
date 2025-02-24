@@ -45,8 +45,8 @@ public class ReplyController {
                          HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer replyUserIdx = (Integer) session.getAttribute("userIdx");
-
-    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyWriteComment);
+    String replyUserName = (String) session.getAttribute("userName");
+    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyUserName, replyWriteComment);
   }
 
   //  댓글 삭제

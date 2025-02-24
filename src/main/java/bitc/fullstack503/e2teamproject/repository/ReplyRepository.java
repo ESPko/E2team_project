@@ -16,16 +16,19 @@ import java.util.List;
 public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
 
   //  댓글 보기
-  @Query("select r from ReplyEntity r where r.boardReply.board_idx = :crewBoardIdx order by r.reply_idx desc")
+  @Query("select r from ReplyEntity r " +
+          "where r.boardReply.board_idx = :crewBoardIdx " +
+          "order by r.createDate desc")
   List<ReplyEntity> replyShow(@RequestParam("crewBoardIdx") int crewBoardIdx);
 
   //  댓글 쓰기
   @Modifying
   @Transactional
-  @Query(value = "insert into reply (reply_board_idx, reply_user_idx, comment)" +
-          "values (:replyBoardIdx, :replyUserIdx, :replyWriteComment)", nativeQuery = true)
+  @Query(value = "insert into reply (reply_board_idx, reply_user_idx, reply_user_name, comment)" +
+          "values (:replyBoardIdx, :replyUserIdx, :replyUserName, :replyWriteComment)", nativeQuery = true)
   void replyWrite(@RequestParam("replyBoardIdx") int replyBoardIdx,
                   @RequestParam("replyUserIdx") int replyUserIdx,
+                  @RequestParam("replyUserName") String replyUserName,
                   @RequestParam("replyWriteComment") String replyWriteComment);
 
   //  댓글 삭제

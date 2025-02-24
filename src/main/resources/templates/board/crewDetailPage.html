@@ -73,7 +73,7 @@
                       let html = `<div style='padding: 10px 10px 0 10px;'>`;
                       html += `<input type="hidden" value="${reply.replyIdx}" class="replyIdx" id="replyIdx">`
                       // html += `<input type="hidden" value="${reply.user.id}" class="replyUserId" id="replyUserId">`
-                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userId}</span> `;
+                      html += `<span style='font-weight: bold;' class='replyId'>${reply.userName}</span> `;
                       html += ` <span style='font-size: small' class='replyWriteDate'>${reply.createDate}</span>`;
                       html += `<div class='mt-2 replyContent' style='padding: 0 10px 10px 10px; word-wrap: break-word;'>${reply.comment}`;
                       html += `<button type="button" class="deleteReplyButton btn btn-outline-danger btn-sm float-end">삭제</button></div>`;

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class ReplyDTO {
   private int replyIdx;
   private String userId;
+  private String userName;
   private String comment;
   private LocalDateTime createDate;
 
@@ -22,6 +23,7 @@ public class ReplyDTO {
     return new ReplyDTO(
             reply.getReply_idx(),
             reply.getUserReply().getId(), // 여기서 UserEntity의 id 값 가져옴
+            reply.getUserReply().getName(),
             reply.getComment(),
             reply.getCreateDate()
     );
