@@ -197,7 +197,8 @@
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-3 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>
-            <div class="col-auto">방탈출</div>
+            <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">
+            <div class="col-auto" th:text="${placeDetail.category}">방탈출</div>
           </div>
           <div class="row row-cols-3" style="margin-bottom: 15px;">
             <div class="col-3 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>
