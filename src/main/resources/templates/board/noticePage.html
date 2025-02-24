@@ -12,6 +12,19 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+      .page-item.active .page-link {
+          background-color: black;
+          color: white;
+          border-color: black;
+      }
+
+      .page-item .page-link {
+          color: black;
+      }
+  </style>
+
   <script>
     $(document).ready(function(){
         $(".noticeWriteButton").on("click",function(){
@@ -19,6 +32,7 @@
         });
     });
   </script>
+
 </head>
 <body>
 <div th:replace="~{/layout/header :: projectheader}"></div>
@@ -69,7 +83,7 @@
           <li class="page-item" th:classappend="${!findNoticeList.hasPrevious} ? 'disabled'">
             <a class="page-link"
                th:href="@{|?page=${findNoticeList.number-1}|}">
-              <span>이전</span>
+              <span class="text-black">&lt;</span>
             </a>
           </li>
           <li th:each="page: ${#numbers.sequence(0, findNoticeList.totalPages-1)}"
@@ -79,7 +93,7 @@
           </li>
           <li class="page-item" th:classappend="${!findNoticeList.hasNext} ? 'disabled'">
             <a class="page-link" th:href="@{|?page=${findNoticeList.number+1}|}">
-              <span>다음</span>
+              <span class="text-black">&gt;</span>
             </a>
           </li>
         </ul>

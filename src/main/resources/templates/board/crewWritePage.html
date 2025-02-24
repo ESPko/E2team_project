@@ -13,6 +13,12 @@
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script>
+      $(document).ready(function () {
+          $("#btn-list").on("click", function () {
+              history.back();
+          });
+      });
+
     $(document).ready(function(){
         $("#btn-list").on("click",function(){
             console.log("btnList 누름");
@@ -73,7 +79,7 @@
 
       <div class="col-sm m-3 d-flex justify-content-between">
         <button type="button" class="btn btn-secondary" id="btn-list">목록</button>
-        <button type="submit" class="btn" style="background-color: #bee5eb; border-style: none;" id="btn-write">게시</button>
+        <button type="submit" class="btn btn-outline-dark" id="btn-write">게시</button>
       </div>
     </form>
   </section>
