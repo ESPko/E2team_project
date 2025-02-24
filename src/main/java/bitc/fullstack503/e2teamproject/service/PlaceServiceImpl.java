@@ -163,6 +163,12 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.queryFindCategoryKizania();
   }
 
+  //  키즈카페
+  @Override
+  public PlaceEntity findPlaceKidsCafe() {
+    return placeRepository.queryFindCategoryKidsCafe();
+  }
+
   //테마파크
   @Override
   public PlaceEntity findPlaceThemePark() {

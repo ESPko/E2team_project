@@ -84,6 +84,9 @@ public interface PlaceService {
   //  키자니아
   PlaceEntity findPlaceKizania();
 
+  //  키즈카페
+  PlaceEntity findPlaceKidsCafe();
+
   //테마파크
   PlaceEntity findPlaceThemePark();
 

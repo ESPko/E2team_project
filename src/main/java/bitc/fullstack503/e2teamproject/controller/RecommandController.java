@@ -52,10 +52,27 @@ public class RecommandController {
     return mav;
   }
 
-  //  추천 페이지
+  //  가족
   @RequestMapping("/rec3")
   public ModelAndView recommand3() {
-    return new ModelAndView("/board/recommandPage3");
+    ModelAndView mav = new ModelAndView("/board/recommandPage3");
+    PlaceEntity kidsCafe = placeService.findPlaceKidsCafe();
+    PlaceEntity baking = placeService.findPlaceBaking();
+    PlaceEntity slime = placeService.findPlaceSlime();
+    PlaceEntity kidzania = placeService.findPlaceKizania();
+    PlaceEntity animal = placeService.findPlaceAnimal();
+    PlaceEntity gongBang = placeService.findPlaceGold();
+    PlaceEntity convention = placeService.findPlaceConvention();
+    PlaceEntity themePark = placeService.findPlaceThemePark();
+    mav.addObject("kidsCafeList", kidsCafe);
+    mav.addObject("bakingList", baking);
+    mav.addObject("slimeList", slime);
+    mav.addObject("kidzaniaList", kidzania);
+    mav.addObject("animalList", animal);
+    mav.addObject("gongBangList", gongBang);
+    mav.addObject("conventionList", convention);
+    mav.addObject("themeParkList" , themePark);
+    return mav;
   }
 
   //  exciting
