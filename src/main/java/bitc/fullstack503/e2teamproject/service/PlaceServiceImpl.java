@@ -25,4 +25,40 @@ public class PlaceServiceImpl implements PlaceService {
   public List<PlaceEntity> findPlaceDetail(int placeIdx) {
     return placeRepository.queryFindPlace(placeIdx);
   }
+
+  //  볼링장 카테고리
+  @Override
+  public PlaceEntity findPlaceBalling() {
+    return placeRepository.queryFindCategoryBalling();
+  }
+
+  //  클라이밍
+  @Override
+  public PlaceEntity findPlaceClimbing() {
+    return placeRepository.queryFindCategoryClimbing();
+  }
+
+  //  코인노래방
+  @Override
+  public PlaceEntity findPlaceCoinSing() {
+    return placeRepository.queryFindCategoryCoinSing();
+  }
+
+  //  공방
+  @Override
+  public PlaceEntity findPlaceGold() {
+    return placeRepository.queryFindCategoryGold();
+  }
+
+  //  댄스학원
+  @Override
+  public PlaceEntity findPlaceDance() {
+    return placeRepository.queryFindCategoryDance();
+  }
+
+  //  카트체험
+  @Override
+  public PlaceEntity findPlaceCart() {
+    return placeRepository.queryFindCategoryCart();
+  }
 }

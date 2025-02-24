@@ -1,6 +1,9 @@
 package bitc.fullstack503.e2teamproject.repository;
 
+import bitc.fullstack503.e2teamproject.entity.BoardEntity;
 import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +36,6 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Integer> {
 
   //    내가 작성한 댓글
   @Query("SELECT r FROM ReplyEntity r WHERE r.userReply.user_idx = :userId")
-  List<ReplyEntity> findRepliesByUserId(@Param("userId") int userId);
+  Page<ReplyEntity> findRepliesByUserId(@Param("userId") int userId, Pageable pageable);
 }
 

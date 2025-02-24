@@ -16,7 +16,10 @@
 
 package bitc.fullstack503.e2teamproject.repository;
 
+import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,6 +32,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
 
+  //  리뷰 쓰기
   @Modifying
   @Transactional
   @Query(value = "insert into review (review_place_idx, review_user_idx, review_user_id, comment, star)" +
@@ -48,9 +52,9 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
   // 특정 장소의 리뷰 목록 조회 테스트
   List<ReviewEntity> findByPlaceReview_PlaceIdxOrderByStarDesc(int placeIdx);
 
-//  내가 작성한 리뷰
+  //  내가 작성한 리뷰
   @Query("SELECT r FROM ReviewEntity r WHERE r.userReview.user_idx = :userId")
-  List<ReviewEntity> findReviewsByUserId(@Param("userId") int userId);
+  Page<ReviewEntity> findReviewsByUserId(@Param("userId") int userId, Pageable pageable);
 
 }
 

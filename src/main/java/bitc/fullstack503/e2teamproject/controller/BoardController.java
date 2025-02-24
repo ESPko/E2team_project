@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,24 +25,15 @@ public class BoardController {
 
   @Autowired
   private ReplyService replyService;
+
   @Autowired
   private ReviewService reviewService;
+
   @Autowired
   private UserService userService;
 
-  //  심지현 crud 테스트용
-  @ResponseBody
-  @RequestMapping("/jiHyunCRUDTest")
-  public ModelAndView jiHyunCRUDTest() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunCRUDTest");
-//    List<BoardEntity> findNoticeList = boardService.findNotice();
-//    List<BoardEntity> findEventList = boardService.findEvent();
-//    List<BoardEntity> findCrewList = boardService.findCrew();
-//    mav.addObject("findNoticeList", findNoticeList);
-//    mav.addObject("findEventList", findEventList);
-//    mav.addObject("findCrewList", findCrewList);
-    return mav;
-  }
+  @Autowired
+  private PlaceService placeService;
 
   // 프로필
   @RequestMapping("/pro")
@@ -70,7 +63,24 @@ public class BoardController {
   //  메인 페이지
   @RequestMapping("/")
   public ModelAndView home() {
-    return new ModelAndView("/board/mainPage");
+    ModelAndView mav = new ModelAndView("/board/mainPage");
+    PlaceEntity findBallingList = placeService.findPlaceBalling();
+    PlaceEntity findClimbingList = placeService.findPlaceClimbing();
+//    PlaceEntity findCoinSingList = placeService.findPlaceCoinSing();
+//    PlaceEntity findGoldList = placeService.findPlaceGold();
+//    PlaceEntity findDanceList = placeService.findPlaceDance();
+    PlaceEntity findCartList = placeService.findPlaceCart();
+    mav.addObject("findBallingList", findBallingList);
+    mav.addObject("findClimbingList", findClimbingList);
+//    mav.addObject("findCoinSingList", findCoinSingList);
+//    mav.addObject("findGoldList", findGoldList);
+//    mav.addObject("findDanceList", findDanceList);
+    mav.addObject("findCartList", findCartList);
+
+    System.out.println(findBallingList);
+    System.out.println("클라이밍 : " + findClimbingList);
+    System.out.println("카트 : " + findCartList);
+    return mav;
   }
 
   //  메인 페이지2
@@ -290,24 +300,30 @@ public class BoardController {
   }
 
 
-  //  내가 작성한 게시물 Test
+  //  내가 작성한 게시물
   @RequestMapping("/myboard")
-  public ModelAndView myboard(HttpSession session) {
-    ModelAndView mav = new ModelAndView("/login/myboardTest");
+  public ModelAndView myboard(HttpSession session,
+                              @RequestParam(defaultValue = "0") int postPage,
+                              @RequestParam(defaultValue = "0") int commentPage,
+                              @RequestParam(defaultValue = "0") int reviewPage) {
+    ModelAndView mav = new ModelAndView("login/myboard");
 
-
-    Integer userId = (Integer) session.getAttribute("userIdx"); // Integer로 직접 가져오기
+    Integer userId = (Integer) session.getAttribute("userIdx");
 
     if (userId != null) {
-      List<BoardEntity> posts = boardService.findPostsByUserId(userId);
-      List<ReplyEntity> comments = replyService.findRepliesByUserId(userId);
-      List<ReviewEntity> reviews = reviewService.findReviewsByUserId(userId);
+      Pageable postPageable = PageRequest.of(postPage, 5); // 한 페이지에 5개씩
+      Pageable commentPageable = PageRequest.of(commentPage, 5);
+      Pageable reviewPageable = PageRequest.of(reviewPage, 5);
+
+      Page<BoardEntity> posts = boardService.findPostsByUserId(userId, postPageable);
+      Page<ReplyEntity> comments = replyService.findRepliesByUserId(userId, commentPageable);
+      Page<ReviewEntity> reviews = reviewService.findReviewsByUserId(userId, reviewPageable);
 
       mav.addObject("posts", posts);
       mav.addObject("comments", comments);
       mav.addObject("reviews", reviews);
     }
     return mav;
-
   }
+
 }

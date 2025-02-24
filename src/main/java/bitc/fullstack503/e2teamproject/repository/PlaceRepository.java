@@ -24,4 +24,28 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   //  해당 placeIdx 의 정보 전부 가져오기
   @Query("select p from PlaceEntity p where p.placeIdx = :placeIdx")
   List<PlaceEntity> queryFindPlace(@Param("placeIdx") int placeIdx);
+
+  //  볼링장 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '볼링장' LIMIT 1", nativeQuery = true)
+  PlaceEntity queryFindCategoryBalling();
+
+  //  클라이밍 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '클라이밍' LIMIT 1", nativeQuery = true)
+  PlaceEntity queryFindCategoryClimbing();
+
+  //  코인노래방 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '코인노래방' LIMIT 1", nativeQuery = true)
+  PlaceEntity queryFindCategoryCoinSing();
+
+  //  공방 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '공방' LIMIT 1", nativeQuery = true)
+  PlaceEntity queryFindCategoryGold();
+
+  //  댄스학원 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '댄스학원' LIMIT 1", nativeQuery = true)
+  PlaceEntity queryFindCategoryDance();
+
+//  카트체험 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '카트장'", nativeQuery = true)
+  PlaceEntity queryFindCategoryCart();
 }
