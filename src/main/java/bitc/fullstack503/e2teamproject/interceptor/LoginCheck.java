@@ -20,11 +20,20 @@ public class LoginCheck implements HandlerInterceptor {
         if (requestURI.startsWith("/pro") ) {
             if (userId == null) {
                 sendAlert(response, "로그인이 필요합니다.", "/user/");
+                sendAlert(response, "로그인이 필요합니다.", "/crew/write");
                 return false;
             }
         }
 
-        // 2. 관리자 권한 체크
+        // 2. 인원모집 게시판 로그인 체크
+        if (requestURI.startsWith("/crew/write") ) {
+            if (userId == null) {
+                sendAlert(response, "로그인이 필요합니다.", "/user/");
+                return false;
+            }
+        }
+
+        // 3. 관리자 권한 체크
         if (requestURI.startsWith("/user/manager") || requestURI.startsWith("/user/member")
                 || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write")) {
             if (userLevel == null || !userLevel.toString().equals("1")) {
