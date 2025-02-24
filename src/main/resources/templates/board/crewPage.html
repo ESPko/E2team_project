@@ -48,7 +48,7 @@
        <button type="button" class="btn btn-secondary btn-sm col-1" style="margin-right: 30px;" id="crewWriteButton">작성</button>
     </div>
 
-    <div>
+   <div>
       <!--       머리글-->
       <ul style="list-style: none; padding-left: 0">
         <li>
@@ -62,7 +62,6 @@
             <div class="col-1 align-items-center fw-bold">조회</div>
           </div>
         </li>
-
         <!--         글  작성 부분-->
         <li>
           <div class="container row d-flex justify-content-between border-bottom"
@@ -81,7 +80,6 @@
                  th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02
             </div>
             <div class="col-1 text-center" th:value="${findCrew.hitCount}" th:text="${findCrew.hitCount}">0</div>
-
           </div>
         </li>
       </ul>
@@ -109,8 +107,8 @@
       </div>
       <!-- 페이징처리 끝 -->
     </div>
+  </div>
 </section>
-
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
 </body>
 </html>
