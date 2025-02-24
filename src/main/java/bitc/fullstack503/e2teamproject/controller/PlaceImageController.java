@@ -26,7 +26,6 @@ public class PlaceImageController {
   public ModelAndView placeImage() {
     ModelAndView mav = new ModelAndView("/board/jiHyunImageTest");
     List<PlaceImageEntity> findImageList= placeImageService.findPlaceAll();
-    System.out.println(findImageList);
     mav.addObject("findImageList", findImageList);
     return mav;
   }
@@ -35,7 +34,6 @@ public class PlaceImageController {
   @GetMapping("/findPlaceImage")
   public ResponseEntity<List<PlaceImageEntity>> findPlaceImage() {
     List<PlaceImageEntity> findPlaceImageList = placeImageService.findPlaceImage();
-    System.out.println(findPlaceImageList);
     return ResponseEntity.ok(findPlaceImageList);
   }
 

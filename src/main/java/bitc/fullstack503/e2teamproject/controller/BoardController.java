@@ -66,20 +66,10 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/mainPage");
     PlaceEntity findBallingList = placeService.findPlaceBalling();
     PlaceEntity findClimbingList = placeService.findPlaceClimbing();
-//    PlaceEntity findCoinSingList = placeService.findPlaceCoinSing();
-//    PlaceEntity findGoldList = placeService.findPlaceGold();
-//    PlaceEntity findDanceList = placeService.findPlaceDance();
     PlaceEntity findCartList = placeService.findPlaceCart();
     mav.addObject("findBallingList", findBallingList);
     mav.addObject("findClimbingList", findClimbingList);
-//    mav.addObject("findCoinSingList", findCoinSingList);
-//    mav.addObject("findGoldList", findGoldList);
-//    mav.addObject("findDanceList", findDanceList);
     mav.addObject("findCartList", findCartList);
-
-    System.out.println(findBallingList);
-    System.out.println("클라이밍 : " + findClimbingList);
-    System.out.println("카트 : " + findCartList);
     return mav;
   }
 
@@ -148,8 +138,6 @@ public class BoardController {
                                              HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println("sessionUserIdx : " + sessionUserIdx);
-    System.out.println("noticeUserIdx : " + noticeUserIdx);
 
     if (!sessionUserIdx.equals(noticeUserIdx)) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 외에 공지는 삭제할 수 업습니다");
@@ -198,7 +186,6 @@ public class BoardController {
                          HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer userIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println(userIdx);
     boardService.writeEvent(userIdx, eventTitleCreate, eventContentsCreate);
   }
 
@@ -219,8 +206,6 @@ public class BoardController {
                                             HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer userIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println("userIdx : " + userIdx);
-    System.out.println("eventUserIdx : " + eventUserIdx);
 
     if (!userIdx.equals(eventUserIdx)) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 외에 이벤트는 삭제할 수 업습니다");
@@ -288,10 +273,8 @@ public class BoardController {
                                            HttpServletRequest request) {
     HttpSession session = request.getSession();
     String userId = session.getAttribute("userId").toString();
-    System.out.println("crewUserId : " + crewUserId);
 
     if (!userId.equals(crewUserId)) {
-      System.out.println("타인의 게시물은 삭제할 수 업습니다");
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 게시물은 삭제할 수 업습니다");
     } else {
       boardService.deleteCrew(crewNumberDelete);
