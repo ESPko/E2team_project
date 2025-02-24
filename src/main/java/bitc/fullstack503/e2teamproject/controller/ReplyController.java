@@ -47,10 +47,6 @@ public class ReplyController {
     Integer replyUserIdx = (Integer) session.getAttribute("userIdx");
     String replyUserName = (String) session.getAttribute("userName");
     replyService.replyWrite(crewBoardIdx, replyUserIdx, replyUserName, replyWriteComment);
-    String replyUserName = (String) session.getAttribute("userName");
-    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyUserName, replyWriteComment);
-
-    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyWriteComment);
   }
 
   //  댓글 삭제
