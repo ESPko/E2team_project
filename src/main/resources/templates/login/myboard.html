@@ -48,8 +48,8 @@
                 <h5 class="myPageFont">게시글</h5>
                 <ul style="list-style: none; padding-left: 0">
                     <li>
-                        <div class="container row d-flex justify-content-between"
-                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+                        <div class="container row d-flex justify-content-between border-bottom"
+                             style="padding:20px 0;">
                             <div class="col-2 align-items-center bdFont">번호</div>
                             <div class="col-4 align-items-center bdFont" style="font-weight: bold;">
                                 <a href="#" class="text-dark bdFont" style="text-decoration: none;">제목</a>
@@ -58,8 +58,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="container row d-flex justify-content-between"
-                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="post : ${posts}">
+                        <div class="container row d-flex justify-content-between border-bottom"
+                             style="padding:20px 0;" th:each="post : ${posts}">
                             <div class="col-2 align-items-center findNoticeIdx" th:value="${post.board_idx}" th:text="${post.board_idx}">번호</div>
                             <div class="col-4 align-items-center" style="font-weight: bold;">
                                 <a th:href="@{${post.category == '공지사항' ? '/notice/' + post.board_idx
@@ -78,6 +78,15 @@
                     </li>
                 </ul>
 
+                <th:block th:if="${posts.totalPages == 0}">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <p>작성한 게시글이 없습니다.</p>
+                            </li>
+                        </ul>
+                    </nav>
+                </th:block>
 
                 <!-- 게시글 페이지네이션 -->
                 <th:block th:if="${posts.totalPages > 0}">
@@ -97,15 +106,6 @@
                 </nav>
                 </th:block>
 
-                <th:block th:if="${posts.totalPages == 0}">
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <p>작성한 게시글이 없습니다.</p>
-                            </li>
-                        </ul>
-                    </nav>
-                </th:block>
 
 
             </div>
@@ -115,8 +115,8 @@
                 <h5 class="myPageFont">댓글</h5>
                 <ul style="list-style: none; padding-left: 0">
                     <li>
-                    <div class="container row d-flex justify-content-between"
-                         style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;">
+                    <div class="container row d-flex justify-content-between border-bottom"
+                         style="padding:20px 0;">
                         <div class="col-2 align-items-center bdFont">내용</div>
                         <div class="col-10 bdFont" style="text-align: center;">작성일</div>
                     </div>
@@ -125,7 +125,7 @@
                     <li th:each="comment : ${comments}">
 
                         <div class="container row d-flex justify-content-between"
-                             style="padding:20px 0; border-bottom: solid 0.3px #bee5eb;" th:each="post : ${posts}">
+                             style="padding:20px 0;" th:each="post : ${posts}">
                             <div class="col-2 align-items-center" style="font-weight: bold;">
                                 <a th:href="@{${comment.boardReply.category == '공지사항' ? '/notice/' + comment.boardReply.board_idx
                                             : (comment.boardReply.category == '이벤트' ? '/event/' + comment.boardReply.board_idx
@@ -145,6 +145,16 @@
                     </li>
                 </ul>
 
+                <th:block th:if="${comments.totalPages == 0}">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <p>작성한 댓글이 없습니다.</p>
+                            </li>
+                        </ul>
+                    </nav>
+                </th:block>
+
                 <!-- 댓글 페이지네이션 -->
                 <th:block th:if="${posts.totalPages > 0}">
                 <nav>
@@ -163,15 +173,7 @@
                 </nav>
                 </th:block>
 
-                <th:block th:if="${comments.totalPages == 0}">
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <p>작성한 댓글이 없습니다.</p>
-                            </li>
-                        </ul>
-                    </nav>
-                </th:block>
+
 
             </div>
         </div>
@@ -183,8 +185,7 @@
 
                     <!-- 제목 행 -->
                     <li>
-                        <div class="container row d-flex justify-content-between align-items-center"
-                             style="padding:10px 0; border-bottom: solid 1px #bee5eb;">
+                        <div class="container row d-flex justify-content-between align-items-center border-bottom" style="padding:20px 0;">
                             <div class="col-3 text-center bdFont">별점</div>
                             <div class="col-6 text-center bdFont">내용</div>
                             <div class="col-3 text-center bdFont">작성일</div>
@@ -193,8 +194,8 @@
 
                     <!-- 리뷰 목록 -->
                     <li th:each="review : ${reviews}">
-                        <div class="container row d-flex justify-content-between align-items-center"
-                             style="padding:10px 0; border-bottom: solid 1px #bee5eb; flex-wrap: nowrap;">
+                        <div class="container row d-flex justify-content-between align-items-center border-bottom"
+                             style="padding:10px 0; flex-wrap: nowrap;">
 
                             <!-- 별점 -->
                             <div class="col-3 d-flex justify-content-center">
@@ -217,6 +218,16 @@
                     </li>
                 </ul>
 
+                <th:block th:if="${reviews.totalPages == 0}">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <p>작성한 리뷰가 없습니다.</p>
+                            </li>
+                        </ul>
+                    </nav>
+                </th:block>
+
                 <!-- 리뷰 페이지네이션 -->
                 <th:block th:if="${reviews.totalPages > 0}">
                 <nav>
@@ -235,15 +246,6 @@
                 </nav>
                 </th:block>
 
-                <th:block th:if="${reviews.totalPages == 0}">
-                   <nav>
-                       <ul class="pagination justify-content-center">
-                           <li class="page-item">
-                               <p>작성한 리뷰가 없습니다.</p>
-                           </li>
-                       </ul>
-                   </nav>
-                </th:block>
 
             </div>
         </div>
