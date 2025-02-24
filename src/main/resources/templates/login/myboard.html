@@ -124,7 +124,7 @@
 
                     <li th:each="comment : ${comments}">
 
-                        <div class="container row d-flex justify-content-between"
+                        <div class="container row d-flex justify-content-between border-bottom"
                              style="padding:20px 0;" th:each="post : ${posts}">
                             <div class="col-2 align-items-center" style="font-weight: bold;">
                                 <a th:href="@{${comment.boardReply.category == '공지사항' ? '/notice/' + comment.boardReply.board_idx
