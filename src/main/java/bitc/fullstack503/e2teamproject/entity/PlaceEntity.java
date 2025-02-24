@@ -41,6 +41,11 @@ public class PlaceEntity {
 
   private String category;
 
+  @Transient
+  private double averageStar;
+
+  @Transient
+  private int reviewCount;
 
   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude

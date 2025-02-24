@@ -42,6 +42,9 @@ public interface PlaceService {
   //  보드게임
   PlaceEntity findPlaceBoard();
 
+  //  보드게임 리스트
+  List<PlaceEntity> findPlaceBoardList();
+
   //  볼링장 카테고리
   PlaceEntity findPlaceBalling();
 
@@ -59,6 +62,9 @@ public interface PlaceService {
 
   //  댄스학원
   PlaceEntity findPlaceDance();
+
+  //  볼링장 전부
+  List<PlaceEntity> findPlaceBallingList();
 
   //  서바이벌
   PlaceEntity findPlaceSurvival();
@@ -80,6 +86,9 @@ public interface PlaceService {
 
   //  카트체험
   PlaceEntity findPlaceCart();
+
+  //  클라이밍 전부
+  List<PlaceEntity> findPlaceClimbingList();
 
   //  키자니아
   PlaceEntity findPlaceKizania();

@@ -91,10 +91,22 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.queryFindCategoryBoard();
   }
 
-  //  볼링장 카테고리
+  //  보드게임 리스트
+  @Override
+  public List<PlaceEntity> findPlaceBoardList() {
+    return placeRepository.queryFindBoardList();
+  }
+
+  //  볼링장 카테고리 하나
   @Override
   public PlaceEntity findPlaceBalling() {
     return placeRepository.queryFindCategoryBalling();
+  }
+
+  //  볼링장 전부
+  @Override
+  public List<PlaceEntity> findPlaceBallingList() {
+    return placeRepository.queryFindBallingList();
   }
 
   //  서바이벌
@@ -155,6 +167,12 @@ public class PlaceServiceImpl implements PlaceService {
   @Override
   public PlaceEntity findPlaceClimbing() {
     return placeRepository.queryFindCategoryClimbing();
+  }
+
+  //  클라이밍 전부
+  @Override
+  public List<PlaceEntity> findPlaceClimbingList() {
+    return placeRepository.queryFindClimbingList();
   }
 
   //  키자니아

@@ -56,7 +56,10 @@
           <div class="justify-content-between">
             <p style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</p>
             <p style="word-break:keep-all;" th:text="${placeDetail.address}">업체 주소</p>
+            <p>⭐ 평균 별점: <span th:text="${placeDetail.averageStar}">0.0</span></p>
+            <p>💬 리뷰 개수: <span th:text="${placeDetail.reviewCount}">0</span> 개</p>
           </div>
+
         </div>
       </div>
     </div>

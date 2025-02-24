@@ -1,7 +1,6 @@
 package bitc.fullstack503.e2teamproject.service;
 
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
-import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.entity.UserEntity;
 import bitc.fullstack503.e2teamproject.repository.PlaceRepository;
@@ -9,7 +8,6 @@ import bitc.fullstack503.e2teamproject.repository.ReviewRepository;
 import bitc.fullstack503.e2teamproject.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -71,11 +69,22 @@ public class ReviewServiceImpl implements ReviewService {
     reviewRepository.save(review);
   }
 
-//  //  리뷰 보기(심지현)
+  //  리뷰 보기(심지현)
   @Override
   public List<ReviewEntity> readReview(int reviewPlaceIdx) {
     return reviewRepository.queryFindPlaceReview(reviewPlaceIdx);
   }
 
+  //  별점 평균
+  @Override
+  public double averageStar(int placeIdx) {
+    return reviewRepository.queryAverageStar(placeIdx);
+  }
+
+  //  리뷰 갯수
+  @Override
+  public int countReview(int placeIdx) {
+    return reviewRepository.queryCountReview(placeIdx);
+  }
 }
 
