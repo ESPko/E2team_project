@@ -203,6 +203,5 @@ public class UserController {
     userService.updateUserPhone(userId, newPhone);
     return ResponseEntity.ok("휴대폰번호 변경 성공");
   }
-
 }
 

@@ -37,58 +37,19 @@
           pointer-events: none;
       }
 
-      .star_box {
-          width: 400px;
-          box-sizing: border-box;
-          display: inline-block;
-          margin: 15px 0;
-          background: #F3F4F8;
-          border: 0;
-          border-radius: 10px;
-          height: 100px;
-          resize: none;
-          padding: 15px;
-          font-size: 13px;
-          font-family: sans-serif;
-      }
-
-      .btn02 {
-          display: block;
-          width: 400px;
-          font-weight: bold;
-          border: 0;
-          border-radius: 10px;
-          max-height: 50px;
-          padding: 15px 0;
-          font-size: 1.1em;
-          text-align: center;
-          background: bisque;
-      }
-
       .reviewStar {
           color: gold;
           text-shadow: 1px 1px black;
-          /*-webkit-text-stroke: 1px black;*/
       }
   </style>
   <script>
       $(document).ready(function () {
           const reviewPlaceIdx = $(".hiddenPlaceIdx").val();
 
-          // $(".reviewOk").on("click", function () {
-          //     const review = $("#reviewBox").val();
-          //     console.log(review);
-          //     const star = $("#drawStarContainer").val() * 0.5;
-          //     console.log(star);
-          // });
-
           // 리뷰 쓰기
           $(".reviewSubmit").on("click", function () {
               const reviewWrite = $("#reviewBox").val();
-              console.log(reviewWrite);
               const reviewStar = $("#drawStarContainer").val() * 0.5;
-              console.log(reviewStar);
-              console.log(reviewPlaceIdx);
 
               $.ajax({
                   url: `/review/write/${reviewPlaceIdx}/${reviewWrite}/${reviewStar}`,
@@ -103,7 +64,7 @@
                       location.reload();
                   },
                   error: function () {
-                      console.log("리뷰 작성 실패");
+                      alert("리뷰 작성 실패");
                   }
               })
           });
@@ -117,17 +78,17 @@
                   reviewShowContainer.empty();
 
                   data.forEach(review => {
-                      console.log(review);
-
-                      // 별점 동적 생성
                       let fullStars = Math.floor(review.star); // 꽉 찬 별 개수
                       let halfStar = review.star % 1 !== 0 ? 1 : 0; // 반쪽 별 개수
                       let emptyStars = 5 - fullStars - halfStar; // 빈 별 개수
 
                       let starsHtml = "";
-                      for (let i = 0; i < fullStars; i++) starsHtml += `<i class="fa-solid fa-star reviewStar"></i>`; // 꽉 찬 별
-                      if (halfStar) starsHtml += `<i class="fa-solid fa-star-half-stroke reviewStar"></i>`; // 반쪽 별
-                      for (let i = 0; i < emptyStars; i++) starsHtml += `<i class="fa-regular fa-star reviewStar"></i>`; // 빈 별
+                      for (let i = 0; i < fullStars; i++)
+                          starsHtml += `<i class="fa-solid fa-star reviewStar"></i>`; // 꽉 찬 별
+                      if (halfStar)
+                          starsHtml += `<i class="fa-solid fa-star-half-stroke reviewStar"></i>`; // 반쪽 별
+                      for (let i = 0; i < emptyStars; i++)
+                          starsHtml += `<i class="fa-regular fa-star reviewStar"></i>`; // 빈 별
 
                       let html = `<div class="reviewListContainer row py-3">`
                       html += `<input type="hidden" class="reviewIdx" value="${review.reviewIdx}"></input>`
@@ -145,18 +106,14 @@
 
           //리뷰 삭제
           $(document).on("click", ".reviewDeleteButton", function () {
-              console.log("리뷰 삭제 누름");
               let reviewIdx = $(this).closest("div").find(".reviewIdx").val();
-              console.log(reviewIdx);
               let reviewUserIdx = $(this).closest("div").find(".reviewUserIdx").val();
-              console.log("쓴 사람 : " + reviewUserIdx);
 
               $.ajax({
                   url: `/review/delete/${reviewIdx}`,
                   type: `delete`,
                   data: {"reviewUserIdx": reviewUserIdx},
                   success: function () {
-                      // console.log("reviewDelete");
                       alert("리뷰 삭제 완료");
                       location.reload();
                   },
@@ -197,7 +154,7 @@
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-3 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>
-            <div class="col-auto">방탈출</div>
+            <div class="col-auto" th:text="${placeDetail.category}">방탈출</div>
           </div>
           <div class="row row-cols-3" style="margin-bottom: 15px;">
             <div class="col-3 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>
@@ -217,29 +174,6 @@
     </div>
   </div>
 </section>
-
-
-<!--&lt;!&ndash; 상세 설명 &ndash;&gt;-->
-<!--<section class="container mt-5" th:each="placeDetail : ${placeDetailList}">-->
-<!--  <div style="margin-left: 15px;">-->
-
-<!--    <div class="row py-3 border-top border-bottom">-->
-<!--      <div class="col-2 border-end"><i class="fa-solid fa-house"></i>주소</div>-->
-<!--      <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">-->
-<!--      <div class="col-4 border-end" th:text="${placeDetail.address}">부산광역시</div>-->
-<!--      <div class="col-2 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>-->
-<!--      <div class="col-2">방탈출</div>-->
-<!--    </div>-->
-
-<!--    <div class="row py-3 border-bottom">-->
-<!--      <div class="col-2 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>-->
-<!--      <div class="col-2 border-end" th:text="|개점 : ${placeDetail.openTime}|">10:00</div>-->
-<!--      <div class="col-2 border-end" th:text="|폐점 : ${placeDetail.closeTime}|">10:00</div>-->
-<!--      <div class="col-2 border-end"><i class="fa-solid fa-phone"></i> 연락처</div>-->
-<!--      <div class="col-4 " th:text="${placeDetail.phone}">00000-0000</div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
 
 <!-- 리뷰 부분 -->
 <section class="container mt-5">
