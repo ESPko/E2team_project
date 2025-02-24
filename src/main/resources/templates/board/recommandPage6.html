@@ -84,32 +84,48 @@
         <div class="carousel-item active">
           <div class="d-flex justify-content-between">
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/animal.jpg" class="d-block rounded" alt="1"></a>
+            <div class="carousel-box" th:each="animal : ${animalList}">
+              <a th:href="|/place/detail/${animal.placeIdx}|">
+                <div th:each="animalImage : ${animal.placeImageEntityList}">
+                  <img th:src="|/${animalImage.imagePath}${animalImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>동물카페</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/board.jpg" class="d-block rounded" alt="2"></a>
+            <div class="carousel-box" th:each="board : ${boardList}">
+              <a th:href="|/place/detail/${board.placeIdx}|">
+                <div th:each="boardImage : ${board.placeImageEntityList}">
+                  <img th:src="|/${boardImage.imagePath}${boardImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>보드게임</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/bowling.jpg" class="d-block rounded" alt="3"></a>
+            <div class="carousel-box" th:each="balling : ${ballingList}">
+              <a th:href="|/place/detail/${balling.placeIdx}|">
+                <div th:each="ballingImage : ${balling.placeImageEntityList}">
+                  <img th:src="|/${ballingImage.imagePath}${ballingImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>볼링</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/cart.jpg" class="d-block rounded" alt="4"></a>
+            <div class="carousel-box" th:each="cart : ${cartList}">
+              <a th:href="|/place/detail/${cart.placeIdx}|">
+                <div th:each="cartImage : ${cart.placeImageEntityList}">
+                  <img th:src="|/${cartImage.imagePath}${cartImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>카트체험</h3>
                 <p>자세한 내용은 클릭 !</p>
@@ -120,34 +136,55 @@
         </div>
         <div class="carousel-item">
           <div class="d-flex justify-content-between">
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/coin.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="coinSing : ${coinSingList}">
+              <a th:href="|/place/detail/${coinSing.placeIdx}|">
+                <div th:each="coinSingImage : ${coinSing.placeImageEntityList}">
+                  <img th:src="|/${coinSingImage.imagePath}${coinSingImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>코인노래방</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/luge.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="loogi : ${loogiList}">
+              <a th:href="|/place/detail/${loogi.placeIdx}|">
+                <div th:each="loogiImage : ${loogi.placeImageEntityList}">
+                  <img th:src="|/${loogiImage.imagePath}${loogiImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>루지</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/escape.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="escape : ${escapeList}">
+              <a th:href="|/place/detail/${escape.placeIdx}|">
+                <div th:each="escapeImage : ${escape.placeImageEntityList}">
+                  <img th:src="|/${escapeImage.imagePath}${escapeImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>방탈출</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/maid.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="maid : ${maidList}">
+              <a th:href="|/place/detail/${maid.placeIdx}|">
+                <div th:each="maidImage : ${maid.placeImageEntityList}">
+                  <img th:src="|/${maidImage.imagePath}${maidImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3>메이드카페</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
+
           </div>
         </div>
       </div>

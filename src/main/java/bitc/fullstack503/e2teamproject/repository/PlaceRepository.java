@@ -78,8 +78,8 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   PlaceEntity queryFindCategorySurvival();
 
   //  수상레저 카테고리 가져오기
-  @Query(value = "SELECT * FROM place WHERE category = '수상레저' LIMIT 1", nativeQuery = true)
-  PlaceEntity queryFindCategoryWater();
+//  @Query(value = "SELECT * FROM place WHERE category = '수상레저' LIMIT 1", nativeQuery = true)
+//  PlaceEntity queryFindCategoryWater();
 
 //  스카이다이빙
   @Query(value = "select * from place where category='스카이다이빙'", nativeQuery = true)
@@ -130,7 +130,7 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   PlaceEntity queryFindCategoryPartyRoom();
 
 //  페러세일
-  @Query(value = "select * from place where category = '페러세일링'", nativeQuery = true)
+  @Query(value = "select * from place where category = '패러세일링'", nativeQuery = true)
   PlaceEntity queryFindCategoryParasail();
 
   //  홀덤펍 카테고리 가져오기

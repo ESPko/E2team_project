@@ -64,7 +64,7 @@ public interface PlaceService {
   PlaceEntity findPlaceSurvival();
 
   //  수상레저
-  PlaceEntity findPlaceWater();
+//  PlaceEntity findPlaceWater();
 
   //  스카이다이빙
   PlaceEntity findPlaceSkyDiving();
@@ -91,11 +91,11 @@ public interface PlaceService {
   PlaceEntity findPlaceTikTok();
 
   //  파티룸
-  PlaceEntity queryFindCategoryPartyRoom();
+  PlaceEntity findPlacePartyRoom();
 
   //  페러세일
-  PlaceEntity queryFindCategoryParasail();
+  PlaceEntity findPlaceParasail();
 
   //  홀덤펍
-  PlaceEntity queryFindCategoryHoldum();
+  PlaceEntity findPlaceHoldum();
 }

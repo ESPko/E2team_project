@@ -104,10 +104,10 @@ public class PlaceServiceImpl implements PlaceService {
   }
 
   //  수상레저
-  @Override
-  public PlaceEntity findPlaceWater() {
-    return placeRepository.queryFindCategoryWater();
-  }
+//  @Override
+//  public PlaceEntity findPlaceWater() {
+//    return placeRepository.queryFindCategoryWater();
+//  }
 
 //  스카이다이빙
 @Override
@@ -177,19 +177,19 @@ public PlaceEntity findPlaceTikTok(){
 
   //  파티룸
   @Override
-  public PlaceEntity queryFindCategoryPartyRoom() {
+  public PlaceEntity findPlacePartyRoom() {
     return placeRepository.queryFindCategoryPartyRoom();
   }
 
 //  페러세일
 @Override
-public PlaceEntity queryFindCategoryParasail(){
+public PlaceEntity findPlaceParasail(){
     return placeRepository.queryFindCategoryParasail();
   }
 
   //  홀덤펍
   @Override
-  public PlaceEntity queryFindCategoryHoldum() {
+  public PlaceEntity findPlaceHoldum() {
     return placeRepository.queryFindCategoryHoldum();
   }
 }
