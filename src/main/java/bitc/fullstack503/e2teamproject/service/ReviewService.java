@@ -13,6 +13,7 @@ public interface ReviewService {
   void reviewStar(@RequestParam("reviewPlaceIdx") int reviewPlaceIdx,
                   @RequestParam("reviewUserIdx") int reviewUserIdx,
                   @RequestParam("reviewUserId") String reviewUserId,
+                  @RequestParam("reviewUserName") String reviewUserName,
                   @RequestParam("reviewComment") String reviewComment,
                   @RequestParam("reviewStar") double reviewStar);
 

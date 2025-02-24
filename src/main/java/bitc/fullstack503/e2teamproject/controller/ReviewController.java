@@ -44,15 +44,16 @@ public class ReviewController {
 
   //  리뷰 쓰기
   @ResponseBody
-  @GetMapping("/write/{reviewPlaceIdx}/{reviewWrite}/{reviewStar}")
+  @GetMapping("/write/{reviewPlaceIdx}/{reviewComment}/{reviewStar}")
   public void reviewWrite(@PathVariable("reviewPlaceIdx") int reviewPlaceIdx,
-                          @PathVariable("reviewWrite") String reviewWrite,
+                          @PathVariable("reviewComment") String reviewComment,
                           @PathVariable("reviewStar") double reviewStar,
                           HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer reviewUserIdx = (Integer) session.getAttribute("userIdx");
     String reviewUserId = (String) session.getAttribute("userId");
-    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewUserId, reviewWrite, reviewStar);
+    String reviewUserName = (String) session.getAttribute("userName");
+    reviewService.reviewStar(reviewPlaceIdx, reviewUserIdx, reviewUserId, reviewUserName, reviewComment, reviewStar);
   }
 
   //  리뷰 보기
