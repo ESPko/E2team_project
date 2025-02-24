@@ -101,19 +101,6 @@ public class ReviewController {
     return ResponseEntity.ok("리뷰 작성 완료");
   }
 
-    //  뷰 페이지
-  @GetMapping("/DetailReview")
-  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
-    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
-
-
-//    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
-
-    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
-    mav.addObject("reviews", reviews);
-//    mav.addObject("places", places); // 모델 데이터 추가
-    return mav;
-  }
   //  리뷰 상세 테스트
 //  @GetMapping("/DetailReview")
 //  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {

@@ -44,11 +44,6 @@ public class ReviewEntity {
   @Column(name = "write_date")
   private LocalDateTime writeDate;
 
-  @Column(name = "hit_count")
-  private int hitCount = 0;
-
-  @Column(name = "like_count")
-  private int likeCount = 0;
 
 //  @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //  @ToString.Exclude

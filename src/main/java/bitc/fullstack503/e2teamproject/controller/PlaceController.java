@@ -2,7 +2,9 @@ package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.PlaceDTO;
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
+import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import bitc.fullstack503.e2teamproject.service.PlaceService;
+import bitc.fullstack503.e2teamproject.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +43,26 @@ public class PlaceController {
   public ModelAndView placeDetail(@PathVariable("placeIdx") int placeIdx) {
     ModelAndView mav = new ModelAndView("/board/DetailReviewPage");
     List<PlaceEntity> findPlaceDetail = placeService.findPlaceDetail(placeIdx);
+
     System.out.println(findPlaceDetail);
     mav.addObject("placeDetailList", findPlaceDetail);
     return mav;
   }
+
+//  //  뷰 페이지
+//  @GetMapping("/DetailReview")
+//  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
+//
+//
+//
+////    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
+////    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
+//
+//    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
+//    mav.addObject("reviews", reviews);
+////    mav.addObject("places", places); // 모델 데이터 추가
+//    return mav;
+//  }
+
+
 }

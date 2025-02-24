@@ -42,8 +42,6 @@ public class BoardEntity {
   @Column(name = "hit_count")
   private int hitCount;
 
-  @Column(name = "like_count")
-  private int likeCount;
 
   @OneToMany(mappedBy = "boardReply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
