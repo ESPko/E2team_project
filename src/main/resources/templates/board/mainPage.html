@@ -167,7 +167,7 @@
       <!--볼링-->
       <div class="col-sm p-4" th:each="findBalling : ${findBallingList}">
         <div class="container mt-3 mb-5">
-        <h2 class="fontTitle">부산진구</h2></div>
+        <h2 class="font1">부산진구</h2></div>
         <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
             <div class="card-body p-0">
@@ -177,20 +177,23 @@
           </div>
         </a>
         <div class="container mt-5 p-0">
-          <h4 class="fontCard">볼링</h4>
+          <h4 class="font1">볼링</h4>
           <div class="container mt-5 p-0 textFont">
             <ul class="list-group-flush p-0" style="width: 230px;">
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/94" class="text-decoration-none text-dark" style="font-size: 18px;">"뷰 볼링장" 정보 보기</a>
+
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/27" class="text-decoration-none text-dark" style="font-size: 18px; ">"로얄 볼링장" 정보 보기</a>
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/92" class="text-decoration-none text-dark" style="font-size: 18px;">"메가 락 볼링장" 정보 보기</a>
+
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/93" class="text-decoration-none text-dark" style="font-size: 18px;">"킴스볼링장 1호점" 정보 보기</a>
+
               </li>
             </ul>
         </div>
@@ -206,7 +209,7 @@
       <!--클라이밍-->
       <div class="col-sm p-4" th:each="findClimbing : ${findClimbingList}">
         <div class="container mt-3 mb-5">
-          <h2 class="fontTitle">수영구</h2></div>
+          <h2 class="font1">수영구</h2></div>
         <a th:href="|/place/detail/${findClimbing.placeIdx}|">
           <div class="card card-container" >
             <img src="/img/recommand/climb_card.jpg" alt="클라이밍 이미지">
@@ -217,7 +220,7 @@
         </a>
 
         <div class="container mt-5">
-          <h4 class="fontCard">클라이밍</h4>
+          <h4 class="font1">클라이밍</h4>
           <div class="container mt-5 p-0 textFont">
             <ul class="list-group-flush p-0" style="width: 320px;">
               <li class="list-group-item mb-3">
@@ -243,10 +246,13 @@
         </div>
       </div>
 
+
+
       <div class="col-sm p-4" th:each="findBoard : ${findBoardList}">
         <div class="container mt-3 mb-5">
-          <h2 class="fontTitle">기타지역</h2>
+          <h2 class="font1">기타지역</h2>
         </div>
+
         <a th:href="|/place/detail/${findBoard.placeIdx}|">
         <div class="card card-container">
           <img src="/img/recommand/board_card.JPG" class="card-img-top h-100 w-100" alt="..." >
@@ -257,7 +263,7 @@
         </a>
 
         <div class="container mt-5">
-          <h4 class="fontCard">보드게임</h4>
+          <h4 class="font1">보드게임</h4>
           <div class="container mt-5 p-0 textFont">
             <ul class="list-group-flush p-0" style="width: 320px;">
               <li class="list-group-item mb-3">

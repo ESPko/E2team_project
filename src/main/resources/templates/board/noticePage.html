@@ -41,7 +41,7 @@
   <div class="container" style="width: 800px; padding-top: 10px; margin-top: 30px;">
     <div class="row justify-content-between align-items-end">
       <div class="col-auto">
-        <h4 style="font-weight: bold;" class="fontTitle">공지사항</h4>
+        <h1 style="font-weight: bold;" class="font1 mb-5">공지사항</h1>
         <p class="bdFont1">다양한 소식을 알려드립니다.</p>
       </div>
       <button type="button" class="btn btn-secondary btn-sm col-1 noticeWriteButton" style="margin-right: 30px;">작성</button>
@@ -66,11 +66,11 @@
                  th:value="${findNotice.board_idx}" th:text="${findNotice.board_idx}">번호
             </div>
             <div class="col-8 align-items-center">
-              <a href="#" class="text-dark textFont" style="text-decoration: none;"
+              <a href="#" class="text-dark textFont" style="text-decoration: none; font-size: 18px;"
                  th:value="${findNotice.title}" th:text="${findNotice.title}"
                  th:href="@{/notice/{id}(id=${findNotice.board_idx})}">제목</a>
             </div>
-            <div class="col-3 textFont " style="text-align: right;"
+            <div class="col-3 " style="text-align: right;"
                  th:value="${findNotice.createDate}" th:text="${findNotice.createDate}">작성일
             </div>
           </div>

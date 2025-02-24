@@ -12,6 +12,7 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/css/font.css">
 
   <style>
       .star {
@@ -141,7 +142,7 @@
   <div th:each="placeDetail : ${placeDetailList}">
     <div class="row justify-content-center">
       <div class="container">
-        <h3 class="mt-3" style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</h3>
+        <h3 class="mt-3 " style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</h3>
       </div>
 
       <div class="mt-3 row justify-content-between">
