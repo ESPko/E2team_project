@@ -66,10 +66,10 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/mainPage");
     PlaceEntity findBallingList = placeService.findPlaceBalling();
     PlaceEntity findClimbingList = placeService.findPlaceClimbing();
-    PlaceEntity findCartList = placeService.findPlaceCart();
+    PlaceEntity findBoardList = placeService.findPlaceBoard();
     mav.addObject("findBallingList", findBallingList);
     mav.addObject("findClimbingList", findClimbingList);
-    mav.addObject("findCartList", findCartList);
+    mav.addObject("findBoardList", findBoardList);
     return mav;
   }
 
