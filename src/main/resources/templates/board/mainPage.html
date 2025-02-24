@@ -163,10 +163,11 @@
     <div class="container mt-5">
       <h1 class="font1 text-center">지역별 인기활동</h1>
     </div>
-
     <div class="container mt-5 d-flex justify-content-space-between">
       <!--볼링-->
       <div class="col-sm p-4" th:each="findBalling : ${findBallingList}">
+        <div class="container mt-3 mb-5">
+        <h2 class="fontTitle">부산진구</h2></div>
         <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
             <div class="card-body p-0" th:each="findBallingImage : ${findBalling.placeImageEntityList}">
@@ -204,6 +205,8 @@
 
       <!--클라이밍-->
       <div class="col-sm p-4" th:each="findClimbing : ${findClimbingList}">
+        <div class="container mt-3 mb-5">
+          <h2 class="fontTitle">수영구</h2></div>
         <a th:href="|/place/detail/${findClimbing.placeIdx}|">
           <div class="card card-container" th:each="findClimbingImage : ${findClimbing.placeImageEntityList}">
             <img th:src="|/${findClimbingImage.imagePath}${findClimbingImage.imageName}|" alt="클라이밍 이미지">
