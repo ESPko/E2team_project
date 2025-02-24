@@ -49,15 +49,15 @@
 
           // 리뷰 쓰기
           $(".reviewSubmit").on("click", function () {
-              const reviewWrite = $("#reviewBox").val();
+              const reviewComment = $("#reviewBox").val();
               const reviewStar = $("#drawStarContainer").val() * 0.5;
 
               $.ajax({
-                  url: `/review/write/${reviewPlaceIdx}/${reviewWrite}/${reviewStar}`,
+                  url: `/review/write/${reviewPlaceIdx}/${reviewComment}/${reviewStar}`,
                   type: `get`,
                   data: {
                       "reviewPlaceIdx": reviewPlaceIdx,
-                      "reviewWrite": reviewWrite,
+                      "reviewComment": reviewComment,
                       "reviewStar": reviewStar
                   },
                   success: function () {
@@ -94,7 +94,7 @@
                       let html = `<div class="reviewListContainer row py-3">`
                       html += `<input type="hidden" class="reviewIdx" value="${review.reviewIdx}"></input>`
                       html += `<input type="hidden" class="reviewUserIdx" value=${review.reviewUserIdx}></input>`
-                      html += `<span><i class="fa-regular fa-user"></i> <span class="reviewUserId">${review.reviewUserId}</span> `;
+                      html += `<span><i class="fa-regular fa-user"></i> <span class="reviewUserId">${review.reviewUserName}</span> `;
                       html += ` <span>${starsHtml}</span></span><br>`;
                       html += `<span><span class="reviewComment" style="word-wrap: break-word">${review.comment}</span></span><br>`;
                       html += `<div><button type="button" class="reviewDeleteButton btn btn-outline-danger btn-sm float-end">삭제</button><br></div>`;

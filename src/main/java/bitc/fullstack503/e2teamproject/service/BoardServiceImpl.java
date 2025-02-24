@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
   public Page<BoardEntity> findNotice(int page) {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("board_idx"));
-    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
     return boardRepository.queryFindNotice(pageable);
   }
 
@@ -77,7 +77,7 @@ public class BoardServiceImpl implements BoardService {
   public Page<BoardEntity> findEvent(int page) {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("board_idx"));
-    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
     return boardRepository.queryFindEvent(pageable);
   }
 
@@ -111,7 +111,7 @@ public class BoardServiceImpl implements BoardService {
   public Page<BoardEntity> findCrew(int page) {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("board_idx"));
-    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
     return boardRepository.queryFindCrew(pageable);
   }
 
@@ -132,27 +132,6 @@ public class BoardServiceImpl implements BoardService {
   public void deleteCrew(int crewNumberDelete) {
     boardRepository.queryDeleteCrew(crewNumberDelete);
   }
-
-//  글쓸때 이미지도 올라가는지 확인용
-@Transactional
-//@Override
-public void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images) {
-  // 1️⃣ 게시글 저장
-  BoardEntity board = BoardEntity.builder()
-          .title(title)
-          .contents(contents)
-          .category(category)
-          .user(user)
-          .createDate(LocalDateTime.now())
-          .updateDate(LocalDateTime.now())
-          .hitCount(0)
-          .likeCount(0)
-          .build();
-
-  board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
-
-
-}
 
   // 내가 작성한 게시글
   @Override
