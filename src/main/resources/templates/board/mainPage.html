@@ -182,18 +182,15 @@
             <ul class="list-group-flush p-0" style="width: 230px;">
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/94" class="text-decoration-none text-dark" style="font-size: 18px;">"뷰 볼링장" 정보 보기</a>
-
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/27" class="text-decoration-none text-dark" style="font-size: 18px; ">"로얄 볼링장" 정보 보기</a>
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/92" class="text-decoration-none text-dark" style="font-size: 18px;">"메가 락 볼링장" 정보 보기</a>
-
               </li>
               <li class="list-group-item mb-3">
                 <a href="http://localhost:8080/place/detail/93" class="text-decoration-none text-dark" style="font-size: 18px;">"킴스볼링장 1호점" 정보 보기</a>
-
               </li>
             </ul>
         </div>
@@ -246,14 +243,11 @@
         </div>
       </div>
 
-
-
-      <div class="col-sm p-4">
+      <div class="col-sm p-4" th:each="findBoard : ${findBoardList}">
         <div class="container mt-3 mb-5">
           <h2 class="fontTitle">기타지역</h2>
         </div>
-
-        <a href="http://localhost:8080/place/detail/123" th:href="|/place/detail/${findBoard.placeIdx}|">
+        <a th:href="|/place/detail/${findBoard.placeIdx}|">
         <div class="card card-container">
           <img src="/img/recommand/board_card.JPG" class="card-img-top h-100 w-100" alt="..." >
           <div class="card-body p-0">
