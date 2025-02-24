@@ -45,6 +45,7 @@
   <script>
       $(document).ready(function () {
           const reviewPlaceIdx = $(".hiddenPlaceIdx").val();
+          console.log(reviewPlaceIdx);
 
           // 리뷰 쓰기
           $(".reviewSubmit").on("click", function () {
@@ -106,8 +107,10 @@
 
           //리뷰 삭제
           $(document).on("click", ".reviewDeleteButton", function () {
-              let reviewIdx = $(this).closest("div").find(".reviewIdx").val();
-              let reviewUserIdx = $(this).closest("div").find(".reviewUserIdx").val();
+              let reviewIdx = $(this).closest(".reviewListContainer").find(".reviewIdx").val();
+              console.log("reviewIdx : " + reviewIdx);
+              let reviewUserIdx = $(this).closest(".reviewListContainer").find(".reviewUserIdx").val();
+              console.log("reviewUserIdx : " + reviewUserIdx);
 
               $.ajax({
                   url: `/review/delete/${reviewIdx}`,
@@ -222,68 +225,67 @@
   </div>
 </section>
 
-
-<nav class="navbar" id="right-nav">
-  <div class="rounded float-end" style="width: 170px; padding: 10px; margin-left: 20px;">
-    <div class="text-center mt-3">
-      <button type="button" class="border-0 btn btn-danger">
-        <a href="/templates/board/crewPage.html" class="font-weight-bold text-light text-decoration-none">파티 구함<i
-            class="fa-solid fa-fire"></i></a>
-      </button>
-    </div>
-    <div class="mt-3">
-      <p class="text-center mt-4">이런 활동 어떠세요?</p>
-      <div>
-        <div>
-          <img src="/img/climbing.jpg" alt="climbing-img"
-               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
-        <div>
-          <a href="#" style="text-decoration: none;">
-            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-              style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p></a></p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <img src="/img/climbing.jpg" alt="climbing-img"
-               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
-        <div>
-          <a href="#" style="text-decoration: none;">
-            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-              style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p></a></p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <img src="/img/climbing.jpg" alt="climbing-img"
-               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
-        <div>
-          <a href="#" style="text-decoration: none;">
-            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-              style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p></a></p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <img src="/img/climbing.jpg" alt="climbing-img"
-               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>
-        <div>
-          <a href="#" style="text-decoration: none;">
-            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>
-          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p
-              style="margin-bottom: 0;">22:30 영업 종료</p>
-            <p>부산 진구 부전동</p></a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+<!--<nav class="navbar" id="right-nav">-->
+<!--  <div class="rounded float-end" style="width: 170px; padding: 10px; margin-left: 20px;">-->
+<!--    <div class="text-center mt-3">-->
+<!--      <button type="button" class="border-0 btn btn-danger">-->
+<!--        <a href="/templates/board/crewPage.html" class="font-weight-bold text-light text-decoration-none">파티 구함<i-->
+<!--            class="fa-solid fa-fire"></i></a>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="mt-3">-->
+<!--      <p class="text-center mt-4">이런 활동 어떠세요?</p>-->
+<!--      <div>-->
+<!--        <div>-->
+<!--          <img src="/img/climbing.jpg" alt="climbing-img"-->
+<!--               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>-->
+<!--        <div>-->
+<!--          <a href="#" style="text-decoration: none;">-->
+<!--            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
+<!--          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
+<!--              style="margin-bottom: 0;">22:30 영업 종료</p>-->
+<!--            <p>부산 진구 부전동</p></a></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <div>-->
+<!--          <img src="/img/climbing.jpg" alt="climbing-img"-->
+<!--               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>-->
+<!--        <div>-->
+<!--          <a href="#" style="text-decoration: none;">-->
+<!--            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
+<!--          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
+<!--              style="margin-bottom: 0;">22:30 영업 종료</p>-->
+<!--            <p>부산 진구 부전동</p></a></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <div>-->
+<!--          <img src="/img/climbing.jpg" alt="climbing-img"-->
+<!--               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>-->
+<!--        <div>-->
+<!--          <a href="#" style="text-decoration: none;">-->
+<!--            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
+<!--          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
+<!--              style="margin-bottom: 0;">22:30 영업 종료</p>-->
+<!--            <p>부산 진구 부전동</p></a></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <div>-->
+<!--          <img src="/img/climbing.jpg" alt="climbing-img"-->
+<!--               style="width: 88px; border-radius: 5px; margin-right: 5px;"></div>-->
+<!--        <div>-->
+<!--          <a href="#" style="text-decoration: none;">-->
+<!--            <span style="font-size: small;">웨이브락 클라이밍 서면점</span></a>-->
+<!--          <p style="margin-bottom: 0;"><a href="#" class="text-dark" style="text-decoration: none; font-size: small;"><p-->
+<!--              style="margin-bottom: 0;">22:30 영업 종료</p>-->
+<!--            <p>부산 진구 부전동</p></a></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
 
 <div th:replace="~{/layout/footer :: projectfooter}"></div>
 </body>
