@@ -16,6 +16,7 @@
 
 package bitc.fullstack503.e2teamproject.repository;
 
+import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReplyEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
 import org.springframework.data.domain.Page;
@@ -55,6 +56,18 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
   //  내가 작성한 리뷰
   @Query("SELECT r FROM ReviewEntity r WHERE r.userReview.user_idx = :userId")
   Page<ReviewEntity> findReviewsByUserId(@Param("userId") int userId, Pageable pageable);
+
+  //  리뷰 별점 평균
+  @Query("select p.placeIdx, p.location, p.address, p.name, avg(r.star)" +
+          "from PlaceEntity p inner join ReviewEntity r " +
+          "where p.placeIdx = :placeIdx and r.reviewIdx = :reviewIdx")
+  List<PlaceEntity> queryPlaceAverageStar();
+
+  //  리뷰 갯수
+  @Query("select p.placeIdx, p.location, p.address, p.name, count(r.star)" +
+          "from PlaceEntity p inner join ReviewEntity r " +
+          "where p.placeIdx = :placeIdx and r.reviewIdx = :reviewIdx")
+  List<PlaceEntity> queryPlaceCountReview();
 
 }
 
