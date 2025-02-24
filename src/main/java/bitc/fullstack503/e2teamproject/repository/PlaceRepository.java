@@ -65,13 +65,21 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   @Query(value = "select * from place where category='베이킹체험' limit 1", nativeQuery = true)
   PlaceEntity queryFindCategoryBaking();
 
-  //  보드게임
+  //  보드게임 하나
   @Query(value = "select * from place where category='보드게임' limit 1", nativeQuery = true)
   PlaceEntity queryFindCategoryBoard();
 
-  //  볼링장 카테고리 가져오기
+  //  보드게임 전부 가져오기
+  @Query(value = "select * from place where category = '보드게임'", nativeQuery = true)
+  List<PlaceEntity> queryFindBoardList();
+
+  //  볼링장 카테고리 하나 가져오기
   @Query(value = "SELECT * FROM place WHERE category = '볼링장' LIMIT 1", nativeQuery = true)
   PlaceEntity queryFindCategoryBalling();
+
+  //  볼링장 카테고리 전부 가져오기
+  @Query(value = "Select * from place where category = '볼링장'", nativeQuery = true)
+  List<PlaceEntity> queryFindBallingList();
 
   //  서바이벌 카테고리 가져오기
   @Query(value = "SELECT * FROM place WHERE category = '서바이벌' LIMIT 1", nativeQuery = true)
@@ -109,9 +117,13 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   @Query(value = "SELECT * FROM place WHERE category = '코인노래방' LIMIT 1", nativeQuery = true)
   PlaceEntity queryFindCategoryCoinSing();
 
-  //  클라이밍 카테고리 가져오기
+  //  클라이밍 카테고리 하나 가져오기
   @Query(value = "SELECT * FROM place WHERE category = '클라이밍' LIMIT 1", nativeQuery = true)
   PlaceEntity queryFindCategoryClimbing();
+
+  //  클라이밍 카테고리 전부 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '클라이밍'", nativeQuery = true)
+  List<PlaceEntity> queryFindClimbingList();
 
   //  키자니아 카테고리 가져오기
   @Query(value = "SELECT * FROM place WHERE category = '키자니아' LIMIT 1", nativeQuery = true)

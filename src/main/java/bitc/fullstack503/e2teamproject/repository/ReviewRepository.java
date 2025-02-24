@@ -59,16 +59,15 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
   Page<ReviewEntity> findReviewsByUserId(@Param("userId") int userId, Pageable pageable);
 
   //  리뷰 별점 평균
-  @Query("select p.placeIdx, p.location, p.address, p.name, avg(r.star)" +
-          "from PlaceEntity p inner join ReviewEntity r " +
-          "where p.placeIdx = :placeIdx and r.reviewIdx = :reviewIdx")
-  List<PlaceEntity> queryPlaceAverageStar();
+  @Query(value = "select coalesce(avg(r.star),0) " +
+          "from place p inner join review r " +
+          "where p.place_idx = :placeIdx and r.review_place_idx = :placeIdx", nativeQuery = true)
+  double queryAverageStar(@Param("placeIdx") int placeIdx);
 
   //  리뷰 갯수
-  @Query("select p.placeIdx, p.location, p.address, p.name, count(r.star)" +
-          "from PlaceEntity p inner join ReviewEntity r " +
-          "where p.placeIdx = :placeIdx and r.reviewIdx = :reviewIdx")
-  List<PlaceEntity> queryPlaceCountReview();
-
+  @Query(value = "select coalesce(count(r.star),0) " +
+          "from place p inner join review r " +
+          "where p.place_idx = :placeIdx and r.review_place_idx = :placeIdx", nativeQuery = true)
+  int queryCountReview(@Param("placeIdx") int placeIdx);
 }
 

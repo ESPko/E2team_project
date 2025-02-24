@@ -64,12 +64,23 @@ public class BoardController {
   @RequestMapping("/")
   public ModelAndView home() {
     ModelAndView mav = new ModelAndView("/board/mainPage");
+//    위에 하나만
     PlaceEntity findBallingList = placeService.findPlaceBalling();
     PlaceEntity findClimbingList = placeService.findPlaceClimbing();
     PlaceEntity findBoardList = placeService.findPlaceBoard();
+
+//    전부
+    List<PlaceEntity> findBallingAll = placeService.findPlaceBallingList();
+    List<PlaceEntity> findClimbingAll = placeService.findPlaceClimbingList();
+    List<PlaceEntity> findBoardAll = placeService.findPlaceBoardList();
+
     mav.addObject("findBallingList", findBallingList);
     mav.addObject("findClimbingList", findClimbingList);
     mav.addObject("findBoardList", findBoardList);
+
+    mav.addObject("findBallingAll", findBallingAll);
+    mav.addObject("findClimbingAll", findClimbingAll);
+    mav.addObject("findBoardAll", findBoardAll);
     return mav;
   }
 
@@ -275,7 +286,7 @@ public class BoardController {
   //  인원 모집 수정 뷰
   @RequestMapping("/crew/{boardIdx}/edit")
   public ModelAndView crewEdit(@PathVariable("boardIdx") int boardIdx,
-                                   HttpServletRequest request) {
+                               HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/board/crewEditPage");
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);

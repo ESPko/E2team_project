@@ -167,7 +167,7 @@
       <!--볼링-->
       <div class="col-sm p-4" th:each="findBalling : ${findBallingList}">
         <div class="container mt-3 mb-5">
-        <h2 class="fontTitle">부산진구</h2></div>
+          <h2 class="fontTitle">부산진구</h2></div>
         <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
             <div class="card-body p-0">
@@ -179,21 +179,14 @@
         <div class="container mt-5 p-0">
           <h4 class="fontCard">볼링</h4>
           <div class="container mt-5 p-0 textFont">
-            <ul class="list-group-flush p-0" style="width: 230px;">
+            <ul class="list-group-flush p-0" style="width: 230px;" th:each="findBallings : ${findBallingAll}">
               <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/94" class="text-decoration-none text-dark" style="font-size: 18px;">"뷰 볼링장" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/27" class="text-decoration-none text-dark" style="font-size: 18px; ">"로얄 볼링장" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/92" class="text-decoration-none text-dark" style="font-size: 18px;">"메가 락 볼링장" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/93" class="text-decoration-none text-dark" style="font-size: 18px;">"킴스볼링장 1호점" 정보 보기</a>
+                <a th:href="|/place/detail/${findBallings.placeIdx}|"
+                   th:text='|"${findBallings.name}" 정보 보기|'
+                   class="text-decoration-none text-dark" style="font-size: 18px;"></a>
               </li>
             </ul>
-        </div>
+          </div>
           <div class="mt-5" style="margin-bottom: 10px;">
             <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">
               <a href="/crew/write" class="font-weight-bold text-white"
@@ -208,7 +201,7 @@
         <div class="container mt-3 mb-5">
           <h2 class="fontTitle">수영구</h2></div>
         <a th:href="|/place/detail/${findClimbing.placeIdx}|">
-          <div class="card card-container" >
+          <div class="card card-container">
             <img src="/img/recommand/climb_card.jpg" alt="클라이밍 이미지">
             <div class="card-body p-0">
               <p class="card-text">Click !</p>
@@ -219,18 +212,11 @@
         <div class="container mt-5">
           <h4 class="fontCard">클라이밍</h4>
           <div class="container mt-5 p-0 textFont">
-            <ul class="list-group-flush p-0" style="width: 320px;">
+            <ul class="list-group-flush p-0" style="width: 320px;" th:each="findClimbings : ${findClimbingAll}">
               <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/66" class="text-decoration-none text-dark" style="font-size: 18px;">"오터 클라이밍" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/23" class="text-decoration-none text-dark" style="font-size: 18px;">"돌멩이 클라이밍" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/67" class="text-decoration-none text-dark" style="font-size: 18px;">"웨이브 락 클라이밍 광안리점" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/68" class="text-decoration-none text-dark" style="font-size: 18px;">"클럽 스파이더 클라이밍 사상점" 정보 보기</a>
+                <a th:href="|/place/detail/${findClimbings.placeIdx}|"
+                   th:text='|"${findClimbings.name}" 정보 보기|'
+                   class="text-decoration-none text-dark" style="font-size: 18px;">"</a>
               </li>
             </ul>
           </div>
@@ -248,29 +234,22 @@
           <h2 class="fontTitle">기타지역</h2>
         </div>
         <a th:href="|/place/detail/${findBoard.placeIdx}|">
-        <div class="card card-container">
-          <img src="/img/recommand/board_card.JPG" class="card-img-top h-100 w-100" alt="..." >
-          <div class="card-body p-0">
-            <p class="card-text">Click !</p>
+          <div class="card card-container">
+            <img src="/img/recommand/board_card.JPG" class="card-img-top h-100 w-100" alt="...">
+            <div class="card-body p-0">
+              <p class="card-text">Click !</p>
+            </div>
           </div>
-        </div>
         </a>
 
         <div class="container mt-5">
           <h4 class="fontCard">보드게임</h4>
           <div class="container mt-5 p-0 textFont">
-            <ul class="list-group-flush p-0" style="width: 320px;">
+            <ul class="list-group-flush p-0" style="width: 320px;" th:each="findBoards : ${findBoardAll}">
               <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/4" class="text-decoration-none text-dark" style="font-size: 18px;">"홀릭 보드게임카페" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/7" class="text-decoration-none text-dark" style="font-size: 18px;">"데블다이스 보드게임 카페" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/95" class="text-decoration-none text-dark" style="font-size: 18px;">"보드게임카페 레드버튼 서면점" 정보 보기</a>
-              </li>
-              <li class="list-group-item mb-3">
-                <a href="http://localhost:8080/place/detail/96" class="text-decoration-none text-dark" style="font-size: 18px;">"홈즈앤루팡 보드게임카페 서면점" 정보 보기</a>
+                <a th:href="|/place/detail/${findBoards.placeIdx}|"
+                   th:text='|"${findBoards.name}" 정보 보기|'
+                   class="text-decoration-none text-dark" style="font-size: 18px;"></a>
               </li>
             </ul>
           </div>

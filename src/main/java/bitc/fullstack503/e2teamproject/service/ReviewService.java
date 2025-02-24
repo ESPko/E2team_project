@@ -31,5 +31,11 @@ public interface ReviewService {
 
   //  리뷰 보기(심지현)
   List<ReviewEntity> readReview(int reviewPlaceIdx);
+
+  //  별점 평균
+  double averageStar(@RequestParam("placeIdx") int placeIdx);
+
+  //  리뷰 갯수
+  int countReview(int placeIdx);
 }
 

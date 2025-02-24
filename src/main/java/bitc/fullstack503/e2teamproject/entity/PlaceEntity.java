@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "place")
 @Getter
+@Setter
 @Builder
 @ToString
 @AllArgsConstructor
@@ -40,6 +41,12 @@ public class PlaceEntity {
   private String phone;
 
   private String category;
+
+  @Transient
+  private double averageStar;
+
+  @Transient
+  private int reviewCount;
 
   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
