@@ -122,7 +122,7 @@ public class BoardController {
   }
 
   //  공지 수정 뷰
-  @RequestMapping("/notice/{boardIdx}/edit")
+  @RequestMapping("/notice/edit/{boardIdx}")
   public ModelAndView noticeEdit(@PathVariable("boardIdx") int boardIdx) {
     ModelAndView mav = new ModelAndView("/board/noticeEditPage");
     BoardEntity notice = boardService.findNoticeById(boardIdx);
@@ -199,7 +199,7 @@ public class BoardController {
   }
 
   //  이벤트 수정 뷰
-  @RequestMapping("/event/{boardIdx}/edit")
+  @RequestMapping("/event/edit/{boardIdx}")
   public ModelAndView eventEdit(@PathVariable("boardIdx") int boardIdx) {
     ModelAndView mav = new ModelAndView("/board/eventEditPage");
     BoardEntity event = boardService.findNoticeById(boardIdx);
@@ -273,7 +273,7 @@ public class BoardController {
   }
 
   //  인원 모집 수정 뷰
-  @RequestMapping("/crew/{boardIdx}/edit")
+  @RequestMapping("/crew/edit/{boardIdx}")
   public ModelAndView crewEdit(@PathVariable("boardIdx") int boardIdx,
                                    HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/board/crewEditPage");

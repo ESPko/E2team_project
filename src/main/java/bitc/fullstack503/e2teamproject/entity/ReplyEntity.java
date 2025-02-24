@@ -38,4 +38,5 @@ public class ReplyEntity {
 
   @Column(name = "create_date")
   private LocalDateTime createDate;
+
 }

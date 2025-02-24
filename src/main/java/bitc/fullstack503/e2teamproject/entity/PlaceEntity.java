@@ -41,6 +41,7 @@ public class PlaceEntity {
 
   private String category;
 
+
   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @ToString.Exclude
   @Builder.Default
