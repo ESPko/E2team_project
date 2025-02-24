@@ -139,35 +139,35 @@
 <!-- 메인 사진 -->
 <section class="container mt-5">
   <div th:each="placeDetail : ${placeDetailList}">
-    <div class="row justify-content-center">
+    <div>
       <div class="container">
         <h3 class="mt-3" style="font-weight: bold;" th:text="${placeDetail.name}">업체 이름</h3>
       </div>
 
-      <div class="mt-3 row justify-content-between">
+      <div class="mt-3 row justify-content-between align-items-center">
         <div class="mainImage col-2" th:each="placeImage : ${placeDetail.placeImageEntityList}">
           <img class="rounded" th:src="|/${placeImage.imagePath}${placeImage.imageName}|" alt="이미지"
-               style="width: 300px; height: 300px; margin-right: 20px;">
+               style="width: 350px; height: 300px;">
         </div>
         <div class="col-7">
-          <div class="row" style="margin-bottom: 20px;">
+          <div class="row" style="margin-bottom: 30px;">
             <div class="col-3 border-end"><i class="fa-solid fa-house"></i> 주소</div>
             <input type="hidden" th:value="${placeDetail.placeIdx}" class="hiddenPlaceIdx">
             <div class="col-auto" th:text="${placeDetail.address}">부산광역시</div>
           </div>
-          <div class="row" style="margin-bottom: 20px;">
+          <div class="row" style="margin-bottom: 30px;">
             <div class="col-3 border-end"><i class="fa-solid fa-dice"></i> 카테고리</div>
             <div class="col-auto" th:text="${placeDetail.category}">방탈출</div>
           </div>
-          <div class="row row-cols-3" style="margin-bottom: 15px;">
+          <div class="row row-cols-3" style="margin-bottom: 20px;">
             <div class="col-3 border-end"><i class="fa-regular fa-clock"></i> 운영시간</div>
             <div class="col-auto" th:text="|개점 : ${placeDetail.openTime}|">개점 : </div>
           </div>
-          <div class="row row-cols-3" style="margin-bottom: 20px;">
+          <div class="row row-cols-3" style="margin-bottom: 30px;">
             <div class="col-3 border-end"></div>
             <div class="col-auto" th:text="|폐점 : ${placeDetail.closeTime}|">폐점 : </div>
           </div>
-          <div class="row row-cols-2" style="margin-bottom: 15px;">
+          <div class="row row-cols-2" style="margin-bottom: 20px;">
             <div class="col-3 border-end"><i class="fa-solid fa-phone"></i> 연락처</div>
             <div class="col-auto" th:text="${placeDetail.phone}">00000000</div>
           </div>
