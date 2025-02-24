@@ -137,10 +137,10 @@
         </div>
         <div class="carousel-item">
           <div class="d-flex justify-content-between">
-            <div class="carousel-box" th:each="skyDiving : ${skyDivingList}">
-              <a th:href="|/place/detail/${skyDiving.placeIdx}|">
-                <div th:each="skyDivingImage : ${skyDiving.placeImageEntityList}">
-                  <img th:src="|/${skyDivingImage.imagePath}${skyDivingImage.imageName}|" class="d-block rounded" alt="4">
+            <div class="carousel-box" th:each="surfing : ${surfingList}">
+              <a th:href="|/place/detail/${surfing.placeIdx}|">
+                <div th:each="surfingImage : ${surfing.placeImageEntityList}">
+                  <img th:src="|/${surfingImage.imagePath}${surfingImage.imageName}|" class="d-block rounded" alt="4">
                 </div>
               </a>
               <div class="caption">

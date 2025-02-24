@@ -103,15 +103,15 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.queryFindCategorySurvival();
   }
 
-  //  수상레저
-//  @Override
-//  public PlaceEntity findPlaceWater() {
-//    return placeRepository.queryFindCategoryWater();
-//  }
+  //  서핑
+  @Override
+  public PlaceEntity findPlaceSurfing() {
+    return placeRepository.queryFindCategorySurfing();
+  }
 
-//  스카이다이빙
-@Override
-public PlaceEntity findPlaceSkyDiving(){
+  //  스카이다이빙
+  @Override
+  public PlaceEntity findPlaceSkyDiving() {
     return placeRepository.queryFindCategorySkyDiving();
   }
 
@@ -169,9 +169,9 @@ public PlaceEntity findPlaceSkyDiving(){
     return placeRepository.queryFindCategoryThemePark();
   }
 
-//  틱톡
-@Override
-public PlaceEntity findPlaceTikTok(){
+  //  틱톡
+  @Override
+  public PlaceEntity findPlaceTikTok() {
     return placeRepository.queryFindCategoryTikTok();
   }
 
@@ -181,9 +181,9 @@ public PlaceEntity findPlaceTikTok(){
     return placeRepository.queryFindCategoryPartyRoom();
   }
 
-//  페러세일
-@Override
-public PlaceEntity findPlaceParasail(){
+  //  페러세일
+  @Override
+  public PlaceEntity findPlaceParasail() {
     return placeRepository.queryFindCategoryParasail();
   }
 

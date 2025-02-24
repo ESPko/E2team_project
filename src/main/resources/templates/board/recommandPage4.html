@@ -139,8 +139,12 @@
                 <div class="carousel-item">
                     <div class="d-flex justify-content-between">
 
-                        <div class="carousel-box">
-                            <a href="#"><img src="/img/recommand/surp.jpg" class="d-block rounded" alt="4"></a>
+                        <div class="carousel-box" th:each="surfing : ${surfingList}">
+                          <a th:href="|/place/detail/${surfing.placeIdx}|">
+                            <div th:each="surfingImage : ${surfing.placeImageEntityList}">
+                              <img th:src="|/${surfingImage.imagePath}${surfingImage.imageName}|" class="d-block rounded" alt="1">
+                            </div>
+                          </a>
                             <div class="caption">
                                 <h3>서핑</h3>
                                 <p>자세한 내용은 클릭 !</p>

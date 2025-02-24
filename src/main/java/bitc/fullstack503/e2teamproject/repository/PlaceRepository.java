@@ -77,9 +77,9 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   @Query(value = "SELECT * FROM place WHERE category = '서바이벌' LIMIT 1", nativeQuery = true)
   PlaceEntity queryFindCategorySurvival();
 
-  //  수상레저 카테고리 가져오기
-//  @Query(value = "SELECT * FROM place WHERE category = '수상레저' LIMIT 1", nativeQuery = true)
-//  PlaceEntity queryFindCategoryWater();
+  //  서핑 카테고리 가져오기
+  @Query(value = "SELECT * FROM place WHERE category = '서핑'", nativeQuery = true)
+  PlaceEntity queryFindCategorySurfing();
 
 //  스카이다이빙
   @Query(value = "select * from place where category='스카이다이빙'", nativeQuery = true)
