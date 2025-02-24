@@ -121,6 +121,15 @@ public class BoardController {
     boardService.writeNotice(userIdx, noticeTitle, noticeContents);
   }
 
+  //  공지 수정 뷰
+  @RequestMapping("/notice/{boardIdx}/edit")
+  public ModelAndView noticeEdit(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/noticeEditPage");
+    BoardEntity notice = boardService.findNoticeById(boardIdx);
+    mav.addObject("notice", notice);
+    return mav;
+  }
+
   //  공지 수정하기
   @ResponseBody
   @PutMapping("/notice/update")
@@ -189,6 +198,15 @@ public class BoardController {
     boardService.writeEvent(userIdx, eventTitleCreate, eventContentsCreate);
   }
 
+  //  이벤트 수정 뷰
+  @RequestMapping("/event/{boardIdx}/edit")
+  public ModelAndView eventEdit(@PathVariable("boardIdx") int boardIdx) {
+    ModelAndView mav = new ModelAndView("/board/eventEditPage");
+    BoardEntity event = boardService.findNoticeById(boardIdx);
+    mav.addObject("event", event);
+    return mav;
+  }
+
   //  이벤트 수정하기
   @ResponseBody
   @PutMapping("/event/update")
@@ -252,6 +270,17 @@ public class BoardController {
     String trimCrewContentsCreate = crewContentsCreate.trim();
 
     boardService.writeCrew(userIdx, crewTitleCreate, trimCrewContentsCreate);
+  }
+
+  //  인원 모집 수정 뷰
+  @RequestMapping("/crew/{boardIdx}/edit")
+  public ModelAndView crewEdit(@PathVariable("boardIdx") int boardIdx,
+                                   HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView("/board/crewEditPage");
+    BoardEntity crew = boardService.findNoticeById(boardIdx);
+    mav.addObject("crew", crew);
+
+    return mav;
   }
 
   //  인원 모집 수정하기

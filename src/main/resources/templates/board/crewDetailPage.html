@@ -30,6 +30,8 @@
           // 수정 버튼
           $("#btn-modify").on("click", function () {
               console.log("btn-modify");
+            let boardIdx = $(".crewBoardIdx").val();
+            location.href = `/crew/${boardIdx}/edit`;
           })
 
           // 삭제 버튼
