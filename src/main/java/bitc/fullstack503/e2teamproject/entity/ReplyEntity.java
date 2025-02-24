@@ -31,6 +31,9 @@ public class ReplyEntity {
   @JsonIgnore
   private UserEntity userReply;
 
+  @Column(name = "reply_user_name")
+  private String replyUserName;
+
   private String comment;
 
   @Column(name = "create_date")
