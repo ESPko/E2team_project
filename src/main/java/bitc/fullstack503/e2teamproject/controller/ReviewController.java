@@ -1,9 +1,7 @@
 package bitc.fullstack503.e2teamproject.controller;
 
 import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
-import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
 import bitc.fullstack503.e2teamproject.entity.ReviewEntity;
-import bitc.fullstack503.e2teamproject.service.PlaceService;
 import bitc.fullstack503.e2teamproject.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
