@@ -70,11 +70,6 @@ public class BoardController {
     mav.addObject("findBallingList", findBallingList);
     mav.addObject("findClimbingList", findClimbingList);
     mav.addObject("findCartList", findCartList);
-    System.out.println(findBallingList);
-    System.out.println(findClimbingList);
-    System.out.println(findCartList);
-    System.out.println();
-    System.out.println(findBallingList.getPlaceImageEntityList());
     return mav;
   }
 
@@ -227,7 +222,6 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/crewPage");
     Page<BoardEntity> findCrewList = boardService.findCrew(page);
     mav.addObject("findCrewList", findCrewList);
-
     return mav;
   }
 
@@ -238,7 +232,6 @@ public class BoardController {
     ModelAndView mav = new ModelAndView("/board/crewDetailPage");
     BoardEntity crew = boardService.findNoticeById(boardIdx);
     mav.addObject("crew", crew);
-
     return mav;
   }
 

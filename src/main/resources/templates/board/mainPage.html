@@ -95,14 +95,7 @@
               const selectLocation = $("#location option:selected").val();
               const selectAge = $("#age option:selected").val();
               const selectPeople = $("#people option:selected").val();
-              console.log(selectLocation);
-              console.log(selectAge);
-              console.log(selectPeople);
               location.href = `/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`;
-          });
-
-          $(".ballingImage").on("click", function () {
-              console.log("누름");
           });
       });
   </script>
@@ -113,7 +106,7 @@
 <header th:replace="~{layout/header :: projectheader}"></header>
 <br>
 <main>
-  <!--    캐러셀 부분 -->
+  <!-- 캐러셀 부분 -->
   <div class="container-fluid px-0 mt-5 mb-5">
     <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
       <!-- 인디케이터 -->
@@ -124,7 +117,6 @@
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
-
       </div>
 
       <!-- 캐러셀 이미지 -->
@@ -193,7 +185,7 @@
           </div>
           <div class="mt-5" style="margin-bottom: 10px;">
             <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">
-              <a href="/templates/board/crewPage.html" class="font-weight-bold text-white"
+              <a href="/crew/write" class="font-weight-bold text-white"
                  style="text-decoration: none;">파티 구함 <i class="fa-solid fa-fire"></i></a>
             </button>
           </div>
@@ -220,7 +212,7 @@
           </div>
           <div class="mt-5" style="margin-bottom: 10px;">
             <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">
-              <a href="/templates/board/crewPage.html" class="font-weight-bold text-white"
+              <a href="/crew/write" class="font-weight-bold text-white"
                  style="text-decoration: none;">파티 구함 <i class="fa-solid fa-fire"></i></a>
             </button>
           </div>
@@ -248,7 +240,7 @@
           </div>
           <div class="mt-5" style="margin-bottom: 10px;">
             <button type="button" class="border-0 btn btn-danger" style="border-radius: 5px;">
-              <a href="/templates/board/crewPage.html" class="font-weight-bold text-white"
+              <a href="/crew/write" class="font-weight-bold text-white"
                  style="text-decoration: none;">파티 구함 <i class="fa-solid fa-fire"></i></a>
             </button>
           </div>
