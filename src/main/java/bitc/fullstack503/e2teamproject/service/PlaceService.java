@@ -63,8 +63,8 @@ public interface PlaceService {
   //  서바이벌
   PlaceEntity findPlaceSurvival();
 
-  //  서핑
-  PlaceEntity findPlaceSurfing();
+  //  수상레저
+//  PlaceEntity findPlaceWater();
 
   //  스카이다이빙
   PlaceEntity findPlaceSkyDiving();

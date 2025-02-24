@@ -29,7 +29,6 @@ public class RecommandController {
     PlaceEntity studio = placeService.findPlaceSelfStudio();
     PlaceEntity baking = placeService.findPlaceBaking();
     PlaceEntity balling = placeService.findPlaceBalling();
-    PlaceEntity surfing = placeService.findPlaceSurfing();
     PlaceEntity skyDiving = placeService.findPlaceSkyDiving();
     PlaceEntity shooting = placeService.findPlaceShooting();
     PlaceEntity convention = placeService.findPlaceConvention();
@@ -41,7 +40,6 @@ public class RecommandController {
     mav.addObject("studioList", studio);
     mav.addObject("bakingList", baking);
     mav.addObject("ballingList", balling);
-    mav.addObject("surfingList", surfing);
     mav.addObject("skyDivingList", skyDiving);
     mav.addObject("shootingList", shooting);
     mav.addObject("conventionList", convention);
@@ -66,7 +64,7 @@ public class RecommandController {
     PlaceEntity cart = placeService.findPlaceCart();
     PlaceEntity zipLine = placeService.findPlaceZipLine();
     PlaceEntity shooting = placeService.findPlaceShooting();
-    PlaceEntity surfing = placeService.findPlaceSurfing();
+//    PlaceEntity surfing = placeService.findplaceWater();
     PlaceEntity skyDiving = placeService.findPlaceSkyDiving();
     PlaceEntity survival = placeService.findPlaceSurvival();
     PlaceEntity escape = placeService.findPlaceEscapeRoom();
@@ -78,7 +76,6 @@ public class RecommandController {
     mav.addObject("cartList", cart);
     mav.addObject("zipLineList", zipLine);
     mav.addObject("shootingList", shooting);
-    mav.addObject("surfingList", surfing);
     mav.addObject("skyDivingList", skyDiving);
     mav.addObject("survivalList", survival);
     mav.addObject("escapeList", escape);
