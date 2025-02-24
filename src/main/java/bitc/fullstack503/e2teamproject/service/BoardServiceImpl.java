@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
   public Page<BoardEntity> findNotice(int page) {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("board_idx"));
-    Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
     return boardRepository.queryFindNotice(pageable);
   }
 

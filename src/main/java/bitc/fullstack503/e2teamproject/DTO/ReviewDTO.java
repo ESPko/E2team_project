@@ -11,6 +11,7 @@ import lombok.Setter;
 public class ReviewDTO {
   private int reviewIdx;
   private String reviewUserId;
+  private String reviewUserName;
   private String comment;
   private double star;
   private int reviewUserIdx;
@@ -20,6 +21,7 @@ public class ReviewDTO {
     return new ReviewDTO(
             review.getReviewIdx(),
             review.getReviewUserId(),
+            review.getReviewUserName(),
             review.getComment(),
             review.getStar(),
             review.getUserReview().getUser_idx(),
