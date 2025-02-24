@@ -70,11 +70,6 @@ public class BoardController {
     mav.addObject("findBallingList", findBallingList);
     mav.addObject("findClimbingList", findClimbingList);
     mav.addObject("findCartList", findCartList);
-    System.out.println(findBallingList);
-    System.out.println(findClimbingList);
-    System.out.println(findCartList);
-    System.out.println();
-    System.out.println(findBallingList.getPlaceImageEntityList());
     return mav;
   }
 
