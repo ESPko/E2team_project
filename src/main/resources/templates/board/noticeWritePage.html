@@ -15,6 +15,12 @@
   <link href="/css/font.css" rel="stylesheet">
 
   <script>
+      $(document).ready(function () {
+          $("#btn-list").on("click", function () {
+              history.back();
+          });
+      });
+
     $(document).ready(function(){
         $("#btn-list").on("click",function(){
             console.log("btnList 누름");
