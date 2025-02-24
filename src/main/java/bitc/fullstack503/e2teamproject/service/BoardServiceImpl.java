@@ -146,6 +146,7 @@ public void saveBoard(String title, String contents, String category, UserEntity
           .createDate(LocalDateTime.now())
           .updateDate(LocalDateTime.now())
           .hitCount(0)
+
           .build();
 
   board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
