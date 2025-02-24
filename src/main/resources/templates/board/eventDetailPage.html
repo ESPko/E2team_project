@@ -14,12 +14,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script>
     $(document).ready(function(){
-        $("#btn-list").on("click",function(){
-            history.back();
-        });
+
+      let boardIdx = $(".eventBoardIdx").val();
 
         $("#btn-modify").on("click",function(){
             console.log("btn-modify 누름");
+            location.href = `/event/${boardIdx}/edit`;
         });
 
         $("#btn-delete").on("click",function(){
@@ -70,6 +70,7 @@
       <div class="container d-flex justify-content-between align-items-center mt-4"
            style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
 
+        <input type="hidden" class="eventBoardIdx" th:value="${event.board_idx}">
         <div class="col-sm-2 textFont"><span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span></div>
         <div class="col-sm-6 textFont"><span>제목 : <span th:text="${event.title}" class="eventTitle textFont"></span></span></div>
         <input type="hidden" th:value="${event.user.user_idx}" class="eventUserIdx ">

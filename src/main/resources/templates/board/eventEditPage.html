@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/css/font.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script>
+        $(document).ready(function(){
+
+            const eventBoardIdx = $(".eventBoardIdx").val();
+
+            $("#btn-modify").on("click",function(){
+                console.log("btn-modify 누름");
+
+                let boardIdx = $(".eventBoardIdx").val();
+                const eventTitleUpdate = $("#eventTitle").val();
+                const eventContentsUpdate = $("#contents").val();
+
+                if (!eventTitleUpdate || !eventContentsUpdate) {
+                    alert("제목과 내용을 입력하세요.");
+                    return;
+                }
+
+                $.ajax({
+                    type: "PUT",
+                    url: "/event/update",
+                    data: {
+                        eventTitleUpdate: eventTitleUpdate,
+                        eventContentsUpdate: eventContentsUpdate,
+                        eventNumberUpdate: eventBoardIdx
+                    },
+                    success: function () {
+                        alert("수정되었습니다.");
+                        location.href = `/event/${boardIdx}`;
+                    },
+                    error: function () {
+                        alert("수정 실패. 다시 시도하세요.");
+                    }
+                });
+
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+<div th:replace="~{/layout/header :: projectheader}"></div>
+
+<main class="container container-sm mt-5" style="width: 800px; margin-bottom: 100px;">
+    <section style="margin-top: 150px;">
+
+        <form id="frm" action="#" method="post">
+            <input type="hidden" id="method" name="_method">
+
+            <div class="mb-5 fontTitle">
+                <h4>이벤트</h4>
+            </div>
+
+            <div class="container d-flex justify-content-between align-items-center mt-4"
+                 style="border-color: lightgray; border: solid 0.4px lightgray; border-radius: 5px; height: 40px;">
+
+                <input type="hidden" class="eventBoardIdx" th:value="${event.board_idx}">
+
+                <div class="col-sm-2 textFont"><span>번호 : <span th:text="${event.board_idx}" class="eventNumber"></span></span></div>
+                <div class="col-sm-6 textFont">
+<!--                    <span>제목 : <span th:text="${event.title}" class="eventTitle textFont"></span></span>-->
+                    <span>제목 :</span>
+                    <input type="text" id="eventTitle" class="eventTitle textFont"
+                           style="border-style: none; background: transparent; width: 80%;"
+                           th:value="${event.title}">
+                </div>
+                <input type="hidden" th:value="${event.user.user_idx}" class="eventUserIdx ">
+                <div class="col-sm-4 textFont" th:value="${event.createDate}" th:text="|작성일 : ${event.createDate}|">작성일</div>
+            </div>
+
+
+
+            <div class=" mt-3 form-floating">
+        <textarea class="form-control textFont" name="contents" id="contents" style="height: 200px;" placeholder="내용을 입력하세요."
+                  th:value="${event.contents}" th:text="${event.contents}">
+        </textarea>
+                <label for="contents">글 내용</label>
+            </div>
+
+        </form>
+    </section>
+
+    <div class="m-3">
+        <button type="button" class="btn btn-light col-1" style="margin-left: 550px;" id="btn-modify">저장</button>
+    </div>
+</main>
+
+
+<div th:replace="~{/layout/footer :: projectfooter}"></div>
+</body>
+</html>

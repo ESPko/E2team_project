@@ -26,7 +26,8 @@ public class LoginCheck implements HandlerInterceptor {
 
         // 2. 관리자 권한 체크
         if (requestURI.startsWith("/user/manager") || requestURI.startsWith("/user/member")
-                || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write") || requestURI.startsWith("/crew/write")) {
+                || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write")
+                || requestURI.startsWith("/crew/write")) {
             if (userLevel == null || !userLevel.toString().equals("1")) {
                 sendAlert(response, "관리자만 들어갈 수 있습니다.", "/");
                 return false;
