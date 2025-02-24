@@ -31,7 +31,7 @@
           $("#btn-modify").on("click", function () {
               console.log("btn-modify");
             let boardIdx = $(".crewBoardIdx").val();
-            location.href = `/crew/${boardIdx}/edit`;
+            location.href = `/crew/edit/${boardIdx}`;
           })
 
           // 삭제 버튼

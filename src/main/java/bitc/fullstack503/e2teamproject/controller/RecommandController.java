@@ -18,13 +18,13 @@ public class RecommandController {
   //  오징어게임
   @RequestMapping("/rec1")
   public ModelAndView recommand1() {
-    return new ModelAndView("/board/recommandPage1");
+    return new ModelAndView("/place/recommandPage1");
   }
 
   //  혼자놀기
   @RequestMapping("/rec2")
   public ModelAndView recommand2() {
-    ModelAndView mav = new ModelAndView("/board/recommandPage2");
+    ModelAndView mav = new ModelAndView("/place/recommandPage2");
     PlaceEntity library = placeService.findPlaceLibrary();
     PlaceEntity studio = placeService.findPlaceSelfStudio();
     PlaceEntity baking = placeService.findPlaceBaking();
@@ -55,7 +55,7 @@ public class RecommandController {
   //  가족
   @RequestMapping("/rec3")
   public ModelAndView recommand3() {
-    ModelAndView mav = new ModelAndView("/board/recommandPage3");
+    ModelAndView mav = new ModelAndView("/place/recommandPage3");
     PlaceEntity kidsCafe = placeService.findPlaceKidsCafe();
     PlaceEntity baking = placeService.findPlaceBaking();
     PlaceEntity slime = placeService.findPlaceSlime();
@@ -78,7 +78,7 @@ public class RecommandController {
   //  exciting
   @RequestMapping("/rec4")
   public ModelAndView recommand4() {
-    ModelAndView mav = new ModelAndView("/board/recommandPage4");
+    ModelAndView mav = new ModelAndView("/place/recommandPage4");
     PlaceEntity climbing = placeService.findPlaceClimbing();
     PlaceEntity cart = placeService.findPlaceCart();
     PlaceEntity zipLine = placeService.findPlaceZipLine();
@@ -109,7 +109,7 @@ public class RecommandController {
   //  Couple
   @RequestMapping("/rec5")
   public ModelAndView recommand5() {
-    ModelAndView mav = new ModelAndView("/board/recommandPage5");
+    ModelAndView mav = new ModelAndView("/place/recommandPage5");
     PlaceEntity gonBang = placeService.findPlaceGold();
     PlaceEntity baking = placeService.findPlaceBaking();
     PlaceEntity loogi = placeService.findPlaceLoogi();
@@ -132,7 +132,7 @@ public class RecommandController {
   //  friend
   @RequestMapping("/rec6")
   public ModelAndView recommand6() {
-    ModelAndView mav = new ModelAndView("/board/recommandPage6");
+    ModelAndView mav = new ModelAndView("/place/recommandPage6");
     PlaceEntity animal = placeService.findPlaceAnimal();
     PlaceEntity board = placeService.findPlaceBoard();
     PlaceEntity balling = placeService.findPlaceBalling();
