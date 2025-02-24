@@ -133,27 +133,6 @@ public class BoardServiceImpl implements BoardService {
     boardRepository.queryDeleteCrew(crewNumberDelete);
   }
 
-//  글쓸때 이미지도 올라가는지 확인용
-@Transactional
-//@Override
-public void saveBoard(String title, String contents, String category, UserEntity user, MultipartFile[] images) {
-  // 1️⃣ 게시글 저장
-  BoardEntity board = BoardEntity.builder()
-          .title(title)
-          .contents(contents)
-          .category(category)
-          .user(user)
-          .createDate(LocalDateTime.now())
-          .updateDate(LocalDateTime.now())
-          .hitCount(0)
-
-          .build();
-
-  board = boardRepository.save(board);  // 저장 후 board 객체 업데이트
-
-
-}
-
   // 내가 작성한 게시글
   @Override
   public Page<BoardEntity> findPostsByUserId(int userId, Pageable pageable) {
