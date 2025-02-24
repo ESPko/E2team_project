@@ -30,8 +30,8 @@ public class ReplyServiceImpl implements ReplyService {
 
   //  댓글 쓰기
   @Override
-  public void replyWrite(int replyBoardIdx, int replyUserIdx, String replyWriteComment) {
-    replyRepository.replyWrite(replyBoardIdx, replyUserIdx, replyWriteComment);
+  public void replyWrite(int replyBoardIdx, int replyUserIdx, String replyUserName, String replyWriteComment) {
+    replyRepository.replyWrite(replyBoardIdx, replyUserIdx, replyUserName, replyWriteComment);
   }
 
   //  댓글 삭제

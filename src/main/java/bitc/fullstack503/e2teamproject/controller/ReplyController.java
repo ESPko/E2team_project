@@ -34,11 +34,6 @@ public class ReplyController {
 
     Map<String, Object> result = new HashMap<>();
     result.put("replyList", replyList);
-
-//    HttpSession session = request.getSession();
-//    String userId = (String) session.getAttribute("userId");
-//    System.out.println(userId);
-
     return result;
   }
 
@@ -50,9 +45,8 @@ public class ReplyController {
                          HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer replyUserIdx = (Integer) session.getAttribute("userIdx");
-//    System.out.println("userIdx : " + replyUserIdx);
-
-    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyWriteComment);
+    String replyUserName = (String) session.getAttribute("userName");
+    replyService.replyWrite(crewBoardIdx, replyUserIdx, replyUserName, replyWriteComment);
   }
 
   //  댓글 삭제
@@ -62,16 +56,9 @@ public class ReplyController {
                                             @RequestParam("replyUserId") String replyUserId,
                                             HttpServletRequest request) {
     HttpSession session = request.getSession();
-//    Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
     String userId = (String) session.getAttribute("userId");
 
-//    System.out.println("sessionUserIdx : " + sessionUserIdx);
-//    System.out.println("userId : " + userId);
-//    System.out.println("replyIdx : " + replyIdx);
-//    System.out.println("replyUserId : " + replyUserId);
-
     if (!userId.equals(replyUserId)) {
-//      System.out.println("타인의 댓글은 삭제할 수 없습니다");
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 댓글은 삭제할 수 없습니다");
     } else {
       replyService.replyDelete(replyIdx);

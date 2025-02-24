@@ -24,23 +24,6 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
-    @Autowired
-    private PlaceService placeService;
-
-  @RequestMapping("/")
-  public ModelAndView jiHyunStarTest() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
-    return mav;
-  }
-
-  //  장소 상세 페이지 테스트
-//  @GetMapping("/placeDetail")
-//  public ModelAndView getPlaceDetail(@RequestParam("placeIdx") int placeIdx) {
-//    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
-//    ModelAndView mav = new ModelAndView("board/placeDetailTest");  // 뷰 이름 설정
-//    mav.addObject("reviews", reviews);  // 모델 데이터 추가
-//    return mav;
-//  }
 
   //  리뷰 쓰기
   @ResponseBody
@@ -73,18 +56,13 @@ public class ReviewController {
                                              HttpServletRequest request) {
     HttpSession session = request.getSession();
     Integer sessionUserIdx = (Integer) session.getAttribute("userIdx");
-    System.out.println("세션의 sessionUserIdx : " + sessionUserIdx);
-    System.out.println("리뷰의 reviewUserIdx : " + reviewUserIdx);
 
     if (!sessionUserIdx.equals(reviewUserIdx)) {
-//      System.out.println("타인의 게시물은 삭제할 수 업습니다");
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("타인의 리뷰는 삭제할 수 업습니다");
     } else {
       reviewService.deleteReview(reviewIdx);
       return ResponseEntity.ok("삭제 완료");
     }
-//    System.out.println("reviewIdx : " + reviewIdx);
-//    System.out.println("리뷰 삭제");
   }
 
   //   리뷰 작성 test
@@ -101,25 +79,13 @@ public class ReviewController {
     return ResponseEntity.ok("리뷰 작성 완료");
   }
 
-    //  뷰 페이지
+  //  뷰 페이지
   @GetMapping("/DetailReview")
   public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
     List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
 
-
-//    List<PlaceEntity> places = placeService.findPlaceDetail(placeIdx);
-
     ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
     mav.addObject("reviews", reviews);
-//    mav.addObject("places", places); // 모델 데이터 추가
     return mav;
   }
-  //  리뷰 상세 테스트
-//  @GetMapping("/DetailReview")
-//  public ModelAndView getDetailReview(@RequestParam("placeIdx") int placeIdx) {
-//    List<ReviewEntity> reviews = reviewService.getReviewsByPlace(placeIdx);
-//    ModelAndView mav = new ModelAndView("board/DetailReviewPage");  // 뷰 이름 설정
-//    mav.addObject("reviews", reviews);  // 모델 데이터 추가
-//    return mav;
-//  }
 }

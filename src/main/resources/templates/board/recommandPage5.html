@@ -12,10 +12,7 @@
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
   <style>
-
     /* 버튼 위치 조정 */
     .custom-prev-btn, .custom-next-btn {
       position: absolute;
@@ -90,32 +87,48 @@
         <div class="carousel-item active">
           <div class="d-flex justify-content-between">
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/workShop.jpg" class="d-block rounded" alt="1"></a>
+            <div class="carousel-box" th:each="gonBang : ${gonBangList}">
+              <a th:href="|/place/detail/${gonBang.placeIdx}|">
+                <div th:each="gonBangImage : ${gonBang.placeImageEntityList}">
+                  <img th:src="|/${gonBangImage.imagePath}${gonBangImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
-                <h3 class="fontCard">공방</h3>
+                <h3>공방</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/bake.jpg" class="d-block rounded" alt="2"></a>
+            <div class="carousel-box" th:each="baking : ${bakingList}">
+              <a th:href="|/place/detail/${baking.placeIdx}|">
+                <div th:each="bakingImage : ${baking.placeImageEntityList}">
+                  <img th:src="|/${bakingImage.imagePath}${bakingImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
-                <h3 class="fontCard">베이킹 클래스</h3>
+                <h3 class="fontCard">베이킹클래스</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/luge.jpg" class="d-block rounded" alt="3"></a>
+            <div class="carousel-box" th:each="loogi : ${loogiList}">
+              <a th:href="|/place/detail/${loogi.placeIdx}|">
+                <div th:each="loogiImage : ${loogi.placeImageEntityList}">
+                  <img th:src="|/${loogiImage.imagePath}${loogiImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3 class="fontCard">루지</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
 
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/photo.jpg" class="d-block rounded" alt="4"></a>
+            <div class="carousel-box" th:each="studio : ${studioList}">
+              <a th:href="|/place/detail/${studio.placeIdx}|">
+                <div th:each="studioImage : ${studio.placeImageEntityList}">
+                  <img th:src="|/${studioImage.imagePath}${studioImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3 class="fontCard">무인스튜디오</h3>
                 <p>자세한 내용은 클릭 !</p>
@@ -126,29 +139,49 @@
         </div>
         <div class="carousel-item">
           <div class="d-flex justify-content-between">
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/zip.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="zipLine : ${zipLineList}">
+              <a th:href="|/place/detail/${zipLine.placeIdx}|">
+                <div th:each="zipLineImage : ${zipLine.placeImageEntityList}">
+                  <img th:src="|/${zipLineImage.imagePath}${zipLineImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3 class="fontCard">짚라인</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/theme.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="themePark : ${themeParkList}">
+              <a th:href="|/place/detail/${themePark.placeIdx}|">
+                <div th:each="themeParkImage : ${themePark.placeImageEntityList}">
+                  <img th:src="|/${themeParkImage.imagePath}${themeParkImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
-                <h3 class="fontCard">테마파크</h3>
+                <h3 class="fontCard">놀이동산</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/coin.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="coinSing : ${coinSingList}">
+              <a th:href="|/place/detail/${coinSing.placeIdx}|">
+                <div th:each="coinSingImage : ${coinSing.placeImageEntityList}">
+                  <img th:src="|/${coinSingImage.imagePath}${coinSingImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3 class="fontCard">코인노래방</h3>
                 <p>자세한 내용은 클릭 !</p>
               </div>
             </div>
-            <div class="carousel-box">
-              <a href="#"><img src="/img/recommand/animal.jpg" class="d-block rounded" alt="4"></a>
+
+            <div class="carousel-box" th:each="animal : ${animalList}">
+              <a th:href="|/place/detail/${animal.placeIdx}|">
+                <div th:each="animalImage : ${animal.placeImageEntityList}">
+                  <img th:src="|/${animalImage.imagePath}${animalImage.imageName}|" class="d-block rounded" alt="1">
+                </div>
+              </a>
               <div class="caption">
                 <h3 class="fontCard">동물카페</h3>
                 <p>자세한 내용은 클릭 !</p>
