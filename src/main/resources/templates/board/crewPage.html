@@ -63,7 +63,7 @@
                  th:value="${findCrew.title}" th:text="${findCrew.title}"
                  th:href="@{/crew/{id}(id=${findCrew.board_idx})}">제목1</a>
             </div>
-            <div class="col-2 text-center textFont" style="word-wrap: break-word;" th:value="${findCrew.user.id}" th:text="${findCrew.user.id}">작성자1
+            <div class="col-2 text-center textFont" style="word-wrap: break-word;" th:value="${findCrew.user.name}" th:text="${findCrew.user.name}">작성자1
             </div>
             <div class="col-3 textFont" style="text-align: right;"
                  th:value="${findCrew.createDate}" th:text="${findCrew.createDate}">2025-02-02
