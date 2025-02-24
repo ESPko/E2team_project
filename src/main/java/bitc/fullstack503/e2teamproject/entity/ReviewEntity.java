@@ -37,21 +37,13 @@ public class ReviewEntity {
   @Column(name = "review_user_id")
   private String reviewUserId;
 
+  @Column(name = "review_user_name")
+  private String reviewUserName;
+
   private String comment;
 
   private double star;
 
   @Column(name = "write_date")
   private LocalDateTime writeDate;
-
-  @Column(name = "hit_count")
-  private int hitCount = 0;
-
-  @Column(name = "like_count")
-  private int likeCount = 0;
-
-//  @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//  @ToString.Exclude
-//  @Builder.Default
-//  private List<ReviewImageEntity> reviewImageEntityList = new ArrayList<>();
 }

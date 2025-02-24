@@ -38,7 +38,4 @@ public class ReplyEntity {
 
   @Column(name = "create_date")
   private LocalDateTime createDate;
-
-  @Column(name = "like_count")
-  private int likeCount;
 }

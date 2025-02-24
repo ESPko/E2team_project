@@ -170,8 +170,8 @@
         <h2 class="fontTitle">부산진구</h2></div>
         <a th:href="|/place/detail/${findBalling.placeIdx}|">
           <div class="card card-container">
-            <div class="card-body p-0" th:each="findBallingImage : ${findBalling.placeImageEntityList}">
-              <img th:src="|/${findBallingImage.imagePath}${findBallingImage.imageName}|" alt="볼링 이미지">
+            <div class="card-body p-0">
+              <img src="/img/recommand/bowling_card.JPG" alt="볼링 이미지">
               <p class="card-text">Click !</p>
             </div>
           </div>
@@ -211,8 +211,8 @@
         <div class="container mt-3 mb-5">
           <h2 class="fontTitle">수영구</h2></div>
         <a th:href="|/place/detail/${findClimbing.placeIdx}|">
-          <div class="card card-container" th:each="findClimbingImage : ${findClimbing.placeImageEntityList}">
-            <img th:src="|/${findClimbingImage.imagePath}${findClimbingImage.imageName}|" alt="클라이밍 이미지">
+          <div class="card card-container" >
+            <img src="/img/recommand/climb_card.jpg" alt="클라이밍 이미지">
             <div class="card-body p-0">
               <p class="card-text">Click !</p>
             </div>
@@ -253,7 +253,7 @@
           <h2 class="fontTitle">기타지역</h2>
         </div>
 
-        <a href="http://localhost:8080/place/detail/123">
+        <a href="http://localhost:8080/place/detail/123" th:href="|/place/detail/${findBoard.placeIdx}|">
         <div class="card card-container">
           <img src="/img/recommand/board_card.JPG" class="card-img-top h-100 w-100" alt="..." >
           <div class="card-body p-0">
@@ -295,15 +295,15 @@
     <div class="container mt-5 d-flex justify-content-between" id="mainEvAnContainer">
       <div class="col-sm p-4">
         <ul class="list-group">
-          <h4 class="font1">공지사항</h4>
-          <div class="noticeContainer mt-5">
+          <h1 class="font1">공지사항</h1>
+          <div class="noticeContainer mt-5 textFont" style="font-size: 18px;">
           </div>
         </ul>
       </div>
       <div class="col-sm p-4">
         <ul class="list-group">
-          <h4 class="font1">이벤트</h4>
-          <div class="eventContainer mt-5">
+          <h1 class="font1">이벤트</h1>
+          <div class="eventContainer mt-5 textFont" style="font-size: 18px;">
           </div>
         </ul>
       </div>
