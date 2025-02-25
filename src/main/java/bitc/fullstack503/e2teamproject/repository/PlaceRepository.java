@@ -1,9 +1,6 @@
 package bitc.fullstack503.e2teamproject.repository;
 
-import bitc.fullstack503.e2teamproject.DTO.PlaceDTO;
-import bitc.fullstack503.e2teamproject.DTO.ReviewDTO;
 import bitc.fullstack503.e2teamproject.entity.PlaceEntity;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,6 +21,55 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Integer> {
   //  해당 placeIdx 의 정보 전부 가져오기
   @Query("select p from PlaceEntity p where p.placeIdx = :placeIdx")
   List<PlaceEntity> queryFindPlace(@Param("placeIdx") int placeIdx);
+
+  //  별점 평균 높은 순
+  @Query(value = "SELECT * FROM place_with_avg_star " +
+          "WHERE location = :selectLocation " +
+          "AND recommend_age <= :selectAge " +
+          "AND number_people <= :selectPeople " +
+          "ORDER BY average_star DESC",
+          nativeQuery = true)
+  List<PlaceEntity> findPlacesOrderByAverageStarDesc(
+          @Param("selectLocation") String selectLocation,
+          @Param("selectAge") int selectAge,
+          @Param("selectPeople") int selectPeople);
+
+  //  별점 평균 낮은 순
+  @Query(value = "SELECT * FROM place_with_avg_star " +
+          "WHERE location = :selectLocation " +
+          "AND recommend_age <= :selectAge " +
+          "AND number_people <= :selectPeople " +
+          "ORDER BY average_star ASC",
+          nativeQuery = true)
+  List<PlaceEntity> findPlacesOrderByAverageStarAsc(
+          @Param("selectLocation") String selectLocation,
+          @Param("selectAge") int selectAge,
+          @Param("selectPeople") int selectPeople);
+
+  //  리뷰 많은 순
+  @Query(value = "SELECT * FROM place_with_rev_count " +
+          "WHERE location = :selectLocation " +
+          "AND recommend_age <= :selectAge " +
+          "AND number_people <= :selectPeople " +
+          "ORDER BY review_count desc",
+          nativeQuery = true)
+  List<PlaceEntity> findPlacesOrderByReviewCountDesc(
+          @Param("selectLocation") String selectLocation,
+          @Param("selectAge") int selectAge,
+          @Param("selectPeople") int selectPeople);
+
+  //  리뷰 적은 순
+  @Query(value = "SELECT * FROM place_with_rev_count " +
+          "WHERE location = :selectLocation " +
+          "AND recommend_age <= :selectAge " +
+          "AND number_people <= :selectPeople " +
+          "ORDER BY review_count asc",
+          nativeQuery = true)
+  List<PlaceEntity> findPlacesOrderByReviewCountAsc(
+          @Param("selectLocation") String selectLocation,
+          @Param("selectAge") int selectAge,
+          @Param("selectPeople") int selectPeople);
+
 
   //  공방 카테고리 가져오기
   @Query(value = "SELECT * FROM place WHERE category = '공방' LIMIT 1", nativeQuery = true)

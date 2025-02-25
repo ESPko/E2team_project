@@ -24,14 +24,8 @@ public class ReviewController {
 
   @Autowired
   private ReviewService reviewService;
-    @Autowired
-    private PlaceService placeService;
-
-  @RequestMapping("/")
-  public ModelAndView jiHyunStarTest() {
-    ModelAndView mav = new ModelAndView("/board/jiHyunStarTest");
-    return mav;
-  }
+  @Autowired
+  private PlaceService placeService;
 
   //  장소 상세 페이지 테스트
 //  @GetMapping("/placeDetail")
