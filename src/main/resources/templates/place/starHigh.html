@@ -54,7 +54,7 @@
                   location.href=`/place/recommend/${selectLocation}/${selectAge}/${selectPeople}/reviewHigh`
               } else if (placeSelect === "reviewLow") {
                   location.href=`/place/recommend/${selectLocation}/${selectAge}/${selectPeople}/reviewLow`
-              } else {
+              } else if(placeSelect === "default") {
                   location.href=`/place/recommend/${selectLocation}/${selectAge}/${selectPeople}`
               }
           });

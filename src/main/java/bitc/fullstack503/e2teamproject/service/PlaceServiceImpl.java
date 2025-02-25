@@ -25,6 +25,30 @@ public class PlaceServiceImpl implements PlaceService {
     return placeRepository.queryFindPlace(placeIdx);
   }
 
+  //  별점 높은순
+  @Override
+  public List<PlaceEntity> starHigh(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlacesOrderByAverageStarDesc(selectLocation, selectAge, selectPeople);
+  }
+
+  //  별점 낮은순
+  @Override
+  public List<PlaceEntity> starLow(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlacesOrderByAverageStarAsc(selectLocation, selectAge, selectPeople);
+  }
+
+  //  리뷰 많은 순
+  @Override
+  public List<PlaceEntity> reviewHigh(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlacesOrderByReviewCountDesc(selectLocation, selectAge, selectPeople);
+  }
+
+  //  리뷰 적은 순
+  @Override
+  public List<PlaceEntity> reviewLow(String selectLocation, int selectAge, int selectPeople) {
+    return placeRepository.findPlacesOrderByReviewCountAsc(selectLocation, selectAge, selectPeople);
+  }
+
   //  공방
   @Override
   public PlaceEntity findPlaceGold() {

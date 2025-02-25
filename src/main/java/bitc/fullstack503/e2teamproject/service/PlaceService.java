@@ -15,6 +15,9 @@ public interface PlaceService {
   //  해당 placeIdx 의 정보 가져오기
   List<PlaceEntity> findPlaceDetail(@RequestParam("placeIdx") int placeIdx);
 
+  //  별점 높은순
+  List<PlaceEntity> starHigh(String selectLocation, int selectAge, int selectPeople);
+
   //  도서관
   PlaceEntity findPlaceLibrary();
 
@@ -56,6 +59,15 @@ public interface PlaceService {
 
   //  코인노래방
   PlaceEntity findPlaceCoinSing();
+
+  //  별점 낮은
+  List<PlaceEntity> starLow(String selectLocation, int selectAge, int selectPeople);
+
+  //  리뷰 많은 순
+  List<PlaceEntity> reviewHigh(String selectLocation, int selectAge, int selectPeople);
+
+  //  리뷰 적은 순
+  List<PlaceEntity> reviewLow(String selectLocation, int selectAge, int selectPeople);
 
   //  공방
   PlaceEntity findPlaceGold();
