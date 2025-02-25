@@ -26,7 +26,7 @@ public class LoginCheck implements HandlerInterceptor {
         }
 
         // 2. 인원모집 게시판 로그인 체크
-        if (requestURI.startsWith("/crew/write") ) {
+        if (requestURI.startsWith("/crew/write") || requestURI.startsWith("/crew/edit")) {
             if (userId == null) {
                 sendAlert(response, "로그인이 필요합니다.", "/user/");
                 return false;
@@ -35,7 +35,8 @@ public class LoginCheck implements HandlerInterceptor {
 
         // 3. 관리자 권한 체크
         if (requestURI.startsWith("/user/manager") || requestURI.startsWith("/user/member")
-                || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write")) {
+                || requestURI.startsWith("/notice/write") || requestURI.startsWith("/event/write")
+          || requestURI.startsWith("/notice/edit") || requestURI.startsWith("/event/edit")) {
             if (userLevel == null || !userLevel.toString().equals("1")) {
                 sendAlert(response, "관리자만 들어갈 수 있습니다.", "/");
                 return false;
